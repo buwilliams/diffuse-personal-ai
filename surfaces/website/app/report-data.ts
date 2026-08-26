@@ -19,7 +19,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
   "capability": {
     "id": "capability",
     "title": "Model–harness capability report card",
-    "download": "/reports/personal-ai-four-year-capability-report-card.xlsx",
+    "download": "https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-four-year-capability-report-card.xlsx",
     "sheets": [
       {
         "name": "Summary",
@@ -3734,7 +3734,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
   "compute": {
     "id": "compute",
     "title": "U.S. compute report card",
-    "download": "/reports/personal-ai-compute-report-card.xlsx",
+    "download": "https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-compute-report-card.xlsx",
     "sheets": [
       {
         "name": "Summary",
@@ -3842,8 +3842,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
           [
             "Demand / capability",
             "Capability report ≥60%",
-            0.4461357386309524,
-            "2028-01-27T00:00:00.000Z",
+            0.475454716275,
+            "2027-10-08T00:00:00.000Z",
             "Waiting",
             "Model-harness report card"
           ],
@@ -3859,7 +3859,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Countdown target",
             "Both gates passed",
             null,
-            46779,
+            46668,
             "Later crossing",
             "MAX(capability, supply)"
           ],
@@ -3975,7 +3975,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
           ],
           [
             "Interpretation",
-            "Current U.S. operational capacity supports about 64 million high-autonomy users under the base serving envelope—37.6% of the 171.3 million-user threshold."
+            "Current U.S. operational capacity supports about 64 million high-autonomy users under the base serving envelope—37.6% of the 171.4 million-user threshold."
           ],
           [
             "Projection",
@@ -4939,13 +4939,13 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
           ],
           [
             "Projected capability crossing",
-            "2028-01-27T00:00:00.000Z",
+            "2027-10-08T00:00:00.000Z",
             "date",
             "Interpolated from the capability report card"
           ],
           [
             "Countdown target",
-            46779,
+            46668,
             "date",
             "Later of supply and capability crossings"
           ]
@@ -5173,7 +5173,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Personal AI forecast",
             "System capability and data-center buildouts workbook",
             "2026-08-26T00:00:00.000Z",
-            "C:/Users/buddy/OneDrive/Documents/ChatGPT/Personal AI Prediction/outputs/01a03a56-1778-7d40-9270-29ff8429deb0/personal-ai-system-capability-and-data-center-buildouts.xlsx",
+            "data/reports/legacy/personal-ai-system-capability-and-data-center-buildouts.xlsx",
             "Serving envelope and high-autonomy token mix; assumptions remain editable"
           ],
           [
@@ -5181,8 +5181,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Personal AI forecast",
             "Model-harness capability report card",
             "2026-08-26T00:00:00.000Z",
-            "C:/Users/buddy/OneDrive/Documents/ChatGPT/Personal AI Prediction/outputs/01a03a56-1778-7d40-9270-29ff8429deb0/personal-ai-four-year-capability-report-card.xlsx",
-            "Capability crosses 60% by interpolation around 2028-01-27"
+            "data/reports/personal-ai-four-year-capability-report-card.xlsx",
+            "Capability crosses 60% by interpolation around 2027-10-08"
           ]
         ]
       }

@@ -1,0 +1,16 @@
+release_id,entity_type,provider,name,release_date,parent_release_id,availability_stage,availability_scope,source,notes
+openai_gpt5_20250807,model,OpenAI,GPT-5,2025-08-07,,general_availability,ChatGPT API and agent products,https://openai.com/index/introducing-gpt-5/,First GPT-5 release represented in the benchmark data
+anthropic_sonnet45_20250929,model,Anthropic,Claude Sonnet 4.5,2025-09-29,,general_availability,Claude products and API,https://www.anthropic.com/news/claude-sonnet-4-5,
+anthropic_opus45_20251124,model,Anthropic,Claude Opus 4.5,2025-11-24,,general_availability,Claude products and API,https://www.anthropic.com/news/claude-opus-4-5,
+openai_gpt52_20251211,model,OpenAI,GPT-5.2,2025-12-11,openai_gpt5_20250807,general_availability,ChatGPT API and agent products,https://openai.com/,Release date verified by benchmark source
+anthropic_opus46_20260205,model,Anthropic,Claude Opus 4.6,2026-02-05,anthropic_opus45_20251124,general_availability,Claude products and API,https://www.anthropic.com/news/claude-opus-4-6,
+openai_gpt54_20260305,model,OpenAI,GPT-5.4,2026-03-05,openai_gpt52_20251211,general_availability,ChatGPT API and Codex,https://openai.com/index/introducing-gpt-5-4/,
+openai_gpt54mini_20260317,model,OpenAI,GPT-5.4 mini,2026-03-17,openai_gpt54_20260305,general_availability,ChatGPT API and Codex,https://openai.com/index/introducing-gpt-5-4-mini-and-nano/,Smaller capability tier rather than direct flagship successor
+anthropic_mythos_preview_20260407,model,Anthropic,Claude Mythos Preview,2026-04-07,anthropic_opus46_20260205,preview,Limited preview,https://metr.org/time-horizons/,Release represented through METR evaluation
+anthropic_opus47_20260416,model,Anthropic,Claude Opus 4.7,2026-04-16,anthropic_opus46_20260205,general_availability,Claude products and API,https://taubench.com/leaderboard/?benchmark=knowledge,Release date verified by benchmark source
+openai_gpt55_20260423,model,OpenAI,GPT-5.5,2026-04-23,openai_gpt54_20260305,general_availability,ChatGPT API and Codex,https://openai.com/index/introducing-gpt-5-5/,
+anthropic_opus48_20260528,model,Anthropic,Claude Opus 4.8,2026-05-28,anthropic_opus47_20260416,general_availability,Claude products and API,https://www.anthropic.com/news/claude-opus-4-8,
+anthropic_fable5_20260609,model,Anthropic,Claude Fable 5,2026-06-09,anthropic_opus48_20260528,general_availability,Claude products and API,https://taubench.com/leaderboard/?benchmark=knowledge,Release date verified by benchmark source
+openai_gpt56sol_20260709,model,OpenAI,GPT-5.6 Sol,2026-07-09,openai_gpt55_20260423,general_availability,ChatGPT API and Codex,https://openai.com/index/gpt-5-6/,Flagship tier within GPT-5.6 family
+qwen_qwen38max_20260719,model,Qwen,Qwen 3.8 Max,2026-07-19,,general_availability,Provider products and API,https://taubench.com/leaderboard/?benchmark=knowledge,Release date verified by benchmark source
+anthropic_opus5_20260724,model,Anthropic,Claude Opus 5,2026-07-24,anthropic_opus48_20260528,general_availability,Claude products and API,https://www.anthropic.com/news/claude-opus-5,

@@ -884,7 +884,7 @@ export default function Home() {
       threshold: `${inputs.capabilityThreshold.toFixed(0)}%`,
       crossing: capabilityDate,
       note: 'The live scenario applies your threshold and acceleration setting to the workbook curve. The workbook preserves the default evidence model.',
-      href: '/reports/personal-ai-four-year-capability-report-card.xlsx',
+      href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-four-year-capability-report-card.xlsx',
       rows: [
         ['Current composite', `${inputs.currentCapability.toFixed(1)}%`],
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
@@ -902,7 +902,7 @@ export default function Home() {
       threshold: `${SUPPLY_THRESHOLD}%`,
       crossing: computeDate,
       note: 'The population share selects the target; the supply gate then clears at 100% of that target. There is no second population-share multiplier.',
-      href: '/reports/personal-ai-compute-report-card.xlsx',
+      href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-compute-report-card.xlsx',
       rows: [
         ['Supply threshold', `${SUPPLY_THRESHOLD}%`],
         ['Population target', `${inputs.coverageThreshold.toFixed(0)}% of U.S. · ${projection.targetUsersM.toFixed(1)}M users`],

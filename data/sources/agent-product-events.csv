@@ -1,0 +1,1 @@
+event_id,release_id,event_date,event_type,provider,product_name,availability_stage,eligible_plans,geography,autonomy_level,computer_use,authenticated_access,cross_app,persistent_memory,background_execution,write_actions,confirmation_controls,verification,rollback,reported_users,user_unit,source,notes

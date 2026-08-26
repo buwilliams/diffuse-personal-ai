@@ -1,0 +1,42 @@
+category,metric_date,entity,metric,value,unit,status_or_caveat,source
+Distribution,2026-02-27,OpenAI,consumer subscribers,>50000000,subscriptions,"Direct executive statement reported by AP; latest disclosed, not a current estimate",https://apnews.com/article/a0a915c32b85337d799fe2f9525a932a
+Distribution,2026-06-02,OpenAI Codex,weekly active users,>5000000,people,"Selected agent/coding population",https://openai.com/index/codex-for-knowledge-work/
+Distribution,2025-11-05,OpenAI,ChatGPT for Work seats,>7000000,seats,"Seats are not active users",https://openai.com/index/1-million-businesses-putting-ai-to-work/
+Distribution,2025-09-02,Anthropic,business customers,>300000,organizations,"Not consumer subscriptions or seats",https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation
+Distribution,2026-03-31,xAI/X,active paid subscriptions,6300000,subscriptions,"Includes X subscriptions with Grok access",https://www.sec.gov/Archives/edgar/data/1181412/000162828026039276/spaceexplorationtechnologi.htm
+Distribution,2026-03-31,Grok,monthly users of Grok features,117000000,people,"Feature usage is not task delegation",https://www.sec.gov/Archives/edgar/data/1181412/000162828026039276/spaceexplorationtechnologi.htm
+Distribution,2026-08-25,OpenClaw,GitHub stars,387590,stars,"Developer-interest proxy; not users",https://api.github.com/repos/openclaw/openclaw
+Distribution,2026-08-25,OpenClaw,GitHub forks,81363,forks,"Code-copy proxy; not users",https://api.github.com/repos/openclaw/openclaw
+Distribution,2026-08-24,OpenClaw,npm downloads previous month,11371521,downloads,"Includes repeated and automated downloads",https://api.npmjs.org/downloads/point/last-month/openclaw
+Capability,2024-05-13,GPT-4o,METR 50% time horizon,7.0,minutes,"Clean mostly technical tasks",https://metr.org/time-horizons/
+Capability,2026-04-07,Claude Mythos Preview,METR 50% time horizon,1044.8,minutes,"METR warns estimates above 16h are unreliable",https://metr.org/time-horizons/
+Capability,2024-05-13,GPT-4o,METR 80% time horizon,1.3,minutes,"Clean mostly technical tasks",https://metr.org/time-horizons/
+Capability,2026-04-07,Claude Mythos Preview,METR 80% time horizon,185.9,minutes,"Clean mostly technical tasks",https://metr.org/time-horizons/
+Computer use,2026-08-25,GPT-5.6 Sol,OSWorld 2.0 partial-credit score,62.6,percent,"Not binary full completion",https://openai.com/index/gpt-5-6/
+Computer use,2026-06-25,Claude Opus 4.8,OSWorld 2.0 binary full completion,20.6,percent,"500-step configuration in benchmark paper",https://osworld-v2.xlang.ai/
+Business,2026-08-25,Claude Opus 5,Vending-Bench 2 mean profit,11181.87,USD,"Simulated business; five runs",https://andonlabs.com/evals/vending-bench-2
+Business,2026-08-25,GPT-5.6 Sol,Vending-Bench 2 mean profit,9619.37,USD,"Simulated business; five runs",https://andonlabs.com/evals/vending-bench-2
+Business,2026-08-25,Grok 4.6,Vending-Bench 2 mean profit,9047.00,USD,"Simulated business; five runs",https://andonlabs.com/evals/vending-bench-2
+Business,2026-08-25,Qwen 3.8 Max,tau3 Banking pass rate,55.2,percent,"Current top observed; task/policy benchmark",https://taubench.com/leaderboard/?benchmark=knowledge
+Broad work,2026-06-26,best reported broad agent,Agents' Last Exam CLI,25.2,percent,"1500+ tasks across 55 occupations",https://rdi.berkeley.edu/blog/agents-last-exam/
+Harness,2025-10-28,o3,OSWorld baseline at 15 steps,8.3,percent,"Compare only with same study and step budget",https://arxiv.org/abs/2510.24563
+Harness,2025-10-28,o3 plus MCP tools,OSWorld-MCP at 15 steps,20.4,percent,"Controlled tool/harness uplift",https://arxiv.org/abs/2510.24563
+Harness,2025-10-28,Claude 4 Sonnet,OSWorld baseline at 50 steps,40.1,percent,"Compare only with same study and step budget",https://arxiv.org/abs/2510.24563
+Harness,2025-10-28,Claude 4 Sonnet plus MCP tools,OSWorld-MCP at 50 steps,43.3,percent,"Controlled tool/harness uplift",https://arxiv.org/abs/2510.24563
+Factuality,2026-08-19,GPT-5.6 Sol,factual-error reduction vs GPT-5.5 Instant,~60,percent relative,"Three curated sets; not production prevalence",https://deploymentsafety.openai.com/gpt-5-6-august-update/model-safety-training-and-evaluation
+Memory,2026-08-25,hybrid memory system,LongMemEval task-averaged accuracy,86.1,percent,"500-question retrieval benchmark; not continual learning",https://redis.github.io/redis-ai-research-public/longmemeval-agent-memory/
+AI R&D,2026-08-25,GPT-5.5,OpenAI internal RSI index,41.7,score,"Vendor internal evaluation",https://openai.com/index/gpt-5-6/
+AI R&D,2026-08-25,GPT-5.6 Sol,OpenAI internal RSI index,57.9,score,"Vendor internal evaluation; below OpenAI High threshold",https://openai.com/index/gpt-5-6/
+Capability velocity,2025-08-07,GPT-5,METR 50% time horizon,203.0,minutes,"Start of 12-month release-frontier window; mostly technical tasks",https://metr.org/time-horizons/
+Capability velocity,2026-04-07,Claude Mythos Preview,METR 50% time horizon,1044.8,minutes,"5.15x vs GPT-5; METR warns values above 16 hours are unreliable",https://metr.org/time-horizons/
+Capability velocity,2025-09-29,Claude Sonnet 4.5,OSWorld-Verified success,61.4,percent,"Fixed benchmark release-frontier point",https://www.anthropic.com/news/claude-sonnet-4-5
+Capability velocity,2026-04-23,GPT-5.5,OSWorld-Verified success,78.7,percent,"17.3pp release-frontier gain; benchmark nearing saturation",https://openai.com/index/introducing-gpt-5-5/
+Capability velocity,2026-07-09,GPT-5.6 Sol,OSWorld 2.0 partial reward,62.6,percent,"Harder benchmark; do not splice to OSWorld-Verified",https://openai.com/index/gpt-5-6/
+Consumer benchmark,2026-07-15,Claude Opus 4.6,MyPCBench perfect completion,58.2,percent,"Closest canonical consumer reference; not a current frontier because newer agents are unevaluated",https://github.com/ljang0/MyPCBench/blob/main/README.md
+Consumer benchmark,2026-07-15,GPT-5.6 Sol,MyPCBench perfect completion,55.4,percent,"Up 10.3pp from GPT-5.5 in canonical 100-step evaluation; Opus 5 and Fable 5 unevaluated",https://github.com/ljang0/MyPCBench/blob/main/README.md
+Capability velocity,2026-07-19,Qwen 3.8 Max,tau3 Banking pass@1,55.2,percent,"System frontier; retrieval and reasoning configuration are part of the result",https://taubench.com/leaderboard/?benchmark=knowledge
+Capability velocity,2026-07-09,GPT-5.6 Sol,Agents Last Exam current comparison,52.7,percent,"Up 5.8pp from GPT-5.5 under OpenAI's current comparison configuration",https://openai.com/index/gpt-5-6/
+Capability velocity,2026-07-09,GPT-5.6 Sol,AutomationBench current comparison,18.1,percent,"Up 5.2pp from GPT-5.5 but low absolute completion",https://openai.com/index/gpt-5-6/
+Professional capability,2025-08-07,GPT-5,Remote Labor Index V1 Automation Rate,1.67,percent,"Start of retrospective fixed-budget remote-work frontier; not the consumer task distribution",https://labs.scale.com/leaderboard/rli
+Professional capability,2026-06-09,Claude Fable 5,Remote Labor Index V1 Automation Rate,15.80,percent,"Professional-work comparator; 9.46x and +14.13pp versus GPT-5 over 306 release-date days",https://labs.scale.com/leaderboard/rli
+Consumer benchmark,2026-08-25,Claude Opus 4.8,MyPCBench perfect completion,62.0,percent,"Self-reported computer-only run with 200-step budget; not comparable to canonical 100-step series; Opus 5 and Fable 5 absent",https://mypcbench.pages.dev/leaderboard.html
