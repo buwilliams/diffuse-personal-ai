@@ -1,266 +1,198 @@
 # Monthly evidence refresh and publication
 
-This is the authoritative operating procedure for updating the Diffuse Personal AI forecast. It governs evidence gathering, report generation, site synchronization, validation, and publication.
+This is the authoritative operating procedure for updating the Diffuse Personal AI forecast.
 
-**Current publication:** 26 August 2026
-
-**Current evidence cutoff:** 26 August 2026
+**Current publication and evidence cutoff:** 26 August 2026
 
 **Published site:** <https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/>
 
-## Authority and implementation map
+## Authority map
 
-The repository separates meaning, evidence, implementation, and output:
-
-| Layer | Path | Authority |
+| Layer | Path | Role |
 |---|---|---|
-| Model meaning and rules | `intent/` | **Normative source of truth** |
-| Evidence ledger | `data/sources/*.csv` | **Canonical evidence record** |
-| Capability implementation | `surfaces/report-cards/capability/build_report_card.mjs` | Executable implementation of intent; reads canonical METR horizon/trend registries, while embedded economic-benchmark arrays remain a tracked migration debt |
-| Compute implementation | `surfaces/report-cards/compute/build_compute_report_card.mjs` | Executable implementation of intent; reads `data/sources/compute-capacity-timeseries.csv` |
-| HTML-data generator | `surfaces/report-cards/shared/generate_report_data.mjs` | Generated-surface transformation |
-| Live countdown and controls | `surfaces/website/app/page.tsx`, `surfaces/website/app/capability-projection.ts`, `surfaces/website/app/compute-projection.ts` | Website implementation of the model and current scenario |
-| Generated HTML report data | `surfaces/website/app/report-data.ts` | Generated artifact; never edit by hand |
-| Generated workbooks | `data/reports/*.xlsx` | Generated artifacts and public downloads; never edit by hand |
-| Workbook previews and inspections | `data/previews/`, `data/reports/*.inspect.ndjson` | Generated verification artifacts |
-| Exploratory notes | `data/research/` | Non-canonical research material |
-| Legacy builder | `surfaces/report-cards/legacy/` | Historical implementation; never use for the live site |
+| Meaning and rules | `intent/` | Normative source of truth |
+| Evidence and assumptions | `data/snapshot-YYYYMMDD/*.json` | Immutable canonical record |
+| ETL manifest | `data/snapshot-YYYYMMDD/database.json` | Agent-readable refresh contract and dataset inventory |
+| Shared calculations | `model/forecast-model.mjs` | One implementation for capability and compute |
+| Snapshot loader | `scripts/lib/snapshots.mjs` | Selects the latest valid dated directory |
+| Validator | `scripts/validate_snapshots.mjs` | Schema, provenance, foreign-key, and forecast-invariant checks |
+| Website bundle | `scripts/generate_site_snapshot.mjs` | Build-time copy of the latest snapshot; generated and ignored |
+| Workbook builders | `surfaces/report-cards/` | Render the shared model as downloadable XLSX files |
+| Website | `surfaces/website/` | Renders the shared model as the countdown, controls, charts, tables, and source modal |
+| Published workbooks | `artifacts/report-cards/*.xlsx` | Generated downloads |
 
-The repository root owns Git history. The deployable Sites project is `surfaces/website/`, whose existing project identity must be reused.
+The repository root owns Git history. The existing Sites project is configured by `surfaces/website/.openai/hosting.json` and must be reused.
 
-The mathematical contract is [report-card calculations](../02-model/06-report-card-calculations.md). The normalized evidence schema is [data structure](../02-model/05-data-structure.md). The public surfaces must also satisfy the [website](../04-surfaces/02-website.md) and [report-card](../04-surfaces/03-report-cards.md) contracts.
+## Standard refresh
 
-## Standard monthly refresh
+### 1. Set the cutoff and create a snapshot
 
-Use one evidence cutoff for the whole release. Record it before gathering data and apply it to both builders and the site publication date.
+Choose one evidence cutoff for capability, METR, compute, adoption, and publication. Copy the latest `data/snapshot-YYYYMMDD/` directory to the new date and immediately update:
 
-### 1. Gather evidence
+- every file's `metadata.snapshotDate`, `metadata.asOfDate`, source access dates, and update note;
+- `database.json` description, dataset inventory, and record counts;
+- the publication date implicit in the selected snapshot.
 
-Start with sources, not a desired date.
+Never revise a previously published snapshot.
 
-For capability, gather benchmarks, leaderboards, and evaluations of model–harness systems doing real-world economic work across all four categories:
+### 2. Gather evidence
 
-1. Direct economic stewardship
-2. Operational execution
-3. Personal stewardship transfer
-4. Economic value and governance
+Start with sources, not a desired crossing date.
 
-Also refresh the standardized METR H50 and H80 task-horizon series. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, harness, metric, source, and METR's measurement-ceiling warnings.
+For capability, gather benchmarks, leaderboards, and evaluations of model–harness systems doing real-world economic work across:
 
-For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Prefer primary sources. For every new value, preserve its URL, publication or observation date, model, harness, tools, budget, benchmark version, judge, and any comparability break. Never infer an exact score from vague prose.
+1. direct economic stewardship;
+2. operational execution;
+3. personal stewardship transfer; and
+4. economic value and governance.
 
-### 2. Update capability evidence and implementation
+Refresh METR H50 and H80 task-horizon observations and official trend estimates. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, model, scaffold, metric, source, confidence interval when available, and measurement-ceiling warnings.
 
-Update the relevant rows in `data/sources/`, then mirror operative economic-benchmark values in `surfaces/report-cards/capability/build_report_card.mjs` until that remaining embedded evidence is migrated. The builder already reads METR observations from `benchmark-timeseries.csv` and published velocity estimates from `scm-trend-estimates.csv`; never duplicate those values in code.
+For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Reconstruct quarter cutoffs under a stable public-coverage rule. Prefer primary sources and preserve uncertainty.
 
-1. Update `asOf`.
-2. At a quarter rollover, update `currentQuarterIndex` and `firstForecastQuarterIndex`.
-3. Add a catalog row for each genuinely new benchmark-version-metric series.
-4. Append observations; do not erase older frontier observations.
-5. Use release quarter unless the benchmark supplies a better consistently applied dating rule.
-6. Keep model and harness together in the system label and record material configuration.
-7. Pin benchmark version, task set, tools, reasoning effort, budget, judge, and scoring rule when they affect comparability.
-8. Create a new benchmark ID or explicit series break when the benchmark changes materially.
-9. Append comparable H50 and H80 releases to `benchmark-timeseries.csv`, refresh the published recent/guardrail velocity estimates when METR updates them, and inspect whether H80 still corroborates H50.
+For every value, record a public HTTPS source in that JSON file's `metadata.sources` and use `sourceId` from the normalized record. Do not infer an exact score from vague prose.
 
-Follow the normalization and forecasting rules in [the calculation contract](../02-model/06-report-card-calculations.md#capability-calculation). Do not fabricate earlier quarters for a new benchmark.
+### 3. Normalize into the new snapshot
 
-### 3. Update compute evidence and implementation
+Follow [the data structure](../02-model/05-data-structure.md) and [the calculation contract](../02-model/06-report-card-calculations.md).
 
-Update `data/sources/compute-capacity-timeseries.csv`; the compute builder reads this canonical series directly.
+- Append comparable observations; do not erase earlier frontier points.
+- Create a new benchmark ID or explicit series break when version, task set, tools, reasoning effort, budget, judge, or scoring rule changes materially.
+- Keep the model and harness together in the system label.
+- Do not fabricate pre-release quarters.
+- Keep ungraded benchmarks visible, but exclude them from the current score.
+- Preserve both the forecast-driving capability basket and supporting observations; do not silently promote supporting data into the forecast.
+- Keep compute observations and projected pipeline rows visibly distinct.
+- Change population, workload, allocation, or serving assumptions only with new evidence or an explicit scenario decision.
+- Keep `supplyGateShareOfTarget = 1`: population share is selected once, then compute must serve 100% of that selected target.
 
-1. Update `asOf` and the quarter-to-date cutoff.
-2. Reconstruct every historical quarter's operational U.S. H100e total under one coverage rule: at each cutoff, sum the latest operational state for each covered U.S. data center.
-3. Build the default forward path from the same source's dated expected or projected site states. Keep those rows visibly separate from observations; do not substitute a recent-growth regression for known buildout dates.
-4. Append or revise observations and projections only when a source supports the change; preserve source-access dates and explain historical revisions.
-5. Update included-site count and evidence class.
-6. Refresh the population estimate when appropriate.
-7. Change workload or serving assumptions only with new evidence or an explicit scenario decision, and document the change in both report and site audit text.
+### 4. Validate the snapshot and model
 
-Follow the supply, workload, and serving rules in [the calculation contract](../02-model/06-report-card-calculations.md#compute-calculation).
-
-### 4. Remove cross-workbook staleness
-
-The compute builder currently embeds capability values in its two-key gate, assumptions, source note, and explanatory copy. Before every compute build, replace every embedded capability-current and capability-crossing value with the newly generated capability result. Search for the previous score and date instead of assuming a fixed number of occurrences.
-
-For the current release, the synchronized literals are `0.45660533834944794`, the `0.75` capability threshold, and `2027-11-13`. Change them together when the capability report or selected default gate changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
-
-### 5. Rebuild and inspect both workbooks
-
-Use the Node executable returned by the bundled workspace dependency loader; do not hardcode a runtime version.
+Run from the repository root with the bundled Node runtime:
 
 ```powershell
-$ProjectRoot = (Resolve-Path '.').Path
-$OutputRoot = Join-Path $ProjectRoot 'data\reports'
-
-& $NodeExe (Join-Path $ProjectRoot 'surfaces\report-cards\capability\build_report_card.mjs')
-& $NodeExe (Join-Path $ProjectRoot 'surfaces\report-cards\compute\build_compute_report_card.mjs')
+& $NodeExe scripts/validate_snapshots.mjs
 ```
 
-Each build must:
+Validation must confirm:
 
-- export a fresh workbook;
-- render every preview image;
-- inspect important summary and model ranges; and
-- return no `#REF!`, `#DIV/0!`, `#VALUE!`, `#NAME?`, or `#N/A` errors.
+- `data/` tracks only `snapshot-YYYYMMDD/*.json`;
+- every file has exactly `metadata` and `data` at its root;
+- the manifest and files agree;
+- source IDs resolve and every source is a public HTTPS URL;
+- no local filesystem path appears in data;
+- benchmark and observation IDs are coherent;
+- capability and compute use the same four-year window;
+- population share is not applied twice;
+- all scores and derived values are finite and in range; and
+- raising either acceleration while holding other inputs fixed never moves its gate later.
 
-Review every preview, especially Summary, current-status columns, Model or Quarterly Model, Assumptions, Observations, and Sources. Check for clipping, broken merges, incorrect number formats, and charts that no longer match the data.
+Treat validation failure as a publication blocker.
 
-Both builders write full `.inspect.ndjson` files. Confirm that their modification times match the fresh workbooks. Never generate HTML tables from a stale inspection.
-
-### 6. Synchronize the website model
-
-After the workbooks are final, update these values together in the website model:
-
-- `SNAPSHOT`
-- `PUBLICATION_DATE`
-- `CAPABILITY_CURVE` in `surfaces/website/app/capability-projection.ts`
-- `COMPUTE_CURVE` in `surfaces/website/app/compute-projection.ts`
-- `TOKENS_PER_H100E_DAY_M` when the serving envelope changes
-- `BASE_COMPUTE_ACCELERATION`
-- `BASE_COMPUTE_VELOCITY`
-- `DEFAULTS.currentCapability`
-- `DEFAULTS.populationM`
-- `DEFAULTS.currentComputeM`
-- `DEFAULTS.workloadM`
-- `DEFAULTS.servingEfficiency`
-- `DEFAULTS.personalAiInferenceShare`
-- report prose or workbook-default dates containing calculated results
-- `REPORT_QUARTERS` and `OBSERVED_END_INDEX` if the window changes
-
-`CAPABILITY_CURVE` is the confidence-weighted Summary trajectory beginning at the evidence cutoff. The capability projection module reads economic benchmark velocity and category weights plus the METR H50 velocity, H50 acceleration, H80 guardrail, and transfer coefficient from generated `report-data.ts`; confirm the `Summary`, `Model`, and `METR Horizon` rows remain present after generation. `COMPUTE_CURVE` is the compute workbook's `U.S. H100e` quarterly series in millions, also beginning at the evidence cutoff.
-
-The two live acceleration inputs are actual rates with different units, not multipliers. Confirm that the capability default matches the report's METR-derived H50 acceleration in task-horizon doublings per quarter² and that the compute default matches `BASE_COMPUTE_ACCELERATION` in `log2 H100e` per quarter².
-
-The HTML charts read generated workbook rows, while the countdown reads these constants. Updating only one side creates an internally inconsistent publication.
-
-Keep `SUPPLY_GATE_SHARE_OF_TARGET = 1` and `SUPPLY_THRESHOLD = 100` unless the model contract itself changes. Current compute means operational H100e, and compute chart values mean hardware-equivalent capacity rather than supported users.
-
-### 7. Regenerate the HTML reports
-
-After both inspections are fresh:
+### 5. Rebuild and visually inspect both workbooks
 
 ```powershell
-$CapabilityInspect = Join-Path $OutputRoot 'personal-ai-four-year-capability-report-card.xlsx.inspect.ndjson'
-$ComputeInspect = Join-Path $OutputRoot 'personal-ai-compute-report-card.xlsx.inspect.ndjson'
-$SiteRoot = Join-Path $ProjectRoot 'surfaces\website'
-
-& $NodeExe (Join-Path $ProjectRoot 'surfaces\report-cards\shared\generate_report_data.mjs') `
-  $CapabilityInspect `
-  $ComputeInspect `
-  (Join-Path $SiteRoot 'app\report-data.ts')
+& $NodeExe surfaces/report-cards/capability/build_report_card.mjs
+& $NodeExe surfaces/report-cards/compute/build_compute_report_card.mjs
 ```
 
-Commit `report-data.ts` and both workbooks, but never edit them manually. The website downloads the canonical workbooks from the public GitHub repository; no duplicate XLSX files belong under `surfaces/website/public/`.
+The builders select the latest snapshot and call `model/forecast-model.mjs`; they contain no independent evidence arrays or forecast constants. They write:
 
-The generator converts repository-relative references to public GitHub URLs and rejects local absolute paths. Every source shown in the HTML report must therefore be an HTTPS link or plain descriptive text—not a developer-machine path.
+- `artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx`;
+- `artifacts/report-cards/personal-ai-compute-report-card.xlsx`;
+- ignored previews under `artifacts/previews/`; and
+- ignored inspection records beside each workbook.
 
-### 8. Build and reconcile
+Review every preview. Check number formats, clipped text, chart series, source URLs, date labels, observation/projection distinctions, and absence of spreadsheet errors.
 
-Run the production build from `surfaces/website/` with the bundled pnpm runtime. It must pass without TypeScript or bundling errors.
+### 6. Build and reconcile the website
 
-Then verify the default scenario end to end:
+```powershell
+cd surfaces/website
+pnpm run lint
+pnpm run typecheck
+pnpm run build
+```
 
-1. Publication date and evidence cutoff match.
-2. Capability composite, confidence, and forecast curve match the capability workbook.
-3. METR H50 velocity/acceleration, H80 guardrail, transfer coefficient, and implied economic acceleration match the capability workbook.
-4. Current and projected H100e, acceleration, and supported users match the compute workbook.
-5. Population multiplied by selected share equals displayed target users.
-6. Supply progress equals supported users divided by selected target users.
-7. Capability crossing matches the site calculation.
-8. Compute crossing matches the site calculation.
-9. The headline is the later crossing.
-10. Population share, tokens per user per day, serving efficiency, personal-AI inference allocation, capability threshold, and both acceleration controls affect the correct gate.
-11. Raising either acceleration while holding every other input fixed never moves its gate later; lowering it never moves the gate earlier.
-12. A capability threshold just above the four-year endpoint continues the benchmark-level equations rather than holding the final aggregate flat, and the site labels the crossing as an extended extrapolation.
-13. Both report modals show current data and both downloads open the current workbooks.
-14. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
+`prebuild` runs `scripts/generate_site_snapshot.mjs`. It selects the latest snapshot and writes an ignored bundle at `surfaces/website/app/generated/latest-snapshot.json`. The browser loads that bundle once; it does not fetch dozens of files or calculate from a workbook at runtime.
 
-## Publication
+Reconcile the default scenario:
 
-The existing Sites project is configured by `surfaces/website/.openai/hosting.json`; never create a replacement site during a refresh.
+1. Publication date equals the latest snapshot.
+2. Capability score, confidence, category path, H50 acceleration, H80 guardrail, transfer coefficient, and crossing match the shared model and workbook.
+3. Current H100e, supported users, population target, required H100e, velocity, acceleration, and crossing match the shared model and workbook.
+4. Supply progress equals supported users divided by the selected target population.
+5. The headline is the later of the capability and compute crossings.
+6. Population, population share, tokens per user/day, serving efficiency, personal-AI allocation, threshold, and both acceleration controls affect only their intended terms.
+7. The source modal lists every dataset and its public source metadata.
+8. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
+9. Built output contains no local filesystem paths.
 
-1. Confirm that Git contains only the intended changes.
-2. Build successfully.
-3. Commit the exact source state being published.
-4. Push it to the public GitHub repository and the existing Sites source repository without persisting temporary credentials.
-5. Package the committed website, save a site version using the same commit, and deploy it.
-6. Preserve public access unless the owner explicitly requests another audience.
-7. Wait for deployment success and open the production URL.
-8. Verify the publication stamp, countdown, controls, charts, report tables, and downloads.
+### 7. Commit and publish
 
-Temporary write credentials never belong in source files, Git configuration, shell history, or committed remote URLs.
+1. Review `git diff` and confirm that `data/` contains only the new JSON snapshot(s).
+2. Commit the exact source and artifacts being published.
+3. Push to the public GitHub repository.
+4. Package the committed `surfaces/website/dist` output and deploy it to the existing Sites project.
+5. Preserve public access unless the owner requests otherwise.
+6. Wait for deployment success and open the production URL.
+
+Temporary credentials never belong in source, Git configuration, shell history, or committed remote URLs.
 
 ## Definition of done
 
 A refresh is complete only when:
 
-- every new evidence value has a source and comparability note;
-- both workbooks share one evidence cutoff;
-- both workbooks build, inspect, render, and error-scan cleanly;
-- both inspection files were regenerated from those workbooks;
-- `report-data.ts` and both workbooks are current;
-- live constants and publication text are synchronized;
-- the website build passes;
-- workbook, HTML report, charts, and countdown reconcile numerically;
-- Git is clean after publication; and
-- the public site shows the new publication date.
+- every changed evidence value has source metadata and a comparability note where needed;
+- the new immutable snapshot validates;
+- the shared model produces finite, directionally correct gate projections;
+- both workbooks rebuild, render, inspect, and error-scan cleanly;
+- lint, TypeScript, and the production site build pass;
+- website charts, tables, controls, dates, and workbooks reconcile;
+- GitHub and the existing public site contain the same committed release; and
+- the working tree is clean.
 
-## Maintenance debt
+## Current regression anchors
 
-1. **Automate site-curve extraction.** `CAPABILITY_CURVE` and `COMPUTE_CURVE` are copied manually into their projection modules, creating the largest silent-drift risk.
-2. **Remove capability literals from the compute builder.** Generate or pass a shared capability result.
-3. **Read all capability registries directly.** The capability builder now reads METR horizon and trend registries, but still embeds the economic benchmark catalog and normalized observations even though `data/sources/` defines the intended append-only evidence structure.
-4. **Set a rolling-window policy.** The current publication is fixed at `2024-Q1` through `2028-Q4`; do not change it silently at a quarter rollover.
+These values describe snapshot `20260826`; they are checks, not permanent assumptions.
+
+| Check | Value |
+|---|---:|
+| Capability composite | 45.6605% |
+| Capability evidence confidence | Low, 47.8261% |
+| Economic gap velocity | 0.120606 gap halvings / quarter |
+| METR H50 acceleration | 0.209121 task-horizon doublings / quarter² |
+| METR H80 guardrail | 0.342917 task-horizon doublings / quarter² |
+| Economic transfer coefficient | 0.170050 |
+| Capability threshold | 75% |
+| Capability crossing | 13 November 2027 |
+| 2028-Q4 capability | 98.7147% |
+| Current U.S. compute | 13.524006M H100e |
+| Population target | 171.4M users |
+| Personal-AI inference share | 50% |
+| Current supported users | 32.2127M |
+| Required compute | 71.9597M H100e |
+| Current compute progress | 18.7939% |
+| Compute log acceleration | 0.003373 log₂ H100e / quarter² |
+| Continuous compute crossing | 19 February 2029 |
+| Daily-resolution website crossing | 20 February 2029 |
+| Headline date | 20 February 2029 |
 
 ## Refresh record template
 
-Append one entry after each publication:
-
 ```text
 Publication date:
-Evidence cutoff:
+Snapshot directory:
 Capability sources added or revised:
 Compute sources added or revised:
+Other datasets revised:
 Assumptions changed:
 Current capability / confidence:
 Capability crossing:
 Current H100e / supported users:
 Compute crossing:
 Headline date and controlling gate:
-Site commit:
+Git commit:
 Sites version:
 Notes or comparability breaks:
 ```
-
-## Current published release
-
-### 26 August 2026
-
-| Regression check | Published value |
-|---|---:|
-| Current capability composite | 45.661% |
-| Capability confidence | Low, about 47.8% evidence coverage |
-| Economic gap velocity | +0.120606 failure-gap halvings per quarter |
-| METR H50 source velocity | +0.709242 task-horizon doublings per quarter |
-| METR H50 acceleration | +0.209121 task-horizon doublings per quarter² |
-| METR H80 reliability guardrail | +0.342917 task-horizon doublings per quarter² |
-| Economic transfer coefficient | 0.170050 gap halvings per horizon doubling |
-| Initial economic acceleration | +0.035561 failure-gap halvings per quarter² |
-| Implied capability-velocity growth | about 34.3% per quarter under the causal-feedback conjecture |
-| Capability threshold | 75% |
-| Capability crossing | 13 November 2027 |
-| 76% sensitivity | 25 November 2027 |
-| 2028-Q4 capability score | 98.715% |
-| Current U.S. compute | 13.524006M H100e |
-| Population target | 171.4M users |
-| Personal-AI inference allocation | 50% of modeled inference supply |
-| Current supported users | about 32.2M |
-| Required compute | about 71.96M H100e |
-| Compute progress | about 18.8% |
-| Compute log-capacity acceleration | +0.003373 log2 H100e per quarter² |
-| Implied compute-velocity growth | about 1.39% per quarter under the causal-feedback conjecture |
-| Compute crossing | 19 February 2029 (continuous extrapolation; 20 February at daily site resolution) |
-| Headline date | 20 February 2029 |
-
-These are regression anchors for the current production release, not permanent assumptions. Replace this table after every published refresh.

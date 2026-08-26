@@ -1,0 +1,706 @@
+{
+  "metadata": {
+    "id": "research-evidence",
+    "title": "Research evidence ledger",
+    "description": "Source-backed facts used in the conjecture, capability catalog, and contextual discussion but not necessarily in the live forecast equations.",
+    "schemaVersion": "1.0.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "source-001",
+        "publisher": "andonlabs.com",
+        "title": "Claude Opus 5: Vending-Bench 2 mean profit",
+        "url": "https://andonlabs.com/evals/vending-bench-2",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Business"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-002",
+        "publisher": "api.github.com",
+        "title": "OpenClaw: GitHub stars",
+        "url": "https://api.github.com/repos/openclaw/openclaw",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-003",
+        "publisher": "api.npmjs.org",
+        "title": "OpenClaw: npm downloads previous month",
+        "url": "https://api.npmjs.org/downloads/point/last-month/openclaw",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-004",
+        "publisher": "apnews.com",
+        "title": "OpenAI: consumer subscribers",
+        "url": "https://apnews.com/article/a0a915c32b85337d799fe2f9525a932a",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-005",
+        "publisher": "arxiv.org",
+        "title": "o3: OSWorld baseline at 15 steps",
+        "url": "https://arxiv.org/abs/2510.24563",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Harness"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-006",
+        "publisher": "deploymentsafety.openai.com",
+        "title": "GPT-5.6 Sol: factual-error reduction vs GPT-5.5 Instant",
+        "url": "https://deploymentsafety.openai.com/gpt-5-6-august-update/model-safety-training-and-evaluation",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Factuality"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-007",
+        "publisher": "github.com",
+        "title": "Claude Opus 4.6: MyPCBench perfect completion",
+        "url": "https://github.com/ljang0/MyPCBench/blob/main/README.md",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Consumer benchmark"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-008",
+        "publisher": "labs.scale.com",
+        "title": "GPT-5: Remote Labor Index V1 Automation Rate",
+        "url": "https://labs.scale.com/leaderboard/rli",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Professional capability"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-009",
+        "publisher": "metr.org",
+        "title": "GPT-4o: METR 50% time horizon",
+        "url": "https://metr.org/time-horizons/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability",
+          "Capability velocity"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-010",
+        "publisher": "mypcbench.pages.dev",
+        "title": "Claude Opus 4.8: MyPCBench perfect completion",
+        "url": "https://mypcbench.pages.dev/leaderboard.html",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Consumer benchmark"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-011",
+        "publisher": "openai.com",
+        "title": "OpenAI: ChatGPT for Work seats",
+        "url": "https://openai.com/index/1-million-businesses-putting-ai-to-work/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-012",
+        "publisher": "openai.com",
+        "title": "OpenAI Codex: weekly active users",
+        "url": "https://openai.com/index/codex-for-knowledge-work/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-013",
+        "publisher": "openai.com",
+        "title": "GPT-5.6 Sol: OSWorld 2.0 partial-credit score",
+        "url": "https://openai.com/index/gpt-5-6/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Computer use",
+          "AI R&D",
+          "Capability velocity"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-014",
+        "publisher": "openai.com",
+        "title": "GPT-5.5: OSWorld-Verified success",
+        "url": "https://openai.com/index/introducing-gpt-5-5/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability velocity"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-015",
+        "publisher": "osworld-v2.xlang.ai",
+        "title": "Claude Opus 4.8: OSWorld 2.0 binary full completion",
+        "url": "https://osworld-v2.xlang.ai/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Computer use"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-016",
+        "publisher": "rdi.berkeley.edu",
+        "title": "best reported broad agent: Agents' Last Exam CLI",
+        "url": "https://rdi.berkeley.edu/blog/agents-last-exam/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Broad work"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-017",
+        "publisher": "redis.github.io",
+        "title": "hybrid memory system: LongMemEval task-averaged accuracy",
+        "url": "https://redis.github.io/redis-ai-research-public/longmemeval-agent-memory/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Memory"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-018",
+        "publisher": "taubench.com",
+        "title": "Qwen 3.8 Max: tau3 Banking pass rate",
+        "url": "https://taubench.com/leaderboard/?benchmark=knowledge",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Business",
+          "Capability velocity"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-019",
+        "publisher": "anthropic.com",
+        "title": "Anthropic: business customers",
+        "url": "https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-020",
+        "publisher": "anthropic.com",
+        "title": "Claude Sonnet 4.5: OSWorld-Verified success",
+        "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability velocity"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-021",
+        "publisher": "sec.gov",
+        "title": "xAI/X: active paid subscriptions",
+        "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026039276/spaceexplorationtechnologi.htm",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted ETL with human review",
+      "notes": "Refresh claims from primary sources, preserve caveats, and leave incomparable observations as separate records."
+    }
+  },
+  "data": {
+    "observations": [
+      {
+        "id": "evidence-001",
+        "category": "Distribution",
+        "metricDate": "2026-02-27",
+        "entity": "OpenAI",
+        "metric": "consumer subscribers",
+        "value": null,
+        "unit": "subscriptions",
+        "caveat": "Direct executive statement reported by AP; latest disclosed, not a current estimate",
+        "sourceId": "source-004"
+      },
+      {
+        "id": "evidence-002",
+        "category": "Distribution",
+        "metricDate": "2026-06-02",
+        "entity": "OpenAI Codex",
+        "metric": "weekly active users",
+        "value": null,
+        "unit": "people",
+        "caveat": "Selected agent/coding population",
+        "sourceId": "source-012"
+      },
+      {
+        "id": "evidence-003",
+        "category": "Distribution",
+        "metricDate": "2025-11-05",
+        "entity": "OpenAI",
+        "metric": "ChatGPT for Work seats",
+        "value": null,
+        "unit": "seats",
+        "caveat": "Seats are not active users",
+        "sourceId": "source-011"
+      },
+      {
+        "id": "evidence-004",
+        "category": "Distribution",
+        "metricDate": "2025-09-02",
+        "entity": "Anthropic",
+        "metric": "business customers",
+        "value": null,
+        "unit": "organizations",
+        "caveat": "Not consumer subscriptions or seats",
+        "sourceId": "source-019"
+      },
+      {
+        "id": "evidence-005",
+        "category": "Distribution",
+        "metricDate": "2026-03-31",
+        "entity": "xAI/X",
+        "metric": "active paid subscriptions",
+        "value": 6300000,
+        "unit": "subscriptions",
+        "caveat": "Includes X subscriptions with Grok access",
+        "sourceId": "source-021"
+      },
+      {
+        "id": "evidence-006",
+        "category": "Distribution",
+        "metricDate": "2026-03-31",
+        "entity": "Grok",
+        "metric": "monthly users of Grok features",
+        "value": 117000000,
+        "unit": "people",
+        "caveat": "Feature usage is not task delegation",
+        "sourceId": "source-021"
+      },
+      {
+        "id": "evidence-007",
+        "category": "Distribution",
+        "metricDate": "2026-08-25",
+        "entity": "OpenClaw",
+        "metric": "GitHub stars",
+        "value": 387590,
+        "unit": "stars",
+        "caveat": "Developer-interest proxy; not users",
+        "sourceId": "source-002"
+      },
+      {
+        "id": "evidence-008",
+        "category": "Distribution",
+        "metricDate": "2026-08-25",
+        "entity": "OpenClaw",
+        "metric": "GitHub forks",
+        "value": 81363,
+        "unit": "forks",
+        "caveat": "Code-copy proxy; not users",
+        "sourceId": "source-002"
+      },
+      {
+        "id": "evidence-009",
+        "category": "Distribution",
+        "metricDate": "2026-08-24",
+        "entity": "OpenClaw",
+        "metric": "npm downloads previous month",
+        "value": 11371521,
+        "unit": "downloads",
+        "caveat": "Includes repeated and automated downloads",
+        "sourceId": "source-003"
+      },
+      {
+        "id": "evidence-010",
+        "category": "Capability",
+        "metricDate": "2024-05-13",
+        "entity": "GPT-4o",
+        "metric": "METR 50% time horizon",
+        "value": 7,
+        "unit": "minutes",
+        "caveat": "Clean mostly technical tasks",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-011",
+        "category": "Capability",
+        "metricDate": "2026-04-07",
+        "entity": "Claude Mythos Preview",
+        "metric": "METR 50% time horizon",
+        "value": 1044.8,
+        "unit": "minutes",
+        "caveat": "METR warns estimates above 16h are unreliable",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-012",
+        "category": "Capability",
+        "metricDate": "2024-05-13",
+        "entity": "GPT-4o",
+        "metric": "METR 80% time horizon",
+        "value": 1.3,
+        "unit": "minutes",
+        "caveat": "Clean mostly technical tasks",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-013",
+        "category": "Capability",
+        "metricDate": "2026-04-07",
+        "entity": "Claude Mythos Preview",
+        "metric": "METR 80% time horizon",
+        "value": 185.9,
+        "unit": "minutes",
+        "caveat": "Clean mostly technical tasks",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-014",
+        "category": "Computer use",
+        "metricDate": "2026-08-25",
+        "entity": "GPT-5.6 Sol",
+        "metric": "OSWorld 2.0 partial-credit score",
+        "value": 62.6,
+        "unit": "percent",
+        "caveat": "Not binary full completion",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-015",
+        "category": "Computer use",
+        "metricDate": "2026-06-25",
+        "entity": "Claude Opus 4.8",
+        "metric": "OSWorld 2.0 binary full completion",
+        "value": 20.6,
+        "unit": "percent",
+        "caveat": "500-step configuration in benchmark paper",
+        "sourceId": "source-015"
+      },
+      {
+        "id": "evidence-016",
+        "category": "Business",
+        "metricDate": "2026-08-25",
+        "entity": "Claude Opus 5",
+        "metric": "Vending-Bench 2 mean profit",
+        "value": 11181.87,
+        "unit": "USD",
+        "caveat": "Simulated business; five runs",
+        "sourceId": "source-001"
+      },
+      {
+        "id": "evidence-017",
+        "category": "Business",
+        "metricDate": "2026-08-25",
+        "entity": "GPT-5.6 Sol",
+        "metric": "Vending-Bench 2 mean profit",
+        "value": 9619.37,
+        "unit": "USD",
+        "caveat": "Simulated business; five runs",
+        "sourceId": "source-001"
+      },
+      {
+        "id": "evidence-018",
+        "category": "Business",
+        "metricDate": "2026-08-25",
+        "entity": "Grok 4.6",
+        "metric": "Vending-Bench 2 mean profit",
+        "value": 9047,
+        "unit": "USD",
+        "caveat": "Simulated business; five runs",
+        "sourceId": "source-001"
+      },
+      {
+        "id": "evidence-019",
+        "category": "Business",
+        "metricDate": "2026-08-25",
+        "entity": "Qwen 3.8 Max",
+        "metric": "tau3 Banking pass rate",
+        "value": 55.2,
+        "unit": "percent",
+        "caveat": "Current top observed; task/policy benchmark",
+        "sourceId": "source-018"
+      },
+      {
+        "id": "evidence-020",
+        "category": "Broad work",
+        "metricDate": "2026-06-26",
+        "entity": "best reported broad agent",
+        "metric": "Agents' Last Exam CLI",
+        "value": 25.2,
+        "unit": "percent",
+        "caveat": "1500+ tasks across 55 occupations",
+        "sourceId": "source-016"
+      },
+      {
+        "id": "evidence-021",
+        "category": "Harness",
+        "metricDate": "2025-10-28",
+        "entity": "o3",
+        "metric": "OSWorld baseline at 15 steps",
+        "value": 8.3,
+        "unit": "percent",
+        "caveat": "Compare only with same study and step budget",
+        "sourceId": "source-005"
+      },
+      {
+        "id": "evidence-022",
+        "category": "Harness",
+        "metricDate": "2025-10-28",
+        "entity": "o3 plus MCP tools",
+        "metric": "OSWorld-MCP at 15 steps",
+        "value": 20.4,
+        "unit": "percent",
+        "caveat": "Controlled tool/harness uplift",
+        "sourceId": "source-005"
+      },
+      {
+        "id": "evidence-023",
+        "category": "Harness",
+        "metricDate": "2025-10-28",
+        "entity": "Claude 4 Sonnet",
+        "metric": "OSWorld baseline at 50 steps",
+        "value": 40.1,
+        "unit": "percent",
+        "caveat": "Compare only with same study and step budget",
+        "sourceId": "source-005"
+      },
+      {
+        "id": "evidence-024",
+        "category": "Harness",
+        "metricDate": "2025-10-28",
+        "entity": "Claude 4 Sonnet plus MCP tools",
+        "metric": "OSWorld-MCP at 50 steps",
+        "value": 43.3,
+        "unit": "percent",
+        "caveat": "Controlled tool/harness uplift",
+        "sourceId": "source-005"
+      },
+      {
+        "id": "evidence-025",
+        "category": "Factuality",
+        "metricDate": "2026-08-19",
+        "entity": "GPT-5.6 Sol",
+        "metric": "factual-error reduction vs GPT-5.5 Instant",
+        "value": null,
+        "unit": "percent relative",
+        "caveat": "Three curated sets; not production prevalence",
+        "sourceId": "source-006"
+      },
+      {
+        "id": "evidence-026",
+        "category": "Memory",
+        "metricDate": "2026-08-25",
+        "entity": "hybrid memory system",
+        "metric": "LongMemEval task-averaged accuracy",
+        "value": 86.1,
+        "unit": "percent",
+        "caveat": "500-question retrieval benchmark; not continual learning",
+        "sourceId": "source-017"
+      },
+      {
+        "id": "evidence-027",
+        "category": "AI R&D",
+        "metricDate": "2026-08-25",
+        "entity": "GPT-5.5",
+        "metric": "OpenAI internal RSI index",
+        "value": 41.7,
+        "unit": "score",
+        "caveat": "Vendor internal evaluation",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-028",
+        "category": "AI R&D",
+        "metricDate": "2026-08-25",
+        "entity": "GPT-5.6 Sol",
+        "metric": "OpenAI internal RSI index",
+        "value": 57.9,
+        "unit": "score",
+        "caveat": "Vendor internal evaluation; below OpenAI High threshold",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-029",
+        "category": "Capability velocity",
+        "metricDate": "2025-08-07",
+        "entity": "GPT-5",
+        "metric": "METR 50% time horizon",
+        "value": 203,
+        "unit": "minutes",
+        "caveat": "Start of 12-month release-frontier window; mostly technical tasks",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-030",
+        "category": "Capability velocity",
+        "metricDate": "2026-04-07",
+        "entity": "Claude Mythos Preview",
+        "metric": "METR 50% time horizon",
+        "value": 1044.8,
+        "unit": "minutes",
+        "caveat": "5.15x vs GPT-5; METR warns values above 16 hours are unreliable",
+        "sourceId": "source-009"
+      },
+      {
+        "id": "evidence-031",
+        "category": "Capability velocity",
+        "metricDate": "2025-09-29",
+        "entity": "Claude Sonnet 4.5",
+        "metric": "OSWorld-Verified success",
+        "value": 61.4,
+        "unit": "percent",
+        "caveat": "Fixed benchmark release-frontier point",
+        "sourceId": "source-020"
+      },
+      {
+        "id": "evidence-032",
+        "category": "Capability velocity",
+        "metricDate": "2026-04-23",
+        "entity": "GPT-5.5",
+        "metric": "OSWorld-Verified success",
+        "value": 78.7,
+        "unit": "percent",
+        "caveat": "17.3pp release-frontier gain; benchmark nearing saturation",
+        "sourceId": "source-014"
+      },
+      {
+        "id": "evidence-033",
+        "category": "Capability velocity",
+        "metricDate": "2026-07-09",
+        "entity": "GPT-5.6 Sol",
+        "metric": "OSWorld 2.0 partial reward",
+        "value": 62.6,
+        "unit": "percent",
+        "caveat": "Harder benchmark; do not splice to OSWorld-Verified",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-034",
+        "category": "Consumer benchmark",
+        "metricDate": "2026-07-15",
+        "entity": "Claude Opus 4.6",
+        "metric": "MyPCBench perfect completion",
+        "value": 58.2,
+        "unit": "percent",
+        "caveat": "Closest canonical consumer reference; not a current frontier because newer agents are unevaluated",
+        "sourceId": "source-007"
+      },
+      {
+        "id": "evidence-035",
+        "category": "Consumer benchmark",
+        "metricDate": "2026-07-15",
+        "entity": "GPT-5.6 Sol",
+        "metric": "MyPCBench perfect completion",
+        "value": 55.4,
+        "unit": "percent",
+        "caveat": "Up 10.3pp from GPT-5.5 in canonical 100-step evaluation; Opus 5 and Fable 5 unevaluated",
+        "sourceId": "source-007"
+      },
+      {
+        "id": "evidence-036",
+        "category": "Capability velocity",
+        "metricDate": "2026-07-19",
+        "entity": "Qwen 3.8 Max",
+        "metric": "tau3 Banking pass@1",
+        "value": 55.2,
+        "unit": "percent",
+        "caveat": "System frontier; retrieval and reasoning configuration are part of the result",
+        "sourceId": "source-018"
+      },
+      {
+        "id": "evidence-037",
+        "category": "Capability velocity",
+        "metricDate": "2026-07-09",
+        "entity": "GPT-5.6 Sol",
+        "metric": "Agents Last Exam current comparison",
+        "value": 52.7,
+        "unit": "percent",
+        "caveat": "Up 5.8pp from GPT-5.5 under OpenAI's current comparison configuration",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-038",
+        "category": "Capability velocity",
+        "metricDate": "2026-07-09",
+        "entity": "GPT-5.6 Sol",
+        "metric": "AutomationBench current comparison",
+        "value": 18.1,
+        "unit": "percent",
+        "caveat": "Up 5.2pp from GPT-5.5 but low absolute completion",
+        "sourceId": "source-013"
+      },
+      {
+        "id": "evidence-039",
+        "category": "Professional capability",
+        "metricDate": "2025-08-07",
+        "entity": "GPT-5",
+        "metric": "Remote Labor Index V1 Automation Rate",
+        "value": 1.67,
+        "unit": "percent",
+        "caveat": "Start of retrospective fixed-budget remote-work frontier; not the consumer task distribution",
+        "sourceId": "source-008"
+      },
+      {
+        "id": "evidence-040",
+        "category": "Professional capability",
+        "metricDate": "2026-06-09",
+        "entity": "Claude Fable 5",
+        "metric": "Remote Labor Index V1 Automation Rate",
+        "value": 15.8,
+        "unit": "percent",
+        "caveat": "Professional-work comparator; 9.46x and +14.13pp versus GPT-5 over 306 release-date days",
+        "sourceId": "source-008"
+      },
+      {
+        "id": "evidence-041",
+        "category": "Consumer benchmark",
+        "metricDate": "2026-08-25",
+        "entity": "Claude Opus 4.8",
+        "metric": "MyPCBench perfect completion",
+        "value": 62,
+        "unit": "percent",
+        "caveat": "Self-reported computer-only run with 200-step budget; not comparable to canonical 100-step series; Opus 5 and Fable 5 absent",
+        "sourceId": "source-010"
+      }
+    ]
+  }
+}

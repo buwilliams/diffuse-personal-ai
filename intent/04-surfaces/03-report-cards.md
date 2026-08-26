@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The report cards preserve the evidence, transformations, uncertainty, and quarterly trajectories that feed the website.
+The report cards are downloadable views of the same snapshot and calculation layer that feed the website.
 
 ## What must remain true
 
@@ -12,6 +12,9 @@ The report cards preserve the evidence, transformations, uncertainty, and quarte
 - Sparse evidence receives lower confidence and simpler projections.
 - Capability uses failure-gap velocity and acceleration.
 - Compute uses operational H100-equivalent capacity and a visible serving envelope.
+- Both builders select the latest immutable JSON snapshot and call `model/forecast-model.mjs`; neither embeds an independent evidence table or forecast constant.
+- Workbook sources and website source links come from the JSON metadata registry.
+- Workbooks are generated into `artifacts/report-cards/`; `data/` remains JSON-only.
 - Workbooks render, inspect, and error-scan cleanly before publication.
 
 ## Updating

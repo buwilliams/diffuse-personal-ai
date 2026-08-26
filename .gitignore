@@ -20,7 +20,9 @@
 **/next-env.d.ts
 **/*.tsbuildinfo
 
-# Report-card previews and legacy generated files
+# Generated snapshot bundle and report-card verification output
+surfaces/website/app/generated/latest-snapshot.json
+artifacts/previews/
 data/previews/
 data/reports/legacy/
 *.inspect.ndjson

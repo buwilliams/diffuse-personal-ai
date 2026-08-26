@@ -3,7 +3,7 @@
 **Measurement window:** 25 August 2025–25 August 2026
 
 **Evidence cutoff:** 25 August 2026
-**Companion data:** [`benchmark-timeseries.csv`](../../data/sources/benchmark-timeseries.csv)
+**Companion data:** [`capability-benchmarks.json`](../../data/snapshot-20260826/capability-benchmarks.json) and [`metr-task-horizon.json`](../../data/snapshot-20260826/metr-task-horizon.json)
 
 ## Bottom line
 
@@ -32,7 +32,7 @@ The forecast resolves against **Consumer Delegation Success Rate**: the frequenc
 
 MyPCBench shows what the task environment should resemble: its 184 tasks are adapted from real OpenClaw personal-assistant requests inside one coherent pre-authenticated digital life containing banking, travel, food, email, calendar, messaging, tax, orders, rides, browsing, and files. [MyPCBench](https://github.com/ljang0/MyPCBench)
 
-But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5 and Fable 5 are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable canonical history remains in [`benchmark-timeseries.csv`](../../data/sources/benchmark-timeseries.csv) under `mypc01_perfect`.
+But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5 and Fable 5 are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable history remains in the supporting observations within [`capability-benchmarks.json`](../../data/snapshot-20260826/capability-benchmarks.json).
 
 ## 1. What counts as a time series
 
@@ -162,7 +162,7 @@ Maintain four outputs:
 
 Re-estimate a slope only after at least three comparable release points or two independent repeats. Do not change the delegation forecast from a single benchmark maximum, partial score, model announcement, or community result on a different evaluation track.
 
-Operationally, new results are appended to [`benchmark-timeseries.csv`](../../data/sources/benchmark-timeseries.csv) using stable IDs from the [release](../../data/sources/release-registry.csv) and [benchmark](../../data/sources/benchmark-registry.csv) registries. A shipped agent with new distribution or authority is recorded separately in [`agent-product-events.csv`](../../data/sources/agent-product-events.csv), preventing a product rollout from being mistaken for a benchmark gain. The complete relationships and field definitions are in the [forecast data structure](05-data-structure.md).
+Operationally, new results are added to a new dated snapshot. Benchmark definitions and observations live in `capability-benchmarks.json`; standardized H50/H80 observations live in `metr-task-horizon.json`; and a shipped agent with new distribution or authority is recorded in `adoption.json`. Keeping those record types separate prevents a product rollout from being mistaken for a benchmark gain. The complete relationships and update rules are in the [forecast data structure](05-data-structure.md).
 
 ## 7. Forecast-relevant interpretation
 

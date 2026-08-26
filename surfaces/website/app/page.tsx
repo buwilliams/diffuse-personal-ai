@@ -6,7 +6,6 @@ import {
   CAPABILITY_H50_ACCELERATION,
   CAPABILITY_H50_VELOCITY,
   CAPABILITY_H80_ACCELERATION,
-  CAPABILITY_REPORT_END,
   CAPABILITY_TRANSFER_COEFFICIENT,
   DEFAULT_CAPABILITY_SCORE,
   capabilityAt,
@@ -17,24 +16,27 @@ import {
   DEFAULT_COMPUTE_M,
   computeCapacityAt,
 } from './compute-projection';
-import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './report-data';
+import { forecastModel, snapshotDatasets, snapshotManifest } from './snapshot-model';
+import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './snapshot-report-data';
 
 const DAY = 86_400_000;
-const SNAPSHOT = new Date('2026-08-26T00:00:00Z').getTime();
-const PUBLICATION_DATE = '26 Aug 2026';
-const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
-const TOKENS_PER_H100E_DAY_M = 79.79328;
-const SUPPLY_GATE_SHARE_OF_TARGET = 1;
+const SNAPSHOT = new Date(`${forecastModel.snapshotDate}T00:00:00Z`).getTime();
+const PUBLICATION_DATE = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
+}).format(new Date(`${forecastModel.publicationDate}T00:00:00Z`));
+const MAX_HORIZON_DAYS = Math.round(365.2425 * forecastModel.defaults.maximumForecastYears);
+const computeInputs = snapshotDatasets['compute-capacity'].data;
+const DEFAULT_PERSONAL_AI_SHARE = computeInputs.serving.personalAiInferenceShare;
+const TOKENS_PER_H100E_DAY_M = forecastModel.compute.tokensPerH100eDay / DEFAULT_PERSONAL_AI_SHARE / 1_000_000;
+const SUPPLY_GATE_SHARE_OF_TARGET = forecastModel.defaults.supplyGateShareOfTarget;
 const SUPPLY_THRESHOLD = SUPPLY_GATE_SHARE_OF_TARGET * 100;
 
-const REPORT_QUARTERS = [
-  '2024-Q1', '2024-Q2', '2024-Q3', '2024-Q4',
-  '2025-Q1', '2025-Q2', '2025-Q3', '2025-Q4',
-  '2026-Q1', '2026-Q2', '2026-Q3', '2026-Q4',
-  '2027-Q1', '2027-Q2', '2027-Q3', '2027-Q4',
-  '2028-Q1', '2028-Q2', '2028-Q3', '2028-Q4',
-] as const;
-const OBSERVED_END_INDEX = REPORT_QUARTERS.indexOf('2026-Q3');
+const REPORT_QUARTERS = forecastModel.capability.quarters.map((quarter: { label: string }) => quarter.label);
+const OBSERVED_END_INDEX = forecastModel.capability.benchmarkRows.reduce(
+  (maximum: number, benchmark: { series: Array<{ phase: string }> }) =>
+    Math.max(maximum, benchmark.series.findLastIndex((point) => point.phase === 'observed')),
+  0,
+);
 
 type ReportChartSeries = {
   id: string;
@@ -44,58 +46,43 @@ type ReportChartSeries = {
   aggregate?: boolean;
 };
 
-const CAPABILITY_BENCHMARK_SERIES: ReportChartSeries[] = (() => {
-  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Report Card');
-  if (!sheet) return [];
-  return sheet.rows
-    .filter((row) => typeof row[1] === 'string' && typeof row[2] === 'string' &&
-      REPORT_QUARTERS.some((_, index) => typeof row[4 + index * 2] === 'number'))
-    .map((row) => ({
-      id: String(row[1]),
-      name: String(row[2]),
-      category: String(row[0]),
-      values: REPORT_QUARTERS.map((_, index) => {
-        const value = row[4 + index * 2];
-        return typeof value === 'number' ? value * 100 : null;
-      }),
-    }));
-})();
+type CapabilityChartBenchmark = {
+  id: string;
+  name: string;
+  category: string;
+  series: Array<{ score: number | null }>;
+};
 
-const CAPABILITY_AGGREGATE: ReportChartSeries = (() => {
-  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Summary');
-  return {
-    id: 'aggregate',
-    name: 'Aggregate',
-    category: 'Overall',
-    aggregate: true,
-    values: REPORT_QUARTERS.map((quarter) => {
-      const row = sheet?.rows.find((item) => item[0] === quarter);
-      return typeof row?.[5] === 'number' ? row[5] * 100 : null;
-    }),
-  };
-})();
+const CAPABILITY_BENCHMARK_SERIES: ReportChartSeries[] = forecastModel.capability.benchmarkRows.map(
+  (benchmark: CapabilityChartBenchmark) => ({
+    id: benchmark.id,
+    name: benchmark.name,
+    category: benchmark.category,
+    values: benchmark.series.map((point: { score: number | null }) =>
+      point.score === null ? null : point.score * 100),
+  }),
+);
 
-const CAPABILITY_CONFIDENCE = (() => {
-  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Summary');
-  const row = sheet?.rows.find((item) => item[0] === 'Overall (confidence-weighted)');
-  return {
-    label: typeof row?.[9] === 'string' ? row[9] : 'Unknown',
-    weight: typeof row?.[10] === 'number' ? row[10] * 100 : 0,
-  };
-})();
+const CAPABILITY_AGGREGATE: ReportChartSeries = {
+  id: 'aggregate',
+  name: 'Aggregate',
+  category: 'Overall',
+  aggregate: true,
+  values: forecastModel.capability.overallSeries.map((point: { score: number | null }) =>
+    point.score === null ? null : point.score * 100),
+};
 
-const COMPUTE_SUPPLY_SERIES: ReportChartSeries = (() => {
-  const sheet = workbooks.compute.sheets.find((item) => item.name === 'Quarterly Model');
-  return {
-    id: 'us-h100e',
-    name: 'U.S. operational compute',
-    category: 'Compute supply',
-    values: REPORT_QUARTERS.map((quarter) => {
-      const row = sheet?.rows.find((item) => item[1] === quarter);
-      return typeof row?.[4] === 'number' ? row[4] / 1_000_000 : null;
-    }),
-  };
-})();
+const CAPABILITY_CONFIDENCE = {
+  label: forecastModel.capability.confidence,
+  weight: forecastModel.capability.confidenceWeight * 100,
+};
+
+const COMPUTE_SUPPLY_SERIES: ReportChartSeries = {
+  id: 'us-h100e',
+  name: 'U.S. operational compute',
+  category: 'Compute supply',
+  values: forecastModel.compute.quarterRows.map((quarter: { usH100e: number }) => quarter.usH100e / 1_000_000),
+};
 
 type ModalName = 'capability' | 'compute' | null;
 
@@ -114,15 +101,15 @@ type ModelInputs = {
 
 const DEFAULTS: ModelInputs = {
   currentCapability: DEFAULT_CAPABILITY_SCORE,
-  capabilityThreshold: 75,
+  capabilityThreshold: forecastModel.defaults.capabilityThreshold * 100,
   capabilityAcceleration: CAPABILITY_H50_ACCELERATION,
-  populationM: 342.8,
-  coverageThreshold: 50,
+  populationM: computeInputs.population.usResidents / 1_000_000,
+  coverageThreshold: computeInputs.population.targetShare * 100,
   currentComputeM: DEFAULT_COMPUTE_M,
   computeAcceleration: BASE_COMPUTE_ACCELERATION,
-  workloadM: 16.75,
-  servingEfficiency: 1,
-  personalAiInferenceShare: 50,
+  workloadM: forecastModel.compute.workloadTokens / 1_000_000,
+  servingEfficiency: computeInputs.serving.servingGoodputMultiplier,
+  personalAiInferenceShare: DEFAULT_PERSONAL_AI_SHARE * 100,
 };
 
 function clamp(value: number, minimum: number, maximum: number) {
@@ -625,9 +612,9 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
         <button className="modal-close report-close" aria-label="Close HTML report" onClick={onClose}>×</button>
         <header className="report-head">
           <div>
-            <p className="modal-eyebrow">Complete HTML workbook</p>
+            <p className="modal-eyebrow">Complete HTML data model</p>
             <h2 id="report-title">{workbook.title}</h2>
-            <p>Every populated worksheet is available below. The Excel file remains the formula-preserving source of record.</p>
+            <p>Every normalized table feeding this report is available below. The downloadable Excel file preserves a familiar spreadsheet view of the same snapshot.</p>
           </div>
           <a className="report-download" href={workbook.download} download>Download .xlsx <span>↓</span></a>
         </header>
@@ -702,11 +689,92 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
   );
 }
 
+type DatasetDescriptor = {
+  id: string;
+  file: string;
+  title: string;
+  requiredForCountdown: boolean;
+  recordCount: number;
+};
+
+type DatasetSource = {
+  id: string;
+  publisher: string;
+  title: string;
+  url: string;
+  accessedAt: string;
+  roles?: string[];
+  notes?: string | null;
+};
+
+function DataSourcesModal({ onClose }: { onClose: () => void }) {
+  const datasets = snapshotManifest.data.datasets as DatasetDescriptor[];
+  const datasetsById = snapshotDatasets as unknown as Record<string, {
+    metadata: { sources: DatasetSource[]; description: string };
+  }>;
+  const sourceCount = new Set(datasets.flatMap((descriptor) =>
+    datasetsById[descriptor.id].metadata.sources.map((source) => source.url))).size;
+
+  return (
+    <div className="modal-backdrop sources-backdrop" role="presentation" onMouseDown={onClose}>
+      <section className="sources-modal" role="dialog" aria-modal="true" aria-labelledby="sources-title" onMouseDown={(event) => event.stopPropagation()}>
+        <button className="modal-close" aria-label="Close data sources" onClick={onClose}>×</button>
+        <header className="sources-head">
+          <p className="modal-eyebrow">Data provenance</p>
+          <h2 id="sources-title">Sources behind the forecast</h2>
+          <p>The site selects the newest valid <code>snapshot-YYYYMMDD</code> directory at build time. This page uses <b>snapshot-{forecastModel.snapshotId}</b>: {datasets.length} normalized datasets, {sourceCount} public source URLs, and one shared calculation layer for charts, reports, controls, and the countdown.</p>
+          <div className="sources-meta">
+            <span><small>Snapshot</small><strong>{forecastModel.snapshotDate}</strong></span>
+            <span><small>Schema</small><strong>{snapshotManifest.metadata.schemaVersion}</strong></span>
+            <span><small>Countdown inputs</small><strong>{datasets.filter((dataset) => dataset.requiredForCountdown).length} datasets</strong></span>
+            <a href={`https://github.com/buwilliams/diffuse-personal-ai/blob/main/data/snapshot-${forecastModel.snapshotId}/database.json`} target="_blank" rel="noreferrer">Open manifest ↗</a>
+          </div>
+        </header>
+
+        <div className="sources-list">
+          {datasets.map((descriptor, index) => {
+            const dataset = datasetsById[descriptor.id];
+            const sources = dataset.metadata.sources;
+            return (
+              <article className="source-dataset" key={descriptor.id}>
+                <div className="source-dataset-head">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <p>{descriptor.requiredForCountdown ? 'Forecast input' : 'Context / triangulation'}</p>
+                    <h3>{descriptor.title}</h3>
+                    <small>{descriptor.file} · {descriptor.recordCount.toLocaleString('en-US')} normalized records · {sources.length} sources</small>
+                  </div>
+                </div>
+                <p className="source-description">{dataset.metadata.description}</p>
+                <div className="source-links">
+                  {sources.map((source) => (
+                    <a href={source.url} target="_blank" rel="noreferrer" key={`${descriptor.id}-${source.id}-${source.url}`}>
+                      <span>{source.publisher}</span>
+                      <b>{source.title}</b>
+                      <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
+                    </a>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <footer className="sources-foot">
+          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update and normalize every source through <code>database.json</code>, validate it, and rebuild. Earlier snapshots remain available for reproducibility.</p>
+          <a href="https://github.com/buwilliams/diffuse-personal-ai/tree/main/data" target="_blank" rel="noreferrer">Browse snapshot JSON ↗</a>
+        </footer>
+      </section>
+    </div>
+  );
+}
+
 export default function Home() {
   const [now, setNow] = useState(SNAPSHOT);
   const [inputs, setInputs] = useState<ModelInputs>(DEFAULTS);
   const [modal, setModal] = useState<ModalName>(null);
   const [tunerOpen, setTunerOpen] = useState(false);
+  const [sourcesOpen, setSourcesOpen] = useState(false);
   const [activeSheetName, setActiveSheetName] = useState('Summary');
   const [reportQuery, setReportQuery] = useState('');
 
@@ -724,6 +792,7 @@ export default function Home() {
       if (event.key === 'Escape') {
         setModal(null);
         setTunerOpen(false);
+        setSourcesOpen(false);
         setReportQuery('');
       }
     };
@@ -783,10 +852,7 @@ export default function Home() {
   const capabilityDate = formatDate(projection.capabilityCrossing);
   const nextCapabilityDate = formatDate(projection.nextCapabilityCrossing);
   const computeDate = formatDate(projection.computeCrossing);
-  const capabilityUsesExtendedProjection = Boolean(
-    projection.capabilityCrossing && projection.capabilityCrossing.getTime() > CAPABILITY_REPORT_END,
-  );
-  const horizonTimestamp = new Date('2028-12-31T00:00:00Z').getTime();
+  const horizonTimestamp = forecastModel.capability.reportEnd;
   const horizonComputeM = computeCapacityAt(
     horizonTimestamp,
     inputs.currentComputeM,
@@ -828,47 +894,16 @@ export default function Home() {
 
   const reports = {
     capability: {
-      eyebrow: 'Demand proxy / capability',
-      title: 'Model–harness report card',
       current: `${inputs.currentCapability.toFixed(1)}%`,
       grade: grade(inputs.currentCapability),
       threshold: `${inputs.capabilityThreshold.toFixed(0)}%`,
       crossing: capabilityDate,
-      note: 'The economic benchmark basket sets capability level and current velocity. METR H50 sets acceleration, while H80 checks that reliability is not lagging. Crossings after 2028-Q4 continue the same model and are labeled as extended extrapolations.',
-      href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-four-year-capability-report-card.xlsx',
-      rows: [
-        ['Current composite', `${inputs.currentCapability.toFixed(1)}%`],
-        ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
-        ['H50 task-horizon acceleration', `${signed(inputs.capabilityAcceleration)} doublings / quarter²`],
-        ['H80 reliability guardrail', `${signed(CAPABILITY_H80_ACCELERATION)} doublings / quarter²`],
-        ['Economic transfer coefficient', `${CAPABILITY_TRANSFER_COEFFICIENT.toFixed(3)} gap halvings / horizon doubling`],
-        ['Initial economic acceleration', `${signed(capabilityEconomicAcceleration)} gap halvings / quarter²`],
-        ['Progress-rate feedback', `${signed(capabilityFeedbackRate, 1)}% per quarter`],
-        ['Projected crossing', `${capabilityDate}${capabilityUsesExtendedProjection ? ' · extended beyond 2028-Q4' : ''}`],
-        [`Sensitivity at ${projection.nextCapabilityThreshold.toFixed(0)}%`, nextCapabilityDate],
-        ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
-      ],
     },
     compute: {
-      eyebrow: 'Supply / compute',
-      title: 'Compute report card',
       current: `${projection.computeProgress.toFixed(1)}%`,
       grade: grade(projection.computeProgress),
       threshold: `${SUPPLY_THRESHOLD}%`,
       crossing: computeDate,
-      note: 'The population share selects the target; the supply gate then clears at 100% of that target. There is no second population-share multiplier.',
-      href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-compute-report-card.xlsx',
-      rows: [
-        ['Supply threshold', `${SUPPLY_THRESHOLD}%`],
-        ['Population target', `${inputs.coverageThreshold.toFixed(0)}% of U.S. · ${projection.targetUsersM.toFixed(1)}M users`],
-        ['Current U.S. H100e', `${inputs.currentComputeM.toFixed(2)}M`],
-        ['Required U.S. H100e', `${projection.requiredComputeM.toFixed(2)}M`],
-        ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
-        ['Personal-AI inference share', `${inputs.personalAiInferenceShare.toFixed(0)}% of modeled inference supply`],
-        ['Initial log acceleration', `${signed(inputs.computeAcceleration)} log₂ H100e / quarter²`],
-        ['Buildout-rate feedback', `${signed(computeFeedbackRate, 1)}% per quarter`],
-        ['Projected crossing', computeDate],
-      ],
     },
   };
   const activeWorkbook = modal ? workbooks[modal] : null;
@@ -971,8 +1006,10 @@ export default function Home() {
 
       <footer>
         <span>Two gates. One date. <button onClick={() => setTunerOpen(true)}>Adjust assumptions</button></span>
-        <span><a href="https://epoch.ai/data/ai-data-centers" target="_blank" rel="noreferrer">Epoch AI</a> · <a href="https://www.census.gov/popclock/" target="_blank" rel="noreferrer">U.S. Census</a></span>
+        <span><button onClick={() => setSourcesOpen(true)}>Data sources &amp; provenance</button> · Snapshot {forecastModel.snapshotId}</span>
       </footer>
+
+      {sourcesOpen && <DataSourcesModal onClose={() => setSourcesOpen(false)} />}
 
       {tunerOpen && (
         <div className="modal-backdrop tuner-backdrop" role="presentation" onMouseDown={() => setTunerOpen(false)}>

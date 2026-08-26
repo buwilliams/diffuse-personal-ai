@@ -6,10 +6,16 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "sync:data": "node ../../scripts/generate_site_snapshot.mjs",
+    "predev": "node ../../scripts/generate_site_snapshot.mjs",
     "dev": "vinext dev",
+    "prebuild": "node ../../scripts/generate_site_snapshot.mjs",
     "build": "vinext build",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "prelint": "node ../../scripts/generate_site_snapshot.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "pretypecheck": "node ../../scripts/generate_site_snapshot.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "16.2.6",

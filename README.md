@@ -4,50 +4,48 @@ A falsifiable conjecture about when personal AI becomes broadly delegable: the l
 
 The live countdown and its adjustable assumptions are at <https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/>.
 
-This repository follows an **intent → surfaces** architecture. The argument lives once in `intent/`; the report cards and website render it. Evidence and generated datasets live in `data/`.
+The repository follows an **intent → data snapshot → shared model → surfaces** architecture. Intent defines the claim, one immutable JSON snapshot contains the evidence and assumptions, one calculation module derives both gates, and the site and workbooks render that result.
 
 ```text
-intent/                     Authoritative conjecture, model, and capability definitions
-  01-conjecture.md          Main argument and forecast framing
-  02-model/                 Two-gate model, metrics, benchmark trends, data design
-  03-capabilities/          User-relevant capability catalog
-  04-surfaces/              Rules each public surface must preserve
-  05-operations/            Authoritative refresh and publication procedure
-
+intent/                         Normative conjecture, model, schema, and operating procedure
 data/
-  sources/                  Append-only CSV registries and observations
-  reports/                  Current capability and compute workbooks
-  research/                 Exploratory source notes and papers
-  previews/                 Generated workbook previews (ignored)
-
+  snapshot-YYYYMMDD/            Immutable normalized JSON snapshot
+    database.json               Dataset manifest, defaults, and ETL instructions
+    *.json                      Source metadata plus compiled data
+model/forecast-model.mjs        Shared capability and compute calculations
+scripts/
+  lib/snapshots.mjs             Latest-snapshot selection and loading
+  generate_site_snapshot.mjs    Build-time website bundle
+  validate_snapshots.mjs        Schema, provenance, and forecast-invariant checks
+artifacts/report-cards/         Downloadable capability and compute workbooks
 surfaces/
-  report-cards/             Workbook builders and HTML-data generator
-  website/                  Vinext/Next site deployed with ChatGPT Sites
-
-DEPLOY.md                   Pointer to the authoritative publication procedure
+  report-cards/                 Workbook builders reading the latest snapshot
+  website/                      Vinext/Next site deployed with ChatGPT Sites
 ```
 
-**Rule: change `intent/` first, update `data/` second, then regenerate or re-verify every affected surface.** A surface that contradicts intent or data is wrong by definition.
+The `data/` directory tracks only files matching `snapshot-YYYYMMDD/*.json`. A new refresh creates a new directory; it never revises a prior snapshot. Every dataset has exactly two root fields, `metadata` and `data`. The website build selects the lexicographically latest valid snapshot and bundles it once, so charts, report tables, defaults, controls, and the countdown all use the same values.
 
-## Website
+## Build and validate
 
 ```powershell
+& $NodeExe scripts/validate_snapshots.mjs
+& $NodeExe surfaces/report-cards/capability/build_report_card.mjs
+& $NodeExe surfaces/report-cards/compute/build_compute_report_card.mjs
+
 cd surfaces/website
 pnpm install
-pnpm run dev
+pnpm run lint
+pnpm run typecheck
+pnpm run build
 ```
 
-The production build is `pnpm run build`.
+The current downloadable workbooks are:
 
-## Report cards
+- [`artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx`](artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx)
+- [`artifacts/report-cards/personal-ai-compute-report-card.xlsx`](artifacts/report-cards/personal-ai-compute-report-card.xlsx)
 
-The canonical downloadable workbooks are:
-
-- [`data/reports/personal-ai-four-year-capability-report-card.xlsx`](data/reports/personal-ai-four-year-capability-report-card.xlsx)
-- [`data/reports/personal-ai-compute-report-card.xlsx`](data/reports/personal-ai-compute-report-card.xlsx)
-
-Build commands are in [`surfaces/report-cards/README.md`](surfaces/report-cards/README.md). The authoritative monthly operating procedure is in [`intent/05-operations/01-monthly-refresh.md`](intent/05-operations/01-monthly-refresh.md).
+The authoritative update procedure is [`intent/05-operations/01-monthly-refresh.md`](intent/05-operations/01-monthly-refresh.md). The mathematical contract is [`intent/02-model/06-report-card-calculations.md`](intent/02-model/06-report-card-calculations.md).
 
 ## Status
 
-Evidence cutoff: **26 August 2026**. The public date is a scenario result, not a calibrated probability forecast. Its inputs, confidence, thresholds, and acceleration controls are visible in the site.
+Evidence cutoff: **26 August 2026**. The public date is a scenario result, not a calibrated probability forecast. Its sources, confidence, thresholds, acceleration rates, and serving assumptions are visible on the site.

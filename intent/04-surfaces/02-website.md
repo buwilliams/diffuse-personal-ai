@@ -2,28 +2,40 @@
 
 ## Purpose
 
-The website compresses the conjecture into one legible countdown, exposes the most date-sensitive assumptions, and lets readers inspect the complete capability and compute reports without downloading them.
+The site makes one falsifiable forecast legible: the countdown ends when both the capability demand proxy and compute supply gate have crossed. The later gate controls the date.
 
-## What must remain true
+## Data and calculation contract
 
-- The first viewport states the conjecture and shows years, months, days, and hours.
-- The gate cards are introduced by a visible `Gates.` label explaining that both conditions must clear and the later crossing controls the countdown.
-- The publication date signals evidence freshness.
-- Readers can adjust capability threshold and actual METR H50 task-horizon acceleration, population and coverage, workload, serving efficiency, and actual compute log-capacity acceleration.
-- Acceleration controls show their real values and units: task-horizon doublings per quarter² for capability and `log2 H100e` per quarter² for compute. They are not labeled or represented as `1×` multipliers.
-- The tuner also translates each initial acceleration into the implied quarterly growth of its progress velocity. The forward model recursively compounds that velocity so the conjectured causal loop—progress increasing future progress—is inspectable rather than hidden in prose.
-- Each acceleration control defaults to its own report-card value. Raising it must increase the rate of progress and must never move that gate's crossing later when all other inputs are unchanged.
-- The capability report and modal distinguish four objects: economic benchmark level, economic gap velocity, METR H50 acceleration, and the H80 reliability guardrail. They must not relabel benchmark-local acceleration as the capability driver.
-- Capability crossings after 2028-Q4 continue the report card's benchmark-level equations through the 15-year search horizon and are labeled as extended extrapolations. `No crossing within 15 years` is reserved for a genuine failure to cross under those equations.
-- The tuner shows the capability crossing at one percentage point above the selected threshold so readers can see threshold sensitivity directly.
-- The capability chart shows benchmark series plus the confidence-weighted aggregate.
-- The compute chart shows H100-equivalent capacity and its implied gate.
-- Both report modals explain the calculation in a flat numbered list and expose the full workbook tables.
-- Workbook downloads resolve to the canonical files in `data/reports/` on the public GitHub repository.
-- Source cells render as clickable HTTPS links. Repository documents point to their public GitHub view, while report-to-report references open the corresponding HTML report when possible.
-- Public HTML, styles, generated report data, and URLs contain no local filesystem paths such as `C:\...`, `file://...`, or WSL mount paths.
-- The interface uses the site-hosted Geist and Geist Mono variable fonts. Their numeral shapes and metrics are part of the visual identity; do not substitute system fallbacks in production.
+- `predev` and `prebuild` run `scripts/generate_site_snapshot.mjs`.
+- The generator selects the newest valid `data/snapshot-YYYYMMDD/` directory and writes one ignored build bundle.
+- `app/snapshot-model.ts` evaluates that bundle through `model/forecast-model.mjs` once at module load.
+- The countdown, controls, charts, report tables, publication stamp, defaults, and source modal all read that same model or snapshot.
+- The browser does not parse XLSX files, copy curves by hand, or request every JSON file separately.
+- A later snapshot changes the site without editing a date or evidence constant in React code.
+
+## Public interface contract
+
+- The hero shows years, months, days, and hours until the joint crossing.
+- The publication date comes from the selected snapshot.
+- Conjecture and Refutation remain terse and explicitly distinguish a scenario crossing from a calibrated probability.
+- Both gate cards show current state, threshold, crossing, and which gate controls the clock.
+- The model tuner exposes the major decisions: capability threshold, H50 acceleration, U.S. population, population target, current compute, compute acceleration, tokens per user/day, serving efficiency, and personal-AI inference allocation.
+- Acceleration fields display actual rates with units. A higher positive acceleration cannot push its gate later when other inputs are fixed.
+- Population share is applied once. The supply gate then requires 100% of that selected target.
+- Each report modal contains its chart, current scenario strip, flat numbered calculation audit, normalized source tables, filtering, and XLSX download.
+- A footer link opens a data-sources and provenance modal listing the active snapshot, schema, countdown inputs, every dataset, record count, source URLs, access dates, roles, and update method.
+- Source URLs are clickable HTTPS links. No `C:\`, `file://`, WSL, or other local path may appear in public output.
+- The site-hosted Geist and Geist Mono web fonts remain the production fonts so numeral metrics are stable across systems.
+
+## Report and download contract
+
+The HTML report tables are generated directly from snapshot data and shared-model results. The workbooks are parallel downloadable views, not an upstream website database. Downloads resolve to:
+
+- `artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx`
+- `artifacts/report-cards/personal-ai-compute-report-card.xlsx`
+
+The build must fail if the latest snapshot cannot be loaded or its manifest and dataset IDs disagree.
 
 ## Updating and publishing
 
-The authoritative synchronization, reconciliation, and publication procedure is [Monthly evidence refresh and publication](../05-operations/01-monthly-refresh.md). This document defines the website contract; it does not duplicate the operating procedure.
+Follow [Monthly evidence refresh and publication](../05-operations/01-monthly-refresh.md). This document defines the website surface contract and does not duplicate the operating procedure.

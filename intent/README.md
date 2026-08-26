@@ -31,4 +31,4 @@ This folder is the authoritative statement of the Diffuse Personal AI conjecture
 
 ## Updating
 
-Change intent first. Add or revise evidence in `data/`. Then rebuild the report cards and website by following the [monthly refresh procedure](05-operations/01-monthly-refresh.md). A surface that contradicts this folder or the current data is wrong by definition.
+Change intent first. Create a new immutable dated snapshot in `data/`. Then rebuild the report cards and website by following the [monthly refresh procedure](05-operations/01-monthly-refresh.md). A surface that contradicts this folder or the latest valid snapshot is wrong by definition.

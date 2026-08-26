@@ -216,7 +216,7 @@ This creates a falsifiable transmission test. If end-to-end benchmark performanc
 
 ### Updateable evidence structure
 
-New model and agent releases enter through the normalized, append-only [forecast data structure](02-model/05-data-structure.md). A stable release registry identifies each model, harness, or agent product; benchmark observations preserve benchmark version, system configuration, and resource envelope; the data-center ledger separates current capacity from dated milestones; monthly operational snapshots preserve the compute trend; demand archetypes preserve token-mix assumptions; and adoption observations retain stable series definitions. The legacy companion workbook in [`../data/reports/legacy/`](../data/reports/legacy/) implements the earlier buildout, capacity-history, token-demand, and supported-user calculations. The forecast can therefore be revisited without silently changing definitions or treating a product launch, nominal price, or planned data center as delivered capability.
+New evidence enters through the immutable [forecast data structure](02-model/05-data-structure.md). Each dated snapshot preserves model–harness observations, benchmark definitions, compute cutoffs, serving assumptions, product events, adoption series, source metadata, and comparability notes. The manifest identifies which datasets drive the countdown, and one shared calculation layer produces both public surfaces. The forecast can therefore be reproduced without treating a product launch, nominal price, or planned data center as delivered capability.
 
 ## 7. Scenario model
 

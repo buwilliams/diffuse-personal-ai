@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "id": "metr-task-horizon",
+    "title": "METR task-completion horizons",
+    "description": "H50 capability-velocity signal and H80 reliability guardrail used to estimate relative acceleration.",
+    "schemaVersion": "1.0.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "source-001",
+        "publisher": "METR",
+        "title": "Task-horizon benchmark results",
+        "url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "published trend estimate"
+        ],
+        "notes": null
+      },
+      {
+        "id": "source-002",
+        "publisher": "METR",
+        "title": "Task-completion time horizons",
+        "url": "https://metr.org/time-horizons/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "task-horizon observations"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted ETL with human review",
+      "notes": "Fetch the current METR benchmark-results artifact, append comparable H50 and H80 release observations, and refresh published velocity estimates without erasing prior snapshots."
+    }
+  },
+  "data": {
+    "series": [
+      {
+        "id": "benchobs_0001",
+        "releaseId": "openai_gpt5_20250807",
+        "metric": "H50",
+        "modelSystem": "GPT-5",
+        "releaseDate": "2025-08-07",
+        "horizonMinutes": 203.012577,
+        "harnessScope": "METR-selected Triframe scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Mostly software/ML/cyber tasks; horizon is human task duration rather than agent runtime"
+      },
+      {
+        "id": "benchobs_0002",
+        "releaseId": "anthropic_opus45_20251124",
+        "metric": "H50",
+        "modelSystem": "Claude Opus 4.5",
+        "releaseDate": "2025-11-24",
+        "horizonMinutes": 292.994594,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+      },
+      {
+        "id": "benchobs_0003",
+        "releaseId": "openai_gpt52_20251211",
+        "metric": "H50",
+        "modelSystem": "GPT-5.2",
+        "releaseDate": "2025-12-11",
+        "horizonMinutes": 352.249302,
+        "harnessScope": "METR-selected Triframe scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+      },
+      {
+        "id": "benchobs_0004",
+        "releaseId": "anthropic_opus46_20260205",
+        "metric": "H50",
+        "modelSystem": "Claude Opus 4.6",
+        "releaseDate": "2026-02-05",
+        "horizonMinutes": 718.80683,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Point estimate has a wide confidence interval"
+      },
+      {
+        "id": "benchobs_0005",
+        "releaseId": "anthropic_mythos_preview_20260407",
+        "metric": "H50",
+        "modelSystem": "Claude Mythos Preview",
+        "releaseDate": "2026-04-07",
+        "horizonMinutes": 1044.780145,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "METR warns that estimates above 16 hours are unreliable"
+      },
+      {
+        "id": "benchobs_0006",
+        "releaseId": "openai_gpt5_20250807",
+        "metric": "H80",
+        "modelSystem": "GPT-5",
+        "releaseDate": "2025-08-07",
+        "horizonMinutes": 38.312431,
+        "harnessScope": "METR-selected Triframe scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Higher-reliability horizon on the same task suite"
+      },
+      {
+        "id": "benchobs_0007",
+        "releaseId": "anthropic_opus45_20251124",
+        "metric": "H80",
+        "modelSystem": "Claude Opus 4.5",
+        "releaseDate": "2025-11-24",
+        "horizonMinutes": 49.430584,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Higher-reliability horizon on the same task suite"
+      },
+      {
+        "id": "benchobs_0008",
+        "releaseId": "openai_gpt52_20251211",
+        "metric": "H80",
+        "modelSystem": "GPT-5.2",
+        "releaseDate": "2025-12-11",
+        "horizonMinutes": 66.002649,
+        "harnessScope": "METR-selected Triframe scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Higher-reliability horizon on the same task suite"
+      },
+      {
+        "id": "benchobs_0009",
+        "releaseId": "anthropic_opus46_20260205",
+        "metric": "H80",
+        "modelSystem": "Claude Opus 4.6",
+        "releaseDate": "2026-02-05",
+        "horizonMinutes": 69.874587,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Higher-reliability horizon on the same task suite"
+      },
+      {
+        "id": "benchobs_0010",
+        "releaseId": "anthropic_mythos_preview_20260407",
+        "metric": "H80",
+        "modelSystem": "Claude Mythos Preview",
+        "releaseDate": "2026-04-07",
+        "horizonMinutes": 185.911829,
+        "harnessScope": "METR-selected ReAct scaffold",
+        "sourceId": "source-002",
+        "comparabilityNote": "Higher-reliability horizon on the same task suite"
+      }
+    ],
+    "trendEstimates": [
+      {
+        "id": "scmest_0001",
+        "role": "primary_official_fit",
+        "windowStart": "2019-02-14",
+        "windowEnd": "2026-04-07",
+        "observationDate": "2026-08-25",
+        "name": "doubling_time",
+        "value": 187.778,
+        "unit": "days",
+        "confidenceInterval": null,
+        "method": "METR all-time stitched log-linear fit excluding central H50 estimates above 16 hours",
+        "sourceId": "source-001",
+        "comparabilityNote": "Official point estimate"
+      },
+      {
+        "id": "scmest_0002",
+        "role": "primary_recent_fit",
+        "windowStart": "2023-03-14",
+        "windowEnd": "2026-04-07",
+        "observationDate": "2026-08-25",
+        "name": "doubling_time",
+        "value": 128.744,
+        "unit": "days",
+        "confidenceInterval": [
+          104.428,
+          158.012
+        ],
+        "method": "METR post-2023 log-linear fit excluding central H50 estimates above 16 hours",
+        "sourceId": "source-001",
+        "comparabilityNote": "Official point estimate and reported interval"
+      },
+      {
+        "id": "scmest_0003",
+        "role": "directional_endpoint_check",
+        "windowStart": "2025-08-07",
+        "windowEnd": "2026-04-07",
+        "observationDate": "2026-08-25",
+        "name": "doubling_time",
+        "value": 102.811,
+        "unit": "days",
+        "confidenceInterval": null,
+        "method": "Two-endpoint log growth from GPT-5 203.012577 minutes to Claude Mythos Preview 1044.780145 minutes",
+        "sourceId": "source-001",
+        "comparabilityNote": "Not an independent acceleration fit; final estimate exceeds METR 16-hour reliable range"
+      },
+      {
+        "id": "scmest_0004",
+        "role": "reliability_guardrail",
+        "windowStart": "2025-08-07",
+        "windowEnd": "2026-04-07",
+        "observationDate": "2026-08-25",
+        "name": "h80_doubling_time",
+        "value": 106.638,
+        "unit": "days",
+        "confidenceInterval": null,
+        "method": "Two-endpoint log growth from H80 38.312431 to 185.911829 minutes",
+        "sourceId": "source-001",
+        "comparabilityNote": "H80 comes from same two-parameter fit and is not independent"
+      }
+    ],
+    "forecastPolicy": {
+      "primaryMetric": "H50",
+      "primaryVelocityEstimateRole": "primary_recent_fit",
+      "reliabilityMetric": "H80",
+      "reliabilityVelocityEstimateRole": "reliability_guardrail",
+      "relativeAccelerationRule": "minimumPositiveH50H80"
+    }
+  }
+}

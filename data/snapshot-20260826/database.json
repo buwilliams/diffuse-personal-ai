@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "id": "database",
+    "title": "Diffuse Personal AI snapshot manifest",
+    "description": "Manifest, default scenario, and ETL contract for the immutable 26 August 2026 snapshot.",
+    "schemaVersion": "1.0.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "source-001",
+        "publisher": "Diffuse Personal AI",
+        "title": "Forecast methodology and update contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/tree/main/intent",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "methodology"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted ETL with human review",
+      "notes": "This file is the entry point for an updating agent. Create a new immutable snapshot, refresh the listed datasets, validate, and publish; never revise history in place."
+    }
+  },
+  "data": {
+    "datasets": [
+      {
+        "id": "capability-benchmarks",
+        "file": "capability-benchmarks.json",
+        "title": "Model–harness economic capability benchmarks",
+        "requiredForCountdown": true,
+        "recordCount": 131
+      },
+      {
+        "id": "metr-task-horizon",
+        "file": "metr-task-horizon.json",
+        "title": "METR task-completion horizons",
+        "requiredForCountdown": true,
+        "recordCount": 14
+      },
+      {
+        "id": "compute-capacity",
+        "file": "compute-capacity.json",
+        "title": "U.S. operational AI-compute capacity",
+        "requiredForCountdown": true,
+        "recordCount": 20
+      },
+      {
+        "id": "adoption",
+        "file": "adoption.json",
+        "title": "AI adoption and product-release evidence",
+        "requiredForCountdown": false,
+        "recordCount": 64
+      },
+      {
+        "id": "research-evidence",
+        "file": "research-evidence.json",
+        "title": "Research evidence ledger",
+        "requiredForCountdown": false,
+        "recordCount": 41
+      },
+      {
+        "id": "user-capabilities",
+        "file": "user-capabilities.json",
+        "title": "Personal-agent capability catalog",
+        "requiredForCountdown": false,
+        "recordCount": 34
+      }
+    ],
+    "defaults": {
+      "capabilityThreshold": 0.75,
+      "maximumForecastYears": 15,
+      "supplyGateShareOfTarget": 1,
+      "reportStartQuarter": "2024-Q1",
+      "reportEndQuarter": "2028-Q4"
+    },
+    "etl": {
+      "snapshotDirectoryPattern": "snapshot-YYYYMMDD",
+      "immutableSnapshots": true,
+      "selectionRule": "lexicographically greatest valid snapshot directory",
+      "requiredRootFields": [
+        "metadata",
+        "data"
+      ],
+      "workflow": [
+        "Copy the latest snapshot to a new dated directory.",
+        "Fetch every dataset from metadata.sources and preserve source-specific raw meaning.",
+        "Normalize records to the existing schema without rewriting earlier snapshots.",
+        "Validate identifiers, dates, units, source references, and forecast invariants.",
+        "Rebuild the reports and site; the build selects the latest valid snapshot automatically."
+      ]
+    }
+  }
+}
