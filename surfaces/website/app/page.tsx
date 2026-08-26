@@ -21,10 +21,11 @@ import {
   productivityAt,
 } from './compute-projection';
 import { forecastModel, snapshotDatasets, snapshotGates, snapshotManifest } from './snapshot-model';
-import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './snapshot-report-data';
+import { gateReports, type GateReport, type ReportCell, type ReportDataView } from './snapshot-report-data';
 
 const DAY = 86_400_000;
 const SNAPSHOT = new Date(`${forecastModel.snapshotDate}T00:00:00Z`).getTime();
+const SNAPSHOT_QUARTER = `${new Date(SNAPSHOT).getUTCFullYear()}-Q${Math.floor(new Date(SNAPSHOT).getUTCMonth() / 3) + 1}`;
 const PUBLICATION_DATE = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
 }).format(new Date(`${forecastModel.publicationDate}T00:00:00Z`));
@@ -229,26 +230,19 @@ function ControlField({ label, note, value, min, max, step, suffix, decimals = 1
   );
 }
 
-function reportContext(sheet: ReportSheet, rowIndex: number, columnIndex: number) {
+function reportContext(view: ReportDataView, rowIndex: number, columnIndex: number) {
   const labels: string[] = [];
-  const row = sheet.rows[rowIndex] || [];
+  const row = view.rows[rowIndex] || [];
   const rowLabel = row.find((value) => typeof value === 'string');
   if (typeof rowLabel === 'string') labels.push(rowLabel);
   for (let index = rowIndex; index >= 0 && labels.length < 6; index -= 1) {
-    const value = sheet.rows[index]?.[columnIndex];
+    const value = view.rows[index]?.[columnIndex];
     if (typeof value === 'string') labels.push(value);
   }
   return labels.join(' ').toLowerCase();
 }
 
-function excelDate(serial: number) {
-  const timestamp = Date.UTC(1899, 11, 30) + Math.floor(serial) * DAY;
-  return new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC',
-  }).format(new Date(timestamp));
-}
-
-function formattedReportValue(value: ReportCell, sheet: ReportSheet, rowIndex: number, columnIndex: number) {
+function formattedReportValue(value: ReportCell, view: ReportDataView, rowIndex: number, columnIndex: number) {
   if (value === null || value === '') return '';
   if (typeof value === 'boolean') return value ? 'Yes' : 'No';
   if (typeof value === 'string') {
@@ -260,10 +254,7 @@ function formattedReportValue(value: ReportCell, sheet: ReportSheet, rowIndex: n
     return value;
   }
 
-  const context = reportContext(sheet, rowIndex, columnIndex);
-  if (value > 30_000 && value < 60_000 && /(date|cutoff|crossing|updated|accessed|as-of)/.test(context)) {
-    return excelDate(value);
-  }
+  const context = reportContext(view, rowIndex, columnIndex);
   if (Math.abs(value) <= 1.1 && /(score|rate|share|allocation|coverage|utilization|threshold|percent|minimum)/.test(context)) {
     return `${(value * 100).toFixed(Math.abs(value) < 0.01 ? 2 : 1)}%`;
   }
@@ -535,7 +526,7 @@ function ReportChart({ kind, capabilityThreshold, computeTargetUsersM }: ReportC
     <section className={`report-chart report-chart-${kind}`} aria-labelledby={`report-chart-title-${kind}`}>
       <div className="report-chart-head">
         <div>
-          <p>Workbook model · observed through 2026-Q3</p>
+          <p>Snapshot model · observed through {SNAPSHOT_QUARTER}</p>
           <h3 id={`report-chart-title-${kind}`}>{chartTitle}</h3>
           <small className="chart-unit">{kind === 'capability' ? 'Vertical axis · normalized benchmark score' : 'Vertical axis · millions of supported user-equivalents'}</small>
         </div>
@@ -595,12 +586,13 @@ function ReportChart({ kind, capabilityThreshold, computeTargetUsersM }: ReportC
   );
 }
 
-type WorkbookBrowserProps = {
-  workbook: ReportWorkbook;
-  sheet: ReportSheet;
+type GateReportBrowserProps = {
+  report: GateReport;
+  view: ReportDataView;
   query: string;
   onQuery: (query: string) => void;
-  onSheet: (name: string) => void;
+  onView: (name: string) => void;
+  onOpenData: (datasetId: string) => void;
   onClose: () => void;
   scenario: { label: string; value: string }[];
   calculationTitle: string;
@@ -609,36 +601,38 @@ type WorkbookBrowserProps = {
   computeTargetUsersM: number;
 };
 
-function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario, calculationTitle, calculationSteps, capabilityThreshold, computeTargetUsersM }: WorkbookBrowserProps) {
-  const rows = sheet.rows
+function GateReportBrowser({ report, view, query, onQuery, onView, onOpenData, onClose, scenario, calculationTitle, calculationSteps, capabilityThreshold, computeTargetUsersM }: GateReportBrowserProps) {
+  const rows = view.rows
     .map((row, index) => ({ row, index }))
     .filter(({ row }) => !query || row.some((value) => String(value ?? '').toLowerCase().includes(query.toLowerCase())));
-  const totalCells = workbook.sheets.reduce((sum, item) => sum + item.nonEmptyCells, 0);
 
   return (
     <div className="modal-backdrop report-backdrop" role="presentation" onMouseDown={onClose}>
       <section className="report-browser" role="dialog" aria-modal="true" aria-labelledby="report-title" onMouseDown={(event) => event.stopPropagation()}>
-        <button className="modal-close report-close" aria-label="Close HTML report" onClick={onClose}>×</button>
+        <button className="modal-close report-close" aria-label="Close gate report" onClick={onClose}>×</button>
         <div className="report-scroll">
         <header className="report-head">
           <div>
-            <p className="modal-eyebrow">Complete HTML data model</p>
-            <h2 id="report-title">{workbook.title}</h2>
-            <p>Every normalized table feeding this report is available below. The downloadable Excel file preserves a familiar spreadsheet view of the same snapshot.</p>
+            <p className="modal-eyebrow">Snapshot-native gate report</p>
+            <h2 id="report-title">{report.title}</h2>
+            <p>Readable views generated from the immutable snapshot JSON. Each view names its logical datasets; the spreadsheet is an optional export, not the source of truth.</p>
           </div>
-          <a className="report-download" href={workbook.download} download>Download .xlsx <span>↓</span></a>
+          <div className="report-actions">
+            <a className="report-download" href={report.consolidatedJson} download>Download gate JSON <span>↓</span></a>
+            <a className="report-export" href={report.spreadsheetExport} target="_blank" rel="noreferrer">Export .xlsx <span>↗</span></a>
+          </div>
         </header>
 
         <div className="report-scenario">
           {scenario.map((item) => <span key={item.label}><small>{item.label}</small><strong>{item.value}</strong></span>)}
         </div>
 
-        <ReportChart kind={workbook.id} capabilityThreshold={capabilityThreshold} computeTargetUsersM={computeTargetUsersM} />
+        <ReportChart kind={report.id} capabilityThreshold={capabilityThreshold} computeTargetUsersM={computeTargetUsersM} />
 
-        <section className="model-explainer" aria-labelledby={`model-explainer-${workbook.id}`}>
+        <section className="model-explainer" aria-labelledby={`model-explainer-${report.id}`}>
           <div>
             <p>Plain-language audit</p>
-            <h3 id={`model-explainer-${workbook.id}`}>{calculationTitle}</h3>
+            <h3 id={`model-explainer-${report.id}`}>{calculationTitle}</h3>
           </div>
           <ol>
             {calculationSteps.map((step) => (
@@ -648,23 +642,29 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
         </section>
 
         <div className="report-shell">
-          <nav className="sheet-nav" aria-label="Workbook sheets">
-            <p>{workbook.sheets.length} worksheets · {totalCells.toLocaleString('en-US')} populated cells</p>
-            {workbook.sheets.map((item, index) => (
-              <button key={item.name} className={item.name === sheet.name ? 'active' : ''} onClick={() => onSheet(item.name)}>
+          <nav className="view-nav" aria-label="Gate report data views">
+            <p>{report.datasetCount} datasets · {report.recordCount.toLocaleString('en-US')} records · {report.sourceCount} sources</p>
+            {report.views.map((item, index) => (
+              <button key={item.name} className={item.name === view.name ? 'active' : ''} onClick={() => onView(item.name)}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <b>{item.name}</b>
-                <small>{item.sourceRows} × {item.sourceColumns}</small>
+                <small>{item.rowCount} rows · {item.fieldCount} fields</small>
               </button>
             ))}
           </nav>
 
-          <section className="sheet-view" aria-labelledby="sheet-title">
-            <div className="sheet-toolbar">
+          <section className="view-panel" aria-labelledby="view-title">
+            <div className="view-toolbar">
               <div>
-                <p className="sheet-address">{sheet.address} · {sheet.nonEmptyCells} populated cells</p>
-                <h3 id="sheet-title">{sheet.name}</h3>
-                <p>{sheet.description}</p>
+                <p className="view-origin">Snapshot {forecastModel.snapshotDate} · {view.populatedValues.toLocaleString('en-US')} populated values</p>
+                <h3 id="view-title">{view.name}</h3>
+                <p>{view.description}</p>
+                <div className="view-lineage" aria-label="JSON datasets used by this view">
+                  <span>JSON lineage</span>
+                  {view.datasetIds.map((datasetId) => (
+                    <button key={datasetId} onClick={() => onOpenData(datasetId)}>{datasetId} ↗</button>
+                  ))}
+                </div>
               </div>
               <label className="report-search">
                 <span>Filter rows</span>
@@ -676,10 +676,10 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
               <table className="report-table">
                 <tbody>
                   {rows.map(({ row, index }) => (
-                    <tr key={`${sheet.name}-${index}`} className={reportRowClass(row)}>
+                    <tr key={`${view.name}-${index}`} className={reportRowClass(row)}>
                       {row.map((value, columnIndex) => {
-                        const formatted = formattedReportValue(value, sheet, index, columnIndex);
-                        const isUrl = typeof value === 'string' && /^https?:\/\//.test(value);
+                        const formatted = formattedReportValue(value, view, index, columnIndex);
+                        const isUrl = typeof value === 'string' && (/^https?:\/\//.test(value) || value.startsWith('/data/snapshot-'));
                         return (
                           <td key={columnIndex} className={typeof value === 'number' ? 'numeric' : ''}>
                             {isUrl ? <a href={value as string} target="_blank" rel="noreferrer">{value}</a> : formatted}
@@ -837,7 +837,7 @@ function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpen
         </div>
 
         <footer className="sources-foot">
-          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update each source file through <code>database.json</code>, consolidate both gates, validate, and rebuild. The site and workbooks read only the consolidated files.</p>
+          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update each source file through <code>database.json</code>, consolidate both gates, validate, and rebuild. The site and optional spreadsheet exports read only the consolidated files.</p>
           <a href="https://github.com/buwilliams/diffuse-personal-ai/tree/main/data" target="_blank" rel="noreferrer">Browse snapshot JSON ↗</a>
         </footer>
       </section>
@@ -1092,7 +1092,7 @@ export default function Home() {
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [sourceDataOpen, setSourceDataOpen] = useState(false);
   const [sourceDataSelection, setSourceDataSelection] = useState<string | null>(null);
-  const [activeSheetName, setActiveSheetName] = useState('Summary');
+  const [activeViewName, setActiveViewName] = useState('Overview');
   const [reportQuery, setReportQuery] = useState('');
 
   useEffect(() => {
@@ -1121,7 +1121,7 @@ export default function Home() {
     const syncReport = window.setTimeout(() => {
       const report = new URLSearchParams(window.location.search).get('report');
       if (report === 'capability' || report === 'compute') {
-        setActiveSheetName('Summary');
+        setActiveViewName('Overview');
         setReportQuery('');
         setModal(report);
       }
@@ -1205,7 +1205,7 @@ export default function Home() {
   };
 
   const openReport = (name: Exclude<ModalName, null>) => {
-    setActiveSheetName('Summary');
+    setActiveViewName('Overview');
     setReportQuery('');
     setModal(name);
   };
@@ -1224,9 +1224,9 @@ export default function Home() {
       crossing: computeDate,
     },
   };
-  const activeWorkbook = modal ? workbooks[modal] : null;
-  const activeSheet = activeWorkbook
-    ? activeWorkbook.sheets.find((sheet) => sheet.name === activeSheetName) || activeWorkbook.sheets[0]
+  const activeReport = modal ? gateReports[modal] : null;
+  const activeView = activeReport
+    ? activeReport.views.find((view) => view.name === activeViewName) || activeReport.views[0]
     : null;
   const activeScenario = modal === 'capability' ? [
     { label: 'Current score', value: reports.capability.current },
@@ -1392,20 +1392,26 @@ export default function Home() {
               </fieldset>
             </div>
             <div className="tuner-foot">
-              <p>Scenario controls change the live projection only. The linked workbooks remain the auditable default.</p>
+              <p>Scenario controls change the live projection only. The immutable snapshot JSON remains the auditable default; spreadsheets are convenience exports.</p>
               <button onClick={() => setTunerOpen(false)}>Use scenario</button>
             </div>
           </section>
         </div>
       )}
 
-      {activeWorkbook && activeSheet && (
-        <WorkbookBrowser
-          workbook={activeWorkbook}
-          sheet={activeSheet}
+      {activeReport && activeView && (
+        <GateReportBrowser
+          report={activeReport}
+          view={activeView}
           query={reportQuery}
           onQuery={setReportQuery}
-          onSheet={(name) => { setActiveSheetName(name); setReportQuery(''); }}
+          onView={(name) => { setActiveViewName(name); setReportQuery(''); }}
+          onOpenData={(datasetId) => {
+            setModal(null);
+            setReportQuery('');
+            setSourceDataSelection(`dataset:${datasetId}`);
+            setSourceDataOpen(true);
+          }}
           onClose={() => { setModal(null); setReportQuery(''); }}
           scenario={activeScenario}
           calculationTitle={activeCalculation.title}

@@ -1,32 +1,63 @@
-import { forecastModel, snapshotDatasets } from './snapshot-model';
+import { forecastModel, snapshotDatasets, snapshotGates, snapshotManifest } from './snapshot-model';
 
 export type ReportCell = string | number | boolean | null;
 
-export type ReportSheet = {
+export type ReportDataView = {
   name: string;
-  address: string;
   description: string;
+  datasetIds: string[];
   rows: ReportCell[][];
-  sourceRows: number;
-  sourceColumns: number;
-  nonEmptyCells: number;
+  rowCount: number;
+  fieldCount: number;
+  populatedValues: number;
 };
 
-export type ReportWorkbook = {
+export type GateReport = {
   id: 'capability' | 'compute';
+  gateId: 'gate1' | 'gate2';
   title: string;
-  download: string;
-  sheets: ReportSheet[];
+  consolidatedJson: string;
+  spreadsheetExport: string;
+  datasetCount: number;
+  recordCount: number;
+  sourceCount: number;
+  views: ReportDataView[];
 };
 
-type Source = {
+type SourceFile = {
   id: string;
+  file: string;
   publisher: string;
   title: string;
   url: string;
   accessedAt: string;
   roles?: string[];
   notes?: string | null;
+  datasetIds: string[];
+  recordCount: number;
+  resultStatus: string;
+  countdownRole: string;
+  resultCounts: {
+    scores: number;
+    measurements: number;
+    assumptions: number;
+    directInputs: number;
+  };
+};
+
+type ManifestDataset = {
+  id: string;
+  gateId: 'gate1' | 'gate2';
+  title: string;
+  description: string;
+  requiredForCountdown: boolean;
+  recordCount: number;
+  collections: string[];
+  calculation: {
+    role: string;
+    preparation: string;
+    countdownEffect: string;
+  };
 };
 
 type CapabilityCategory = {
@@ -189,38 +220,36 @@ type CapabilityQuarter = {
   score: number | null;
 };
 
-function sheet(name: string, description: string, rows: ReportCell[][]): ReportSheet {
-  const sourceColumns = rows.reduce((maximum, row) => Math.max(maximum, row.length), 0);
+function dataView(name: string, description: string, datasetIds: string[], rows: ReportCell[][]): ReportDataView {
+  const fieldCount = rows.reduce((maximum, row) => Math.max(maximum, row.length), 0);
   return {
     name,
-    address: `A1:${columnName(sourceColumns)}${rows.length}`,
     description,
+    datasetIds,
     rows,
-    sourceRows: rows.length,
-    sourceColumns,
-    nonEmptyCells: rows.flat().filter((cell) => cell !== null && cell !== '').length,
+    rowCount: rows.filter((row) => row.some((cell) => cell !== null && cell !== '')).length,
+    fieldCount,
+    populatedValues: rows.flat().filter((cell) => cell !== null && cell !== '').length,
   };
 }
 
-function columnName(columnCount: number) {
-  let value = Math.max(1, columnCount);
-  let label = '';
-  while (value > 0) {
-    value -= 1;
-    label = String.fromCharCode(65 + (value % 26)) + label;
-    value = Math.floor(value / 26);
-  }
-  return label;
-}
-
-function sourceRows(sources: Source[]) {
+function sourceFileRows(sources: SourceFile[], gateId: 'gate1' | 'gate2') {
   return [
-    ['Source ID', 'Publisher', 'Title', 'Accessed', 'Roles', 'Public URL', 'Notes'],
+    ['Source ID', 'Source JSON', 'Publisher', 'Title', 'Accessed', 'Logical datasets', 'Records', 'Result status', 'Countdown role', 'Scores', 'Measurements', 'Assumptions', 'Direct inputs', 'Roles', 'Public URL', 'Notes'],
     ...sources.map((source) => [
       source.id,
+      `/data/snapshot-${forecastModel.snapshotId}/${gateId}-sources/${source.file.split('/').at(-1)}`,
       source.publisher,
       source.title,
       source.accessedAt,
+      source.datasetIds.join(', '),
+      source.recordCount,
+      source.resultStatus,
+      source.countdownRole,
+      source.resultCounts.scores,
+      source.resultCounts.measurements,
+      source.resultCounts.assumptions,
+      source.resultCounts.directInputs,
       (source.roles ?? []).join(', '),
       source.url,
       source.notes ?? '',
@@ -228,9 +257,30 @@ function sourceRows(sources: Source[]) {
   ];
 }
 
+function datasetCatalogRows(datasets: ManifestDataset[]) {
+  return [
+    ['Dataset ID', 'Title', 'Required for countdown', 'Records', 'Collections', 'Calculation role', 'Preparation', 'Countdown effect'],
+    ...datasets.map((dataset) => [
+      dataset.id,
+      dataset.title,
+      dataset.requiredForCountdown,
+      dataset.recordCount,
+      dataset.collections.join(', '),
+      dataset.calculation.role,
+      dataset.calculation.preparation,
+      dataset.calculation.countdownEffect,
+    ]),
+  ];
+}
+
 const capabilityDataset = snapshotDatasets['capability-benchmarks'];
 const metrDataset = snapshotDatasets['metr-task-horizon'];
 const computeDataset = snapshotDatasets['compute-capacity'];
+const manifestDatasets = snapshotManifest.data.datasets as ManifestDataset[];
+const gate1Datasets = manifestDatasets.filter((dataset) => dataset.gateId === 'gate1');
+const gate2Datasets = manifestDatasets.filter((dataset) => dataset.gateId === 'gate2');
+const gate1SourceFiles = snapshotGates.gate1.data.sourceFiles as SourceFile[];
+const gate2SourceFiles = snapshotGates.gate2.data.sourceFiles as SourceFile[];
 
 const capabilitySummaryRows: ReportCell[][] = [
   ['Metric', 'Value', 'Unit / interpretation'],
@@ -463,31 +513,43 @@ const computeSupportingEvidenceRows: ReportCell[][] = [
   ]),
 ];
 
-export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
+export const gateReports: Record<'capability' | 'compute', GateReport> = {
   capability: {
     id: 'capability',
+    gateId: 'gate1',
     title: 'Model–harness capability report card',
-    download: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx',
-    sheets: [
-      sheet('Summary', 'Current score, evidence weight, acceleration, and the quarterly aggregate path.', capabilitySummaryRows),
-      sheet('Benchmarks', 'The normalized benchmark basket that drives the capability forecast.', capabilityBenchmarkRows),
-      sheet('Observations', 'Every model–harness observation compiled for the forecast basket.', capabilityObservationRows),
-      sheet('METR Horizon', 'Task-horizon observations and recent-fit acceleration estimates used for capability feedback.', metrRows),
-      sheet('Sources', 'Public sources and provenance for the capability datasets.', sourceRows([...(capabilityDataset.metadata.sources as Source[]), ...(metrDataset.metadata.sources as Source[])])),
+    consolidatedJson: `/data/snapshot-${forecastModel.snapshotId}/gate1-consolidated.json`,
+    spreadsheetExport: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx',
+    datasetCount: gate1Datasets.length,
+    recordCount: gate1Datasets.reduce((sum, dataset) => sum + dataset.recordCount, 0),
+    sourceCount: gate1SourceFiles.length,
+    views: [
+      dataView('Overview', 'Current score, evidence weight, acceleration, and the quarterly aggregate path calculated from the snapshot.', ['capability-benchmarks', 'metr-task-horizon'], capabilitySummaryRows),
+      dataView('Dataset Catalog', 'Every Gate 1 logical dataset, including contextual and falsification evidence that does not directly move the countdown.', gate1Datasets.map((dataset) => dataset.id), datasetCatalogRows(gate1Datasets)),
+      dataView('Benchmarks', 'The normalized benchmark basket that drives the capability forecast.', ['capability-benchmarks'], capabilityBenchmarkRows),
+      dataView('Observations', 'Every model–harness observation compiled for the forecast basket.', ['capability-benchmarks'], capabilityObservationRows),
+      dataView('METR Horizon', 'Task-horizon observations and recent-fit acceleration estimates used for capability feedback.', ['metr-task-horizon'], metrRows),
+      dataView('Source Files', 'Every source-normalized JSON file consolidated into Gate 1, with result counts and countdown role.', gate1Datasets.map((dataset) => dataset.id), sourceFileRows(gate1SourceFiles, 'gate1')),
     ],
   },
   compute: {
     id: 'compute',
+    gateId: 'gate2',
     title: 'Service-capacity report card',
-    download: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/artifacts/report-cards/personal-ai-compute-report-card.xlsx',
-    sheets: [
-      sheet('Summary', 'Current physical supply, inference productivity, allocations, and the base-case crossing.', computeSummaryRows),
-      sheet('Quarterly Model', 'Observed and expected U.S. IT power, inference productivity, and supported-user equivalents by quarter.', computeQuarterRows),
-      sheet('Inference Productivity', 'Measured MLPerf goodput and full-system power rows used for the absolute productivity baseline and matched trend.', inferenceProductivityRows),
-      sheet('Assumptions', 'Population, workload, allocation, and serving assumptions.', computeAssumptionRows),
-      sheet('Site Registry', 'Epoch data-center registry used to select U.S. sites and audit the facility join.', computeSiteRows),
-      sheet('Supporting Evidence', 'Independent quantitative supply diagnostics retained in their reported units; these rows do not directly enter the countdown.', computeSupportingEvidenceRows),
-      sheet('Sources', 'Public sources and provenance for the compute dataset.', sourceRows(computeDataset.metadata.sources as Source[])),
+    consolidatedJson: `/data/snapshot-${forecastModel.snapshotId}/gate2-consolidated.json`,
+    spreadsheetExport: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/artifacts/report-cards/personal-ai-compute-report-card.xlsx',
+    datasetCount: gate2Datasets.length,
+    recordCount: gate2Datasets.reduce((sum, dataset) => sum + dataset.recordCount, 0),
+    sourceCount: gate2SourceFiles.length,
+    views: [
+      dataView('Overview', 'Current physical supply, inference productivity, allocations, and the base-case crossing calculated from the snapshot.', ['compute-capacity'], computeSummaryRows),
+      dataView('Dataset Catalog', 'Every Gate 2 logical dataset and its calculation lineage.', gate2Datasets.map((dataset) => dataset.id), datasetCatalogRows(gate2Datasets)),
+      dataView('Quarterly Model', 'Observed and expected U.S. IT power, inference productivity, and supported-user equivalents by quarter.', ['compute-capacity'], computeQuarterRows),
+      dataView('Inference Productivity', 'Measured MLPerf goodput and full-system power rows used for the absolute productivity baseline and matched trend.', ['compute-capacity'], inferenceProductivityRows),
+      dataView('Assumptions', 'Population, workload, allocation, and serving assumptions.', ['compute-capacity'], computeAssumptionRows),
+      dataView('Site Registry', 'Epoch data-center registry used to select U.S. sites and audit the facility join.', ['compute-capacity'], computeSiteRows),
+      dataView('Supporting Evidence', 'Independent quantitative supply diagnostics retained in their reported units; these rows do not directly enter the countdown.', ['compute-capacity'], computeSupportingEvidenceRows),
+      dataView('Source Files', 'Every source-normalized JSON file consolidated into Gate 2, with result counts and countdown role.', gate2Datasets.map((dataset) => dataset.id), sourceFileRows(gate2SourceFiles, 'gate2')),
     ],
   },
 };

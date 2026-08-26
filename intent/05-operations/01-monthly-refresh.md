@@ -134,8 +134,8 @@ pnpm run build
 Reconcile the default scenario:
 
 1. Publication date equals the latest snapshot.
-2. Capability score, confidence, category path, H50 acceleration, H80 guardrail, transfer coefficient, and crossing match the shared model and workbook.
-3. Current IT power, inference productivity, H100e audit bridge, allocations, supported users, population target, both velocities, both accelerations, and crossing match the shared model and workbook.
+2. Capability score, confidence, category path, H50 acceleration, H80 guardrail, transfer coefficient, and crossing match the shared model, consolidated Gate 1 JSON, and optional spreadsheet export.
+3. Current IT power, inference productivity, H100e audit bridge, allocations, supported users, population target, both velocities, both accelerations, and crossing match the shared model, consolidated Gate 2 JSON, and optional spreadsheet export.
 4. Supply progress equals supported users divided by the selected target population.
 5. The headline is the later of the capability and compute crossings.
 6. Population, population share, tokens per user/day, fleet inference allocation, Personal-AI allocation, threshold, and all three acceleration controls affect only their intended terms.
@@ -143,7 +143,7 @@ Reconcile the default scenario:
 8. The Source data modal lists every logical dataset, system file, and source-normalized JSON file; view, copy, and raw-file actions work from the site-hosted snapshot copy.
 9. Each selected source shows its explicit scores or measurements, source-vs-normalized status, countdown use, and an unambiguous notice when no numerical result was extracted.
 10. Each selected dataset explains its preparation, calculation path, countdown effect, and adjustable assumptions.
-11. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
+11. Each HTML Gate Report identifies its logical datasets, exposes the complete gate source-file index, downloads the consolidated gate JSON as its audit record, and offers an XLSX convenience export from `artifacts/report-cards/`.
 12. Built output contains no local filesystem paths.
 
 ### 7. Commit and publish

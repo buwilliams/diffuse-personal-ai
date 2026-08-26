@@ -23,8 +23,9 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 - The model tuner exposes the major decisions: capability threshold, H50 acceleration, U.S. population, population target, current IT power, IT-power acceleration, current inference productivity, productivity acceleration, tokens per user/day, fleet inference allocation, and Personal-AI inference allocation.
 - Acceleration fields display actual rates with units. A higher positive acceleration cannot push its gate later when other inputs are fixed.
 - Population share is applied once. The supply gate then requires 100% of that selected target.
-- Each report modal contains its chart, current scenario strip, flat numbered calculation audit, normalized source tables, filtering, and XLSX download.
-- The full report modal is the vertical reading surface: headers, assumptions, charts, calculation audit, worksheet navigation, and tables scroll together. Worksheet tables use their own overflow only for wide horizontal data, never as a short nested vertical viewport.
+- Each report modal is a JSON-native Gate Report containing its chart, current scenario strip, flat numbered calculation audit, logical-dataset catalog, normalized source-file table, readable data views, filtering, and direct lineage links into Source data.
+- The consolidated gate JSON is the primary download and audit record. XLSX remains a secondary convenience export.
+- The full report modal is the vertical reading surface: headers, assumptions, charts, calculation audit, data-view navigation, and tables scroll together. Data tables use their own overflow only for wide horizontal content, never as a short nested vertical viewport.
 - The footer has separate **Sources** and **Source data** controls.
 - **Sources** opens a provenance modal grouped by gate. It lists every public source, access date, role, affected logical datasets, whether it directly affects the countdown, and a direct link to the original source.
 - **Source data** opens a searchable JSON catalog containing the six logical datasets, manifest, two consolidated gate files, and every source-normalized file, including the Epoch site registry and dated timeline. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
@@ -33,7 +34,7 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 
 ## Report and download contract
 
-The HTML report tables are generated directly from snapshot data and shared-model results. The workbooks are parallel downloadable views, not an upstream website database. Downloads resolve to:
+The HTML Gate Reports are generated directly from snapshot data and shared-model results. Each report names the logical JSON datasets behind every readable view and exposes the complete source-file index for its gate. The consolidated JSON files are the source-of-truth downloads. Workbooks are parallel convenience exports, not an upstream website database. Spreadsheet exports resolve to:
 
 - `artifacts/report-cards/personal-ai-four-year-capability-report-card.xlsx`
 - `artifacts/report-cards/personal-ai-compute-report-card.xlsx`
