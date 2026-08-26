@@ -619,6 +619,7 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
     <div className="modal-backdrop report-backdrop" role="presentation" onMouseDown={onClose}>
       <section className="report-browser" role="dialog" aria-modal="true" aria-labelledby="report-title" onMouseDown={(event) => event.stopPropagation()}>
         <button className="modal-close report-close" aria-label="Close HTML report" onClick={onClose}>×</button>
+        <div className="report-scroll">
         <header className="report-head">
           <div>
             <p className="modal-eyebrow">Complete HTML data model</p>
@@ -692,6 +693,7 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
               {rows.length === 0 && <p className="no-results">No rows match “{query}”.</p>}
             </div>
           </section>
+        </div>
         </div>
       </section>
     </div>

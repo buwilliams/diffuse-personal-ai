@@ -24,6 +24,7 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 - Acceleration fields display actual rates with units. A higher positive acceleration cannot push its gate later when other inputs are fixed.
 - Population share is applied once. The supply gate then requires 100% of that selected target.
 - Each report modal contains its chart, current scenario strip, flat numbered calculation audit, normalized source tables, filtering, and XLSX download.
+- The full report modal is the vertical reading surface: headers, assumptions, charts, calculation audit, worksheet navigation, and tables scroll together. Worksheet tables use their own overflow only for wide horizontal data, never as a short nested vertical viewport.
 - The footer has separate **Sources** and **Source data** controls.
 - **Sources** opens a provenance modal grouped by gate. It lists every public source, access date, role, affected logical datasets, whether it directly affects the countdown, and a direct link to the original source.
 - **Source data** opens a searchable JSON catalog containing the six logical datasets, manifest, two consolidated gate files, and every source-normalized file, including the Epoch site registry and dated timeline. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
