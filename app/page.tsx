@@ -879,7 +879,7 @@ export default function Home() {
       </section>
 
       <section className="conjecture">
-        <p><span>Conjecture.</span> Within three years, model–harness systems will cross a practical threshold: they will perform profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. People will delegate work because they value the time it returns: time to pursue internalized wants rather than imposed demands—chosen contribution, relationships, play, and pleasure.</p>
+        <p><span>Conjecture.</span> Delegating economically valuable work to personal AI is imminent because model–harness systems are nearing a practical threshold: performing profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. People will delegate work because they value the time it returns: time to pursue internalized wants rather than imposed demands—chosen contribution, relationships, play, and pleasure.</p>
         <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. Instant distribution and universal value-add remain explicit assumptions.</p>
       </section>
 
