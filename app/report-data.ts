@@ -23,11 +23,11 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
     "sheets": [
       {
         "name": "Summary",
-        "address": "A1:O41",
+        "address": "A1:R41",
         "description": "Current grades, category balance, and the quarterly capability trajectory.",
         "sourceRows": 41,
-        "sourceColumns": 15,
-        "nonEmptyCells": 194,
+        "sourceColumns": 18,
+        "nonEmptyCells": 208,
         "rows": [
           [
             "Personal AI Capability — Four-Year Report Card",
@@ -44,6 +44,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             null,
             null,
             null,
+            null,
+            null,
+            null,
             null
           ],
           [
@@ -61,10 +64,16 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             null,
             null,
             null,
+            null,
+            null,
+            null,
             null
           ],
           [
-            "A category-balanced view of economic stewardship, operational execution, personal transfer, and economic value/governance. As of 2026-08-26.",
+            "A confidence-weighted view of economic stewardship, operational execution, personal transfer, and economic value/governance. As of 2026-08-26.",
+            null,
+            null,
+            null,
             null,
             null,
             null,
@@ -93,27 +102,35 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "GAP ACCELERATION / QTR²",
             null,
             null,
+            "OVERALL CONFIDENCE",
+            null,
+            null,
             "ACCELERATION COVERAGE",
             null,
             null
           ],
           [
-            0.4666192850127242,
+            0.4754547162751583,
             null,
             null,
             "F",
             null,
             null,
-            0.6420458316228199,
+            0.6415123054035713,
             null,
             null,
-            0.05795221995259677,
+            0.04706919723433389,
+            null,
+            null,
+            "Medium",
             null,
             null,
             0.3
           ],
           [
             "CATEGORY REPORT CARD",
+            null,
+            null,
             null,
             null,
             null,
@@ -132,7 +149,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "2028-Q4 score",
             "Gap velocity / qtr",
             "Gap acceleration / qtr²",
-            "Accel. coverage"
+            "Accel. coverage",
+            "Confidence",
+            "Confidence weight"
           ],
           [
             "Direct economic stewardship",
@@ -143,7 +162,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.41656299325127366,
             0.006549844650824333,
             -0.0718969048742778,
-            0.14285714285714285
+            0.14285714285714285,
+            "Low",
+            0.47619047619047616
           ],
           [
             "Operational execution",
@@ -154,7 +175,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7614002449377768,
             0.21231534925022855,
             0.06540560141180742,
-            0.5714285714285714
+            0.5714285714285714,
+            "Medium",
+            0.6666666666666666
           ],
           [
             "Personal stewardship transfer",
@@ -165,7 +188,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.5390515200198509,
             0.060208192614823824,
             "",
-            0
+            0,
+            "Low",
+            0.4166666666666667
           ],
           [
             "Economic value & governance",
@@ -176,18 +201,22 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.8511685682823786,
             0.18665713536174539,
             0.18034796332026068,
-            0.5
+            0.5,
+            "Low",
+            0.3333333333333333
           ],
           [
-            "Overall (equal category weight)",
+            "Overall (confidence-weighted)",
             20,
             23,
-            0.4666192850127242,
-            0.6696428571428572,
-            0.6420458316228199,
-            0.11643263046940552,
-            0.05795221995259677,
-            0.3
+            0.4754547162751583,
+            0.6336477987421384,
+            0.6415123054035713,
+            0.12254930739429859,
+            0.04706919723433389,
+            0.3,
+            "Medium",
+            0.5072463768115941
           ],
           [
             "QUARTERLY CATEGORY TRAJECTORY",
@@ -225,7 +254,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.24,
             0.252,
             "",
-            0.246
+            0.24461538461538465
           ],
           [
             "2025-Q1",
@@ -233,7 +262,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.24,
             0.252,
             "",
-            0.246
+            0.24461538461538465
           ],
           [
             "2025-Q2",
@@ -241,7 +270,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.2515,
             0.252,
             "",
-            0.25175000000000003
+            0.2516923076923077
           ],
           [
             "2025-Q3",
@@ -249,7 +278,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.341,
             0.367,
             0.0208,
-            0.24293333333333333
+            0.2733058823529412
           ],
           [
             "2025-Q4",
@@ -257,7 +286,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.3638,
             0.367,
             0.0375,
-            0.2561
+            0.28796470588235296
           ],
           [
             "2026-Q1",
@@ -265,7 +294,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.4523333333333334,
             0.5416666666666666,
             0.37284999999999996,
-            0.4576204166666667
+            0.4608431865828092
           ],
           [
             "2026-Q2",
@@ -273,7 +302,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.4943857142857143,
             0.4895,
             0.431,
-            0.4774301979229798,
+            0.4822610257625673,
             null,
             "LEGEND / READING RULE"
           ],
@@ -283,7 +312,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.5348571428571428,
             0.4895,
             0.431,
-            0.4666192850127242,
+            0.4754547162751583,
             null,
             "Observed",
             "Blue cells are sourced release-quarter frontiers."
@@ -294,7 +323,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.585604707113973,
             0.49596835802127504,
             0.5045057474556296,
-            0.4994535475504826,
+            0.5078511456750117,
             null,
             "Carried",
             "Gray cells hold the last observed frontier between releases."
@@ -305,7 +334,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.6326578162812213,
             0.5021723264343897,
             0.5988820122205774,
-            0.5365150588215857,
+            0.5425628219693986,
             null,
             "Projected",
             "Gold cells extrapolate failure-gap velocity/acceleration."
@@ -316,7 +345,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.6722381094693379,
             0.5081227119795819,
             0.6892922475171135,
-            0.5706527964741169,
+            0.5738876519324834,
             null,
             "Δ score",
             "Quarter-over-quarter percentage-point change in the normalized benchmark score; this is not acceleration."
@@ -327,7 +356,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7031496365481767,
             0.5138298796791444,
             0.7596996524545245,
-            0.5975611669088633,
+            0.5985826142285467,
             null,
             "Gap velocity",
             "Failure-gap halvings per quarter, estimated only from benchmarks with at least two observations."
@@ -338,7 +367,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7247142264089005,
             0.5193037708923357,
             0.8057929460443367,
-            0.6159952953291195,
+            0.6156518281019359,
             null,
             "Gap acceleration",
             "Change in failure-gap velocity per quarter², estimated only from benchmarks with at least three observations. Positive means progress is speeding up."
@@ -349,7 +378,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7391533872186862,
             0.524553920632311,
             0.8315862366021204,
-            0.6275164724841026,
+            0.6265867003180403,
             null,
             "Acceleration coverage",
             "Benchmarks with a 3+ point acceleration estimate divided by graded benchmarks. Coverage prevents a sparse estimate from looking universal."
@@ -360,10 +389,10 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7489298368839602,
             0.5295894741752345,
             0.8440411975090854,
-            0.6344830853774928,
+            0.6334825742739434,
             null,
-            "Direct stewardship",
-            "All 7 sources are now graded, but 4 newly normalized series and EnterpriseArena each have one observation. Only Vending-Bench has a 3-point acceleration estimate. The Q3 drop is broader benchmark coverage, not frontier regression."
+            "Confidence",
+            "Evidence coverage and longitudinal depth: one credit per distinct quarterly observation, capped at three per benchmark. Category weight = credits ÷ maximum credits. High ≥80%; Medium ≥50%; Low <50%."
           ],
           [
             "2028-Q3",
@@ -371,10 +400,10 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7559490367936539,
             0.5344192029905058,
             0.8492616924053543,
-            0.6388996609841763,
+            0.6380873837883642,
             null,
-            "Ungraded",
-            "Blank score history means the benchmark lacks a defensible normalized observation."
+            "Direct stewardship",
+            "Low confidence: all 7 sources are graded, but 4 newly normalized series and EnterpriseArena each have one observation. Only Vending-Bench has a 3-point acceleration estimate."
           ],
           [
             "2028-Q4",
@@ -382,10 +411,10 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.7614002449377768,
             0.5390515200198509,
             0.8511685682823786,
-            0.6420458316228199,
+            0.6415123054035713,
             null,
             "Caution",
-            "Sparse series project flat or constant velocity. This is a scenario, not a calibrated probability."
+            "The composite uses continuous confidence weights. Sparse series project flat or constant velocity; projections are scenarios, not calibrated probabilities."
           ]
         ]
       },
@@ -710,7 +739,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.17749,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.00680814351431791,
             -0.0718969048742778,
             "Velocity + acceleration — latest three observations"
@@ -763,7 +792,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.010067435,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.006291545787330755,
             0,
             "Constant velocity — two observations"
@@ -816,7 +845,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             1,
             "A",
             4,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -869,7 +898,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.4321186625247882,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -922,7 +951,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.8,
             "B",
             3,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -975,7 +1004,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.18516388283148968,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1028,7 +1057,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.273,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1081,7 +1110,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.503,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.11516457356978227,
             0,
             "Constant velocity — two observations"
@@ -1134,7 +1163,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.511,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.0728970644372906,
             -0.06052809013923022,
             "Velocity + acceleration — latest three observations"
@@ -1187,7 +1216,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.607,
             "D",
             1,
-            0.6696428571428572,
+            0.6336477987421384,
             0.2794599537469049,
             -0.004969950297574337,
             "Velocity + acceleration — latest three observations"
@@ -1240,7 +1269,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.758,
             "C",
             2,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1293,7 +1322,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.429,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.2876679105055806,
             0.15016501951621217,
             "Velocity + acceleration — latest three observations"
@@ -1346,7 +1375,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "",
             "N/A",
             "",
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Ungraded — no normalized observation"
@@ -1399,7 +1428,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.384,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1452,7 +1481,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.552,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.30638724399158446,
             0.17695542656782204,
             "Velocity + acceleration — latest three observations"
@@ -1505,7 +1534,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.582,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1558,7 +1587,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.676,
             "D",
             1,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1611,7 +1640,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.333,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -1664,7 +1693,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.367,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.060208192614823824,
             0,
             "Constant velocity — two observations"
@@ -1717,7 +1746,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "",
             "N/A",
             "",
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Ungraded — no normalized observation"
@@ -1770,7 +1799,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.158,
             "F",
             0,
-            0.6696428571428572,
+            0.6336477987421384,
             0.18665713536174539,
             0.18034796332026068,
             "Velocity + acceleration — latest three observations"
@@ -1823,7 +1852,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "",
             "N/A",
             "",
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Ungraded — no normalized observation"
@@ -1876,7 +1905,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0.704,
             "C",
             2,
-            0.6696428571428572,
+            0.6336477987421384,
             0,
             0,
             "Flat — one observation"
@@ -2774,11 +2803,11 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
       },
       {
         "name": "Model",
-        "address": "A1:T28",
+        "address": "A1:U28",
         "description": "Quarter-level model inputs, fitted motion, and projected benchmark paths.",
         "sourceRows": 28,
-        "sourceColumns": 20,
-        "nonEmptyCells": 375,
+        "sourceColumns": 21,
+        "nonEmptyCells": 399,
         "rows": [
           [
             "Projection Model — Failure-Gap Velocity and Acceleration",
@@ -2800,6 +2829,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             null,
             null,
             null,
+            null,
             null
           ],
           [
@@ -2822,10 +2852,12 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             null,
             null,
             null,
+            null,
             null
           ],
           [
-            "Helper sheet. Latest three comparable quarter frontiers determine velocity and acceleration; sparse histories fall back to constant velocity, flat, or blank.",
+            "Helper sheet. Latest three comparable quarter frontiers determine velocity and acceleration; sparse histories fall back to constant velocity, flat, or blank. Evidence credits feed category confidence.",
+            null,
             null,
             null,
             null,
@@ -2866,7 +2898,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Projection basis",
             "Current score",
             "Letter",
-            "GPA"
+            "GPA",
+            "Evidence credits"
           ],
           [
             "DES-01",
@@ -2888,7 +2921,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.17749,
             "F",
-            0
+            0,
+            3
           ],
           [
             "DES-02",
@@ -2910,7 +2944,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Constant velocity — two observations",
             0.010067435,
             "F",
-            0
+            0,
+            2
           ],
           [
             "DES-03",
@@ -2932,7 +2967,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             1,
             "A",
-            4
+            4,
+            1
           ],
           [
             "DES-04",
@@ -2954,7 +2990,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.4321186625247882,
             "F",
-            0
+            0,
+            1
           ],
           [
             "DES-05",
@@ -2976,7 +3013,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.8,
             "B",
-            3
+            3,
+            1
           ],
           [
             "DES-06",
@@ -2998,7 +3036,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.18516388283148968,
             "F",
-            0
+            0,
+            1
           ],
           [
             "DES-07",
@@ -3020,7 +3059,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.273,
             "F",
-            0
+            0,
+            1
           ],
           [
             "OPS-01",
@@ -3042,7 +3082,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Constant velocity — two observations",
             0.503,
             "F",
-            0
+            0,
+            2
           ],
           [
             "OPS-02",
@@ -3064,7 +3105,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.511,
             "F",
-            0
+            0,
+            3
           ],
           [
             "OPS-03",
@@ -3086,7 +3128,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.607,
             "D",
-            1
+            1,
+            3
           ],
           [
             "OPS-04",
@@ -3108,7 +3151,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.758,
             "C",
-            2
+            2,
+            1
           ],
           [
             "OPS-05",
@@ -3130,7 +3174,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.429,
             "F",
-            0
+            0,
+            3
           ],
           [
             "OPS-06",
@@ -3151,7 +3196,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0,
             "Ungraded — no normalized observation",
             "",
-            "N/A"
+            "N/A",
+            "",
+            0
           ],
           [
             "OPS-07",
@@ -3173,7 +3220,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.384,
             "F",
-            0
+            0,
+            1
           ],
           [
             "OPS-08",
@@ -3195,7 +3243,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.552,
             "F",
-            0
+            0,
+            3
           ],
           [
             "PER-01",
@@ -3217,7 +3266,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.582,
             "F",
-            0
+            0,
+            1
           ],
           [
             "PER-02",
@@ -3239,6 +3289,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.676,
             "D",
+            1,
             1
           ],
           [
@@ -3261,7 +3312,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.333,
             "F",
-            0
+            0,
+            1
           ],
           [
             "PER-04",
@@ -3283,7 +3335,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Constant velocity — two observations",
             0.367,
             "F",
-            0
+            0,
+            2
           ],
           [
             "VAL-01",
@@ -3304,7 +3357,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0,
             "Ungraded — no normalized observation",
             "",
-            "N/A"
+            "N/A",
+            "",
+            0
           ],
           [
             "VAL-02",
@@ -3326,7 +3381,8 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Velocity + acceleration — latest three observations",
             0.158,
             "F",
-            0
+            0,
+            3
           ],
           [
             "VAL-03",
@@ -3347,7 +3403,9 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             0,
             "Ungraded — no normalized observation",
             "",
-            "N/A"
+            "N/A",
+            "",
+            0
           ],
           [
             "VAL-04",
@@ -3369,17 +3427,18 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Flat — one observation",
             0.704,
             "C",
-            2
+            2,
+            1
           ]
         ]
       },
       {
         "name": "Methodology",
-        "address": "A1:J45",
+        "address": "A1:J48",
         "description": "Definitions, scoring rules, grade scale, projection method, and limitations.",
-        "sourceRows": 45,
+        "sourceRows": 48,
         "sourceColumns": 10,
-        "nonEmptyCells": 118,
+        "nonEmptyCells": 124,
         "rows": [
           [
             "Methodology — Four-Year Capability Report Card",
@@ -3589,7 +3648,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Do not mix ratios to different anchors in one series. A changed task, harness, judge, budget, or anchor is a documented series break."
           ],
           [
-            "COMPOSITE RULES",
+            "COMPOSITE & CONFIDENCE RULES",
             null,
             null,
             null,
@@ -3617,12 +3676,24 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Mean GPA of graded benchmarks within the category."
           ],
           [
+            "Evidence credits",
+            "Each benchmark earns one credit per distinct quarterly observation, capped at three. Ungraded or unobserved benchmarks earn zero."
+          ],
+          [
+            "Confidence weight",
+            "Category evidence credits ÷ (3 × cataloged benchmarks in the category). This continuous 0–100% weight captures coverage and longitudinal depth."
+          ],
+          [
+            "Confidence label",
+            "High ≥80%; Medium ≥50%; Low <50%. The label summarizes the continuous weight used in the model."
+          ],
+          [
             "Overall GPA",
-            "Mean of the four category GPAs. Equal category weighting prevents categories with more benchmarks from dominating."
+            "Confidence-weighted mean of the four category GPAs, so sparse categories exert less influence without disappearing."
           ],
           [
             "Overall score",
-            "Mean of the four category mean scores after all benchmark metrics have been normalized to 0–100% completion/saturation."
+            "Confidence-weighted mean of category scores after every benchmark has been normalized to 0–100% completion/saturation."
           ],
           [
             "UPDATE PROTOCOL",

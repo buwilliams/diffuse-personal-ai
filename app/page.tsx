@@ -10,22 +10,31 @@ const PUBLICATION_DATE = '26 Aug 2026';
 const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
 const TOKENS_PER_H100E_DAY_M = 79.79328;
 const BASE_COMPUTE_ACCELERATION = -0.0311262;
-const BASE_CAPABILITY_ACCELERATION_PP = -0.4421575;
 const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(18.127258 / 13.524006);
 const SUPPLY_THRESHOLD = 100;
 
 const CAPABILITY_CURVE = [
-  ['2026-08-26', 46.6619285013],
-  ['2026-12-31', 49.9453547564],
-  ['2027-03-31', 53.6515058806],
-  ['2027-06-30', 57.0652796487],
-  ['2027-09-30', 59.7561166939],
-  ['2027-12-31', 61.5995295326],
-  ['2028-03-31', 62.7516472496],
-  ['2028-06-30', 63.4483085368],
-  ['2028-09-30', 63.8899661002],
-  ['2028-12-31', 64.2045831623],
+  ['2026-08-26', 47.5454716275],
+  ['2026-12-31', 50.7851145675],
+  ['2027-03-31', 54.2562821969],
+  ['2027-06-30', 57.3887651932],
+  ['2027-09-30', 59.8582614229],
+  ['2027-12-31', 61.5651828102],
+  ['2028-03-31', 62.6586700318],
+  ['2028-06-30', 63.3482574274],
+  ['2028-09-30', 63.8087383788],
+  ['2028-12-31', 64.1512305404],
 ] as const;
+
+const BASE_CAPABILITY_ACCELERATION_PP = (() => {
+  const scores = CAPABILITY_CURVE.slice(1).map(([, score]) => score);
+  const deltas = scores.slice(1).map((score, index) => score - scores[index]);
+  const xMean = (deltas.length - 1) / 2;
+  const yMean = deltas.reduce((sum, value) => sum + value, 0) / deltas.length;
+  const numerator = deltas.reduce((sum, value, index) => sum + (index - xMean) * (value - yMean), 0);
+  const denominator = deltas.reduce((sum, _, index) => sum + (index - xMean) ** 2, 0);
+  return numerator / denominator;
+})();
 
 const COMPUTE_CURVE = [
   ['2026-08-26', 13.524006],
@@ -88,6 +97,15 @@ const CAPABILITY_AGGREGATE: ReportChartSeries = (() => {
   };
 })();
 
+const CAPABILITY_CONFIDENCE = (() => {
+  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Summary');
+  const row = sheet?.rows.find((item) => item[0] === 'Overall (confidence-weighted)');
+  return {
+    label: typeof row?.[9] === 'string' ? row[9] : 'Unknown',
+    weight: typeof row?.[10] === 'number' ? row[10] * 100 : 0,
+  };
+})();
+
 const COMPUTE_SUPPLY_SERIES: ReportChartSeries = (() => {
   const sheet = workbooks.compute.sheets.find((item) => item.name === 'Quarterly Model');
   return {
@@ -116,7 +134,7 @@ type ModelInputs = {
 };
 
 const DEFAULTS: ModelInputs = {
-  currentCapability: 46.6619,
+  currentCapability: CAPABILITY_CURVE[0][1],
   capabilityThreshold: 60,
   capabilityAcceleration: 1,
   populationM: 342.697245,
@@ -811,7 +829,8 @@ export default function Home() {
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
         ['Acceleration', `${inputs.capabilityAcceleration.toFixed(2)}× baseline`],
         ['Projected crossing', capabilityDate],
-        ['Workbook default', '13 Oct 2027'],
+        ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
+        ['Workbook default', '8 Oct 2027'],
       ],
     },
     compute: {
@@ -841,7 +860,7 @@ export default function Home() {
     { label: 'Current score', value: reports.capability.current },
     { label: 'Threshold', value: reports.capability.threshold },
     { label: 'Crossing', value: reports.capability.crossing },
-    { label: 'Accel. multiplier', value: `${inputs.capabilityAcceleration.toFixed(2)}×` },
+    { label: 'Confidence', value: `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%` },
   ] : [
     { label: 'Supply threshold', value: reports.compute.threshold },
     { label: 'Population target', value: `${inputs.coverageThreshold.toFixed(0)}% · ${projection.targetUsersM.toFixed(1)}M` },
