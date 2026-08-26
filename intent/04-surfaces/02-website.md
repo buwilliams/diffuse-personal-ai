@@ -7,6 +7,7 @@ The website compresses the conjecture into one legible countdown, exposes the mo
 ## What must remain true
 
 - The first viewport states the conjecture and shows years, months, days, and hours.
+- The gate cards are introduced by a visible `Gates.` label explaining that both conditions must clear and the later crossing controls the countdown.
 - The publication date signals evidence freshness.
 - Readers can adjust capability threshold and acceleration, population and coverage, workload, serving efficiency, and compute acceleration.
 - Each acceleration control is anchored at `1×`, which preserves the report-card path. Raising it must increase quarter-over-quarter gains and must never move that gate's crossing later when all other inputs are unchanged.

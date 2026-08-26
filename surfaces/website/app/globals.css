@@ -57,6 +57,8 @@ a { color: inherit; }
 .conjecture { width:min(850px,100%); margin:0 auto 36px; display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,5vw,70px); color:#b6cec6; font-size:clamp(13px,1.1vw,15px); line-height:1.65; }
 .conjecture p { margin:0; }
 .conjecture span { color:var(--mint); font-weight:650; }
+.gate-label { width:min(850px,100%); margin:0 auto 12px; color:#b6cec6; font-size:clamp(13px,1.1vw,15px); line-height:1.5; }
+.gate-label span { color:var(--mint); font-weight:650; }
 .gates { width:min(850px,100%); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .gate-card { position:relative; display:grid; gap:13px; padding:24px 28px; color:inherit; background:rgba(3,20,21,.36); border:0; text-align:left; cursor:pointer; transition:background .25s ease; }
 .gate-card + .gate-card { border-left:1px solid var(--line); }

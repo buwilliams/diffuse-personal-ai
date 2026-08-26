@@ -1004,6 +1004,7 @@ export default function Home() {
         <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. Instant distribution and universal value-add remain explicit assumptions.</p>
       </section>
 
+      <p className="gate-label"><span>Gates.</span> Both conditions must clear; the later crossing controls the countdown.</p>
       <section className="gates" aria-label="Projection gates">
         <button onClick={() => openReport('capability')} className="gate-card">
           <span className="gate-index">01 / demand proxy{projection.controllingGate === 'capability' ? ' · controls clock' : ''}</span>
