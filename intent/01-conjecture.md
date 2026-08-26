@@ -3,7 +3,7 @@
 **Forecast origin:** 25 August 2026
 
 **Resolution dates:** 25 February 2027 and 25 August 2027
-**Evidence cutoff:** 25 August 2026
+**Evidence cutoff:** 26 August 2026
 
 ## Executive judgment
 
@@ -133,7 +133,7 @@ The forecast has two causal gates:
 1. **Model-harness capability:** the preferred primary metric is `ESH50`, the longest duration for which the system has at least a 50% probability of producing positive risk-adjusted net value while preserving required buffers, fulfilling obligations, remaining within authority, recovering from shocks, and respecting token, dollar, wall-clock, and human-attention budgets. Until a stable stewardship suite exists, the 50%-success model-plus-harness task horizon is the interim trend proxy. Frozen-harness reruns remain attribution diagnostics; ESH80 or H80 is the reliability guardrail.
 2. **Supply and demand:** operational supply is U.S. AI IT power multiplied by reference-token productivity, then reduced by explicit inference and Personal-AI allocation shares. Demand is the sum of users in each archetype multiplied by compute-equivalent tokens per user per day. Planned capacity remains a dated lead indicator until commissioned.
 
-Current METR TH1.1 estimates put the P50 system-horizon doubling time at **196.5 days all-time**, **130.8 days for releases since 2023**, and **88.6 days since 2024**. The shortening is suggestive, not conclusive, because task composition and evaluation infrastructure changed and the recent window is short. ARC-AGI-3 supplies the central harness warning: verified model results and near-saturating community systems use different tracks, so their gap demonstrates system-envelope sensitivity but is not a causal harness multiplier.
+METR TH1.1's current raw file reports P50 system-horizon doubling times of **187.778 days all-time** and **128.744 days for releases since 2023**, with a **104.428–158.012 day** interval for the recent fit. The forecast's explicitly directional GPT-5-to-Claude-Mythos endpoint check implies **102.811 days**; it is not an independent METR acceleration fit, and the Mythos estimate exceeds METR's 16-hour reliable range. The shortening is therefore suggestive rather than conclusive. ARC-AGI-3 supplies the central harness warning: verified model results and near-saturating community systems use different tracks, so their gap demonstrates system-envelope sensitivity but is not a causal harness multiplier. [METR TH1.1 raw results](https://metr.org/assets/benchmark_results_1_1.yaml)
 
 Epoch AI's maintained tracker covered **83 sites, 14.4 million H100-equivalents, and 13 GW of IT power** in August 2026. The forecast joins its registry to its timeline and reconstructs **11.879 GW of operational U.S. IT power** at the 26 August cutoff. The same states contain **13.524 million H100e**, retained only as a transparent audit cross-check. Inference productivity comes from an independent MLPerf goodput-per-power series. This is public-tracker capacity, not a complete census, and source revisions can change the historical series.
 

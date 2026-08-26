@@ -49,7 +49,7 @@ To test acceleration, fit a local quadratic or compare prespecified rolling wind
 - `γ ≈ 0`: doubling time is roughly steady.
 - `γ < 0`: doubling time is growing.
 
-METR TH1.1 reports P50 doubling times of **196.5 days all-time**, **130.8 days for releases since 2023** with a 107–161 day interval, and **88.6 days since 2024**. The shorter windows suggest acceleration, but task composition, evaluation changes, a small number of frontier points, and a rising measurement ceiling make this directional rather than conclusive. [METR TH1.1 results](https://metr.org/blog/2026-1-29-time-horizon-1-1/)
+METR TH1.1's current raw file reports P50 doubling times of **187.778 days all-time** and **128.744 days for releases since 2023**, with a **104.428–158.012 day** interval for the recent fit. The forecast also records a **102.811-day** GPT-5-to-Claude-Mythos endpoint check, but this is directional rather than an independent acceleration fit; the Mythos estimate exceeds METR's 16-hour reliable range. Task composition, evaluation changes, the small number of frontier points, and a rising measurement ceiling therefore prevent a strong statistical acceleration claim. [METR TH1.1 raw results](https://metr.org/assets/benchmark_results_1_1.yaml)
 
 ### Harness contribution
 
