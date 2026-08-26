@@ -12,6 +12,7 @@ const TOKENS_PER_H100E_DAY_M = 79.79328;
 const BASE_COMPUTE_ACCELERATION = -0.0311262;
 const BASE_CAPABILITY_ACCELERATION_PP = -0.4421575;
 const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(18.127258 / 13.524006);
+const SUPPLY_THRESHOLD = 100;
 
 const CAPABILITY_CURVE = [
   ['2026-08-26', 46.6619285013],
@@ -763,7 +764,7 @@ export default function Home() {
     const capabilityCrossing = findCrossing((timestamp) =>
       capabilityAt(timestamp, inputs) >= inputs.capabilityThreshold);
     const computeCrossing = findCrossing((timestamp) =>
-      supportedUsersAt(timestamp, inputs) >= targetUsersM);
+      supportedUsersAt(timestamp, inputs) / targetUsersM * 100 >= SUPPLY_THRESHOLD);
     const target = capabilityCrossing && computeCrossing
       ? new Date(Math.max(capabilityCrossing.getTime(), computeCrossing.getTime()))
       : null;
@@ -818,14 +819,15 @@ export default function Home() {
       title: 'Compute report card',
       current: `${projection.computeProgress.toFixed(1)}%`,
       grade: grade(projection.computeProgress),
-      threshold: `${projection.targetUsersM.toFixed(1)}M users`,
+      threshold: `${SUPPLY_THRESHOLD}%`,
       crossing: computeDate,
-      note: 'The live scenario translates operational H100-equivalents into supported users using your population, workload, serving-efficiency, and acceleration settings.',
+      note: 'The supply gate clears at 100% of the selected population target. Changing the population share changes how many users that threshold represents.',
       href: '/reports/personal-ai-compute-report-card.xlsx',
       rows: [
+        ['Supply threshold', `${SUPPLY_THRESHOLD}%`],
+        ['Population target', `${inputs.coverageThreshold.toFixed(0)}% of U.S. · ${projection.targetUsersM.toFixed(1)}M users`],
         ['Current U.S. H100e', `${inputs.currentComputeM.toFixed(2)}M`],
         ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
-        ['Target users', `${projection.targetUsersM.toFixed(1)}M`],
         ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× baseline`],
         ['Projected crossing', computeDate],
       ],
@@ -841,10 +843,10 @@ export default function Home() {
     { label: 'Crossing', value: reports.capability.crossing },
     { label: 'Accel. multiplier', value: `${inputs.capabilityAcceleration.toFixed(2)}×` },
   ] : [
-    { label: 'Supported users', value: `${projection.currentSupportedM.toFixed(1)}M` },
-    { label: 'Target users', value: reports.compute.threshold },
+    { label: 'Supply threshold', value: reports.compute.threshold },
+    { label: 'Population target', value: `${inputs.coverageThreshold.toFixed(0)}% · ${projection.targetUsersM.toFixed(1)}M` },
     { label: 'Crossing', value: reports.compute.crossing },
-    { label: 'Progress', value: reports.compute.current },
+    { label: 'Current progress', value: reports.compute.current },
   ];
 
   return (
@@ -896,7 +898,7 @@ export default function Home() {
           <span className="gate-index">02 / supply</span>
           <span className="gate-name">U.S. compute</span>
           <span className="gate-meter"><i style={{ width: `${projection.computeProgress}%` }} /></span>
-          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>of target · {computeDate}</em></span>
+          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>of {SUPPLY_THRESHOLD}% · {inputs.coverageThreshold.toFixed(0)}% of U.S. population · {computeDate}</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
       </section>
@@ -936,7 +938,7 @@ export default function Home() {
               <fieldset>
                 <legend>U.S. compute supply</legend>
                 <ControlField label="Population" note="Addressable U.S. population" value={inputs.populationM} min={250} max={450} step={0.1} suffix="M" onChange={(value) => update('populationM', value)} />
-                <ControlField label="Population served" note="Supply threshold" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
+                <ControlField label="Population target" note="Share represented by the 100% supply threshold" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
                 <ControlField label="Current compute" note="Operational U.S. H100e" value={inputs.currentComputeM} min={5} max={50} step={0.1} suffix="M" onChange={(value) => update('currentComputeM', value)} />
                 <ControlField label="Compute acceleration" note="1× = −0.031 log₂/q²" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
                 <ControlField label="Agent workload" note="Compute-equivalent tokens/user/day" value={inputs.workloadM} min={5} max={50} step={0.25} suffix="M" decimals={2} onChange={(value) => update('workloadM', value)} />
