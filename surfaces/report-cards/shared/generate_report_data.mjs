@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 
 const githubDataBase = 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports';
+const githubBlobBase = 'https://github.com/buwilliams/diffuse-personal-ai/blob/main';
 
 const [capabilityPath, computePath, outputPath] = process.argv.slice(2);
 
@@ -27,13 +28,34 @@ function isBlank(value) {
   return value === null || value === undefined || value === '';
 }
 
+function publicReference(value) {
+  if (typeof value !== 'string') return value;
+
+  let normalized = value.trim().replaceAll('\\', '/');
+  const projectMarker = '/Personal AI Prediction/';
+  const projectIndex = normalized.lastIndexOf(projectMarker);
+  if (projectIndex >= 0) normalized = normalized.slice(projectIndex + projectMarker.length);
+
+  normalized = normalized.replace(/^\.\//, '');
+  if (/^(data|intent|surfaces)\//.test(normalized) || /^(README|DEPLOY)\.md$/.test(normalized)) {
+    const encodedPath = normalized.split('/').map(encodeURIComponent).join('/');
+    return `${githubBlobBase}/${encodedPath}`;
+  }
+
+  if (/^(?:[a-z]:\/|file:\/\/|\/mnt\/[a-z]\/|\/Users\/|\/home\/)/i.test(normalized)) {
+    throw new Error(`Local filesystem reference cannot be published: ${value}`);
+  }
+
+  return value;
+}
+
 function normalizeRows(rows) {
   const normalized = [];
   for (const sourceRow of rows) {
     let last = sourceRow.length - 1;
     while (last >= 0 && isBlank(sourceRow[last])) last -= 1;
     if (last < 0) continue;
-    const row = sourceRow.slice(0, last + 1);
+    const row = sourceRow.slice(0, last + 1).map(publicReference);
 
     for (let start = 0; start < row.length;) {
       const value = row[start];

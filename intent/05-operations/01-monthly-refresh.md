@@ -146,6 +146,8 @@ $SiteRoot = Join-Path $ProjectRoot 'surfaces\website'
 
 Commit `report-data.ts` and both workbooks, but never edit them manually. The website downloads the canonical workbooks from the public GitHub repository; no duplicate XLSX files belong under `surfaces/website/public/`.
 
+The generator converts repository-relative references to public GitHub URLs and rejects local absolute paths. Every source shown in the HTML report must therefore be an HTTPS link or plain descriptive text—not a developer-machine path.
+
 ### 8. Build and reconcile
 
 Run the production build from `surfaces/website/` with the bundled pnpm runtime. It must pass without TypeScript or bundling errors.
@@ -162,6 +164,7 @@ Then verify the default scenario end to end:
 8. The headline is the later crossing.
 9. Population share, tokens per user per day, serving efficiency, capability threshold, and both acceleration controls affect the correct gate.
 10. Both report modals show current data and both downloads open the current workbooks.
+11. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
 
 ## Publication
 

@@ -813,6 +813,15 @@ export default function Home() {
     return () => window.removeEventListener('keydown', close);
   }, []);
 
+  useEffect(() => {
+    const report = new URLSearchParams(window.location.search).get('report');
+    if (report === 'capability' || report === 'compute') {
+      setActiveSheetName('Summary');
+      setReportQuery('');
+      setModal(report);
+    }
+  }, []);
+
   const projection = useMemo(() => {
     const targetUsersM = inputs.populationM * inputs.coverageThreshold / 100;
     const requiredComputeM = targetUsersM * SUPPLY_GATE_SHARE_OF_TARGET * inputs.workloadM /

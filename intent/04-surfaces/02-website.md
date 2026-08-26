@@ -13,6 +13,8 @@ The website compresses the conjecture into one legible countdown, exposes the mo
 - The compute chart shows H100-equivalent capacity and its implied gate.
 - Both report modals explain the calculation in a flat numbered list and expose the full workbook tables.
 - Workbook downloads resolve to the canonical files in `data/reports/` on the public GitHub repository.
+- Source cells render as clickable HTTPS links. Repository documents point to their public GitHub view, while report-to-report references open the corresponding HTML report when possible.
+- Public HTML, styles, generated report data, and URLs contain no local filesystem paths such as `C:\...`, `file://...`, or WSL mount paths.
 
 ## Updating and publishing
 

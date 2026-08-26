@@ -5133,7 +5133,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
             "Publisher",
             "Title / dataset",
             "Updated / accessed",
-            "URL / path",
+            "Public URL",
             "Use and limitation"
           ],
           [
@@ -5171,17 +5171,17 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
           [
             "SRC-005",
             "Personal AI forecast",
-            "System capability and data-center buildouts workbook",
+            "Report-card calculation contract",
             "2026-08-26T00:00:00.000Z",
-            "data/reports/legacy/personal-ai-system-capability-and-data-center-buildouts.xlsx",
+            "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
             "Serving envelope and high-autonomy token mix; assumptions remain editable"
           ],
           [
             "SRC-006",
             "Personal AI forecast",
-            "Model-harness capability report card",
+            "Model-harness capability report card — HTML",
             "2026-08-26T00:00:00.000Z",
-            "data/reports/personal-ai-four-year-capability-report-card.xlsx",
+            "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability",
             "Capability crosses 60% by interpolation around 2027-10-08"
           ]
         ]

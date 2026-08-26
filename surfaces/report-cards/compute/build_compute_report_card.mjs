@@ -222,14 +222,14 @@ summary.freezePanes.freezeRows(3);
 
 // Sources.
 titleBand(sources, "A1:F2", "Source Registry", "A3:F3", "Primary inputs and the main limitations that matter for the compute crossing date.");
-sources.getRange("A5:F5").values = [["Source ID", "Publisher", "Title / dataset", "Updated / accessed", "URL / path", "Use and limitation"]];
+sources.getRange("A5:F5").values = [["Source ID", "Publisher", "Title / dataset", "Updated / accessed", "Public URL", "Use and limitation"]];
 sources.getRange("A6:F11").values = [
   ["SRC-001", "Epoch AI", "AI Data Centers", asOf, "https://epoch.ai/data/ai-data-centers", "Dataset scope, H100e convention, coverage, and uncertainty"],
   ["SRC-002", "Epoch AI", "AI Data Center Timelines CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_center_timelines.csv", "Quarterly U.S. operational H100e reconstructed from latest site state at each cutoff"],
   ["SRC-003", "Epoch AI", "AI Data Centers CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_centers.csv", "Country filter and current site registry"],
   ["SRC-004", "U.S. Census Bureau", "Population on a Date", d("2026-07-26"), "https://www.census.gov/popclock/", "Model uses the user-specified rounded estimate of 342.8M residents; the selected target is 50%, or 171.4M users"],
-  ["SRC-005", "Personal AI forecast", "System capability and data-center buildouts workbook", asOf, "data/reports/legacy/personal-ai-system-capability-and-data-center-buildouts.xlsx", "Serving envelope and high-autonomy token mix; assumptions remain editable"],
-  ["SRC-006", "Personal AI forecast", "Model-harness capability report card", asOf, "data/reports/personal-ai-four-year-capability-report-card.xlsx", "Capability crosses 60% by interpolation around 2027-10-08"],
+  ["SRC-005", "Personal AI forecast", "Report-card calculation contract", asOf, "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md", "Serving envelope and high-autonomy token mix; assumptions remain editable"],
+  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability crosses 60% by interpolation around 2027-10-08"],
 ];
 header(sources.getRange("A5:F5")); body(sources.getRange("A6:F11")); sources.getRange("D6:D11").format.numberFormat = "yyyy-mm-dd"; sources.tables.add("A5:F11", true, "ComputeSourcesTable"); sources.freezePanes.freezeRows(5);
 
