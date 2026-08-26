@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './report-data';
 
 const DAY = 86_400_000;
 const QUARTER = (365.2425 / 4) * DAY;
@@ -235,11 +236,149 @@ function ControlField({ label, note, value, min, max, step, suffix, decimals = 1
   );
 }
 
+function reportContext(sheet: ReportSheet, rowIndex: number, columnIndex: number) {
+  const labels: string[] = [];
+  const row = sheet.rows[rowIndex] || [];
+  const rowLabel = row.find((value) => typeof value === 'string');
+  if (typeof rowLabel === 'string') labels.push(rowLabel);
+  for (let index = Math.max(0, rowIndex - 5); index <= rowIndex; index += 1) {
+    const value = sheet.rows[index]?.[columnIndex];
+    if (typeof value === 'string') labels.push(value);
+  }
+  return labels.join(' ').toLowerCase();
+}
+
+function excelDate(serial: number) {
+  const timestamp = Date.UTC(1899, 11, 30) + Math.floor(serial) * DAY;
+  return new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC',
+  }).format(new Date(timestamp));
+}
+
+function formattedReportValue(value: ReportCell, sheet: ReportSheet, rowIndex: number, columnIndex: number) {
+  if (value === null || value === '') return '';
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (typeof value === 'string') {
+    if (/^\d{4}-\d{2}-\d{2}T/.test(value)) {
+      return new Intl.DateTimeFormat('en-CA', {
+        year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC',
+      }).format(new Date(value));
+    }
+    return value;
+  }
+
+  const context = reportContext(sheet, rowIndex, columnIndex);
+  if (value > 30_000 && value < 60_000 && /(date|cutoff|crossing|updated|accessed|as-of)/.test(context)) {
+    return excelDate(value);
+  }
+  if (Math.abs(value) <= 1.1 && /(score|rate|share|coverage|utilization|threshold|percent|minimum)/.test(context)) {
+    return `${(value * 100).toFixed(Math.abs(value) < 0.01 ? 2 : 1)}%`;
+  }
+  if (Math.abs(value) >= 1e12) return value.toExponential(2).replace('e+', 'E+');
+  if (Number.isInteger(value)) return value.toLocaleString('en-US');
+  if (Math.abs(value) >= 1000) return value.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  return value.toLocaleString('en-US', { maximumFractionDigits: 4 });
+}
+
+function reportRowClass(row: ReportCell[]) {
+  const filled = row.filter((value) => value !== null && value !== '');
+  if (filled.length === 1 && typeof filled[0] === 'string' && filled[0].length > 8) return 'report-section-row';
+  if (filled.length > 1 && filled.every((value) => typeof value === 'string')) return 'report-header-row';
+  return '';
+}
+
+type WorkbookBrowserProps = {
+  workbook: ReportWorkbook;
+  sheet: ReportSheet;
+  query: string;
+  onQuery: (query: string) => void;
+  onSheet: (name: string) => void;
+  onClose: () => void;
+  scenario: { label: string; value: string }[];
+};
+
+function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario }: WorkbookBrowserProps) {
+  const rows = sheet.rows
+    .map((row, index) => ({ row, index }))
+    .filter(({ row }) => !query || row.some((value) => String(value ?? '').toLowerCase().includes(query.toLowerCase())));
+  const totalCells = workbook.sheets.reduce((sum, item) => sum + item.nonEmptyCells, 0);
+
+  return (
+    <div className="modal-backdrop report-backdrop" role="presentation" onMouseDown={onClose}>
+      <section className="report-browser" role="dialog" aria-modal="true" aria-labelledby="report-title" onMouseDown={(event) => event.stopPropagation()}>
+        <button className="modal-close report-close" aria-label="Close HTML report" onClick={onClose}>×</button>
+        <header className="report-head">
+          <div>
+            <p className="modal-eyebrow">Complete HTML workbook</p>
+            <h2 id="report-title">{workbook.title}</h2>
+            <p>Every populated worksheet is available below. The Excel file remains the formula-preserving source of record.</p>
+          </div>
+          <a className="report-download" href={workbook.download} download>Download .xlsx <span>↓</span></a>
+        </header>
+
+        <div className="report-scenario">
+          {scenario.map((item) => <span key={item.label}><small>{item.label}</small><strong>{item.value}</strong></span>)}
+        </div>
+
+        <div className="report-shell">
+          <nav className="sheet-nav" aria-label="Workbook sheets">
+            <p>{workbook.sheets.length} worksheets · {totalCells.toLocaleString('en-US')} populated cells</p>
+            {workbook.sheets.map((item, index) => (
+              <button key={item.name} className={item.name === sheet.name ? 'active' : ''} onClick={() => onSheet(item.name)}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <b>{item.name}</b>
+                <small>{item.sourceRows} × {item.sourceColumns}</small>
+              </button>
+            ))}
+          </nav>
+
+          <section className="sheet-view" aria-labelledby="sheet-title">
+            <div className="sheet-toolbar">
+              <div>
+                <p className="sheet-address">{sheet.address} · {sheet.nonEmptyCells} populated cells</p>
+                <h3 id="sheet-title">{sheet.name}</h3>
+                <p>{sheet.description}</p>
+              </div>
+              <label className="report-search">
+                <span>Filter rows</span>
+                <input type="search" value={query} placeholder="Benchmark, source, quarter…" onChange={(event) => onQuery(event.target.value)} />
+              </label>
+            </div>
+
+            <div className="report-table-wrap">
+              <table className="report-table">
+                <tbody>
+                  {rows.map(({ row, index }) => (
+                    <tr key={`${sheet.name}-${index}`} className={reportRowClass(row)}>
+                      {row.map((value, columnIndex) => {
+                        const formatted = formattedReportValue(value, sheet, index, columnIndex);
+                        const isUrl = typeof value === 'string' && /^https?:\/\//.test(value);
+                        return (
+                          <td key={columnIndex} className={typeof value === 'number' ? 'numeric' : ''}>
+                            {isUrl ? <a href={value as string} target="_blank" rel="noreferrer">{value}</a> : formatted}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {rows.length === 0 && <p className="no-results">No rows match “{query}”.</p>}
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function Home() {
   const [now, setNow] = useState(SNAPSHOT);
   const [inputs, setInputs] = useState<ModelInputs>(DEFAULTS);
   const [modal, setModal] = useState<ModalName>(null);
   const [tunerOpen, setTunerOpen] = useState(false);
+  const [activeSheetName, setActiveSheetName] = useState('Summary');
+  const [reportQuery, setReportQuery] = useState('');
 
   useEffect(() => {
     const sync = window.setTimeout(() => setNow(Date.now()), 0);
@@ -255,6 +394,7 @@ export default function Home() {
       if (event.key === 'Escape') {
         setModal(null);
         setTunerOpen(false);
+        setReportQuery('');
       }
     };
     window.addEventListener('keydown', close);
@@ -293,6 +433,12 @@ export default function Home() {
     setInputs((current) => ({ ...current, [key]: value }));
   };
 
+  const openReport = (name: Exclude<ModalName, null>) => {
+    setActiveSheetName('Summary');
+    setReportQuery('');
+    setModal(name);
+  };
+
   const reports = {
     capability: {
       eyebrow: 'Demand proxy / capability',
@@ -329,7 +475,21 @@ export default function Home() {
       ],
     },
   };
-  const active = modal ? reports[modal] : null;
+  const activeWorkbook = modal ? workbooks[modal] : null;
+  const activeSheet = activeWorkbook
+    ? activeWorkbook.sheets.find((sheet) => sheet.name === activeSheetName) || activeWorkbook.sheets[0]
+    : null;
+  const activeScenario = modal === 'capability' ? [
+    { label: 'Current score', value: reports.capability.current },
+    { label: 'Threshold', value: reports.capability.threshold },
+    { label: 'Crossing', value: reports.capability.crossing },
+    { label: 'Acceleration', value: `${inputs.capabilityAcceleration.toFixed(2)}×` },
+  ] : [
+    { label: 'Supported users', value: `${projection.currentSupportedM.toFixed(1)}M` },
+    { label: 'Target users', value: reports.compute.threshold },
+    { label: 'Crossing', value: reports.compute.crossing },
+    { label: 'Progress', value: reports.compute.current },
+  ];
 
   return (
     <main className="site-shell">
@@ -364,19 +524,19 @@ export default function Home() {
       </section>
 
       <section className="conjecture">
-        <p><span>Conjecture.</span> Personal AI diffuses when two gates clear: model–harness capability rises above F, and U.S. inference supply can serve the selected share of the country. The later modeled crossing sets the clock.</p>
-        <p>Delegation has rocket economics: failure is tolerated when the upside is large and risk can be bounded. Frontier labs can distribute a passing system through products already connected to the internet; once both gates clear, demand should follow capability rather than wait for a separate adoption curve.</p>
+        <p><span>Conjecture.</span> Within three years, model–harness systems will cross a practical threshold: they will perform profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. The dividend is time returned from imposed demands to internalized wants—chosen contribution, relationships, play, and pleasure.</p>
+        <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. Instant distribution and universal value-add remain explicit assumptions.</p>
       </section>
 
       <section className="gates" aria-label="Projection gates">
-        <button onClick={() => setModal('capability')} className="gate-card">
+        <button onClick={() => openReport('capability')} className="gate-card">
           <span className="gate-index">01 / demand proxy</span>
           <span className="gate-name">Model–harness</span>
           <span className="gate-meter"><i style={{ width: `${projection.capabilityProgress}%` }} /></span>
           <span className="gate-stats"><b>{inputs.currentCapability.toFixed(1)}%</b><em>of {inputs.capabilityThreshold.toFixed(0)}% · {capabilityDate}</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
-        <button onClick={() => setModal('compute')} className="gate-card">
+        <button onClick={() => openReport('compute')} className="gate-card">
           <span className="gate-index">02 / supply</span>
           <span className="gate-name">U.S. compute</span>
           <span className="gate-meter"><i style={{ width: `${projection.computeProgress}%` }} /></span>
@@ -435,25 +595,16 @@ export default function Home() {
         </div>
       )}
 
-      {active && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={() => setModal(null)}>
-          <section className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onMouseDown={(event) => event.stopPropagation()}>
-            <button className="modal-close" aria-label="Close report" onClick={() => setModal(null)}>×</button>
-            <p className="modal-eyebrow">{active.eyebrow}</p>
-            <h2 id="modal-title">{active.title}</h2>
-            <p className="modal-note">{active.note}</p>
-            <div className="modal-score">
-              <span><small>Current</small><strong>{active.current}</strong></span>
-              <span><small>Letter</small><strong>{active.grade}</strong></span>
-              <span><small>Threshold</small><strong>{active.threshold}</strong></span>
-              <span><small>Crossing</small><strong>{active.crossing}</strong></span>
-            </div>
-            <dl className="data-table">
-              {active.rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
-            </dl>
-            <a className="workbook-link" href={active.href}>Open default data workbook <span>↗</span></a>
-          </section>
-        </div>
+      {activeWorkbook && activeSheet && (
+        <WorkbookBrowser
+          workbook={activeWorkbook}
+          sheet={activeSheet}
+          query={reportQuery}
+          onQuery={setReportQuery}
+          onSheet={(name) => { setActiveSheetName(name); setReportQuery(''); }}
+          onClose={() => { setModal(null); setReportQuery(''); }}
+          scenario={activeScenario}
+        />
       )}
     </main>
   );
