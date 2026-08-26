@@ -11,12 +11,15 @@ This folder is the authoritative statement of the Diffuse Personal AI conjecture
   - [Consumer delegation metric](02-model/03-consumer-delegation-metric.md)
   - [Benchmark velocity](02-model/04-benchmark-velocity.md)
   - [Data structure](02-model/05-data-structure.md)
+  - [Report-card calculations](02-model/06-report-card-calculations.md)
 - Capabilities
   - [User capability catalog](03-capabilities/01-user-capability-catalog.md)
 - Surfaces
   - [Surface principles](04-surfaces/01-surface-principles.md)
   - [Website](04-surfaces/02-website.md)
   - [Report cards](04-surfaces/03-report-cards.md)
+- Operations
+  - [Monthly evidence refresh and publication](05-operations/01-monthly-refresh.md)
 
 ## Key ideas
 
@@ -28,4 +31,4 @@ This folder is the authoritative statement of the Diffuse Personal AI conjecture
 
 ## Updating
 
-Change intent first. Add or revise evidence in `data/`. Then rebuild the report cards and website. A surface that contradicts this folder or the current data is wrong by definition.
+Change intent first. Add or revise evidence in `data/`. Then rebuild the report cards and website by following the [monthly refresh procedure](05-operations/01-monthly-refresh.md). A surface that contradicts this folder or the current data is wrong by definition.

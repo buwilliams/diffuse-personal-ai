@@ -20,4 +20,4 @@ Using the Node executable supplied by the Codex workspace runtime, run from the 
   surfaces/website/app/report-data.ts
 ```
 
-Then synchronize the live curves in `surfaces/website/app/page.tsx` and follow `spec.md` for reconciliation and publication.
+Then synchronize the live curves in `surfaces/website/app/page.tsx` and follow [`intent/05-operations/01-monthly-refresh.md`](../../intent/05-operations/01-monthly-refresh.md) for reconciliation and publication.

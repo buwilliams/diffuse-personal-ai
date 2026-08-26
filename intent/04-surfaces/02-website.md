@@ -13,3 +13,7 @@ The website compresses the conjecture into one legible countdown, exposes the mo
 - The compute chart shows H100-equivalent capacity and its implied gate.
 - Both report modals explain the calculation in a flat numbered list and expose the full workbook tables.
 - Workbook downloads resolve to the canonical files in `data/reports/` on the public GitHub repository.
+
+## Updating and publishing
+
+The authoritative synchronization, reconciliation, and publication procedure is [Monthly evidence refresh and publication](../05-operations/01-monthly-refresh.md). This document defines the website contract; it does not duplicate the operating procedure.

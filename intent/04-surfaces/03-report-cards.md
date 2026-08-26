@@ -13,3 +13,7 @@ The report cards preserve the evidence, transformations, uncertainty, and quarte
 - Capability uses failure-gap velocity and acceleration.
 - Compute uses operational H100-equivalent capacity and a visible serving envelope.
 - Workbooks render, inspect, and error-scan cleanly before publication.
+
+## Updating
+
+The formulas are authoritative in [Report-card calculation contract](../02-model/06-report-card-calculations.md), and the build and verification sequence is authoritative in [Monthly evidence refresh and publication](../05-operations/01-monthly-refresh.md). This document defines the report-card contract; it does not duplicate those procedures.

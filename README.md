@@ -12,6 +12,7 @@ intent/                     Authoritative conjecture, model, and capability defi
   02-model/                 Two-gate model, metrics, benchmark trends, data design
   03-capabilities/          User-relevant capability catalog
   04-surfaces/              Rules each public surface must preserve
+  05-operations/            Authoritative refresh and publication procedure
 
 data/
   sources/                  Append-only CSV registries and observations
@@ -23,8 +24,7 @@ surfaces/
   report-cards/             Workbook builders and HTML-data generator
   website/                  Vinext/Next site deployed with ChatGPT Sites
 
-spec.md                     Full data-refresh and publication runbook
-DEPLOY.md                   Short deployment checklist
+DEPLOY.md                   Pointer to the authoritative publication procedure
 ```
 
 **Rule: change `intent/` first, update `data/` second, then regenerate or re-verify every affected surface.** A surface that contradicts intent or data is wrong by definition.
@@ -46,7 +46,7 @@ The canonical downloadable workbooks are:
 - [`data/reports/personal-ai-four-year-capability-report-card.xlsx`](data/reports/personal-ai-four-year-capability-report-card.xlsx)
 - [`data/reports/personal-ai-compute-report-card.xlsx`](data/reports/personal-ai-compute-report-card.xlsx)
 
-Build and synchronization instructions are in [`surfaces/report-cards/README.md`](surfaces/report-cards/README.md). The complete monthly operating procedure is in [`spec.md`](spec.md).
+Build commands are in [`surfaces/report-cards/README.md`](surfaces/report-cards/README.md). The authoritative monthly operating procedure is in [`intent/05-operations/01-monthly-refresh.md`](intent/05-operations/01-monthly-refresh.md).
 
 ## Status
 
