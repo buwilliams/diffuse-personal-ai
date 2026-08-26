@@ -13,6 +13,107 @@ const asOf = new Date(Date.UTC(2026, 7, 26));
 const d = (iso) => iso ? new Date(`${iso}T00:00:00Z`) : null;
 const currentQuarterIndex = 11; // 2026-Q3 in the 2024-Q1 = 1 sequence
 const firstForecastQuarterIndex = 12;
+const quarterDays = 365.2425 / 4;
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let quoted = false;
+  for (let index = 0; index < text.length; index++) {
+    const char = text[index];
+    if (quoted) {
+      if (char === '"' && text[index + 1] === '"') { field += '"'; index++; }
+      else if (char === '"') quoted = false;
+      else field += char;
+    } else if (char === '"') quoted = true;
+    else if (char === ',') { row.push(field); field = ""; }
+    else if (char === '\n') { row.push(field.replace(/\r$/, "")); rows.push(row); row = []; field = ""; }
+    else field += char;
+  }
+  if (field.length || row.length) { row.push(field.replace(/\r$/, "")); rows.push(row); }
+  const [headers, ...body] = rows;
+  return body.filter((values) => values.some((value) => value !== "")).map((values) =>
+    Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])),
+  );
+}
+
+function solveLinearSystem(matrix, vector) {
+  const size = vector.length;
+  for (let pivot = 0; pivot < size; pivot++) {
+    let best = pivot;
+    for (let row = pivot + 1; row < size; row++) {
+      if (Math.abs(matrix[row][pivot]) > Math.abs(matrix[best][pivot])) best = row;
+    }
+    [matrix[pivot], matrix[best]] = [matrix[best], matrix[pivot]];
+    [vector[pivot], vector[best]] = [vector[best], vector[pivot]];
+    const divisor = matrix[pivot][pivot];
+    for (let column = pivot; column < size; column++) matrix[pivot][column] /= divisor;
+    vector[pivot] /= divisor;
+    for (let row = 0; row < size; row++) {
+      if (row === pivot) continue;
+      const factor = matrix[row][pivot];
+      for (let column = pivot; column < size; column++) matrix[row][column] -= factor * matrix[pivot][column];
+      vector[row] -= factor * vector[pivot];
+    }
+  }
+  return vector;
+}
+
+function quadraticLogHorizonFit(rows) {
+  const latestTimestamp = Math.max(...rows.map((row) => Date.parse(row.model_release_date)));
+  const points = rows.map((row) => ({
+    t: (Date.parse(row.model_release_date) - latestTimestamp) / 86_400_000 / quarterDays,
+    y: Math.log2(Number(row.score)),
+  }));
+  const design = points.map(({ t }) => [1, t, t * t]);
+  const normalMatrix = Array.from({ length: 3 }, (_, i) =>
+    Array.from({ length: 3 }, (_, j) => design.reduce((sum, values) => sum + values[i] * values[j], 0)),
+  );
+  const normalVector = Array.from({ length: 3 }, (_, i) =>
+    design.reduce((sum, values, index) => sum + values[i] * points[index].y, 0),
+  );
+  const [beta0, beta1, beta2] = solveLinearSystem(normalMatrix, normalVector);
+  const fitted = points.map(({ t }) => beta0 + beta1 * t + beta2 * t * t);
+  const mean = points.reduce((sum, point) => sum + point.y, 0) / points.length;
+  const sse = points.reduce((sum, point, index) => sum + (point.y - fitted[index]) ** 2, 0);
+  const sst = points.reduce((sum, point) => sum + (point.y - mean) ** 2, 0);
+  const acceleration = 2 * beta2;
+  return {
+    beta0,
+    beta1,
+    beta2,
+    acceleration,
+    relativeAcceleration: beta1 > 0 ? acceleration / beta1 : 0,
+    rSquared: sst > 0 ? 1 - sse / sst : 1,
+    latestTimestamp,
+  };
+}
+
+const benchmarkRegistry = parseCsv(await fs.readFile(path.join(projectRoot, "data", "sources", "benchmark-timeseries.csv"), "utf8"));
+const trendRegistry = parseCsv(await fs.readFile(path.join(projectRoot, "data", "sources", "scm-trend-estimates.csv"), "utf8"));
+const metrSeries = [
+  { key: "H50", benchmarkId: "metr_th11_p50", sourceRole: "primary_recent_fit", role: "Primary capability-velocity signal" },
+  { key: "H80", benchmarkId: "metr_th11_p80", sourceRole: "reliability_guardrail", role: "Reliability guardrail" },
+].map((definition) => {
+  const rows = benchmarkRegistry
+    .filter((row) => row.benchmark_id === definition.benchmarkId)
+    .sort((a, b) => a.model_release_date.localeCompare(b.model_release_date));
+  const trend = trendRegistry.find((row) => row.estimate_role === definition.sourceRole);
+  if (rows.length < 3 || !trend) throw new Error(`Missing METR evidence for ${definition.key}`);
+  const fit = quadraticLogHorizonFit(rows);
+  return {
+    ...definition,
+    rows,
+    fit,
+    sourceVelocity: quarterDays / Number(trend.value),
+    trendDays: Number(trend.value),
+    trendSource: trend.source,
+    trendNote: trend.comparability_note,
+  };
+});
+const h50Series = metrSeries.find((series) => series.key === "H50");
+const h80Series = metrSeries.find((series) => series.key === "H80");
 
 const colors = {
   navy: "#0B1F33", teal: "#0F766E", teal2: "#15847B", lightTeal: "#DDF4F1",
@@ -120,8 +221,9 @@ const report = workbook.worksheets.add("Report Card");
 const obs = workbook.worksheets.add("Observations");
 const cat = workbook.worksheets.add("Catalog");
 const model = workbook.worksheets.add("Model");
+const metr = workbook.worksheets.add("METR Horizon");
 const method = workbook.worksheets.add("Methodology");
-for (const sheet of [summary, report, obs, cat, model, method]) sheet.showGridLines = false;
+for (const sheet of [summary, report, obs, cat, model, metr, method]) sheet.showGridLines = false;
 
 function titleBand(sheet, range, title, subtitleRange, subtitle) {
   sheet.getRange(range).merge();
@@ -154,7 +256,7 @@ method.getRange("A6:D14").values = [
   ["Projection transform", "-LOG2(1-score)", "failure-gap halvings", "One unit means the remaining gap to 100% is halved"],
   ["Monotonic frontier floor", "Enabled", "rule", "Forecast cannot fall below the current frontier"],
   ["Sparse-history rule", "Shared frontier", "rule", "Every graded benchmark receives the pooled frontier depth gain; sparse evidence widens uncertainty instead of forcing zero progress"],
-  ["Acceleration summary", "Observed series only", "rule", "Average 3+ point acceleration estimates; coverage is reported separately"],
+  ["Capability feedback", "METR H50 + H80", "rule", "H50 sets task-horizon acceleration; H80 is a reliability guardrail. Benchmark-local acceleration remains diagnostic only."],
 ];
 styleHeader(method.getRange("A6:D6")); styleBody(method.getRange("A7:D14")); method.getRange("B7").format.numberFormat = "yyyy-mm-dd";
 
@@ -167,12 +269,12 @@ styleHeader(method.getRange("F6:H6")); styleBody(method.getRange("F7:H11")); met
 sectionBand(method, "A15:J15", "FORECAST EQUATIONS AND INTERPRETATION");
 method.getRange("A16:J22").values = [
   ["Object", "Equation / rule", "Interpretation", null, null, null, null, null, null, null],
-  ["Depth", "d = -LOG2(1 - score)", "Transforms a bounded percentage into halvings of the remaining failure gap. Exact 100% is represented as 30 halvings for finite computation.", null, null, null, null, null, null, null],
-  ["Velocity", "v = (d_t - d_t-1) / elapsed quarters", "First derivative of failure-gap depth. Report-card Δ score cells separately show quarter-over-quarter percentage-point changes.", null, null, null, null, null, null, null],
-  ["Acceleration", "a = (v_recent - v_prior) / average interval", "Second derivative: whether gap-closing speed is rising or falling.", null, null, null, null, null, null, null],
-  ["Feedback", "k = a / v; dv/dh = k·v; v(h) = v·EXP(k·h)", "The conjectured causal loop: progress raises the next quarter's rate of progress. At h = 0, dv/dh equals the measured initial acceleration a.", null, null, null, null, null, null, null],
-  ["Projection", "Δd(h) = v·(EXP(k·h) - 1) / k", "Continuous shared-frontier depth gain; when k = 0, Δd = v·h. Each graded benchmark receives the same gain from its current depth.", null, null, null, null, null, null, null],
-  ["Back-transform", "score_b(h) = 1 - 2^(-(d_b,now + MAX(0,Δd(h))))", "Approaches 100% asymptotically. Evidence confidence reports uncertainty; it does not convert missing history into permanent zero progress.", null, null, null, null, null, null, null],
+  ["Economic depth", "d = -LOG2(1 - score)", "Transforms each bounded economic benchmark into halvings of its remaining failure gap. Exact 100% is represented as 30 halvings for finite computation.", null, null, null, null, null, null, null],
+  ["Economic velocity", "v_e = confidence-weighted mean of recent benchmark depth velocity", "Anchors the current rate at which the economic-work composite is closing its remaining gap. Benchmark-local accelerations do not drive the forecast.", null, null, null, null, null, null, null],
+  ["METR acceleration", "a_H50 = v_H50 · MIN(k_H50, k_H80)", "A quadratic fit of log2 task horizon supplies relative acceleration k. H50 is primary; the slower of positive H50/H80 feedback estimates is used so reliability cannot silently lag.", null, null, null, null, null, null, null],
+  ["Transfer", "τ = v_e / v_H50; k = a_H50 / v_H50", "The level comes from economic benchmarks; METR determines how quickly that level's velocity compounds. The transfer coefficient keeps the initial economic velocity anchored to observed economic data.", null, null, null, null, null, null, null],
+  ["Projection", "Δd(h) = v_e·(EXP(k·h) - 1) / k", "Continuous shared-frontier depth gain; when k = 0, Δd = v_e·h. Positive METR acceleration makes future progress raise the subsequent progress rate.", null, null, null, null, null, null, null],
+  ["Back-transform", "score_b(h) = 1 - 2^(-(d_b,now + MAX(0,Δd(h))))", "Each graded benchmark receives the shared economic-depth gain, then categories are recomputed and confidence weighted. The score approaches 100% asymptotically.", null, null, null, null, null, null, null],
 ];
 for (let r = 16; r <= 22; r++) { method.getRange(`C${r}:J${r}`).merge(); }
 styleHeader(method.getRange("A16:J16")); styleBody(method.getRange("A17:J22"));
@@ -210,7 +312,7 @@ method.getRange("A44:J48").values = [
   ["2", "Use the release quarter, not the date the analyst happened to discover the result. Keep only the quarter frontier for a fixed benchmark/harness definition.", null, null, null, null, null, null, null, null],
   ["3", "If the task set, harness, judge, retry policy, tools, or budget changes, describe the break in Notes and decide whether the row belongs in the same series.", null, null, null, null, null, null, null, null],
   ["4", "Add new benchmarks to Catalog and Report Card only when their metric can be normalized without an arbitrary denominator.", null, null, null, null, null, null, null, null],
-  ["5", "Refresh sources and inspect projected saturation. A projection is a scenario extrapolation, not a probability distribution.", null, null, null, null, null, null, null, null],
+  ["5", "Append new METR H50/H80 observations to the canonical CSV, refit the horizon curve, and inspect projected saturation. A projection is a scenario extrapolation, not a probability distribution.", null, null, null, null, null, null, null, null],
 ];
 for (let r = 44; r <= 48; r++) method.getRange(`B${r}:J${r}`).merge();
 styleBody(method.getRange("A44:J48")); method.getRange("A44:A48").format = { fill: colors.lightTeal, font: { bold: true, color: colors.teal, size: 12 }, horizontalAlignment: "center", verticalAlignment: "center", borders: { preset: "all", style: "thin", color: colors.line } };
@@ -242,9 +344,98 @@ obs.getRange(`G6:G${5 + obsRows.length}`).dataValidation = { rule: { type: "deci
 obs.tables.add(`A5:K${5 + obsRows.length}`, true, "BenchmarkObservationsTable");
 obs.freezePanes.freezeRows(5); obs.freezePanes.freezeColumns(3);
 
+// Primary capability-velocity signal and reliability guardrail.
+titleBand(metr, "A1:Y2", "METR Task Horizon — Capability Velocity and Acceleration", "A3:Y3", "The economic benchmark basket sets capability level. METR H50 determines how quickly the shared frontier velocity compounds; H80 checks that longer horizons are not purchased by abandoning reliability.");
+metr.getRange("A5:L5").values = [["Metric", "Model / system", "Release date", "Horizon (minutes)", "log₂ minutes", "Elapsed quarters to latest", "Fitted log₂ minutes", "Residual", "Harness", "Source URL", "Comparability note", "Observation role"]];
+const metrRows = metrSeries.flatMap((series) => series.rows.map((row) => [
+  series.key,
+  row.model_or_system,
+  d(row.model_release_date),
+  Number(row.score),
+  null,
+  (Date.parse(row.model_release_date) - series.fit.latestTimestamp) / 86_400_000 / quarterDays,
+  null,
+  null,
+  row.harness_scope,
+  row.source,
+  row.comparability_note,
+  row.series_role,
+]));
+metr.getRange(`A6:L${5 + metrRows.length}`).values = metrRows;
+for (let index = 0; index < metrRows.length; index++) {
+  const row = 6 + index;
+  metr.getRange(`E${row}`).formulas = [[`=LN(D${row})/LN(2)`]];
+  metr.getRange(`G${row}`).formulas = [[`=IF(A${row}="H50",$W$6+$X$6*F${row}+$Y$6*F${row}^2,$W$7+$X$7*F${row}+$Y$7*F${row}^2)`]];
+  metr.getRange(`H${row}`).formulas = [[`=E${row}-G${row}`]];
+}
+styleHeader(metr.getRange("A5:L5")); styleBody(metr.getRange(`A6:L${5 + metrRows.length}`));
+metr.getRange(`C6:C${5 + metrRows.length}`).format.numberFormat = "yyyy-mm-dd";
+metr.getRange(`D6:D${5 + metrRows.length}`).format.numberFormat = "0.0";
+metr.getRange(`E6:H${5 + metrRows.length}`).format.numberFormat = "0.000";
+metr.tables.add(`A5:L${5 + metrRows.length}`, true, "MetrHorizonObservationsTable");
+
+metr.getRange("N5:Y5").values = [["Metric", "Observations", "Source velocity (doublings/qtr)", "Quadratic current velocity", "Quadratic acceleration", "Relative acceleration k", "Velocity growth / qtr", "Fit R²", "Evidence role", "β₀", "β₁", "β₂"]];
+metr.getRange("N6:Y7").values = metrSeries.map((series) => [
+  series.key,
+  series.rows.length,
+  series.sourceVelocity,
+  series.fit.beta1,
+  series.fit.acceleration,
+  series.fit.relativeAcceleration,
+  Math.expm1(series.fit.relativeAcceleration),
+  series.fit.rSquared,
+  series.role,
+  series.fit.beta0,
+  series.fit.beta1,
+  series.fit.beta2,
+]);
+styleHeader(metr.getRange("N5:Y5")); styleBody(metr.getRange("N6:Y7"));
+metr.getRange("P6:T7").format.numberFormat = "+0.000;-0.000;0.000";
+metr.getRange("U6:U7").format.numberFormat = "0.0%";
+metr.getRange("V6:V7").format.numberFormat = "0.000";
+metr.getRange("X6:Y7").format.numberFormat = "0.000";
+metr.tables.add("N5:Y7", true, "MetrHorizonFitTable");
+
+sectionBand(metr, "N10:Q10", "FORECAST BRIDGE");
+metr.getRange("N11:Q19").values = [
+  ["Parameter", "Value", "Unit", "Rule"],
+  ["Economic gap velocity", null, "failure-gap halvings / qtr", "Confidence-weighted current benchmark velocity"],
+  ["H50 source velocity", null, "task-horizon doublings / qtr", `Published ${h50Series.trendDays.toFixed(3)}-day recent-fit doubling time`],
+  ["Effective relative acceleration", null, "per qtr", "Slower positive k from H50 and H80 quadratic fits"],
+  ["Default H50 acceleration", null, "task-horizon doublings / qtr²", "H50 source velocity × effective relative acceleration"],
+  ["Economic transfer coefficient", null, "economic gap halvings / horizon doubling", "Economic velocity ÷ H50 velocity"],
+  ["Initial economic acceleration", null, "failure-gap halvings / qtr²", "Economic velocity × effective relative acceleration"],
+  ["H80 implied acceleration", null, "task-horizon doublings / qtr²", "H80 source velocity × H80 relative acceleration"],
+  ["H80 / H50 feedback ratio", null, "ratio", "Values ≥1 confirm that the reliability horizon is not accelerating more slowly"],
+];
+metr.getRange("O12").formulas = [["='Summary'!$G$17"]];
+metr.getRange("O13").formulas = [["=P6"]];
+metr.getRange("O14").formulas = [["=MAX(0,MIN(S6,S7))"]];
+metr.getRange("O15").formulas = [["=O13*O14"]];
+metr.getRange("O16").formulas = [["=O12/O13"]];
+metr.getRange("O17").formulas = [["=O12*O14"]];
+metr.getRange("O18").formulas = [["=P7*S7"]];
+metr.getRange("O19").formulas = [["=S7/S6"]];
+styleHeader(metr.getRange("N11:Q11")); styleBody(metr.getRange("N12:Q19"));
+metr.getRange("O12:O18").format.numberFormat = "+0.000;-0.000;0.000";
+metr.getRange("O19").format.numberFormat = "0.00x";
+
+sectionBand(metr, "N21:Y21", "INTERPRETATION / LIMITATIONS");
+metr.getRange("N22:Y27").values = [
+  ["Reading rule", "The default acceleration is a real H50 task-horizon acceleration, not a multiplier. Raising it increases the feedback coefficient k = a/v and therefore brings the gate forward.", null, null, null, null, null, null, null, null, null, null],
+  ["H50 role", "Primary measure of the length of tasks a model–harness system can complete at 50% success. The forecast uses the published recent-fit velocity rather than the noisy endpoint derivative.", null, null, null, null, null, null, null, null, null, null],
+  ["H80 role", "Reliability guardrail on the same task suite. The default uses the slower positive relative-acceleration estimate; H80 currently accelerates faster, so H50 controls.", null, null, null, null, null, null, null, null, null, null],
+  ["Acceleration fit", "Quadratic least squares on log₂ horizon versus elapsed quarters, centered at the latest release. Only five recent points exist, so the acceleration estimate is low confidence and scenario-sensitive.", null, null, null, null, null, null, null, null, null, null],
+  ["Ceiling warning", "METR warns that central H50 estimates above 16 hours are unreliable. The final H50 point is retained for transparency; H80 and the published recent-fit velocity limit overinterpretation.", null, null, null, null, null, null, null, null, null, null],
+  ["Transfer assumption", "Economic benchmarks measure whether systems can do useful work; METR measures how quickly task horizon advances. Applying METR's relative acceleration to economic gap velocity is the conjectural bridge and a direct target for refutation.", null, null, null, null, null, null, null, null, null, null],
+];
+for (let row = 22; row <= 27; row++) metr.getRange(`O${row}:Y${row}`).merge();
+styleBody(metr.getRange("N22:Y27"));
+metr.freezePanes.freezeRows(5); metr.freezePanes.freezeColumns(2);
+
 // Model coefficients and current grades. These formulas make the workbook update from appended observations.
-titleBand(model, "A1:U2", "Projection Model — Failure-Gap Velocity and Acceleration", "A3:U3", "Helper sheet. Longitudinal series estimate the shared frontier velocity and initial acceleration. The forecast compounds their causal feedback across every graded benchmark; evidence credits preserve uncertainty.");
-model.getRange("A5:U5").values = [["Benchmark ID", "Benchmark Name", "Category", "Obs count", "Prior-2 Q", "Prior Q", "Latest Q", "Prior-2 score", "Prior score", "Latest score", "Prior-2 depth", "Prior depth", "Latest depth", "Recent gap velocity", "Prior gap velocity", "Gap acceleration", "Projection basis", "Current score", "Letter", "GPA", "Evidence credits"]];
+titleBand(model, "A1:U2", "Projection Model — Economic Benchmark Level and Transfer", "A3:U3", "Helper sheet. Economic benchmarks set the current level and initial gap velocity. Benchmark-local acceleration is diagnostic; METR H50/H80 controls the shared feedback applied to every graded benchmark.");
+model.getRange("A5:U5").values = [["Benchmark ID", "Benchmark Name", "Category", "Obs count", "Prior-2 Q", "Prior Q", "Latest Q", "Prior-2 score", "Prior score", "Latest score", "Prior-2 depth", "Prior depth", "Latest depth", "Recent gap velocity", "Prior gap velocity", "Benchmark-local acceleration (diagnostic)", "Projection basis", "Current score", "Letter", "GPA", "Evidence credits"]];
 styleHeader(model.getRange("A5:U5"));
 for (let i = 0; i < catalog.length; i++) {
   const row = 6 + i;
@@ -262,7 +453,7 @@ for (let i = 0; i < catalog.length; i++) {
   model.getRange(`N${row}`).formulas = [[`=IF(D${row}<2,0,(M${row}-L${row})/(G${row}-F${row}))`]];
   model.getRange(`O${row}`).formulas = [[`=IF(D${row}<3,0,(L${row}-K${row})/(F${row}-E${row}))`]];
   model.getRange(`P${row}`).formulas = [[`=IF(D${row}<3,0,(N${row}-O${row})/(((G${row}-F${row})+(F${row}-E${row}))/2))`]];
-  model.getRange(`Q${row}`).formulas = [[`=IF(D${row}=0,"Ungraded — no normalized observation",IF(D${row}=1,"Shared frontier transfer — one observation",IF(D${row}=2,"Shared frontier transfer — velocity contributor","Shared frontier transfer — velocity + acceleration contributor")))`]];
+  model.getRange(`Q${row}`).formulas = [[`=IF(D${row}=0,"Ungraded — no normalized observation",IF(D${row}=1,"METR feedback transfer — one economic observation",IF(D${row}=2,"METR feedback transfer — economic velocity contributor","METR feedback transfer — local acceleration retained as diagnostic")))`]];
   model.getRange(`R${row}`).formulas = [[`=IF(D${row}=0,"",J${row})`]];
   model.getRange(`S${row}`).formulas = [[`=IF(R${row}="","N/A",IF(R${row}>='Methodology'!$G$7,"A",IF(R${row}>='Methodology'!$G$8,"B",IF(R${row}>='Methodology'!$G$9,"C",IF(R${row}>='Methodology'!$G$10,"D","F")))))`]];
   model.getRange(`T${row}`).formulas = [[`=IF(R${row}="","",IF(R${row}>='Methodology'!$G$7,'Methodology'!$H$7,IF(R${row}>='Methodology'!$G$8,'Methodology'!$H$8,IF(R${row}>='Methodology'!$G$9,'Methodology'!$H$9,IF(R${row}>='Methodology'!$G$10,'Methodology'!$H$10,'Methodology'!$H$11)))))`]];
@@ -279,7 +470,7 @@ model.tables.add(`A5:U${5 + catalog.length}`, true, "ProjectionModelTable");
 model.freezePanes.freezeRows(5); model.freezePanes.freezeColumns(3);
 
 // Wide report card.
-titleBand(report, "A1:AY2", "Personal AI Capability Report Card — 2024-Q1 to 2028-Q4", "A3:AY3", "Blue = observed release-quarter frontier; gray = carried frontier; gold = projected. Δ score is quarter-over-quarter percentage-point change; acceleration is failure-gap acceleration per quarter². As of 2026-08-26.");
+titleBand(report, "A1:AY2", "Personal AI Capability Report Card — 2024-Q1 to 2028-Q4", "A3:AY3", "Blue = observed release-quarter frontier; gray = carried frontier; gold = projected. Economic benchmarks set level and velocity; METR H50/H80 supplies the shared acceleration feedback. As of 2026-08-26.");
 report.getRange("A4:A5").merge(); report.getRange("B4:B5").merge(); report.getRange("C4:C5").merge(); report.getRange("D4:D5").merge();
 report.getRange("A4:D4").values = [["Category", "Benchmark ID", "Benchmark Name", "Score basis"]];
 for (let i = 0; i < quarters.length; i++) {
@@ -288,7 +479,7 @@ for (let i = 0; i < quarters.length; i++) {
   report.getRange(a).merge(); report.getRange(a).values = [[quarters[i].label]];
   report.getRange(`${colName(startCol)}5:${colName(startCol + 1)}5`).values = [["Score", "Δ score"]];
 }
-const summaryHeaders = ["Current Score", "Letter", "GPA", "Overall GPA", "Gap velocity (halvings/qtr)", "Gap acceleration (halvings/qtr²)", "Projection basis"];
+const summaryHeaders = ["Current Score", "Letter", "GPA", "Overall GPA", "Economic gap velocity (halvings/qtr)", "Local acceleration (diagnostic)", "Projection basis"];
 report.getRange("AS4:AY4").merge(); report.getRange("AS4:AY4").values = [["CURRENT STATUS & FORECAST MODEL"]];
 report.getRange("AS5:AY5").values = [summaryHeaders];
 styleHeader(report.getRange("A4:AY5"));
@@ -300,6 +491,10 @@ for (let i = 0; i < quarters.length; i++) {
 
 const observationQuarterSet = new Set(observations.map((r) => `${r[0]}|${r[3]}`));
 const overallGpaFormula = `=IFERROR((AVERAGEIF($A$6:$A$28,"${categories[0]}",$AU$6:$AU$28)*'Summary'!$K$13+AVERAGEIF($A$6:$A$28,"${categories[1]}",$AU$6:$AU$28)*'Summary'!$K$14+AVERAGEIF($A$6:$A$28,"${categories[2]}",$AU$6:$AU$28)*'Summary'!$K$15+AVERAGEIF($A$6:$A$28,"${categories[3]}",$AU$6:$AU$28)*'Summary'!$K$16)/SUM('Summary'!$K$13:$K$16),"")`;
+const projectionDepthGainFormula = (quarterIndex) => {
+  const horizon = `(${quarterIndex}-'Methodology'!$B$8)`;
+  return `IF(ABS('Summary'!$G$17)<0.000000001,0,IF(ABS('METR Horizon'!$O$14)<0.000000001,'Summary'!$G$17*${horizon},'Summary'!$G$17*(EXP('METR Horizon'!$O$14*${horizon})-1)/'METR Horizon'!$O$14))`;
+};
 for (let i = 0; i < catalog.length; i++) {
   const row = 6 + i;
   const modelRow = row;
@@ -313,7 +508,7 @@ for (let i = 0; i < catalog.length; i++) {
     if (qi <= currentQuarterIndex) {
       report.getRange(`${scoreCol}${row}`).formulas = [[`=IF(COUNTIFS('Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,"<="&${qi})=0,"",SUMIFS('Observations'!$G$6:$G$500,'Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,MAXIFS('Observations'!$F$6:$F$500,'Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,"<="&${qi})))`]];
     } else {
-      report.getRange(`${scoreCol}${row}`).formulas = [[`=IF('Model'!$D${modelRow}=0,"",1-POWER(2,-('Model'!$M${modelRow}+MAX(0,IF(ABS('Summary'!$G$17)<0.000000001,0,IF(ABS('Summary'!$H$17/'Summary'!$G$17)<0.000000001,'Summary'!$G$17*(${qi}-'Methodology'!$B$8),'Summary'!$G$17*(EXP(('Summary'!$H$17/'Summary'!$G$17)*(${qi}-'Methodology'!$B$8))-1)/('Summary'!$H$17/'Summary'!$G$17)))))))`]];
+      report.getRange(`${scoreCol}${row}`).formulas = [[`=IF('Model'!$D${modelRow}=0,"",1-POWER(2,-('Model'!$M${modelRow}+MAX(0,${projectionDepthGainFormula(qi)}))))`]];
     }
     if (q === 0) report.getRange(`${rateCol}${row}`).formulas = [[`=""`]];
     else {
@@ -353,19 +548,19 @@ report.freezePanes.freezeRows(5); report.freezePanes.freezeColumns(4);
 
 // Summary dashboard.
 titleBand(summary, "A1:R2", "Personal AI Capability — Four-Year Report Card", "A3:R3", "A confidence-weighted view of economic stewardship, operational execution, personal transfer, and economic value/governance. As of 2026-08-26.");
-sectionBand(summary, "A5:C5", "CURRENT SCORE"); sectionBand(summary, "D5:F5", "CURRENT LETTER"); sectionBand(summary, "G5:I5", "2028-Q4 SCORE", colors.gold); sectionBand(summary, "J5:L5", "GAP ACCELERATION / QTR²"); sectionBand(summary, "M5:O5", "OVERALL CONFIDENCE"); sectionBand(summary, "P5:R5", "ACCELERATION COVERAGE");
+sectionBand(summary, "A5:C5", "CURRENT SCORE"); sectionBand(summary, "D5:F5", "CURRENT LETTER"); sectionBand(summary, "G5:I5", "2028-Q4 SCORE", colors.gold); sectionBand(summary, "J5:L5", "METR H50 ACCELERATION / QTR²"); sectionBand(summary, "M5:O5", "METR H80 GUARDRAIL / QTR²"); sectionBand(summary, "P5:R5", "OVERALL CONFIDENCE");
 summary.getRange("A6:C9").merge(); summary.getRange("D6:F9").merge(); summary.getRange("G6:I9").merge(); summary.getRange("J6:L9").merge(); summary.getRange("M6:O9").merge(); summary.getRange("P6:R9").merge();
 summary.getRange("A6").formulas = [["=D17"]];
 summary.getRange("D6").formulas = [["=IF(A6>='Methodology'!$G$7,\"A\",IF(A6>='Methodology'!$G$8,\"B\",IF(A6>='Methodology'!$G$9,\"C\",IF(A6>='Methodology'!$G$10,\"D\",\"F\"))))"]];
 summary.getRange("G6").formulas = [["=F17"]];
 summary.getRange("J6").formulas = [["=H17"]];
-summary.getRange("M6").formulas = [["=J17"]];
-summary.getRange("P6").formulas = [["=I17"]];
+summary.getRange("M6").formulas = [["=I17"]];
+summary.getRange("P6").formulas = [["=J17"]];
 for (const cell of ["A6", "D6", "G6", "J6", "M6", "P6"]) summary.getRange(cell).format = { fill: colors.white, font: { bold: true, color: colors.navy, size: 24 }, horizontalAlignment: "center", verticalAlignment: "center", borders: { preset: "all", style: "thin", color: colors.line } };
-summary.getRange("A6").format.numberFormat = "0.0%"; summary.getRange("G6").format.numberFormat = "0.0%"; summary.getRange("J6").format.numberFormat = "+0.000;-0.000;0.000"; summary.getRange("P6").format.numberFormat = "0%";
+summary.getRange("A6").format.numberFormat = "0.0%"; summary.getRange("G6").format.numberFormat = "0.0%"; summary.getRange("J6").format.numberFormat = "+0.000;-0.000;0.000"; summary.getRange("M6").format.numberFormat = "+0.000;-0.000;0.000";
 
 sectionBand(summary, "A11:K11", "CATEGORY REPORT CARD");
-summary.getRange("A12:K12").values = [["Category", "Graded", "Total", "Current score", "GPA", "2028-Q4 score", "Gap velocity / qtr", "Gap acceleration / qtr²", "Accel. coverage", "Confidence", "Confidence weight"]];
+summary.getRange("A12:K12").values = [["Category", "Graded", "Total", "Current score", "GPA", "2028-Q4 score", "Economic gap velocity / qtr", "METR H50 accel. / qtr²", "METR H80 guardrail / qtr²", "Confidence", "Confidence weight"]];
 for (let i = 0; i < categories.length; i++) {
   const row = 13 + i;
   summary.getRange(`A${row}`).values = [[categories[i]]];
@@ -375,19 +570,18 @@ for (let i = 0; i < categories.length; i++) {
   summary.getRange(`E${row}`).formulas = [[`=IFERROR(AVERAGEIF('Report Card'!$A$6:$A$28,A${row},'Report Card'!$AU$6:$AU$28),"")`]];
   summary.getRange(`F${row}`).formulas = [[`=IFERROR(AVERAGEIF('Report Card'!$A$6:$A$28,A${row},'Report Card'!$AQ$6:$AQ$28),"")`]];
   summary.getRange(`G${row}`).formulas = [[`=IFERROR(AVERAGEIFS('Model'!$N$6:$N$28,'Model'!$C$6:$C$28,A${row},'Model'!$D$6:$D$28,">=2"),"")`]];
-  summary.getRange(`H${row}`).formulas = [[`=IFERROR(AVERAGEIFS('Model'!$P$6:$P$28,'Model'!$C$6:$C$28,A${row},'Model'!$D$6:$D$28,">=3"),"")`]];
-  summary.getRange(`I${row}`).formulas = [[`=IFERROR(COUNTIFS('Model'!$C$6:$C$28,A${row},'Model'!$D$6:$D$28,">=3")/COUNTIFS('Model'!$C$6:$C$28,A${row},'Model'!$D$6:$D$28,">0"),"")`]];
   summary.getRange(`K${row}`).formulas = [[`=IFERROR(SUMIF('Model'!$C$6:$C$28,A${row},'Model'!$U$6:$U$28)/(3*C${row}),0)`]];
   summary.getRange(`J${row}`).formulas = [[`=IF(K${row}>=0.8,"High",IF(K${row}>=0.5,"Medium","Low"))`]];
 }
 summary.getRange("A17:K17").values = [["Overall (confidence-weighted)", null, null, null, null, null, null, null, null, null, null]];
 summary.getRange("B17").formulas = [["=SUM(B13:B16)"]]; summary.getRange("C17").formulas = [["=SUM(C13:C16)"]];
 summary.getRange("D17").formulas = [["=IFERROR(SUMPRODUCT(D13:D16,K13:K16)/SUM(K13:K16),\"\")"]]; summary.getRange("E17").formulas = [["=IFERROR(SUMPRODUCT(E13:E16,K13:K16)/SUM(K13:K16),\"\")"]]; summary.getRange("F17").formulas = [["=IFERROR(SUMPRODUCT(F13:F16,K13:K16)/SUM(K13:K16),\"\")"]];
-summary.getRange("G17").formulas = [["=IFERROR(SUMPRODUCT(G13:G16,K13:K16)/SUM(K13:K16),\"\")"]]; summary.getRange("H17").formulas = [["=IFERROR((IF(H13=\"\",0,H13*K13)+IF(H14=\"\",0,H14*K14)+IF(H15=\"\",0,H15*K15)+IF(H16=\"\",0,H16*K16))/(IF(H13=\"\",0,K13)+IF(H14=\"\",0,K14)+IF(H15=\"\",0,K15)+IF(H16=\"\",0,K16)),\"\")"]];
-summary.getRange("I17").formulas = [["=COUNTIF('Model'!$D$6:$D$28,\">=3\")/COUNTIF('Model'!$D$6:$D$28,\">0\")"]];
+summary.getRange("G17").formulas = [["=IFERROR(SUMPRODUCT(G13:G16,K13:K16)/SUM(K13:K16),\"\")"]];
+summary.getRange("H17").formulas = [["='METR Horizon'!$O$15"]];
+summary.getRange("I17").formulas = [["='METR Horizon'!$O$18"]];
 summary.getRange("K17").formulas = [["=IFERROR(SUMPRODUCT(K13:K16,C13:C16)/SUM(C13:C16),0)"]]; summary.getRange("J17").formulas = [["=IF(K17>=0.8,\"High\",IF(K17>=0.5,\"Medium\",\"Low\"))"]];
 styleHeader(summary.getRange("A12:K12")); styleBody(summary.getRange("A13:K17")); summary.getRange("A17:K17").format.fill = colors.lightTeal; summary.getRange("A17:K17").format.font = { bold: true, color: colors.ink };
-summary.getRange("D13:D17").format.numberFormat = "0.0%"; summary.getRange("E13:E17").format.numberFormat = "0.00"; summary.getRange("F13:F17").format.numberFormat = "0.0%"; summary.getRange("G13:H17").format.numberFormat = "+0.000;-0.000;0.000"; summary.getRange("I13:I17").format.numberFormat = "0%"; summary.getRange("K13:K17").format.numberFormat = "0%";
+summary.getRange("D13:D17").format.numberFormat = "0.0%"; summary.getRange("E13:E17").format.numberFormat = "0.00"; summary.getRange("F13:F17").format.numberFormat = "0.0%"; summary.getRange("G13:I17").format.numberFormat = "+0.000;-0.000;0.000"; summary.getRange("K13:K17").format.numberFormat = "0%";
 summary.getRange("J13:J17").conditionalFormats.addCustom(`=J13="High"`, { fill: colors.greenFill, font: { color: colors.green, bold: true } });
 summary.getRange("J13:J17").conditionalFormats.addCustom(`=J13="Medium"`, { fill: colors.yellowFill, font: { color: colors.orange, bold: true } });
 summary.getRange("J13:J17").conditionalFormats.addCustom(`=J13="Low"`, { fill: colors.redFill, font: { color: colors.red, bold: true } });
@@ -404,22 +598,23 @@ styleHeader(summary.getRange("A21:F21")); styleBody(summary.getRange("A22:F41"))
 const chart = summary.charts.add("line", summary.getRange("A21:F41"));
 chart.title = "Capability saturation by category"; chart.hasLegend = true; chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } }; chart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 }; chart.setPosition("M11", "R29");
 
-summary.getRange("H31:R41").values = [
+summary.getRange("H31:R42").values = [
   ["LEGEND / READING RULE", null, null, null, null, null, null, null, null, null, null],
   ["Observed", "Blue cells are sourced release-quarter frontiers.", null, null, null, null, null, null, null, null, null],
   ["Carried", "Gray cells hold the last observed frontier between releases.", null, null, null, null, null, null, null, null, null],
-  ["Projected", "Gold cells extrapolate failure-gap velocity/acceleration.", null, null, null, null, null, null, null, null, null],
+  ["Projected", "Gold cells extrapolate economic failure-gap velocity under METR-derived acceleration feedback.", null, null, null, null, null, null, null, null, null],
   ["Δ score", "Quarter-over-quarter percentage-point change in the normalized benchmark score; this is not acceleration.", null, null, null, null, null, null, null, null, null],
-  ["Gap velocity", "Failure-gap halvings per quarter, estimated only from benchmarks with at least two observations.", null, null, null, null, null, null, null, null, null],
-  ["Gap acceleration", "Change in failure-gap velocity per quarter², estimated only from benchmarks with at least three observations. Positive means progress is speeding up.", null, null, null, null, null, null, null, null, null],
-  ["Acceleration coverage", "Benchmarks with a 3+ point acceleration estimate divided by graded benchmarks. Coverage prevents a sparse estimate from looking universal.", null, null, null, null, null, null, null, null, null],
+  ["Economic gap velocity", "Failure-gap halvings per quarter from economic-work benchmarks with at least two observations. This anchors the initial economic progress rate.", null, null, null, null, null, null, null, null, null],
+  ["METR H50 acceleration", "Task-horizon doublings per quarter². This real rate, not a multiplier, determines how quickly capability velocity compounds.", null, null, null, null, null, null, null, null, null],
+  ["METR H80 guardrail", "Higher-reliability task-horizon acceleration. The slower positive relative acceleration controls; H80 currently confirms rather than constrains H50.", null, null, null, null, null, null, null, null, null],
+  ["Transfer coefficient", "Economic gap velocity divided by H50 horizon velocity. It preserves the economic data's current rate while importing METR's relative acceleration.", null, null, null, null, null, null, null, null, null],
   ["Confidence", "Evidence coverage and longitudinal depth: one credit per distinct quarterly observation, capped at three per benchmark. Category weight = credits ÷ maximum credits. High ≥80%; Medium ≥50%; Low <50%.", null, null, null, null, null, null, null, null, null],
-  ["Direct stewardship", "Low confidence: all 7 sources are graded, but 4 newly normalized series and EnterpriseArena each have one observation. Only Vending-Bench has a 3-point acceleration estimate.", null, null, null, null, null, null, null, null, null],
-  ["Caution", "The composite uses continuous confidence weights. The forecast conjectures that progress raises future progress and transfers across benchmarks; confidence and acceleration coverage expose how weakly that causal feedback is presently measured.", null, null, null, null, null, null, null, null, null],
+  ["Direct stewardship", "Low confidence: all 7 sources are graded, but 4 newly normalized series and EnterpriseArena each have one observation. Only Vending-Bench has three release-quarter observations.", null, null, null, null, null, null, null, null, null],
+  ["Caution", "The composite uses continuous confidence weights. The METR-to-economic transfer and quadratic acceleration fit are conjectural and low-confidence; the workbook exposes both as refutation targets.", null, null, null, null, null, null, null, null, null],
 ];
 summary.getRange("H31:R31").merge();
-for (let r = 32; r <= 41; r++) summary.getRange(`I${r}:R${r}`).merge();
-styleHeader(summary.getRange("H31:R31")); styleBody(summary.getRange("H32:R41"));
+for (let r = 32; r <= 42; r++) summary.getRange(`I${r}:R${r}`).merge();
+styleHeader(summary.getRange("H31:R31")); styleBody(summary.getRange("H32:R42"));
 summary.getRange("H32").format.fill = colors.actual; summary.getRange("H33").format.fill = colors.carry; summary.getRange("H34").format.fill = colors.lightGold;
 summary.freezePanes.freezeRows(3);
 
@@ -436,9 +631,10 @@ const widths = {
   Observations: [12, 25, 30, 14, 11, 12, 12, 28, 34, 48, 45],
   Catalog: [12, 30, 25, 43, 44, 12, 15, 48, 48],
   Model: [12, 25, 30, 10, 10, 10, 10, 12, 12, 12, 12, 12, 12, 14, 14, 14, 38, 13, 9, 9, 14],
+  "METR Horizon": [10, 24, 14, 16, 13, 18, 16, 12, 28, 44, 46, 18, 3, 26, 14, 18, 17, 17, 17, 16, 12, 15, 30, 12, 12],
   Methodology: [24, 34, 20, 44, 3, 16, 17, 16, 16, 16],
 };
-for (const sheet of [summary, report, obs, cat, model, method]) {
+for (const sheet of [summary, report, obs, cat, model, metr, method]) {
   const w = widths[sheet.name];
   for (let i = 0; i < w.length; i++) sheet.getRangeByIndexes(0, i, 200, 1).format.columnWidth = w[i];
   sheet.getRange("1:1").format.rowHeight = 28; sheet.getRange("2:2").format.rowHeight = 28; sheet.getRange("3:3").format.rowHeight = 30;
@@ -446,17 +642,19 @@ for (const sheet of [summary, report, obs, cat, model, method]) {
 }
 report.getRange("4:5").format.rowHeight = 32; report.getRange(`6:${5 + catalog.length}`).format.rowHeight = 46;
 obs.getRange("5:5").format.rowHeight = 38; cat.getRange("5:5").format.rowHeight = 38; model.getRange("5:5").format.rowHeight = 42;
+metr.getRange("5:5").format.rowHeight = 42; metr.getRange("11:11").format.rowHeight = 38; metr.getRange("22:27").format.rowHeight = 38;
 method.getRange("16:22").format.rowHeight = 38; method.getRange("25:30").format.rowHeight = 38; method.getRange("33:41").format.rowHeight = 34; method.getRange("44:48").format.rowHeight = 34;
 
 // Verification previews, formula inspection, error scan, and export.
 await fs.mkdir(previewDir, { recursive: true });
 const previews = [
-  ["Summary", "A1:R41", "summary.png", 1],
+  ["Summary", "A1:R42", "summary.png", 1],
   ["Report Card", "A1:Q28", "report-card-left.png", 0.9],
   ["Report Card", "AQ1:AY28", "report-card-current.png", 1],
   ["Observations", `A1:K${Math.min(5 + obsRows.length, 42)}`, "observations.png", 0.85],
   ["Catalog", `A1:I${5 + catalog.length}`, "catalog.png", 0.85],
   ["Model", `A1:U${5 + catalog.length}`, "model.png", 0.75],
+  ["METR Horizon", "A1:Y27", "metr-horizon.png", 0.75],
   ["Methodology", "A1:J48", "methodology.png", 0.9],
 ];
 for (const [sheetName, range, fileName, scale] of previews) {
@@ -465,16 +663,17 @@ for (const [sheetName, range, fileName, scale] of previews) {
 }
 const overview = await workbook.inspect({ kind: "workbook,sheet,table", maxChars: 8000, tableMaxRows: 3, tableMaxCols: 7, tableMaxCellChars: 90 });
 console.log(overview.ndjson ?? overview);
-const formulaCheck = await workbook.inspect({ kind: "formula", sheetId: "Summary", range: "A1:R41", maxChars: 8000, options: { maxResults: 120 } });
+const formulaCheck = await workbook.inspect({ kind: "formula", sheetId: "Summary", range: "A1:R42", maxChars: 8000, options: { maxResults: 120 } });
 console.log(formulaCheck.ndjson ?? formulaCheck);
 const errorCheck = await workbook.inspect({ kind: "match", searchTerm: "#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A", options: { useRegex: true, maxResults: 200 }, maxChars: 7000 });
 console.log(errorCheck.ndjson ?? errorCheck);
 const inspectTargets = [
-  ["Summary", "A1:R41"],
+  ["Summary", "A1:R42"],
   ["Report Card", "A1:AY28"],
   ["Observations", `A1:K${5 + obsRows.length}`],
   ["Catalog", `A1:I${5 + catalog.length}`],
   ["Model", `A1:U${5 + catalog.length}`],
+  ["METR Horizon", "A1:Y27"],
   ["Methodology", "A1:J48"],
 ];
 const inspectChunks = [];

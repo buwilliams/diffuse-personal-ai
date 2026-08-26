@@ -16,7 +16,7 @@ The repository separates meaning, evidence, implementation, and output:
 |---|---|---|
 | Model meaning and rules | `intent/` | **Normative source of truth** |
 | Evidence ledger | `data/sources/*.csv` | **Canonical evidence record** |
-| Capability implementation | `surfaces/report-cards/capability/build_report_card.mjs` | Executable implementation of intent; its embedded arrays remain a tracked migration debt |
+| Capability implementation | `surfaces/report-cards/capability/build_report_card.mjs` | Executable implementation of intent; reads canonical METR horizon/trend registries, while embedded economic-benchmark arrays remain a tracked migration debt |
 | Compute implementation | `surfaces/report-cards/compute/build_compute_report_card.mjs` | Executable implementation of intent; reads `data/sources/compute-capacity-timeseries.csv` |
 | HTML-data generator | `surfaces/report-cards/shared/generate_report_data.mjs` | Generated-surface transformation |
 | Live countdown and controls | `surfaces/website/app/page.tsx`, `surfaces/website/app/capability-projection.ts`, `surfaces/website/app/compute-projection.ts` | Website implementation of the model and current scenario |
@@ -45,11 +45,13 @@ For capability, gather benchmarks, leaderboards, and evaluations of model–harn
 3. Personal stewardship transfer
 4. Economic value and governance
 
+Also refresh the standardized METR H50 and H80 task-horizon series. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, harness, metric, source, and METR's measurement-ceiling warnings.
+
 For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Prefer primary sources. For every new value, preserve its URL, publication or observation date, model, harness, tools, budget, benchmark version, judge, and any comparability break. Never infer an exact score from vague prose.
 
 ### 2. Update capability evidence and implementation
 
-Update the relevant rows in `data/sources/`, then mirror the operative values in `surfaces/report-cards/capability/build_report_card.mjs` until the builder reads the normalized registries directly.
+Update the relevant rows in `data/sources/`, then mirror operative economic-benchmark values in `surfaces/report-cards/capability/build_report_card.mjs` until that remaining embedded evidence is migrated. The builder already reads METR observations from `benchmark-timeseries.csv` and published velocity estimates from `scm-trend-estimates.csv`; never duplicate those values in code.
 
 1. Update `asOf`.
 2. At a quarter rollover, update `currentQuarterIndex` and `firstForecastQuarterIndex`.
@@ -59,6 +61,7 @@ Update the relevant rows in `data/sources/`, then mirror the operative values in
 6. Keep model and harness together in the system label and record material configuration.
 7. Pin benchmark version, task set, tools, reasoning effort, budget, judge, and scoring rule when they affect comparability.
 8. Create a new benchmark ID or explicit series break when the benchmark changes materially.
+9. Append comparable H50 and H80 releases to `benchmark-timeseries.csv`, refresh the published recent/guardrail velocity estimates when METR updates them, and inspect whether H80 still corroborates H50.
 
 Follow the normalization and forecasting rules in [the calculation contract](../02-model/06-report-card-calculations.md#capability-calculation). Do not fabricate earlier quarters for a new benchmark.
 
@@ -80,7 +83,7 @@ Follow the supply, workload, and serving rules in [the calculation contract](../
 
 The compute builder currently embeds capability values in its two-key gate, assumptions, source note, and explanatory copy. Before every compute build, replace every embedded capability-current and capability-crossing value with the newly generated capability result. Search for the previous score and date instead of assuming a fixed number of occurrences.
 
-For the current release, the synchronized literals are `0.45660533834944794` and `2027-04-25`. Change them together when the capability report changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
+For the current release, the synchronized literals are `0.45660533834944794`, the `0.75` capability threshold, and `2027-11-13`. Change them together when the capability report or selected default gate changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
 
 ### 5. Rebuild and inspect both workbooks
 
@@ -125,9 +128,9 @@ After the workbooks are final, update these values together in the website model
 - report prose or workbook-default dates containing calculated results
 - `REPORT_QUARTERS` and `OBSERVED_END_INDEX` if the window changes
 
-`CAPABILITY_CURVE` is the confidence-weighted Summary trajectory beginning at the evidence cutoff. The capability projection module reads benchmark velocity, acceleration, category weights, and the default overall gap acceleration from generated `report-data.ts`; confirm those rows remain present after generation. `COMPUTE_CURVE` is the compute workbook's `U.S. H100e` quarterly series in millions, also beginning at the evidence cutoff.
+`CAPABILITY_CURVE` is the confidence-weighted Summary trajectory beginning at the evidence cutoff. The capability projection module reads economic benchmark velocity and category weights plus the METR H50 velocity, H50 acceleration, H80 guardrail, and transfer coefficient from generated `report-data.ts`; confirm the `Summary`, `Model`, and `METR Horizon` rows remain present after generation. `COMPUTE_CURVE` is the compute workbook's `U.S. H100e` quarterly series in millions, also beginning at the evidence cutoff.
 
-The two live acceleration inputs are actual rates with different units, not multipliers. Confirm that the capability default matches the report's confidence-weighted gap acceleration in failure-gap halvings per quarter² and that the compute default matches `BASE_COMPUTE_ACCELERATION` in `log2 H100e` per quarter².
+The two live acceleration inputs are actual rates with different units, not multipliers. Confirm that the capability default matches the report's METR-derived H50 acceleration in task-horizon doublings per quarter² and that the compute default matches `BASE_COMPUTE_ACCELERATION` in `log2 H100e` per quarter².
 
 The HTML charts read generated workbook rows, while the countdown reads these constants. Updating only one side creates an internally inconsistent publication.
 
@@ -160,17 +163,18 @@ Then verify the default scenario end to end:
 
 1. Publication date and evidence cutoff match.
 2. Capability composite, confidence, and forecast curve match the capability workbook.
-3. Current and projected H100e, acceleration, and supported users match the compute workbook.
-4. Population multiplied by selected share equals displayed target users.
-5. Supply progress equals supported users divided by selected target users.
-6. Capability crossing matches the site calculation.
-7. Compute crossing matches the site calculation.
-8. The headline is the later crossing.
-9. Population share, tokens per user per day, serving efficiency, personal-AI inference allocation, capability threshold, and both acceleration controls affect the correct gate.
-10. Raising either acceleration while holding every other input fixed never moves its gate later; lowering it never moves the gate earlier.
-11. A capability threshold just above the four-year endpoint continues the benchmark-level equations rather than holding the final aggregate flat, and the site labels the crossing as an extended extrapolation.
-12. Both report modals show current data and both downloads open the current workbooks.
-13. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
+3. METR H50 velocity/acceleration, H80 guardrail, transfer coefficient, and implied economic acceleration match the capability workbook.
+4. Current and projected H100e, acceleration, and supported users match the compute workbook.
+5. Population multiplied by selected share equals displayed target users.
+6. Supply progress equals supported users divided by selected target users.
+7. Capability crossing matches the site calculation.
+8. Compute crossing matches the site calculation.
+9. The headline is the later crossing.
+10. Population share, tokens per user per day, serving efficiency, personal-AI inference allocation, capability threshold, and both acceleration controls affect the correct gate.
+11. Raising either acceleration while holding every other input fixed never moves its gate later; lowering it never moves the gate earlier.
+12. A capability threshold just above the four-year endpoint continues the benchmark-level equations rather than holding the final aggregate flat, and the site labels the crossing as an extended extrapolation.
+13. Both report modals show current data and both downloads open the current workbooks.
+14. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
 
 ## Publication
 
@@ -206,7 +210,7 @@ A refresh is complete only when:
 
 1. **Automate site-curve extraction.** `CAPABILITY_CURVE` and `COMPUTE_CURVE` are copied manually into their projection modules, creating the largest silent-drift risk.
 2. **Remove capability literals from the compute builder.** Generate or pass a shared capability result.
-3. **Read capability registries directly.** The compute builder now reads its canonical capacity series, but the capability builder still embeds operative arrays even though `data/sources/` defines the intended append-only evidence structure.
+3. **Read all capability registries directly.** The capability builder now reads METR horizon and trend registries, but still embeds the economic benchmark catalog and normalized observations even though `data/sources/` defines the intended append-only evidence structure.
 4. **Set a rolling-window policy.** The current publication is fixed at `2024-Q1` through `2028-Q4`; do not change it silently at a quarter rollover.
 
 ## Refresh record template
@@ -237,10 +241,17 @@ Notes or comparability breaks:
 |---|---:|
 | Current capability composite | 45.661% |
 | Capability confidence | Low, about 47.8% evidence coverage |
-| Capability gap acceleration | +0.046537 failure-gap halvings per quarter² |
-| Implied capability-velocity growth | about 47.1% per quarter under the causal-feedback conjecture |
-| Capability threshold | 60% |
-| Capability crossing | 25 April 2027 |
+| Economic gap velocity | +0.120606 failure-gap halvings per quarter |
+| METR H50 source velocity | +0.709242 task-horizon doublings per quarter |
+| METR H50 acceleration | +0.209121 task-horizon doublings per quarter² |
+| METR H80 reliability guardrail | +0.342917 task-horizon doublings per quarter² |
+| Economic transfer coefficient | 0.170050 gap halvings per horizon doubling |
+| Initial economic acceleration | +0.035561 failure-gap halvings per quarter² |
+| Implied capability-velocity growth | about 34.3% per quarter under the causal-feedback conjecture |
+| Capability threshold | 75% |
+| Capability crossing | 13 November 2027 |
+| 76% sensitivity | 25 November 2027 |
+| 2028-Q4 capability score | 98.715% |
 | Current U.S. compute | 13.524006M H100e |
 | Population target | 171.4M users |
 | Personal-AI inference allocation | 50% of modeled inference supply |

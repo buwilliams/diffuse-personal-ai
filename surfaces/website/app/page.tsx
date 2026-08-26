@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  CAPABILITY_ACCELERATION_COVERAGE,
-  CAPABILITY_GAP_ACCELERATION,
   CAPABILITY_GAP_VELOCITY,
+  CAPABILITY_H50_ACCELERATION,
+  CAPABILITY_H50_VELOCITY,
+  CAPABILITY_H80_ACCELERATION,
   CAPABILITY_REPORT_END,
+  CAPABILITY_TRANSFER_COEFFICIENT,
   DEFAULT_CAPABILITY_SCORE,
   capabilityAt,
 } from './capability-projection';
@@ -112,8 +114,8 @@ type ModelInputs = {
 
 const DEFAULTS: ModelInputs = {
   currentCapability: DEFAULT_CAPABILITY_SCORE,
-  capabilityThreshold: 60,
-  capabilityAcceleration: CAPABILITY_GAP_ACCELERATION,
+  capabilityThreshold: 75,
+  capabilityAcceleration: CAPABILITY_H50_ACCELERATION,
   populationM: 342.8,
   coverageThreshold: 50,
   currentComputeM: DEFAULT_COMPUTE_M,
@@ -805,9 +807,11 @@ export default function Home() {
       : `${controllingGateLabel} controls the clock because it clears ${gateGapDays?.toLocaleString('en-US')} days later.`;
   const isDefault = (Object.keys(DEFAULTS) as Array<keyof ModelInputs>)
     .every((key) => Math.abs(inputs[key] - DEFAULTS[key]) < 0.00001);
-  const capabilityFeedbackRate = Math.expm1(
-    inputs.capabilityAcceleration / CAPABILITY_GAP_VELOCITY,
-  ) * 100;
+  const capabilityRelativeAcceleration = CAPABILITY_H50_VELOCITY > 0
+    ? inputs.capabilityAcceleration / CAPABILITY_H50_VELOCITY
+    : 0;
+  const capabilityFeedbackRate = Math.expm1(capabilityRelativeAcceleration) * 100;
+  const capabilityEconomicAcceleration = CAPABILITY_GAP_VELOCITY * capabilityRelativeAcceleration;
   const computeFeedbackRate = Math.expm1(
     inputs.computeAcceleration / BASE_COMPUTE_VELOCITY,
   ) * 100;
@@ -830,18 +834,19 @@ export default function Home() {
       grade: grade(inputs.currentCapability),
       threshold: `${inputs.capabilityThreshold.toFixed(0)}%`,
       crossing: capabilityDate,
-      note: 'The live scenario exposes the report’s actual failure-gap acceleration. Crossings after 2028-Q4 continue the same benchmark-level method and are labeled as extended extrapolations.',
+      note: 'The economic benchmark basket sets capability level and current velocity. METR H50 sets acceleration, while H80 checks that reliability is not lagging. Crossings after 2028-Q4 continue the same model and are labeled as extended extrapolations.',
       href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-four-year-capability-report-card.xlsx',
       rows: [
         ['Current composite', `${inputs.currentCapability.toFixed(1)}%`],
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
-        ['Initial gap acceleration', `${signed(inputs.capabilityAcceleration)} halvings / quarter²`],
+        ['H50 task-horizon acceleration', `${signed(inputs.capabilityAcceleration)} doublings / quarter²`],
+        ['H80 reliability guardrail', `${signed(CAPABILITY_H80_ACCELERATION)} doublings / quarter²`],
+        ['Economic transfer coefficient', `${CAPABILITY_TRANSFER_COEFFICIENT.toFixed(3)} gap halvings / horizon doubling`],
+        ['Initial economic acceleration', `${signed(capabilityEconomicAcceleration)} gap halvings / quarter²`],
         ['Progress-rate feedback', `${signed(capabilityFeedbackRate, 1)}% per quarter`],
-        ['Acceleration coverage', `${CAPABILITY_ACCELERATION_COVERAGE.toFixed(0)}% of graded benchmarks`],
         ['Projected crossing', `${capabilityDate}${capabilityUsesExtendedProjection ? ' · extended beyond 2028-Q4' : ''}`],
         [`Sensitivity at ${projection.nextCapabilityThreshold.toFixed(0)}%`, nextCapabilityDate],
         ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
-        ['Workbook default', '25 Apr 2027'],
       ],
     },
     compute: {
@@ -873,7 +878,7 @@ export default function Home() {
   const activeScenario = modal === 'capability' ? [
     { label: 'Current score', value: reports.capability.current },
     { label: 'Threshold', value: reports.capability.threshold },
-    { label: 'Gap acceleration', value: `${signed(inputs.capabilityAcceleration)} h/q²` },
+    { label: 'H50 acceleration', value: `${signed(inputs.capabilityAcceleration)} doublings/q²` },
     { label: 'Crossing', value: reports.capability.crossing },
   ] : [
     { label: 'Gate rule', value: '100% of selected target' },
@@ -888,7 +893,9 @@ export default function Home() {
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
-      { title: 'Project the remaining failure gap.', explanation: `Estimate a shared frontier velocity of ${CAPABILITY_GAP_VELOCITY.toFixed(4)} failure-gap halvings per quarter and an initial acceleration of ${signed(inputs.capabilityAcceleration)} halvings per quarter². Their ratio implies ${signed(capabilityFeedbackRate, 1)}% quarterly growth in the rate of progress. That recursive feedback is applied from every benchmark’s current depth.` },
+      { title: 'Measure capability acceleration with METR.', explanation: `Use H50 task horizon as the primary velocity signal and H80 as the reliability guardrail. The default H50 acceleration is ${signed(CAPABILITY_H50_ACCELERATION)} task-horizon doublings per quarter²; the H80 check is ${signed(CAPABILITY_H80_ACCELERATION)}. Both come from the same recent five-release window and remain low-confidence.` },
+      { title: 'Transfer acceleration to economic work.', explanation: `Keep the observed economic failure-gap velocity at ${CAPABILITY_GAP_VELOCITY.toFixed(4)} halvings per quarter. The transfer coefficient is ${CAPABILITY_TRANSFER_COEFFICIENT.toFixed(3)}, so the current scenario starts at ${signed(capabilityEconomicAcceleration)} economic gap halvings per quarter² and implies ${signed(capabilityFeedbackRate, 1)}% quarterly growth in the progress rate.` },
+      { title: 'Project the remaining failure gap.', explanation: 'Apply that recursively increasing shared velocity to each benchmark’s current failure-gap depth, back-transform to a bounded 0–100% score, rebuild the four categories, and confidence weight them.' },
       { title: 'Continue the same method when needed.', explanation: `The visible report ends at 2028-Q4, but the countdown evaluates the benchmark-level equations for the full 15-year search horizon. A crossing after the report window is explicitly marked as an extended extrapolation. At ${projection.nextCapabilityThreshold.toFixed(0)}%, the current scenario crosses on ${nextCapabilityDate}.` },
       { title: 'Set the capability gate.', explanation: `The major judgment call is the delegation threshold: ${inputs.capabilityThreshold.toFixed(0)}%. The live composite is ${inputs.currentCapability.toFixed(1)}%, producing a ${capabilityDate} crossing.` },
       { title: 'Use the later gate.', explanation: `The headline is not the capability date alone. It is the later of capability and compute. ${gateRule}` },
@@ -940,7 +947,7 @@ export default function Home() {
       </section>
 
       <section className="conjecture">
-        <p><span>Conjecture.</span> Delegating economically valuable work to personal AI is imminent because compute supply and model–harness systems demand are nearing a practical threshold: performing profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. People will delegate work because they value the time it returns: time to pursue internalized wants rather than imposed demands—chosen contribution, relationships, play, and pleasure.</p>
+        <p><span>Conjecture.</span> Delegating economically valuable work to personal AI is imminent because compute supply and model–harness systems demand are nearing a practical threshold: performing profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. People will delegate work because they value the time it returns: time to pursue intrinsic desires rather than extrinsic demands—chosen contribution, relationships, play, and pleasure.</p>
         <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. The date is a base-case scenario crossing, not a calibrated probability; instant distribution and universal value-add remain explicit assumptions.</p>
       </section>
 
@@ -987,15 +994,15 @@ export default function Home() {
               <span><small>Controls clock</small><strong>{controllingGateLabel}</strong></span>
             </div>
             <p className="sensitivity-note">
-              Acceleration is an editable initial rate, not a multiplier. The causal feedback model compounds progress into future progress: capability currently implies {signed(capabilityFeedbackRate, 1)}% quarterly growth in its progress rate, while compute implies {signed(computeFeedbackRate, 1)}%. At a {projection.nextCapabilityThreshold.toFixed(0)}% capability threshold, this scenario crosses on {nextCapabilityDate}.
+              Acceleration is an editable initial rate, not a multiplier. Capability uses METR H50 task-horizon acceleration and an H80 reliability check; the current setting implies {signed(capabilityFeedbackRate, 1)}% quarterly growth in the transferred economic progress rate. Compute implies {signed(computeFeedbackRate, 1)}%. At a {projection.nextCapabilityThreshold.toFixed(0)}% capability threshold, this scenario crosses on {nextCapabilityDate}.
             </p>
 
             <div className="control-groups">
               <fieldset>
                 <legend>Model–harness capability</legend>
                 <ControlField label="Current score" note="Report-card composite" value={inputs.currentCapability} min={20} max={80} step={0.1} suffix="%" onChange={(value) => update('currentCapability', value)} />
-                <ControlField label="Passing threshold" note="First grade above F" value={inputs.capabilityThreshold} min={50} max={90} step={1} suffix="%" decimals={0} onChange={(value) => update('capabilityThreshold', value)} />
-                <ControlField label="Capability gap acceleration" note={`Initial halvings/qtr² · ${signed(capabilityFeedbackRate, 1)}% progress-rate growth/qtr`} value={inputs.capabilityAcceleration} min={-0.1} max={0.25} step={0.0025} suffix="h/q²" decimals={4} onChange={(value) => update('capabilityAcceleration', value)} />
+                <ControlField label="Passing threshold" note="Practical delegation-quality gate" value={inputs.capabilityThreshold} min={50} max={90} step={1} suffix="%" decimals={0} onChange={(value) => update('capabilityThreshold', value)} />
+                <ControlField label="METR H50 acceleration" note={`Task-horizon doublings/qtr² · ${signed(capabilityFeedbackRate, 1)}% transferred progress-rate growth/qtr`} value={inputs.capabilityAcceleration} min={-0.2} max={0.8} step={0.01} suffix="doublings/q²" decimals={3} onChange={(value) => update('capabilityAcceleration', value)} />
               </fieldset>
 
               <fieldset>

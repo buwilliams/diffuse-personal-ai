@@ -12,6 +12,7 @@ const descriptions = {
     Observations: 'The dated benchmark observations that anchor the historical series.',
     Catalog: 'The benchmark universe, normalization rules, grading status, and scope notes.',
     Model: 'Quarter-level model inputs, fitted motion, and projected benchmark paths.',
+    'METR Horizon': 'The H50 capability-velocity series, H80 reliability guardrail, fitted acceleration, and transfer bridge to economic benchmarks.',
     Methodology: 'Definitions, scoring rules, grade scale, projection method, and limitations.',
   },
   compute: {

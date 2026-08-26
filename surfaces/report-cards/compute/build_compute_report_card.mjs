@@ -130,8 +130,8 @@ assumptions.getRange("A27:D35").values = [
   ["First projected log growth", null, "log2 H100e / quarter", "Growth from the current snapshot to 2026-Q4"],
   ["First model row at full supply threshold", null, "position", "First score that reaches 100%; 'Beyond window' when extrapolation is required"],
   ["Projected supply crossing", null, "date", "Interpolate inside the report window; otherwise use dv/dh = k·v with k = acceleration / velocity"],
-  ["Capability threshold", 0.60, "%", "First grade above F"],
-  ["Projected capability crossing", d("2027-04-25"), "date", "First UTC day on which the shared-frontier capability path reaches 60%"],
+  ["Capability threshold", 0.75, "%", "Default practical delegation-quality gate"],
+  ["Projected capability crossing", d("2027-11-13"), "date", "First UTC day on which the economic benchmark path with METR H50/H80 feedback reaches 75%"],
   ["Countdown target", null, "date", "Later of supply and capability crossings"],
 ];
 assumptions.getRange("B28").formulas = [["=SLOPE('Quarterly Model'!$G$17:$G$25,'Quarterly Model'!$A$17:$A$25)"]];
@@ -199,7 +199,7 @@ for (const cell of ["A6", "D6", "G6", "J6", "M6"]) summary.getRange(cell).format
 summary.getRange("A6").format.numberFormat = "0.0%"; summary.getRange("D6:G6").format.numberFormat = "#,##0"; summary.getRange("J6").format.numberFormat = "yyyy-mm-dd";
 
 sectionBand(summary, "A11:F11", "TWO-KEY DIFFUSION GATE");
-summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥60%", 0.45660533834944794, d("2027-04-25"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
+summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥75%", 0.45660533834944794, d("2027-11-13"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
 summary.getRange("C14").formulas = [["='Quarterly Model'!J16"]]; summary.getRange("D14").formulas = [["='Assumptions'!B32"]]; summary.getRange("D15").formulas = [["='Assumptions'!B35"]];
 header(summary.getRange("A12:F12")); body(summary.getRange("A13:F15")); summary.getRange("C13:C14").format.numberFormat = "0.0%"; summary.getRange("D13:D15").format.numberFormat = "yyyy-mm-dd"; summary.getRange("A15:F15").format.fill = colors.lightGold; summary.getRange("A15:F15").format.font = { bold: true, color: colors.ink };
 
@@ -227,7 +227,7 @@ sources.getRange("A6:F11").values = [
   ["SRC-003", "Epoch AI", "AI Data Centers CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_centers.csv", "Country filter and current site registry"],
   ["SRC-004", "U.S. Census Bureau", "Population on a Date", d("2026-07-26"), "https://www.census.gov/popclock/", "Model uses the user-specified rounded estimate of 342.8M residents; the selected target is 50%, or 171.4M users"],
   ["SRC-005", "Personal AI forecast", "Report-card calculation contract", asOf, "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md", "Serving envelope and high-autonomy token mix; assumptions remain editable"],
-  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability first reaches 60% on the daily shared-frontier path on 2027-04-25"],
+  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability first reaches 75% on the daily economic benchmark path with METR H50/H80 feedback on 2027-11-13"],
 ];
 header(sources.getRange("A5:F5")); body(sources.getRange("A6:F11")); sources.getRange("D6:D11").format.numberFormat = "yyyy-mm-dd"; sources.tables.add("A5:F11", true, "ComputeSourcesTable"); sources.freezePanes.freezeRows(5);
 

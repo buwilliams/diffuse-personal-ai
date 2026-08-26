@@ -6,7 +6,7 @@ This document is the authoritative mathematical contract for the capability and 
 
 The countdown has two independent gates:
 
-1. **Demand proxy — model–harness capability.** The confidence-weighted capability composite must reach the selected delegation threshold. The default is 60%, the first grade above F.
+1. **Demand proxy — model–harness capability.** The confidence-weighted capability composite must reach the selected delegation threshold. The default is 75%, a practical delegation-quality scenario gate within the C band.
 2. **Supply — U.S. compute.** Operational U.S. compute must support the selected share of the U.S. population at the assumed workload.
 
 The headline date is the later crossing:
@@ -43,31 +43,68 @@ For normalized score `s`, convert the remaining failure gap to depth:
 
 > `failure-gap depth = -log2(1 - s)`
 
-One additional unit means the remaining gap to 100% has halved. Comparable longitudinal benchmarks estimate a confidence-weighted shared-frontier velocity `v₀` and initial acceleration `a₀`. Scores with one observation are not held flat: every graded benchmark receives the same projected frontier depth gain from its own current depth. This treats missing history as uncertainty rather than permanent zero progress.
+One additional unit means the remaining gap to 100% has halved. Comparable longitudinal economic benchmarks estimate the confidence-weighted current economic gap velocity `vₑ`. Scores with one observation are not held flat: every graded benchmark receives the same projected frontier depth gain from its own current depth. This treats missing history as uncertainty rather than permanent zero progress.
 
-The forecast makes the conjectured causal feedback explicit:
+Benchmark-local second derivatives remain visible as diagnostics, but they do not drive the forecast. The current economic suite is too sparse and benchmark definitions change too often for its local accelerations to be a defensible shared capability law.
 
-> `k = a₀ / v₀`
+### METR capability velocity and acceleration
+
+METR's standardized task horizon supplies the model–harness capability-motion signal:
+
+- **H50** is the primary horizon: the human task duration a model–harness system completes at 50% success.
+- **H80** is the reliability guardrail on the same suite. It checks whether longer horizons are being purchased by accepting much lower dependability.
+
+Let `y = log2(task-horizon minutes)` and `t` be quarters, centered at the newest included model release. Fit the recent H50 and H80 observations separately:
+
+> `y(t) = β₀ + β₁t + β₂t²`
 >
-> `dv/dh = k × v(h)`
+> `v_quad = β₁`
 >
-> `v(h) = v₀ × exp(kh)`
+> `a_quad = 2β₂`
 >
-> `Δd(h) = v₀ × (exp(kh) − 1) / k`
+> `k = a_quad / v_quad`
+
+The quadratic supplies **relative acceleration**, not the initial velocity. The H50 initial velocity `vₕ` comes from METR's published recent log-linear doubling-time estimate, converted to doublings per quarter. H80 uses its published endpoint check as a guardrail velocity. The default relative acceleration is:
+
+> `k_eff = max(0, min(k_H50, k_H80))`
+
+The slower positive estimate controls. A negative H80 estimate would therefore shut off positive acceleration rather than letting H50 outrun reliability. H80 is corroborating evidence, not an independent dataset, because both horizons are estimated from the same task suite and model runs.
+
+The displayed capability acceleration is the real H50 second derivative:
+
+> `a_H50 = vₕ × k_eff`
+
+The bridge from task horizon to economically valuable work is explicit:
+
+> `transfer coefficient τ = vₑ / vₕ`
+>
+> `initial economic acceleration = τ × a_H50 = vₑ × k_eff`
+
+This preserves the economic benchmark suite's observed current velocity while importing METR's evidence about whether capability progress itself is speeding up. The transfer is a causal conjecture and a direct refutation target; it is not identified by the current benchmark sample.
+
+### Capability projection
+
+The forecast makes recursive progress explicit:
+
+> `dvₑ/dh = k_eff × vₑ(h)`
+>
+> `vₑ(h) = vₑ × exp(k_eff h)`
+>
+> `Δd(h) = vₑ × (exp(k_eff h) − 1) / k_eff`
 >
 > `d_b(h) = d_b,now + max(0, Δd(h))`
 
-When `k = 0`, use the limit `Δd(h) = v₀ × h`. Because `dv/dh` at the evidence cutoff equals `a₀`, the control is exactly the initial second derivative it claims to represent. Positive `k` means that progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score. It is a causal scenario assumption about transferable model, harness, research, and tooling improvement—not a causal effect identified by the benchmark sample.
+When `k_eff = 0`, use the limit `Δd(h) = vₑ × h`. Positive `k_eff` means progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score.
 
 Convert depth back to a score:
 
 > `score(h) = 1 - 2^(-d(h))`
 
-Negative feedback may flatten a projection but cannot make capability regress below the current frontier. Evidence confidence and acceleration coverage qualify how much trust to place in the shared rate; they do not suppress the central trajectory by forcing sparsely observed benchmarks to remain static.
+Negative feedback may flatten a projection but cannot make capability regress below the current frontier. Evidence confidence, the five-point acceleration fit, the H50 measurement ceiling, and the H80 check qualify how much trust to place in the trajectory; they do not suppress it by forcing sparsely observed benchmarks to remain static.
 
 ### Interactive acceleration scenario
 
-The website exposes `a₀` as an actual initial second derivative, never as a generic `1×` multiplier. The capability control is measured in **failure-gap halvings per quarter²**. Its default is the report card's confidence-weighted observed acceleration summary. Changing it recomputes `k = a₀ / v₀` and therefore the recursive future velocity; it does not add a cosmetic percentage-point adjustment to the aggregate curve.
+The website exposes `a_H50` as an actual initial second derivative, never as a generic `1×` multiplier. The capability control is measured in **task-horizon doublings per quarter²**. Its default is the report card's METR-derived H50 acceleration. Changing it recomputes `k = a_H50 / vₕ`, transfers that relative acceleration to the observed economic velocity, and therefore changes recursive future velocity; it does not add a cosmetic percentage-point adjustment to the aggregate curve.
 
 The four-year report remains the visible evidence window. If a selected threshold does not cross by 2028-Q4, the website must continue the same benchmark-level equations through its 15-year search horizon and label any resulting date **extended extrapolation beyond the report window**. It must not hold the 2028-Q4 aggregate flat merely because the report table ends there.
 
@@ -77,7 +114,7 @@ Average the graded normalized benchmark scores within each category. Each benchm
 
 > `confidence weight = total evidence credits ÷ (3 × cataloged benchmarks in category)`
 
-Confidence labels are High at 80% or above, Medium at 50% or above, and Low below 50%. This quantity is an **evidence-coverage weight**, not a statistical confidence interval or probability that a score is correct. The overall capability score, trajectory, acceleration, and GPA use the continuous category evidence weights, so sparse evidence contributes less than mature longitudinal evidence.
+Confidence labels are High at 80% or above, Medium at 50% or above, and Low below 50%. This quantity is an **evidence-coverage weight**, not a statistical confidence interval or probability that a score is correct. The overall capability score, economic gap velocity, trajectory, and GPA use the continuous category evidence weights, so sparse evidence contributes less than mature longitudinal evidence. METR acceleration is reported separately with its own limitations rather than being averaged into the category weights.
 
 Letter grades are A ≥90%, B ≥80%, C ≥70%, D ≥60%, and F <60%.
 

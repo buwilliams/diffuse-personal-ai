@@ -5,15 +5,15 @@ const QUARTER = (365.2425 / 4) * DAY;
 
 export const CAPABILITY_CURVE = [
   ['2026-08-26', 45.6605338349],
-  ['2026-12-31', 50.9307080198],
-  ['2027-03-31', 57.7679677992],
-  ['2027-06-30', 66.1320819756],
-  ['2027-09-30', 75.5206240398],
-  ['2027-12-31', 84.8146477068],
-  ['2028-03-31', 92.4768072166],
-  ['2028-06-30', 97.3223549531],
-  ['2028-09-30', 99.4140673743],
-  ['2028-12-31', 99.9373080600],
+  ['2026-12-31', 50.6951630999],
+  ['2027-03-31', 56.7303543099],
+  ['2027-06-30', 63.6895931331],
+  ['2027-09-30', 71.3077702043],
+  ['2027-12-31', 79.0864616343],
+  ['2028-03-31', 86.3228894897],
+  ['2028-06-30', 92.2676013712],
+  ['2028-09-30', 96.4050064412],
+  ['2028-12-31', 98.7146564482],
 ] as const;
 
 export const DEFAULT_CAPABILITY_SCORE = CAPABILITY_CURVE[0][1];
@@ -33,6 +33,7 @@ type CategoryWeight = {
 
 const capabilityModelSheet = workbooks.capability.sheets.find((sheet) => sheet.name === 'Model');
 const capabilitySummarySheet = workbooks.capability.sheets.find((sheet) => sheet.name === 'Summary');
+const metrHorizonSheet = workbooks.capability.sheets.find((sheet) => sheet.name === 'METR Horizon');
 
 const benchmarkProjections: BenchmarkProjection[] = capabilityModelSheet?.rows
   .filter((row) =>
@@ -57,10 +58,18 @@ const overallSummaryRow = capabilitySummarySheet?.rows.find(
 
 export const CAPABILITY_GAP_VELOCITY =
   typeof overallSummaryRow?.[6] === 'number' ? overallSummaryRow[6] : 0;
-export const CAPABILITY_GAP_ACCELERATION =
-  typeof overallSummaryRow?.[7] === 'number' ? overallSummaryRow[7] : 0;
-export const CAPABILITY_ACCELERATION_COVERAGE =
-  typeof overallSummaryRow?.[8] === 'number' ? overallSummaryRow[8] * 100 : 0;
+
+function metrBridgeValue(label: string) {
+  const row = metrHorizonSheet?.rows.find((candidate) => candidate[13] === label);
+  return typeof row?.[14] === 'number' ? row[14] : 0;
+}
+
+export const CAPABILITY_H50_VELOCITY = metrBridgeValue('H50 source velocity');
+export const CAPABILITY_RELATIVE_ACCELERATION = metrBridgeValue('Effective relative acceleration');
+export const CAPABILITY_H50_ACCELERATION = metrBridgeValue('Default H50 acceleration');
+export const CAPABILITY_TRANSFER_COEFFICIENT = metrBridgeValue('Economic transfer coefficient');
+export const CAPABILITY_ECONOMIC_ACCELERATION = metrBridgeValue('Initial economic acceleration');
+export const CAPABILITY_H80_ACCELERATION = metrBridgeValue('H80 implied acceleration');
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
@@ -86,9 +95,11 @@ function modelHorizonAt(timestamp: number) {
     (timestamp - points[points.length - 1].timestamp) / QUARTER;
 }
 
-function frontierDepthGain(horizon: number, scenarioAcceleration: number) {
+function frontierDepthGain(horizon: number, scenarioH50Acceleration: number) {
   if (horizon <= 0 || CAPABILITY_GAP_VELOCITY <= 0) return 0;
-  const feedbackCoefficient = scenarioAcceleration / CAPABILITY_GAP_VELOCITY;
+  const feedbackCoefficient = CAPABILITY_H50_VELOCITY > 0
+    ? scenarioH50Acceleration / CAPABILITY_H50_VELOCITY
+    : 0;
   if (Math.abs(feedbackCoefficient) < 1e-9) return CAPABILITY_GAP_VELOCITY * horizon;
   return Math.max(
     0,
@@ -96,10 +107,10 @@ function frontierDepthGain(horizon: number, scenarioAcceleration: number) {
   );
 }
 
-function benchmarkCompositeAt(horizon: number, scenarioAcceleration: number) {
+function benchmarkCompositeAt(horizon: number, scenarioH50Acceleration: number) {
   let weightedScore = 0;
   let totalWeight = 0;
-  const sharedDepthGain = frontierDepthGain(horizon, scenarioAcceleration);
+  const sharedDepthGain = frontierDepthGain(horizon, scenarioH50Acceleration);
 
   for (const { category, weight } of categoryWeights) {
     const categoryBenchmarks = benchmarkProjections.filter(
@@ -135,23 +146,23 @@ function reportPathAt(timestamp: number) {
     }
   }
 
-  return benchmarkCompositeAt(modelHorizonAt(timestamp), CAPABILITY_GAP_ACCELERATION);
+  return benchmarkCompositeAt(modelHorizonAt(timestamp), CAPABILITY_H50_ACCELERATION);
 }
 
 /**
- * Preserve the published quarterly path at the report's acceleration. A live
- * acceleration changes the recursive shared-frontier velocity before the
- * benchmark scores are recovered, averaged, and confidence weighted.
+ * Preserve the published quarterly path at the report's H50 acceleration. A
+ * live H50 acceleration changes the METR-derived relative feedback before the
+ * economic benchmark scores are recovered, averaged, and confidence weighted.
  */
 export function capabilityAt(
   timestamp: number,
   currentCapability: number,
-  scenarioAcceleration: number,
+  scenarioH50Acceleration: number,
 ) {
   const horizon = modelHorizonAt(timestamp);
   const baseline = reportPathAt(timestamp);
-  const accelerationAdjustment = benchmarkCompositeAt(horizon, scenarioAcceleration) -
-    benchmarkCompositeAt(horizon, CAPABILITY_GAP_ACCELERATION);
+  const accelerationAdjustment = benchmarkCompositeAt(horizon, scenarioH50Acceleration) -
+    benchmarkCompositeAt(horizon, CAPABILITY_H50_ACCELERATION);
   const currentShift = currentCapability - DEFAULT_CAPABILITY_SCORE;
   return clamp(baseline + accelerationAdjustment + currentShift, 0, 99);
 }
