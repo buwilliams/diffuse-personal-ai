@@ -933,6 +933,7 @@ export default function Home() {
   const activeCalculation = modal === 'capability' ? {
     title: 'How the demand-proxy score and gate are calculated',
     steps: [
+      { title: 'Gather real-world benchmarks.', explanation: 'Collect published benchmarks, leaderboards, and evaluations that track model–harness systems doing economically useful work—not model knowledge in isolation.' },
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
@@ -943,6 +944,7 @@ export default function Home() {
   } : {
     title: 'How compute becomes a supported-user score and gate',
     steps: [
+      { title: 'Gather compute-supply sources.', explanation: 'Collect U.S. data-center projects, accelerator capacity, expected operational dates, and other evidence needed to reconstruct available inference supply over time.' },
       { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
       { title: 'Convert hardware to daily tokens.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day and the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
