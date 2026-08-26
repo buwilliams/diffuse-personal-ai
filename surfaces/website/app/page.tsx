@@ -147,7 +147,7 @@ const DEFAULTS: ModelInputs = {
   computeAcceleration: 1,
   workloadM: 16.75,
   servingEfficiency: 1,
-  personalAiInferenceShare: 100,
+  personalAiInferenceShare: 50,
 };
 
 function clamp(value: number, minimum: number, maximum: number) {

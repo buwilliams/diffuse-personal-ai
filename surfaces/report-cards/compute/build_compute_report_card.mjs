@@ -96,7 +96,7 @@ assumptions.getRange("A15:D25").values = [
   ["Forward-pass ops per parameter-token", 2, "ops", "Transformer rule of thumb"],
   ["System overhead multiplier", 1.5, "x", "Attention, routing, communication, and non-model overhead"],
   ["Serving-goodput multiplier", 1.0, "x", "No extra chip multiplier beyond H100e in the base case"],
-  ["Personal-AI share of modeled inference", 1.0, "%", "Scenario allocation to the target cohort; not an observed fleet share"],
+  ["Personal-AI share of modeled inference", 0.50, "%", "Scenario allocation to the target cohort; not an observed fleet share"],
   ["Personal-AI compute-equivalent tokens / H100e / day", null, "tokens/day", "Derived serving supply available to the target cohort"],
 ];
 assumptions.getRange("B25").formulas = [["=B16*B17*B18*B19*B23*B24/(B20*B21*B22)"]];
@@ -128,8 +128,8 @@ assumptions.getRange("A27:D35").values = [
   ["Pipeline log-capacity acceleration", null, "log2 H100e / quarter²", "OLS slope of the published forward-path quarterly log-growth rates"],
   ["Mean pipeline log growth", null, "log2 H100e / quarter", "Mean quarterly log growth across the published forward path"],
   ["First projected log growth", null, "log2 H100e / quarter", "Growth from the current snapshot to 2026-Q4"],
-  ["First model row at full supply threshold", null, "position", "First score that reaches 100%"],
-  ["Projected supply crossing", null, "date", "Linear interpolation between surrounding capacity points"],
+  ["First model row at full supply threshold", null, "position", "First score that reaches 100%; 'Beyond window' when extrapolation is required"],
+  ["Projected supply crossing", null, "date", "Interpolate inside the report window; otherwise extend the final log-growth velocity and pipeline acceleration"],
   ["Capability threshold", 0.60, "%", "First grade above F"],
   ["Projected capability crossing", d("2028-06-20"), "date", "First UTC day on which the capability report-card path reaches 60%"],
   ["Countdown target", null, "date", "Later of supply and capability crossings"],
@@ -137,8 +137,8 @@ assumptions.getRange("A27:D35").values = [
 assumptions.getRange("B28").formulas = [["=SLOPE('Quarterly Model'!$G$17:$G$25,'Quarterly Model'!$A$17:$A$25)"]];
 assumptions.getRange("B29").formulas = [["=AVERAGE('Quarterly Model'!$G$17:$G$25)"]];
 assumptions.getRange("B30").formulas = [["='Quarterly Model'!G17"]];
-assumptions.getRange("B31").formulas = [["=MATCH(1,'Quarterly Model'!$J$6:$J$25,0)"]];
-assumptions.getRange("B32").formulas = [["=INDEX('Quarterly Model'!$C$6:$C$25,B31-1)+(B12-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))/(INDEX('Quarterly Model'!$E$6:$E$25,B31)-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))*(INDEX('Quarterly Model'!$C$6:$C$25,B31)-INDEX('Quarterly Model'!$C$6:$C$25,B31-1))"]];
+assumptions.getRange("B31").formulas = [["=IFERROR(MATCH(1,'Quarterly Model'!$J$6:$J$25,0),\"Beyond window\")"]];
+assumptions.getRange("B32").formulas = [["=IF(ISNUMBER(B31),INDEX('Quarterly Model'!$C$6:$C$25,B31-1)+(B12-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))/(INDEX('Quarterly Model'!$E$6:$E$25,B31)-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))*(INDEX('Quarterly Model'!$C$6:$C$25,B31)-INDEX('Quarterly Model'!$C$6:$C$25,B31-1)),'Quarterly Model'!$C$25+IF(ABS(B28)<0.000000001,(LN(B12/'Quarterly Model'!$E$25)/LN(2))/'Quarterly Model'!$G$25,(-('Quarterly Model'!$G$25+B28/2)+SQRT(('Quarterly Model'!$G$25+B28/2)^2-2*B28*(LN('Quarterly Model'!$E$25/B12)/LN(2))))/B28)*(365.2425/4))"]];
 assumptions.getRange("B35").formulas = [["=MAX(B32,B34)"]];
 header(assumptions.getRange("A27:D27")); body(assumptions.getRange("A28:D35")); assumptions.getRange("B28:B30").format.numberFormat = "0.000"; assumptions.getRange("B32").format.numberFormat = "yyyy-mm-dd"; assumptions.getRange("B33").format.numberFormat = "0%"; assumptions.getRange("B34:B35").format.numberFormat = "yyyy-mm-dd";
 assumptions.freezePanes.freezeRows(3);
@@ -207,13 +207,13 @@ sectionBand(summary, "A18:C18", "QUARTERLY SUPPLY SCORE");
 summary.getRange("A19:C19").values = [["Quarter", "Supply score", "Full threshold"]];
 for (let i = 0; i < quarters.length; i++) { const row = 20 + i; const mrow = 6 + i; summary.getRange(`A${row}:C${row}`).formulas = [[`='Quarterly Model'!B${mrow}`, `='Quarterly Model'!J${mrow}`, "=1"]]; }
 header(summary.getRange("A19:C19")); body(summary.getRange("A20:C39")); summary.getRange("B20:C39").format.numberFormat = "0%";
-const chart = summary.charts.add("line", summary.getRange("A19:C39")); chart.title = "Published U.S. buildout pipeline reaches the threshold in 2028"; chart.hasLegend = true; chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } }; chart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 }; chart.setPosition("E18", "N36");
+const chart = summary.charts.add("line", summary.getRange("A19:C39")); chart.title = "Published U.S. buildout pipeline approaches the threshold through 2028"; chart.hasLegend = true; chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } }; chart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 }; chart.setPosition("E18", "N36");
 
 summary.getRange("A41:N44").values = [
-  ["Interpretation", "Current U.S. operational capacity supports about 64 million high-autonomy users under the base serving envelope—37.6% of the 171.4 million-user threshold.", null, null, null, null, null, null, null, null, null, null, null, null],
+  ["Interpretation", "At the 50% personal-AI inference allocation, current U.S. operational capacity supports about 32 million high-autonomy users—18.8% of the 171.4 million-user threshold.", null, null, null, null, null, null, null, null, null, null, null, null],
   ["Projection", "The base path sums dated expected or projected operating states in Epoch's current U.S. buildout timeline. The displayed acceleration is descriptive of that source path, not a fitted causal law.", null, null, null, null, null, null, null, null, null, null, null, null],
   ["Boundary", "H100e already normalizes chip peak compute. No separate Jalapeño, Cerebras, or Rubin multiplier is added unless it represents deployed serving goodput beyond the H100e convention.", null, null, null, null, null, null, null, null, null, null, null, null],
-  ["Caution", "Epoch covers publicly tracked large sites rather than the full U.S. fleet. Project timing and quantity are uncertain. The editable base case allocates 100% of modeled inference supply to this personal-AI cohort.", null, null, null, null, null, null, null, null, null, null, null, null],
+  ["Caution", "Epoch covers publicly tracked large sites rather than the full U.S. fleet. Project timing and quantity are uncertain. The editable base case allocates 50% of modeled inference supply to this personal-AI cohort.", null, null, null, null, null, null, null, null, null, null, null, null],
 ];
 for (let r = 41; r <= 44; r++) { summary.getRange(`B${r}:N${r}`).merge(); body(summary.getRange(`A${r}:N${r}`)); summary.getRange(`A${r}`).format = { fill: colors.lightGold, font: { bold: true, color: colors.ink }, borders: { preset: "all", style: "thin", color: colors.line } }; }
 summary.freezePanes.freezeRows(3);

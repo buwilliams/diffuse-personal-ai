@@ -100,7 +100,7 @@ The current high-autonomy workload is 16.75 million compute-equivalent tokens pe
 
 ### Default serving envelope
 
-The current serving envelope produces 79.79328 million compute-equivalent tokens per H100e per day from:
+The current serving envelope produces 79.79328 million compute-equivalent inference tokens per H100e per day before the personal-AI cohort allocation, from:
 
 - 1.979e15 dense 8-bit operations per H100e-second;
 - 40% of the fleet allocated to inference;
@@ -109,9 +109,9 @@ The current serving envelope produces 79.79328 million compute-equivalent tokens
 - two forward-pass operations per parameter-token;
 - 1.5× system overhead; and
 - 1.0× additional serving-goodput multiplier.
-- 100% of modeled inference supply allocated to the target personal-AI cohort.
+- 50% of modeled inference supply allocated to the target personal-AI cohort, leaving 39.89664 million compute-equivalent tokens per H100e per day available to that cohort.
 
-The 100% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so reducing this input can materially delay or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
+The 50% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so changing this input can materially move or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
 
 H100e already normalizes hardware peak compute. A Cerebras, Jalapeño, Rubin, or other chip multiplier is added only when it represents measured deployed serving goodput not already captured by H100e. Hardware gains must not be counted twice.
 

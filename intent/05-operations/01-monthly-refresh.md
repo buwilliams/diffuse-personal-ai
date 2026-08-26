@@ -237,10 +237,11 @@ Notes or comparability breaks:
 | Capability crossing | 20 June 2028 |
 | Current U.S. compute | 13.524006M H100e |
 | Population target | 171.4M users |
-| Current supported users | about 64.4M |
-| Required compute | about 35.98M H100e |
-| Compute progress | about 37.6% |
-| Compute crossing | 17 March 2028 (continuous interpolation; 18 March at daily site resolution) |
-| Headline date | 20 June 2028 |
+| Personal-AI inference allocation | 50% of modeled inference supply |
+| Current supported users | about 32.2M |
+| Required compute | about 71.96M H100e |
+| Compute progress | about 18.8% |
+| Compute crossing | 19 February 2029 (continuous extrapolation; 20 February at daily site resolution) |
+| Headline date | 20 February 2029 |
 
 These are regression anchors for the current production release, not permanent assumptions. Replace this table after every published refresh.
