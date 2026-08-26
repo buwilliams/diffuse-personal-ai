@@ -3,7 +3,7 @@
     "id": "gate1-github-com-commerce-agent-bench-benchmark",
     "title": "Commerce Agent Bench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,70 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "3 explicit benchmark score(s) and 0 other numeric measurement(s); 3 item(s) affect the countdown.",
+      "counts": {
+        "scores": 3,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 3
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-017",
+          "metric": "Pi-harness full-suite pass rate",
+          "value": 0.29,
+          "unit": "proportion",
+          "displayValue": "29%",
+          "subject": "Gemini 3 Flash + Pi",
+          "observationDate": "2025-12-17",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.29,
+          "normalization": "Already a 0–100% pass rate; pin 107 tasks and Pi harness",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-017",
+          "caveat": "107-task benchmark snapshot."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-018",
+          "metric": "Pi-harness full-suite pass rate",
+          "value": 0.523,
+          "unit": "proportion",
+          "displayValue": "52.3%",
+          "subject": "Claude Opus 4.8 + Pi",
+          "observationDate": "2026-05-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.523,
+          "normalization": "Already a 0–100% pass rate; pin 107 tasks and Pi harness",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-018",
+          "caveat": "Quarter frontier; fixed Pi harness."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-019",
+          "metric": "Pi-harness full-suite pass rate",
+          "value": 0.607,
+          "unit": "proportion",
+          "displayValue": "60.7%",
+          "subject": "Claude Opus 5 + Pi",
+          "observationDate": "2026-07-24",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.607,
+          "normalization": "Already a 0–100% pass rate; pin 107 tasks and Pi harness",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-019",
+          "caveat": "65/107 tasks; fixed Pi harness."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

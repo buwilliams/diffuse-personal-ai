@@ -29,7 +29,7 @@ Every JSON file has exactly two root fields:
     "id": "stable-id",
     "title": "Human-readable title",
     "description": "Contents and forecast role",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "YYYY-MM-DD",
     "asOfDate": "YYYY-MM-DD",
     "sources": [],
@@ -50,6 +50,30 @@ Every `[source]-data.json` has exactly one entry in `metadata.sources`. Its `dat
 ```json
 {
   "gateId": "gate1",
+  "results": {
+    "status": "reported-scores",
+    "countdownRole": "direct-input",
+    "summary": "Plain-language result inventory",
+    "counts": {
+      "scores": 1,
+      "measurements": 0,
+      "assumptions": 0,
+      "directInputs": 1
+    },
+    "measurements": [
+      {
+        "metric": "Source metric",
+        "value": 0.412,
+        "unit": "proportion",
+        "displayValue": "41.2%",
+        "origin": "normalized-source-result",
+        "usedInCountdown": true,
+        "normalizedScore": 0.412,
+        "sourceLocation": "Table 3",
+        "sourceRecord": "capability-benchmarks.observations.forecast-observation-039"
+      }
+    ]
+  },
   "fragments": [
     {
       "datasetId": "capability-benchmarks",
@@ -62,6 +86,8 @@ Every `[source]-data.json` has exactly one entry in `metadata.sources`. Its `dat
   ]
 }
 ```
+
+A source's `results` block is the reader-facing evidence inventory. It exposes reported scores and measurements before the ETL fragments, distinguishes raw source values, normalized results, derived values, and forecast-authored assumptions, and states whether each item changes the countdown. A source with no numerical result must use `descriptive-only` and say so; an updating agent must never fill that gap by inference. The consolidator deterministically rematerializes this block from the fragments, and the validator rejects stale or inconsistent result inventories.
 
 A fragment assigns source-specific data to one logical dataset and collection. `kind: "records"` is used for ordered arrays; `kind: "value"` is used for one object or scalar. The `order` field preserves deterministic ordering when records from many sources are merged. Records with a `sourceId` use the ID of the source file's single metadata source.
 
@@ -80,7 +106,7 @@ The consolidator reads `database.json`, loads every source file, orders and merg
 - `gate1-consolidated.json`, containing the capability, METR, adoption, research-evidence, and user-capability logical datasets;
 - `gate2-consolidated.json`, containing the compute-capacity logical dataset.
 
-Each consolidated file also includes a `sourceFiles` index with repository path, publisher, original URL, access date, roles, affected logical datasets, and record count. The website uses this index for its provenance modal. Consolidated files must never be hand-edited.
+Each consolidated file also includes a `sourceFiles` index with repository path, publisher, original URL, access date, roles, affected logical datasets, record count, result status, result counts, and countdown role. The website uses this index for its provenance modal. Consolidated files must never be hand-edited.
 
 Every logical dataset descriptor in `database.json` also includes a plain-language `calculation` block: its forecast role, preparation method, countdown effect, transformation pipeline, and adjustable assumptions. That lineage travels with the snapshot rather than living only in interface copy.
 
@@ -118,7 +144,8 @@ The capability dataset distinguishes the forecast-driving benchmark basket from 
 6. Observed and projected compute rows remain distinguishable through `evidenceClass`.
 7. Adoption series retain their units and populations; users, subscriptions, seats, downloads, and stars are not one curve.
 8. Every `sourceId` must resolve to the source file that contributed the record and to the consolidated gate's source registry.
-9. New schemas require a `schemaVersion` change and corresponding consolidator, loader, and validator update.
+9. Every source must materialize its numerical results and say whether each one is source-reported, normalized, derived, or a forecast assumption; missing scores remain explicitly missing.
+10. New schemas require a `schemaVersion` change and corresponding consolidator, loader, and validator update.
 
 ## Adding evidence
 

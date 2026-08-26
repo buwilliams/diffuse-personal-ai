@@ -3,7 +3,7 @@
     "id": "gate1-diffuse-personal-ai-gate-1-model-harness-capability-calculation-contract",
     "title": "Gate 1 · Model–harness capability calculation contract",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -28,6 +28,104 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "forecast-assumptions",
+      "countdownRole": "forecast-method",
+      "summary": "Forecast-authored method with 5 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 5,
+        "directInputs": 5
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.model.currentQuarterIndex",
+          "metric": "current Quarter Index",
+          "value": 11,
+          "unit": "value",
+          "displayValue": "11 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.currentQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.firstForecastQuarterIndex",
+          "metric": "first Forecast Quarter Index",
+          "value": 12,
+          "unit": "value",
+          "displayValue": "12 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.firstForecastQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.reportEndQuarterIndex",
+          "metric": "report End Quarter Index",
+          "value": 20,
+          "unit": "value",
+          "displayValue": "20 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.reportEndQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.maximumEvidenceCreditsPerBenchmark",
+          "metric": "maximum Evidence Credits Per Benchmark",
+          "value": 3,
+          "unit": "value",
+          "displayValue": "3 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.maximumEvidenceCreditsPerBenchmark",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.exactOneDepth",
+          "metric": "exact One Depth",
+          "value": 30,
+          "unit": "value",
+          "displayValue": "30 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.exactOneDepth",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

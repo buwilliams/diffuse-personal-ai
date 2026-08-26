@@ -3,7 +3,7 @@
     "id": "gate1-consolidated",
     "title": "Gate 1 consolidated model–harness evidence",
     "description": "Source-normalized evidence and model inputs for the model–harness capability gate and its supporting context.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -1051,7 +1051,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-aclanthology-org-osworld-and-mobileworld",
@@ -1067,7 +1075,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-agenthijack-github-io-agenthijack-and-saas-bench",
@@ -1083,7 +1099,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-andonlabs-com-vending-bench-2-benchmark",
@@ -1104,7 +1128,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 13
+        "recordCount": 13,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 8,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 3
+        }
       },
       {
         "id": "gate1-anthropic-com-anthropic-business-customers",
@@ -1120,7 +1152,15 @@
         "datasetIds": [
           "research-evidence"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-claude-directive-delegation-observation",
@@ -1136,7 +1176,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-claude-opus-4-5-release",
@@ -1152,7 +1200,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-claude-opus-4-6-release",
@@ -1168,7 +1224,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-claude-opus-4-8-release",
@@ -1184,7 +1248,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-claude-opus-5-release",
@@ -1200,7 +1272,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-anthropic-com-osworld-observation-source",
@@ -1220,7 +1300,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-api-github-com-openclaw-github-stars-observation",
@@ -1238,7 +1326,15 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation",
@@ -1256,7 +1352,15 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-apnews-com-chatgpt-paid-consumers-observation",
@@ -1274,7 +1378,15 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
@@ -1291,7 +1403,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 6
+        "recordCount": 6,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 5,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 5
+        }
       },
       {
         "id": "gate1-arxiv-org-appworld-ul-user-interaction-tasks",
@@ -1307,7 +1427,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-arxiv-org-business-arena-benchmark",
@@ -1324,7 +1452,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-enterprisearena-benchmark",
@@ -1341,7 +1477,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-merchantbench-benchmark",
@@ -1358,7 +1502,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps",
@@ -1376,7 +1528,15 @@
           "research-evidence",
           "user-capabilities"
         ],
-        "recordCount": 5
+        "recordCount": 5,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 4,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-arxiv-org-osworld-observation-source",
@@ -1392,7 +1552,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 2,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-arxiv-org-pi-bench-benchmark",
@@ -1409,7 +1577,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-retailbench-benchmark",
@@ -1426,7 +1602,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-theagentcompany-benchmark",
@@ -1443,7 +1627,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-weavebench",
@@ -1457,9 +1649,18 @@
         ],
         "notes": null,
         "datasetIds": [
+          "capability-benchmarks",
           "user-capabilities"
         ],
-        "recordCount": 2
+        "recordCount": 22,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 17,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-arxiv-org-windowsworld-and-saas-bench",
@@ -1475,7 +1676,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-arxiv-org-workarena-benchmark",
@@ -1491,7 +1700,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-arxiv-org-yc-bench-benchmark",
@@ -1508,7 +1725,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-ceobench-com-ceo-bench-benchmark",
@@ -1525,7 +1750,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 2,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 2
+        }
       },
       {
         "id": "gate1-claude-com-anthropic-prompt-injection-guidance",
@@ -1541,7 +1774,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-code-claude-com-claude-code-per-app-permissions",
@@ -1557,7 +1798,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-deploymentsafety-openai-com-chatgpt-agent-confirmations-and-restrictions",
@@ -1573,7 +1822,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-deploymentsafety-openai-com-gpt-5-6-sol-factual-error-reduction-vs-gpt-5",
@@ -1589,7 +1846,15 @@
         "datasetIds": [
           "research-evidence"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-diffuse-personal-ai-gate-1-model-harness-capability-calculation-contract",
@@ -1609,7 +1874,15 @@
           "capability-benchmarks",
           "metr-task-horizon"
         ],
-        "recordCount": 21
+        "recordCount": 21,
+        "resultStatus": "forecast-assumptions",
+        "countdownRole": "forecast-method",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 5,
+          "directInputs": 5
+        }
       },
       {
         "id": "gate1-docs-x-ai-grok-bot-routines-and-cl-bench-caveat",
@@ -1625,7 +1898,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-federalreserve-gov-us-work-genai-any-use-observation",
@@ -1641,7 +1922,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 6
+        "recordCount": 6,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 6,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-gallup-com-us-employee-ai-use-observation",
@@ -1657,7 +1946,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-gallup-com-us-employee-frequent-ai-use-observation",
@@ -1673,7 +1970,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-github-com-automationbench-benchmark",
@@ -1690,7 +1995,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-github-com-claw-eval-benchmark",
@@ -1707,7 +2020,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-github-com-clawbench-benchmark",
@@ -1724,7 +2045,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-github-com-clawmark-benchmark",
@@ -1741,7 +2070,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-github-com-commerce-agent-bench-benchmark",
@@ -1758,7 +2095,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 4
+        "recordCount": 4,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 3,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 3
+        }
       },
       {
         "id": "gate1-github-com-mypcbench-source",
@@ -1777,7 +2122,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 11
+        "recordCount": 11,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 7,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
@@ -1794,7 +2147,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-help-openai-com-chatgpt-work-and-grok-bot-product-support",
@@ -1810,7 +2171,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-investing-com-chatgpt-paid-consumers-observation",
@@ -1826,7 +2195,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-labs-scale-com-remote-labor-index-source",
@@ -1845,7 +2222,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 10
+        "recordCount": 10,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 7,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-metr-org-metr-time-horizon-source",
@@ -1869,7 +2254,15 @@
           "metr-task-horizon",
           "research-evidence"
         ],
-        "recordCount": 29
+        "recordCount": 29,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 10,
+          "measurements": 16,
+          "assumptions": 0,
+          "directInputs": 10
+        }
       },
       {
         "id": "gate1-metr-task-horizon-benchmark-results",
@@ -1885,7 +2278,15 @@
         "datasetIds": [
           "metr-task-horizon"
         ],
-        "recordCount": 4
+        "recordCount": 4,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 4,
+          "assumptions": 0,
+          "directInputs": 4
+        }
       },
       {
         "id": "gate1-microsoft-com-microsoft-365-active-agents-index-observation",
@@ -1901,7 +2302,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-mypcbench-com-mypcbench-benchmark",
@@ -1920,7 +2329,15 @@
           "capability-benchmarks",
           "user-capabilities"
         ],
-        "recordCount": 4
+        "recordCount": 4,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 1
+        }
       },
       {
         "id": "gate1-mypcbench-pages-dev-mypcbench-source",
@@ -1939,7 +2356,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-omegause-officeval-github-io-omegause-officeval-benchmark",
@@ -1955,7 +2380,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-agents-last-exam-source",
@@ -1978,7 +2411,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 19
+        "recordCount": 19,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 9,
+          "measurements": 6,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-chatgpt-reported-reach-observation-2",
@@ -1994,7 +2435,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-chatgpt-reported-reach-observation-3",
@@ -2010,7 +2459,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-chatgpt-reported-reach-observation-4",
@@ -2026,7 +2483,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-chatgpt-reported-reach-observation",
@@ -2042,7 +2507,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-chatgpt-work-and-mypcbench",
@@ -2058,7 +2531,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-codex-reach-observation-2",
@@ -2074,7 +2555,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-codex-reach-observation-3",
@@ -2092,7 +2581,15 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-codex-reach-observation",
@@ -2108,7 +2605,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-gdpval-benchmark",
@@ -2124,7 +2629,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-gpt-5-2-release",
@@ -2140,7 +2653,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-gpt-5-4-mini-release",
@@ -2156,7 +2677,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-gpt-5-release",
@@ -2172,7 +2701,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-openai-chatgpt-for-work-seats",
@@ -2188,7 +2725,15 @@
         "datasetIds": [
           "research-evidence"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-osworld-observation-source-2",
@@ -2208,7 +2753,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-openai-com-osworld-observation-source",
@@ -2226,7 +2779,15 @@
           "adoption",
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 1,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-os-world-github-io-osworld-source",
@@ -2242,7 +2803,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-osworld-v2-xlang-ai-osworld-source",
@@ -2262,7 +2831,15 @@
           "research-evidence",
           "user-capabilities"
         ],
-        "recordCount": 15
+        "recordCount": 15,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-platform-claude-com-claude-computer-use-limitations",
@@ -2278,7 +2855,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-privacy-anthropic-com-anthropic-computer-use-privacy-and-openai-controls",
@@ -2294,7 +2879,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-proceedings-mlsys-org-osworld-human-and-perplexity-adoption-study",
@@ -2310,7 +2903,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-ramp-com-us-businesses-paying-for-ai-observation-2",
@@ -2326,7 +2927,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-ramp-com-us-businesses-paying-for-ai-observation",
@@ -2342,7 +2951,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-rdi-berkeley-edu-best-reported-broad-agent-agents-last-exam-cli",
@@ -2358,7 +2975,15 @@
         "datasetIds": [
           "research-evidence"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-redis-github-io-hybrid-memory-system-longmemeval-task-averaged-accuracy",
@@ -2374,7 +2999,15 @@
         "datasetIds": [
           "research-evidence"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-remotelabor-ai-remote-labor-index-benchmark",
@@ -2391,7 +3024,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 5
+        "recordCount": 5,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 4,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 4
+        }
       },
       {
         "id": "gate1-sec-gov-grok-active-paid-subscriptions-observation",
@@ -2409,7 +3050,15 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 6
+        "recordCount": 6,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 6,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-taubench-com-tau3-banking-benchmark",
@@ -2426,7 +3075,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 6
+        "recordCount": 6,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 5,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 5
+        }
       },
       {
         "id": "gate1-taubench-com-tau3-banking-source",
@@ -2448,7 +3105,15 @@
           "capability-benchmarks",
           "research-evidence"
         ],
-        "recordCount": 12
+        "recordCount": 12,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 6,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-techradar-com-openclaw-github-stars-observation",
@@ -2464,7 +3129,15 @@
         "datasetIds": [
           "adoption"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-the-agent-company-com-theagentcompany-observation-source",
@@ -2480,7 +3153,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 2,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 2
+        }
       },
       {
         "id": "gate1-www-cdn-anthropic-com-osworld-observation-source",
@@ -2496,7 +3177,15 @@
         "datasetIds": [
           "capability-benchmarks"
         ],
-        "recordCount": 2
+        "recordCount": 2,
+        "resultStatus": "reported-scores",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 2,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       },
       {
         "id": "gate1-x-ai-chatgpt-work-and-grok-bot",
@@ -2512,7 +3201,15 @@
         "datasetIds": [
           "user-capabilities"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "descriptive-only",
+        "countdownRole": "context-only",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 0,
+          "directInputs": 0
+        }
       }
     ],
     "datasets": {
@@ -2521,7 +3218,7 @@
           "id": "capability-benchmarks",
           "title": "Model–harness economic capability benchmarks",
           "description": "Normalized benchmark catalog and release-quarter frontier observations used to estimate current economic capability and its failure-gap velocity.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [
@@ -2657,6 +3354,17 @@
               "roles": [
                 "forecast benchmark",
                 "forecast observation"
+              ],
+              "notes": null
+            },
+            {
+              "id": "gate1-arxiv-org-weavebench",
+              "publisher": "arxiv.org",
+              "title": "WeaveBench",
+              "url": "https://arxiv.org/abs/2606.09426",
+              "accessedAt": "2026-08-26",
+              "roles": [
+                "capability evidence"
               ],
               "notes": null
             },
@@ -3277,6 +3985,17 @@
               "firstReleaseQuarter": "2026-Q1",
               "sourceId": "gate1-github-com-claw-eval-benchmark",
               "notes": "Governance/reliability emphasis; one current frontier point."
+            },
+            {
+              "id": "OPS-09",
+              "category": "Operational execution",
+              "name": "WeaveBench",
+              "metric": "Trajectory-audited pass rate on long-horizon hybrid-interface tasks",
+              "normalization": "The source reports PassRate as a percentage; divide by 100 to obtain the bounded 0–1 score",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "114 tasks across eight real-world work domains; the selected frontier result is the best published model–runtime pairing in Table 3."
             }
           ],
           "observations": [
@@ -3735,6 +4454,19 @@
               "scoreBasis": "Pass^3 governed-agent score",
               "sourceId": "gate1-github-com-claw-eval-benchmark",
               "notes": "One current frontier point."
+            },
+            {
+              "id": "forecast-observation-039",
+              "benchmarkId": "OPS-09",
+              "releaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.412,
+              "systemHarness": "Claude Opus 4.7 + Claude Code",
+              "scoreBasis": "WeaveBench trajectory-audited PassRate; 41.2% reported in Table 3",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "Claude Opus 4.7's release date assigns the frontier point to 2026-Q2; the paper's 6 July revision is the observation date. The paired harness is part of the measured system."
             }
           ],
           "supportingRegistry": [
@@ -3919,6 +4651,32 @@
               "curvePolicy": "retrospective_fixed_budget_system_frontier",
               "sourceId": "gate1-labs-scale-com-remote-labor-index-source",
               "notes": "Secondary professional-work comparator; wrong task distribution for consumer personal AI"
+            },
+            {
+              "id": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "metric": "Trajectory-audited PassRate",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "unit": "percent",
+              "higherIsBetter": true,
+              "preferredForForecast": true,
+              "curvePolicy": "paper_observation_date",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "PassRate is the share of 114 tasks with a per-task score of at least 0.8."
+            },
+            {
+              "id": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "metric": "Mean partial-credit score",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "unit": "proportion",
+              "higherIsBetter": true,
+              "preferredForForecast": false,
+              "curvePolicy": "paper_observation_date",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "Overall is the mean audited per-task partial-credit score; it is shown for transparency but is not substituted for PassRate."
             }
           ],
           "supportingObservations": [
@@ -4909,6 +5667,310 @@
               "harnessScope": "Computer only; self-reported; 200-step maximum",
               "sourceId": "gate1-mypcbench-pages-dev-mypcbench-source",
               "comparabilityNote": "Not comparable to canonical 100-step series; latest Opus 5 and Fable 5 remain unevaluated"
+            },
+            {
+              "id": "benchobs_0053",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Codex CLI",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 35.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0054",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Codex CLI",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.499,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0055",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + OpenClaw",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 33.3,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0056",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + OpenClaw",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.466,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0057",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Hermes Agent",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 31.6,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0058",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Hermes Agent",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.466,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0059",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Claude Code",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 14.9,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0060",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Claude Code",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.299,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0061",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Codex CLI",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 13.2,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0062",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Codex CLI",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.378,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0063",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + OpenClaw",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 35.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0064",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + OpenClaw",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.482,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0065",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Hermes Agent",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 28.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0066",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Hermes Agent",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.516,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            },
+            {
+              "id": "benchobs_0067",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Claude Code",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 41.2,
+              "unit": "percent",
+              "seriesRole": "cross_harness_frontier",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge; selected forecast frontier"
+            },
+            {
+              "id": "benchobs_0068",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Claude Code",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.532,
+              "unit": "proportion",
+              "seriesRole": "cross_harness_frontier",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
             }
           ],
           "model": {
@@ -4926,7 +5988,7 @@
           "id": "metr-task-horizon",
           "title": "METR task-completion horizons",
           "description": "H50 capability-velocity signal and H80 reliability guardrail used to estimate relative acceleration.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [
@@ -5178,7 +6240,7 @@
           "id": "adoption",
           "title": "AI adoption and product-release evidence",
           "description": "Comparable adoption series and release events retained as context and forecast diagnostics; these do not directly set the two-gate countdown.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [
@@ -6284,7 +7346,7 @@
           "id": "research-evidence",
           "title": "Research evidence ledger",
           "description": "Source-backed facts used in the conjecture, capability catalog, and contextual discussion but not necessarily in the live forecast equations.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [
@@ -7034,7 +8096,7 @@
           "id": "user-capabilities",
           "title": "Personal-agent capability catalog",
           "description": "User-relevant capability stack, operational measures, maturity, and benchmark evidence for computer-use delegation.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [

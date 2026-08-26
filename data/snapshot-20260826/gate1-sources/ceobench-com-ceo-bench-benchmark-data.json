@@ -3,7 +3,7 @@
     "id": "gate1-ceobench-com-ceo-bench-benchmark",
     "title": "CEO-Bench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "2 explicit benchmark score(s) and 0 other numeric measurement(s); 2 item(s) affect the countdown.",
+      "counts": {
+        "scores": 2,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 2
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-004",
+          "metric": "Best-run final cash / $2.2B upper bound",
+          "value": 0.005740944545454546,
+          "unit": "proportion",
+          "displayValue": "0.5741%",
+          "subject": "Claude Fable 5",
+          "observationDate": "2026-06-09",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.005740944545454546,
+          "normalization": "Cap at 100%; only three runs per model, so treat as high variance",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-004",
+          "caveat": "Three runs/model; best-run statistic is noisy."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-005",
+          "metric": "Best-run final cash / $2.2B upper bound",
+          "value": 0.010067435,
+          "unit": "proportion",
+          "displayValue": "1.0067%",
+          "subject": "Kimi K3",
+          "observationDate": "2026-08-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.010067435,
+          "normalization": "Cap at 100%; only three runs per model, so treat as high variance",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-005",
+          "caveat": "Three runs/model; best-run statistic is noisy."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

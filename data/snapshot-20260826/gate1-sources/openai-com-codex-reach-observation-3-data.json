@@ -3,7 +3,7 @@
     "id": "gate1-openai-com-codex-reach-observation-3",
     "title": "Codex reach observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0009",
+          "metric": "Source observation",
+          "value": 5000000,
+          "unit": "weekly active users",
+          "displayValue": "5,000,000 weekly active users",
+          "subject": "global",
+          "observationDate": "2026-06-02",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0009",
+          "caveat": "Lower bound; selected early agent population"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

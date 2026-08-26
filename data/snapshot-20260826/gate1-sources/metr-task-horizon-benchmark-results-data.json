@@ -3,7 +3,7 @@
     "id": "gate1-metr-task-horizon-benchmark-results",
     "title": "Task-horizon benchmark results",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,87 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "direct-input",
+      "summary": "4 explicit numeric measurement(s); 4 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 4,
+        "assumptions": 0,
+        "directInputs": 4
+      },
+      "measurements": [
+        {
+          "id": "metr-task-horizon.trendEstimates.scmest_0001",
+          "metric": "doubling_time",
+          "value": 187.778,
+          "unit": "days",
+          "displayValue": "187.778 days",
+          "subject": "primary_official_fit",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "metr-task-horizon.trendEstimates.scmest_0001",
+          "caveat": "Official point estimate"
+        },
+        {
+          "id": "metr-task-horizon.trendEstimates.scmest_0002",
+          "metric": "doubling_time",
+          "value": 128.744,
+          "unit": "days",
+          "displayValue": "128.744 days",
+          "subject": "primary_recent_fit",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "metr-task-horizon.trendEstimates.scmest_0002",
+          "caveat": "Official point estimate and reported interval"
+        },
+        {
+          "id": "metr-task-horizon.trendEstimates.scmest_0003",
+          "metric": "doubling_time",
+          "value": 102.811,
+          "unit": "days",
+          "displayValue": "102.811 days",
+          "subject": "directional_endpoint_check",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "metr-task-horizon.trendEstimates.scmest_0003",
+          "caveat": "Not an independent acceleration fit; final estimate exceeds METR 16-hour reliable range"
+        },
+        {
+          "id": "metr-task-horizon.trendEstimates.scmest_0004",
+          "metric": "h80_doubling_time",
+          "value": 106.638,
+          "unit": "days",
+          "displayValue": "106.638 days",
+          "subject": "reliability_guardrail",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "metr-task-horizon.trendEstimates.scmest_0004",
+          "caveat": "H80 comes from same two-parameter fit and is not independent"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "metr-task-horizon",

@@ -52,7 +52,7 @@ Refresh METR H50 and H80 task-horizon observations and official trend estimates.
 
 For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Reconstruct quarter cutoffs under a stable public-coverage rule. Prefer primary sources and preserve uncertainty.
 
-For every value, update or create exactly one `[source]-data.json` file under the appropriate gate. Each file names one public HTTPS source in `metadata.sources`; its `data.fragments` attributes normalized records or model values to logical datasets. Do not infer an exact score from vague prose.
+For every value, update or create exactly one `[source]-data.json` file under the appropriate gate. Each file names one public HTTPS source in `metadata.sources`; its `data.fragments` attributes normalized records or model values to logical datasets. The consolidator materializes `data.results` so readers see every explicit score or measurement, its origin, normalization, and countdown use before the lower-level fragments. Do not infer an exact score from vague prose; a source without a numerical result must say so.
 
 ### 3. Normalize into the new snapshot
 
@@ -89,6 +89,7 @@ Validation must confirm:
 - `data/` tracks only the manifest, two consolidated gate files, and source JSON files under `snapshot-YYYYMMDD/`;
 - every file has exactly `metadata` and `data` at its root;
 - every source file represents exactly one source and uses the common fragment schema;
+- every source file has a current `data.results` inventory, and every missing numerical result is labeled rather than guessed;
 - the manifest, source directories, source-file indexes, logical datasets, and consolidated files agree;
 - every logical dataset explains its preparation, transformation pipeline, countdown effect, and adjustable assumptions;
 - source IDs resolve and every source is a public HTTPS URL;
@@ -138,9 +139,10 @@ Reconcile the default scenario:
 6. Population, population share, tokens per user/day, serving efficiency, personal-AI allocation, threshold, and both acceleration controls affect only their intended terms.
 7. The Sources modal groups every public source by gate and links directly to the original evidence.
 8. The Source data modal lists every logical dataset, system file, and source-normalized JSON file; view, copy, and raw-file actions work from the site-hosted snapshot copy.
-9. Each selected dataset explains its preparation, calculation path, countdown effect, and adjustable assumptions.
-10. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
-11. Built output contains no local filesystem paths.
+9. Each selected source shows its explicit scores or measurements, source-vs-normalized status, countdown use, and an unambiguous notice when no numerical result was extracted.
+10. Each selected dataset explains its preparation, calculation path, countdown effect, and adjustable assumptions.
+11. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
+12. Built output contains no local filesystem paths.
 
 ### 7. Commit and publish
 
@@ -172,25 +174,25 @@ These values describe snapshot `20260826`; they are checks, not permanent assump
 
 | Check | Value |
 |---|---:|
-| Capability composite | 45.6605% |
-| Capability evidence confidence | Low, 47.8261% |
-| Economic gap velocity | 0.120606 gap halvings / quarter |
+| Capability composite | 45.1651% |
+| Capability evidence confidence | Low, 47.2222% |
+| Economic gap velocity | 0.118440 gap halvings / quarter |
 | METR H50 acceleration | 0.209121 task-horizon doublings / quarter² |
 | METR H80 guardrail | 0.342917 task-horizon doublings / quarter² |
-| Economic transfer coefficient | 0.170050 |
+| Economic transfer coefficient | 0.166996 |
 | Capability threshold | 75% |
-| Capability crossing | 13 November 2027 |
-| 2028-Q4 capability | 98.7147% |
+| Capability crossing | 20 November 2027 |
+| 2028-Q4 capability | 98.6127% |
 | Current U.S. compute | 13.524006M H100e |
-| Population target | 171.4M users |
-| Personal-AI inference share | 50% |
-| Current supported users | 32.2127M |
-| Required compute | 71.9597M H100e |
-| Current compute progress | 18.7939% |
+| Population target | 85.7M users |
+| Personal-AI inference share | 60% |
+| Current supported users | 38.6552M |
+| Required compute | 29.9832M H100e |
+| Current compute progress | 45.1053% |
 | Compute log acceleration | 0.003373 log₂ H100e / quarter² |
-| Continuous compute crossing | 19 February 2029 |
-| Daily-resolution website crossing | 20 February 2029 |
-| Headline date | 20 February 2029 |
+| Continuous compute crossing | 29 December 2027 |
+| Daily-resolution website crossing | 30 December 2027 |
+| Headline date | 30 December 2027 |
 
 ## Refresh record template
 

@@ -272,7 +272,7 @@ const computeSummaryRows: ReportCell[][] = [
   ['Snapshot', forecastModel.snapshotDate, 'Latest dated snapshot selected at build'],
   ['Current operational U.S. H100e', forecastModel.compute.currentRow.usH100e, 'H100-equivalents'],
   ['Current supported high-autonomy users', forecastModel.compute.currentSupportedUsers, 'users'],
-  ['Target users', forecastModel.compute.targetUsers, '50% of modeled U.S. population'],
+  ['Target users', forecastModel.compute.targetUsers, `${(computeDataset.data.population.targetShare * 100).toFixed(0)}% of modeled U.S. population`],
   ['Required H100e', forecastModel.compute.requiredH100e, 'H100-equivalents'],
   ['Current supply score', forecastModel.compute.currentScore, 'supported users / target users'],
   ['Tokens per H100e per day', forecastModel.compute.tokensPerH100eDay, 'compute-equivalent tokens'],

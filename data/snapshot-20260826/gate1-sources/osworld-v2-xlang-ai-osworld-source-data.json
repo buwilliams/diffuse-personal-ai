@@ -3,7 +3,7 @@
     "id": "gate1-osworld-v2-xlang-ai-osworld-source",
     "title": "OSWorld source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -28,6 +28,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "supporting-input",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-015",
+          "metric": "OSWorld 2.0 binary full completion",
+          "value": 20.6,
+          "unit": "percent",
+          "displayValue": "20.6%",
+          "subject": "Claude Opus 4.8",
+          "observationDate": "2026-06-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-015",
+          "caveat": "500-step configuration in benchmark paper"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

@@ -5,6 +5,7 @@ import { execFile as execFileCallback } from 'node:child_process';
 import { promisify } from 'node:util';
 import { buildForecastModel } from '../model/forecast-model.mjs';
 import { listSnapshotDirectories, loadLatestSnapshot } from './lib/snapshots.mjs';
+import { buildSourceResults } from './lib/source-results.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataRoot = path.join(projectRoot, 'data');
@@ -101,6 +102,17 @@ for (const directory of directories) {
     if (/^gate[12]-sources\//.test(relativeFile)) {
       assert(sources.length === 1, `${directory.name}/${relativeFile} must describe exactly one source`);
       assert(Array.isArray(envelope.data.fragments), `${directory.name}/${relativeFile} must contain data.fragments`);
+      assert(Boolean(envelope.data.results), `${directory.name}/${relativeFile} must contain data.results`);
+      assert(['reported-scores', 'reported-measurements', 'forecast-assumptions', 'descriptive-only'].includes(envelope.data.results?.status), `${directory.name}/${relativeFile} has an invalid results status`);
+      assert(['direct-input', 'supporting-input', 'forecast-method', 'context-only'].includes(envelope.data.results?.countdownRole), `${directory.name}/${relativeFile} has an invalid countdown role`);
+      assert(Array.isArray(envelope.data.results?.measurements), `${directory.name}/${relativeFile} must contain a results.measurements array`);
+      assert(Boolean(envelope.data.results?.summary), `${directory.name}/${relativeFile} must explain its result status`);
+      for (const result of envelope.data.results?.measurements ?? []) {
+        assert(['score', 'measurement', 'assumption'].includes(result.measurementType), `${directory.name}/${relativeFile} has an invalid result measurement type`);
+        assert(['source-reported', 'normalized-source-result', 'derived-from-source', 'forecast-assumption'].includes(result.origin), `${directory.name}/${relativeFile} has an invalid result origin`);
+        assert(typeof result.value === 'number' && Number.isFinite(result.value), `${directory.name}/${relativeFile} has a non-finite result value`);
+        assert(typeof result.usedInCountdown === 'boolean', `${directory.name}/${relativeFile} result does not state countdown use`);
+      }
       const gateId = relativeFile.split('-sources/')[0];
       assert(envelope.data.gateId === gateId, `${directory.name}/${relativeFile} has the wrong gateId`);
       for (const fragment of envelope.data.fragments ?? []) {
@@ -116,6 +128,10 @@ for (const directory of directories) {
   const manifest = envelopes['database.json'];
   assert(Boolean(manifest), `${directory.name} is missing database.json`);
   if (!manifest) continue;
+  for (const [relativeFile, envelope] of Object.entries(envelopes).filter(([file]) => /^gate[12]-sources\//.test(file))) {
+    assert(envelope.metadata.schemaVersion === manifest.metadata.schemaVersion, `${directory.name}/${relativeFile} does not use the manifest schema version`);
+    assert(JSON.stringify(envelope.data.results) === JSON.stringify(buildSourceResults(envelope, manifest)), `${directory.name}/${relativeFile} has stale or inconsistent materialized results`);
+  }
   const declaredFiles = new Set(['database.json']);
 
   for (const gate of manifest.data.gates ?? []) {

@@ -3,7 +3,7 @@
     "id": "gate1-arxiv-org-osworld-observation-source",
     "title": "OSWorld observation source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "2 explicit benchmark score(s) and 0 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 2,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0019",
+          "metric": "Binary completion",
+          "value": 13,
+          "unit": "percent",
+          "displayValue": "13%",
+          "subject": "GPT-5.5",
+          "observationDate": "2026-06-28",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0019",
+          "caveat": "Paper abstract describes the result as near 13 percent"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0020",
+          "metric": "Binary completion",
+          "value": 20.6,
+          "unit": "percent",
+          "displayValue": "20.6%",
+          "subject": "Claude Opus 4.8",
+          "observationDate": "2026-06-28",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0020",
+          "caveat": "Full completion is the adoption-relevant metric"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

@@ -3,7 +3,7 @@
     "id": "database",
     "title": "Diffuse Personal AI snapshot manifest",
     "description": "Source-first ETL manifest, default scenario, and consolidation contract for the immutable 26 August 2026 snapshot.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -62,7 +62,7 @@
         "description": "Normalized benchmark catalog and release-quarter frontier observations used to estimate current economic capability and its failure-gap velocity.",
         "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 131,
+        "recordCount": 151,
         "calculation": {
           "role": "Direct Gate 1 input",
           "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work categories, and confidence weighted.",
@@ -270,6 +270,7 @@
       "immutableSnapshots": true,
       "selectionRule": "lexicographically greatest valid snapshot directory",
       "calculationInputs": "consolidated gate files only",
+      "sourceResultContract": "Every source file materializes an explicit results summary with status, countdown role, counts, and measurements. Missing numerical results are labeled rather than inferred.",
       "requiredRootFields": [
         "metadata",
         "data"

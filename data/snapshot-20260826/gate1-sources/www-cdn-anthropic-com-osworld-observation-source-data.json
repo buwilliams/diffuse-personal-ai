@@ -3,7 +3,7 @@
     "id": "gate1-www-cdn-anthropic-com-osworld-observation-source",
     "title": "OSWorld observation source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "2 explicit benchmark score(s) and 0 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 2,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0012",
+          "metric": "First-attempt success",
+          "value": 66.3,
+          "unit": "percent",
+          "displayValue": "66.3%",
+          "subject": "Claude Opus 4.5",
+          "observationDate": "2026-02-05",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0012",
+          "caveat": "Reported alongside Opus 4.6 in one system card"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0013",
+          "metric": "First-attempt success",
+          "value": 72.7,
+          "unit": "percent",
+          "displayValue": "72.7%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-02-05",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0013",
+          "caveat": "High-effort score is lower; max effort must remain fixed in comparisons"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

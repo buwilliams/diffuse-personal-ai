@@ -3,7 +3,7 @@
     "id": "gate1-investing-com-chatgpt-paid-consumers-observation",
     "title": "ChatGPT paid consumers observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0005",
+          "metric": "Source observation",
+          "value": 35000000,
+          "unit": "paid users",
+          "displayValue": "35,000,000 paid users",
+          "subject": "global",
+          "observationDate": "2025-07-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0005",
+          "caveat": "Secondary report of internal data; Plus and Pro"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

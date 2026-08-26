@@ -3,7 +3,7 @@
     "id": "gate1-anthropic-com-osworld-observation-source",
     "title": "OSWorld observation source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -28,6 +28,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "1 explicit benchmark score(s) and 1 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0011",
+          "metric": "First-attempt success",
+          "value": 61.4,
+          "unit": "percent",
+          "displayValue": "61.4%",
+          "subject": "Claude Sonnet 4.5",
+          "observationDate": "2025-09-29",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0011",
+          "caveat": "Comparable within the stated framework; vendor-run result"
+        },
+        {
+          "id": "research-evidence.observations.evidence-031",
+          "metric": "OSWorld-Verified success",
+          "value": 61.4,
+          "unit": "percent",
+          "displayValue": "61.4%",
+          "subject": "Claude Sonnet 4.5",
+          "observationDate": "2025-09-29",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-031",
+          "caveat": "Fixed benchmark release-frontier point"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

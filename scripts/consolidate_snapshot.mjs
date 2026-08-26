@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { listSnapshotDirectories } from './lib/snapshots.mjs';
+import { buildSourceResults } from './lib/source-results.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataRoot = path.join(projectRoot, 'data');
@@ -30,10 +31,18 @@ for (const gate of manifest.data.gates ?? []) {
   const fragments = [];
 
   for (const name of sourceNames) {
-    const envelope = await readJson(path.join(sourceDirectory, name));
+    const sourceFile = path.join(sourceDirectory, name);
+    const envelope = await readJson(sourceFile);
     const source = envelope.metadata.sources?.[0];
     if (!source || envelope.metadata.sources.length !== 1) {
       throw new Error(`${gate.sourceDirectory}/${name} must describe exactly one source`);
+    }
+    const results = buildSourceResults(envelope, manifest);
+    if (JSON.stringify(envelope.data.results) !== JSON.stringify(results) || envelope.metadata.schemaVersion !== manifest.metadata.schemaVersion) {
+      envelope.metadata.schemaVersion = manifest.metadata.schemaVersion;
+      const { gateId, fragments: sourceFragments, results: _previousResults, ...sourceData } = envelope.data;
+      envelope.data = { gateId, results, ...sourceData, fragments: sourceFragments };
+      await fs.writeFile(sourceFile, `${JSON.stringify(envelope, null, 2)}\n`, 'utf8');
     }
     const sourcePath = `${gate.sourceDirectory}/${name}`;
     const recordCount = (envelope.data.fragments ?? []).reduce(
@@ -51,6 +60,9 @@ for (const gate of manifest.data.gates ?? []) {
       notes: source.notes,
       datasetIds: [...new Set((envelope.data.fragments ?? []).map((fragment) => fragment.datasetId))].sort(),
       recordCount,
+      resultStatus: results.status,
+      countdownRole: results.countdownRole,
+      resultCounts: results.counts,
     });
     fragments.push(...(envelope.data.fragments ?? []).map((fragment) => ({ ...fragment, source })));
   }

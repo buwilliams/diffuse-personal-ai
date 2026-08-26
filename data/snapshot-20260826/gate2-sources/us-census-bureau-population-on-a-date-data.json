@@ -3,7 +3,7 @@
     "id": "gate2-us-census-bureau-population-on-a-date",
     "title": "Population on a Date",
     "description": "Normalized U.S. population input for the compute-supply gate.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-07-26",
     "sources": [
@@ -16,7 +16,7 @@
         "roles": [
           "population"
         ],
-        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 25% target is 85.7M users."
       }
     ],
     "update": {
@@ -26,6 +26,53 @@
   },
   "data": {
     "gateId": "gate2",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit numeric measurement(s); 2 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 1,
+        "directInputs": 2
+      },
+      "measurements": [
+        {
+          "id": "compute-capacity.population.usResidents",
+          "metric": "us Residents",
+          "value": 342800000,
+          "unit": "value",
+          "displayValue": "342,800,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.population.usResidents",
+          "caveat": null
+        },
+        {
+          "id": "compute-capacity.population.targetShare",
+          "metric": "target Share",
+          "value": 0.25,
+          "unit": "proportion",
+          "displayValue": "25%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.population.targetShare",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "compute-capacity",
@@ -33,7 +80,7 @@
         "kind": "value",
         "value": {
           "usResidents": 342800000,
-          "targetShare": 0.5,
+          "targetShare": 0.25,
           "sourceId": "gate2-us-census-bureau-population-on-a-date"
         }
       }

@@ -3,7 +3,7 @@
     "id": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation",
     "title": "OpenClaw npm monthly downloads observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "2 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 2,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0034",
+          "metric": "Source observation",
+          "value": 11371521,
+          "unit": "downloads",
+          "displayValue": "11,371,521 downloads",
+          "subject": "global developer ecosystem",
+          "observationDate": "2026-08-24",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0034",
+          "caveat": "Repeated and automated downloads; not unique installs"
+        },
+        {
+          "id": "research-evidence.observations.evidence-009",
+          "metric": "npm downloads previous month",
+          "value": 11371521,
+          "unit": "downloads",
+          "displayValue": "11,371,521 downloads",
+          "subject": "OpenClaw",
+          "observationDate": "2026-08-24",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-009",
+          "caveat": "Includes repeated and automated downloads"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

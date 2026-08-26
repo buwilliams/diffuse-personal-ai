@@ -3,7 +3,7 @@
     "id": "gate1-mypcbench-pages-dev-mypcbench-source",
     "title": "MyPCBench source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -28,6 +28,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "1 explicit benchmark score(s) and 1 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0052",
+          "metric": "Perfect task rate",
+          "value": 62,
+          "unit": "percent",
+          "displayValue": "62%",
+          "subject": "Claude Opus 4.8",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0052",
+          "caveat": "Not comparable to canonical 100-step series; latest Opus 5 and Fable 5 remain unevaluated"
+        },
+        {
+          "id": "research-evidence.observations.evidence-041",
+          "metric": "MyPCBench perfect completion",
+          "value": 62,
+          "unit": "percent",
+          "displayValue": "62%",
+          "subject": "Claude Opus 4.8",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-041",
+          "caveat": "Self-reported computer-only run with 200-step budget; not comparable to canonical 100-step series; Opus 5 and Fable 5 absent"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

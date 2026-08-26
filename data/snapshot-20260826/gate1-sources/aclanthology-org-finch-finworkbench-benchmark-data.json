@@ -3,7 +3,7 @@
     "id": "gate1-aclanthology-org-finch-finworkbench-benchmark",
     "title": "Finch / FinWorkBench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-024",
+          "metric": "Strict finance-work task pass rate",
+          "value": 0.384,
+          "unit": "proportion",
+          "displayValue": "38.4%",
+          "subject": "GPT-5.1 Pro",
+          "observationDate": "2025-11-13",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.384,
+          "normalization": "Already a 0–100% pass rate",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-024",
+          "caveat": "Model release-quarter assignment; publication followed in 2026."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

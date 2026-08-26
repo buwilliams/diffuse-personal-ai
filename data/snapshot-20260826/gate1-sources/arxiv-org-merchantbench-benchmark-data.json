@@ -3,7 +3,7 @@
     "id": "gate1-arxiv-org-merchantbench-benchmark",
     "title": "MerchantBench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-010",
+          "metric": "Best LLM mean final net assets / human mean",
+          "value": 0.273,
+          "unit": "proportion",
+          "displayValue": "27.3%",
+          "subject": "Qwen3.7-Max + Hermes",
+          "observationDate": "2026-08-04",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.273,
+          "normalization": "Use the authors' reported 27.3% human-relative ratio",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-010",
+          "caveat": "Authors' reported ratio; three LLM runs per configuration and three non-expert human participants."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

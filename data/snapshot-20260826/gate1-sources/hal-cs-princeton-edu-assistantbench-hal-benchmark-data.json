@@ -3,7 +3,7 @@
     "id": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
     "title": "AssistantBench (HAL) benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-033",
+          "metric": "Assistant task accuracy on current HAL 33-task configuration",
+          "value": 0.3881,
+          "unit": "proportion",
+          "displayValue": "38.81%",
+          "subject": "Browser-Use + o3 Medium",
+          "observationDate": "2025-04-16",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.3881,
+          "normalization": "Already a 0–100% score; do not splice the 33-task HAL configuration to the 2024 full benchmark",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-033",
+          "caveat": "Verified HAL leaderboard result. Kept separate from the 2024 full-benchmark configuration and projected flat."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

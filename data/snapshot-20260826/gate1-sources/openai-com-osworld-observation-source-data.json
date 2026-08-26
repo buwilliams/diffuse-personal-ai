@@ -3,7 +3,7 @@
     "id": "gate1-openai-com-osworld-observation-source",
     "title": "OSWorld observation source",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0014",
+          "metric": "Success rate",
+          "value": 75,
+          "unit": "percent",
+          "displayValue": "75%",
+          "subject": "GPT-5.4",
+          "observationDate": "2026-03-05",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0014",
+          "caveat": "Vendor and harness changed from the Claude points"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

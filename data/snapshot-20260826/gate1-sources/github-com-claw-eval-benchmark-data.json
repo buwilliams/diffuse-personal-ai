@@ -3,7 +3,7 @@
     "id": "gate1-github-com-claw-eval-benchmark",
     "title": "Claw-Eval benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-038",
+          "metric": "Pass^3 governed-agent score",
+          "value": 0.704,
+          "unit": "proportion",
+          "displayValue": "70.4%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-02-05",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.704,
+          "normalization": "Already a 0–100% strict reliability score",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-038",
+          "caveat": "One current frontier point."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

@@ -21,7 +21,7 @@ The population share is applied once:
 >
 > `required H100e = target users × compute-equivalent tokens/user/day ÷ tokens/H100e/day`
 
-The supply gate is 100% of that selected target. With the current defaults, `342.8M × 50% = 171.4M` users; a target near 85.7M indicates that the population share was applied twice.
+The supply gate is 100% of that selected target. With the current defaults, `342.8M × 25% = 85.7M` users. A result near 21.4M would indicate that the population share was applied twice.
 
 These are scenario extrapolations, not calibrated probabilities. The date must not be described as a probability forecast unless a probability layer is added explicitly.
 
@@ -159,9 +159,9 @@ The current serving envelope produces 79.79328 million compute-equivalent infere
 - two forward-pass operations per parameter-token;
 - 1.5× system overhead; and
 - 1.0× additional serving-goodput multiplier.
-- 50% of modeled inference supply allocated to the target personal-AI cohort, leaving 39.89664 million compute-equivalent tokens per H100e per day available to that cohort.
+- 60% of modeled inference supply allocated to the target personal-AI cohort, leaving 47.875968 million compute-equivalent tokens per H100e per day available to that cohort.
 
-The 50% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so changing this input can materially move or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
+The 60% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so changing this input can materially move or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
 
 H100e already normalizes hardware peak compute. A Cerebras, Jalapeño, Rubin, or other chip multiplier is added only when it represents measured deployed serving goodput not already captured by H100e. Hardware gains must not be counted twice.
 

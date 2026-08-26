@@ -3,7 +3,7 @@
     "id": "gate1-arxiv-org-retailbench-benchmark",
     "title": "RetailBench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-009",
+          "metric": "Best LLM final net worth / oracle final net worth",
+          "value": 0.18516388283148968,
+          "unit": "proportion",
+          "displayValue": "18.5164%",
+          "subject": "GPT-5.5 + ReAct",
+          "observationDate": "2026-07-08",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.18516388283148968,
+          "normalization": "Cap at 100%; privileged oracle is a ceiling-like reference, not a human-equivalent baseline",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-009",
+          "caveat": "Selected-run protocol; oracle has privileged simulator access and is a ceiling-like reference."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

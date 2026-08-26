@@ -718,7 +718,48 @@ type SourceFile = {
   notes?: string | null;
   datasetIds: string[];
   recordCount: number;
+  resultStatus: 'reported-scores' | 'reported-measurements' | 'forecast-assumptions' | 'descriptive-only';
+  countdownRole: 'direct-input' | 'supporting-input' | 'forecast-method' | 'context-only';
+  resultCounts: {
+    scores: number;
+    measurements: number;
+    assumptions: number;
+    directInputs: number;
+  };
 };
+
+type SourceResultMeasurement = {
+  id: string;
+  metric: string;
+  value: number;
+  unit: string;
+  displayValue: string;
+  subject: string | null;
+  observationDate: string | null;
+  measurementType: 'score' | 'measurement' | 'assumption';
+  origin: 'source-reported' | 'normalized-source-result' | 'derived-from-source' | 'forecast-assumption';
+  usedInCountdown: boolean;
+  normalizedScore: number | null;
+  normalization: string | null;
+  sourceLocation: string | null;
+  sourceRecord: string;
+  caveat: string | null;
+};
+
+type SourceResults = {
+  status: SourceFile['resultStatus'];
+  countdownRole: SourceFile['countdownRole'];
+  summary: string;
+  counts: SourceFile['resultCounts'];
+  measurements: SourceResultMeasurement[];
+};
+
+function sourceResultLabel(source: Pick<SourceFile, 'resultStatus' | 'resultCounts'>) {
+  if (source.resultStatus === 'reported-scores') return `${source.resultCounts.scores} reported score${source.resultCounts.scores === 1 ? '' : 's'}`;
+  if (source.resultStatus === 'reported-measurements') return `${source.resultCounts.measurements} numeric measurement${source.resultCounts.measurements === 1 ? '' : 's'}`;
+  if (source.resultStatus === 'forecast-assumptions') return `${source.resultCounts.assumptions + source.resultCounts.measurements} forecast input${source.resultCounts.assumptions + source.resultCounts.measurements === 1 ? '' : 's'}`;
+  return 'No numeric result recorded';
+}
 
 function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpenData: (selection: string) => void }) {
   const datasets = snapshotManifest.data.datasets as DatasetDescriptor[];
@@ -775,7 +816,7 @@ function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpen
                         <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
                         <small>Feeds {source.datasetIds.map((id) => datasets.find((dataset) => dataset.id === id)?.title ?? id).join(', ')} · {source.datasetIds.some((id) => datasets.find((dataset) => dataset.id === id)?.requiredForCountdown) ? 'direct countdown input' : 'context only'}</small>
                       </a>
-                      <button className="source-json" onClick={() => onOpenData(`source:${source.file}`)}>View normalized data · {source.recordCount.toLocaleString('en-US')} records ↗</button>
+                      <button className="source-json" onClick={() => onOpenData(`source:${source.file}`)}>View {sourceResultLabel(source)} · {source.countdownRole.replaceAll('-', ' ')} ↗</button>
                     </div>
                   ))}
                 </div>
@@ -803,6 +844,9 @@ type SourceDataItem = {
   datasetIds: string[];
   gateId?: string;
   recordCount?: number;
+  resultStatus?: SourceFile['resultStatus'];
+  countdownRole?: SourceFile['countdownRole'];
+  resultCounts?: SourceFile['resultCounts'];
 };
 
 function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; initialSelection: string | null }) {
@@ -848,16 +892,20 @@ function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; i
       id: `source:${source.file}`,
       kind: 'source' as const,
       title: source.title,
-      subtitle: `${source.publisher} · ${source.recordCount.toLocaleString('en-US')} normalized records`,
+      subtitle: `${source.publisher} · ${sourceResultLabel(source)} · ${source.countdownRole.replaceAll('-', ' ')}`,
       file: source.file,
       datasetIds: source.datasetIds,
       gateId: gate.id,
       recordCount: source.recordCount,
+      resultStatus: source.resultStatus,
+      countdownRole: source.countdownRole,
+      resultCounts: source.resultCounts,
     }))),
   ];
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(initialSelection ?? `dataset:${datasets[0].id}`);
   const [rawData, setRawData] = useState('');
+  const [sourceResults, setSourceResults] = useState<SourceResults | null>(null);
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [copyState, setCopyState] = useState('Copy JSON');
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
@@ -882,24 +930,26 @@ function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; i
         return response.text();
       })
       .then((text) => {
+        const parsed = JSON.parse(text);
         if (selected.datasetId) {
-          const parsed = JSON.parse(text);
           const dataset = parsed?.data?.datasets?.[selected.datasetId];
           if (!dataset) throw new Error(`Missing dataset ${selected.datasetId}`);
           setRawData(`${JSON.stringify(dataset, null, 2)}\n`);
         } else {
           setRawData(text);
         }
+        setSourceResults(selected.kind === 'source' ? parsed?.data?.results ?? null : null);
         setLoadState('ready');
       })
       .catch((error) => {
         if (error.name !== 'AbortError') {
           setRawData('This JSON file could not be loaded.');
+          setSourceResults(null);
           setLoadState('error');
         }
       });
     return () => controller.abort();
-  }, [rawUrl, selected.datasetId]);
+  }, [rawUrl, selected.datasetId, selected.kind]);
 
   const copyJson = async () => {
     if (loadState !== 'ready') return;
@@ -914,6 +964,7 @@ function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; i
 
   const selectItem = (id: string) => {
     setLoadState('loading');
+    setSourceResults(null);
     setCopyState('Copy JSON');
     setSelectedId(id);
   };
@@ -950,6 +1001,42 @@ function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; i
               <h3>{selected.title}</h3>
               <code>{selected.datasetId ? `${selected.file} → data.datasets.${selected.datasetId}` : selected.file}</code>
             </header>
+
+            {selected.kind === 'source' && sourceResults && (
+              <section className="source-results" aria-labelledby="source-results-title">
+                <div className="source-results-head">
+                  <div>
+                    <p className="modal-eyebrow">Evidence extracted from this source</p>
+                    <h4 id="source-results-title">Reported scores and measurements</h4>
+                    <p>{sourceResults.summary}</p>
+                  </div>
+                  <div className="source-result-counts" aria-label="Source result counts">
+                    <span><b>{sourceResults.counts.scores}</b> scores</span>
+                    <span><b>{sourceResults.counts.measurements}</b> measurements</span>
+                    <span><b>{sourceResults.counts.assumptions}</b> assumptions</span>
+                    <span><b>{sourceResults.counts.directInputs}</b> countdown inputs</span>
+                  </div>
+                </div>
+                {sourceResults.measurements.length ? (
+                  <div className="source-result-table-wrap">
+                    <table className="source-result-table">
+                      <thead><tr><th>Result</th><th>System / date</th><th>Provenance</th></tr></thead>
+                      <tbody>
+                        {sourceResults.measurements.map((result) => (
+                          <tr key={result.id}>
+                            <td><strong>{result.displayValue}</strong><span>{result.metric}</span>{result.normalizedScore !== null && <small>Normalized countdown score: {(result.normalizedScore * 100).toFixed(1)}%</small>}</td>
+                            <td><span>{result.subject ?? '—'}</span><small>{result.observationDate ?? 'Date not reported'}</small></td>
+                            <td><span>{result.origin.replaceAll('-', ' ')} · {result.sourceLocation ?? result.sourceRecord}</span><small>{result.usedInCountdown ? 'Used in countdown' : 'Shown for context only'}{result.caveat ? ` · ${result.caveat}` : ''}</small></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p className="source-results-empty">No score is inferred. This source remains visible for coverage, definitions, or release context, but contributes no numeric observation.</p>
+                )}
+              </section>
+            )}
 
             <section className="data-lineage" aria-labelledby="lineage-title">
               <p className="modal-eyebrow">Meaning for the countdown</p>

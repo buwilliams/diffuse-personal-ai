@@ -3,7 +3,7 @@
     "id": "gate1-microsoft-com-microsoft-365-active-agents-index-observation",
     "title": "Microsoft 365 active agents index observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,53 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "2 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 2,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0023",
+          "metric": "Source observation",
+          "value": 1,
+          "unit": "index",
+          "displayValue": "1 index",
+          "subject": "global Microsoft 365",
+          "observationDate": "2025-03-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0023",
+          "caveat": "Index derived from disclosed YoY ratio; no absolute count"
+        },
+        {
+          "id": "adoption.observations.adoptobs_0024",
+          "metric": "Source observation",
+          "value": 15,
+          "unit": "index",
+          "displayValue": "15 index",
+          "subject": "global Microsoft 365",
+          "observationDate": "2026-03-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0024",
+          "caveat": "An agent counts with one user-initiated day or one autonomous run in 28 days"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

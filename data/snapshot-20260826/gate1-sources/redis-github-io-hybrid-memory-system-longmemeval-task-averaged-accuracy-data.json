@@ -3,7 +3,7 @@
     "id": "gate1-redis-github-io-hybrid-memory-system-longmemeval-task-averaged-accuracy",
     "title": "hybrid memory system: LongMemEval task-averaged accuracy",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-026",
+          "metric": "LongMemEval task-averaged accuracy",
+          "value": 86.1,
+          "unit": "percent",
+          "displayValue": "86.1%",
+          "subject": "hybrid memory system",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-026",
+          "caveat": "500-question retrieval benchmark; not continual learning"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "research-evidence",

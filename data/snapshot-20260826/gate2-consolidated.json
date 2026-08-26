@@ -3,7 +3,7 @@
     "id": "gate2-consolidated",
     "title": "Gate 2 consolidated compute evidence",
     "description": "Source-normalized evidence and model inputs for the U.S. inference-compute supply gate.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -41,7 +41,7 @@
         "roles": [
           "population"
         ],
-        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 25% target is 85.7M users."
       }
     ],
     "update": {
@@ -72,7 +72,15 @@
         "datasetIds": [
           "compute-capacity"
         ],
-        "recordCount": 3
+        "recordCount": 3,
+        "resultStatus": "forecast-assumptions",
+        "countdownRole": "forecast-method",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 18,
+          "directInputs": 18
+        }
       },
       {
         "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
@@ -89,7 +97,15 @@
         "datasetIds": [
           "compute-capacity"
         ],
-        "recordCount": 20
+        "recordCount": 20,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 20,
+          "assumptions": 0,
+          "directInputs": 20
+        }
       },
       {
         "id": "gate2-us-census-bureau-population-on-a-date",
@@ -101,11 +117,19 @@
         "roles": [
           "population"
         ],
-        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users.",
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 25% target is 85.7M users.",
         "datasetIds": [
           "compute-capacity"
         ],
-        "recordCount": 1
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 1,
+          "directInputs": 2
+        }
       }
     ],
     "datasets": {
@@ -114,7 +138,7 @@
           "id": "compute-capacity",
           "title": "U.S. operational AI-compute capacity",
           "description": "Observed and dated projected U.S. H100-equivalent capacity plus the serving envelope used to estimate supported high-autonomy users.",
-          "schemaVersion": "1.1.0",
+          "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
           "sources": [
@@ -152,7 +176,7 @@
               "roles": [
                 "population"
               ],
-              "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+              "notes": "The model uses the rounded estimate of 342.8M residents; the selected 25% target is 85.7M users."
             }
           ],
           "calculation": {
@@ -385,7 +409,7 @@
           ],
           "population": {
             "usResidents": 342800000,
-            "targetShare": 0.5,
+            "targetShare": 0.25,
             "sourceId": "gate2-us-census-bureau-population-on-a-date"
           },
           "workload": {
@@ -425,7 +449,7 @@
             "forwardPassOpsPerParameterToken": 2,
             "systemOverheadMultiplier": 1.5,
             "servingGoodputMultiplier": 1,
-            "personalAiInferenceShare": 0.5
+            "personalAiInferenceShare": 0.6
           },
           "forecastPolicy": {
             "reportEndQuarterIndex": 20,

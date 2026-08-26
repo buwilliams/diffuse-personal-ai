@@ -3,7 +3,7 @@
     "id": "gate1-arxiv-org-yc-bench-benchmark",
     "title": "YC-Bench benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-006",
+          "metric": "Mean final funds / $1M published substantial-profit threshold",
+          "value": 1,
+          "unit": "proportion",
+          "displayValue": "100%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-04-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 1,
+          "normalization": "Cap at 100%; provisional target-normalized score because no human/oracle result is published",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-006",
+          "caveat": "Provisional target-normalized score. Saturated at launch; no human or oracle ceiling is published."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

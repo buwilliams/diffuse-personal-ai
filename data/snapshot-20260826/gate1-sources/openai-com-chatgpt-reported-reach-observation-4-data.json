@@ -3,7 +3,7 @@
     "id": "gate1-openai-com-chatgpt-reported-reach-observation-4",
     "title": "ChatGPT reported reach observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0004",
+          "metric": "Source observation",
+          "value": 1000000000,
+          "unit": "people",
+          "displayValue": "1,000,000,000 people",
+          "subject": "global",
+          "observationDate": "2026-08-06",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0004",
+          "caveat": "Lower bound; disclosure does not specify weekly or monthly cadence and is not directly comparable to prior WAU figures"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

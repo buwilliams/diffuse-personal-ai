@@ -3,7 +3,7 @@
     "id": "gate1-api-github-com-openclaw-github-stars-observation",
     "title": "OpenClaw GitHub stars observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,70 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "3 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 3,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0033",
+          "metric": "Source observation",
+          "value": 387590,
+          "unit": "stars",
+          "displayValue": "387,590 stars",
+          "subject": "global developer ecosystem",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0033",
+          "caveat": "Current GitHub API snapshot; not users"
+        },
+        {
+          "id": "research-evidence.observations.evidence-007",
+          "metric": "GitHub stars",
+          "value": 387590,
+          "unit": "stars",
+          "displayValue": "387,590 stars",
+          "subject": "OpenClaw",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-007",
+          "caveat": "Developer-interest proxy; not users"
+        },
+        {
+          "id": "research-evidence.observations.evidence-008",
+          "metric": "GitHub forks",
+          "value": 81363,
+          "unit": "forks",
+          "displayValue": "81,363 forks",
+          "subject": "OpenClaw",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-008",
+          "caveat": "Code-copy proxy; not users"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

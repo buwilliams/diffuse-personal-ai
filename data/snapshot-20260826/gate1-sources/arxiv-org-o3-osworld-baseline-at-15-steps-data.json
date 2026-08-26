@@ -3,7 +3,7 @@
     "id": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps",
     "title": "o3: OSWorld baseline at 15 steps",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,87 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "4 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 4,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-021",
+          "metric": "OSWorld baseline at 15 steps",
+          "value": 8.3,
+          "unit": "percent",
+          "displayValue": "8.3%",
+          "subject": "o3",
+          "observationDate": "2025-10-28",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-021",
+          "caveat": "Compare only with same study and step budget"
+        },
+        {
+          "id": "research-evidence.observations.evidence-022",
+          "metric": "OSWorld-MCP at 15 steps",
+          "value": 20.4,
+          "unit": "percent",
+          "displayValue": "20.4%",
+          "subject": "o3 plus MCP tools",
+          "observationDate": "2025-10-28",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-022",
+          "caveat": "Controlled tool/harness uplift"
+        },
+        {
+          "id": "research-evidence.observations.evidence-023",
+          "metric": "OSWorld baseline at 50 steps",
+          "value": 40.1,
+          "unit": "percent",
+          "displayValue": "40.1%",
+          "subject": "Claude 4 Sonnet",
+          "observationDate": "2025-10-28",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-023",
+          "caveat": "Compare only with same study and step budget"
+        },
+        {
+          "id": "research-evidence.observations.evidence-024",
+          "metric": "OSWorld-MCP at 50 steps",
+          "value": 43.3,
+          "unit": "percent",
+          "displayValue": "43.3%",
+          "subject": "Claude 4 Sonnet plus MCP tools",
+          "observationDate": "2025-10-28",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-024",
+          "caveat": "Controlled tool/harness uplift"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "research-evidence",

@@ -3,7 +3,7 @@
     "id": "gate1-taubench-com-tau3-banking-benchmark",
     "title": "tau3 Banking benchmark",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,104 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "5 explicit benchmark score(s) and 0 other numeric measurement(s); 5 item(s) affect the countdown.",
+      "counts": {
+        "scores": 5,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 5
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-025",
+          "metric": "tau3 Banking strict success",
+          "value": 0.253,
+          "unit": "proportion",
+          "displayValue": "25.3%",
+          "subject": "Claude Sonnet 4.5",
+          "observationDate": "2025-09-29",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.253,
+          "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-025",
+          "caveat": "Release-quarter frontier."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-026",
+          "metric": "tau3 Banking strict success",
+          "value": 0.322,
+          "unit": "proportion",
+          "displayValue": "32.2%",
+          "subject": "GPT-5.2",
+          "observationDate": "2025-12-11",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.322,
+          "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-026",
+          "caveat": "Release-quarter frontier."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-027",
+          "metric": "tau3 Banking strict success",
+          "value": 0.394,
+          "unit": "proportion",
+          "displayValue": "39.4%",
+          "subject": "GPT-5.4",
+          "observationDate": "2026-03-05",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.394,
+          "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-027",
+          "caveat": "Release-quarter frontier."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-028",
+          "metric": "tau3 Banking strict success",
+          "value": 0.446,
+          "unit": "proportion",
+          "displayValue": "44.6%",
+          "subject": "GPT-5.5",
+          "observationDate": "2026-05-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.446,
+          "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-028",
+          "caveat": "Release-quarter frontier."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-029",
+          "metric": "tau3 Banking strict success",
+          "value": 0.552,
+          "unit": "proportion",
+          "displayValue": "55.2%",
+          "subject": "Qwen 3.8 Max",
+          "observationDate": "2026-08-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.552,
+          "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-029",
+          "caveat": "Current quarter frontier."
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "capability-benchmarks",

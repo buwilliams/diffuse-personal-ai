@@ -3,7 +3,7 @@
     "id": "gate1-anthropic-com-claude-directive-delegation-observation",
     "title": "Claude directive delegation observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,70 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "3 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 3,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0025",
+          "metric": "Source observation",
+          "value": 27,
+          "unit": "percent of sampled conversations",
+          "displayValue": "27 percent of sampled conversations",
+          "subject": "Claude.ai",
+          "observationDate": "2025-01-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0025",
+          "caveat": "Directive means task completed with minimal back-and-forth"
+        },
+        {
+          "id": "adoption.observations.adoptobs_0026",
+          "metric": "Source observation",
+          "value": 39,
+          "unit": "percent of sampled conversations",
+          "displayValue": "39 percent of sampled conversations",
+          "subject": "Claude.ai",
+          "observationDate": "2025-08-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0026",
+          "caveat": "August spike later partly reversed"
+        },
+        {
+          "id": "adoption.observations.adoptobs_0027",
+          "metric": "Source observation",
+          "value": 32,
+          "unit": "percent of sampled conversations",
+          "displayValue": "32 percent of sampled conversations",
+          "subject": "Claude.ai",
+          "observationDate": "2025-11-30",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0027",
+          "caveat": "Not equivalent to cross-app action or share of user tasks"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",

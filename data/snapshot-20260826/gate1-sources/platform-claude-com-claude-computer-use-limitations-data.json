@@ -3,7 +3,7 @@
     "id": "gate1-platform-claude-com-claude-computer-use-limitations",
     "title": "Claude computer-use limitations",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -26,6 +26,18 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
     "fragments": [
       {
         "datasetId": "user-capabilities",

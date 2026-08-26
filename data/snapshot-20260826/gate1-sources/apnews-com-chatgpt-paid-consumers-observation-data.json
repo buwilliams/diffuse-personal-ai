@@ -3,7 +3,7 @@
     "id": "gate1-apnews-com-chatgpt-paid-consumers-observation",
     "title": "ChatGPT paid consumers observation",
     "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -27,6 +27,36 @@
   },
   "data": {
     "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0006",
+          "metric": "Source observation",
+          "value": 50000000,
+          "unit": "subscriptions",
+          "displayValue": "50,000,000 subscriptions",
+          "subject": "global",
+          "observationDate": "2026-02-27",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0006",
+          "caveat": "Lower bound; executive statement reported by AP"
+        }
+      ]
+    },
     "fragments": [
       {
         "datasetId": "adoption",
