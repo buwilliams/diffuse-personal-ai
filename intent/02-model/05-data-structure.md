@@ -1,27 +1,35 @@
 # Forecast data structure
 
-**Design:** immutable dated JSON snapshots
+**Design:** immutable, source-first dated JSON snapshots
 
 **Current snapshot:** `data/snapshot-20260826/`
 
 ## Contract
 
-The repository tracks evidence only under:
+The repository keeps forecast evidence only in this shape:
 
 ```text
-data/snapshot-YYYYMMDD/database.json
-data/snapshot-YYYYMMDD/[data-source].json
+data/snapshot-YYYYMMDD/
+  database.json
+  gate1-sources/
+    [source]-data.json
+  gate2-sources/
+    [source]-data.json
+  gate1-consolidated.json
+  gate2-consolidated.json
 ```
+
+Gate 1 is model–harness capability, the demand proxy. Gate 2 is operational inference-compute supply. Each file under a gate's source directory represents exactly one public source. The consolidated files are deterministic generated views and are the only data files consumed by the shared model, website, and workbook builders.
 
 Every JSON file has exactly two root fields:
 
 ```json
 {
   "metadata": {
-    "id": "dataset-id",
+    "id": "stable-id",
     "title": "Human-readable title",
-    "description": "What the dataset contains and how it is used",
-    "schemaVersion": "1.0.0",
+    "description": "Contents and forecast role",
+    "schemaVersion": "1.1.0",
     "snapshotDate": "YYYY-MM-DD",
     "asOfDate": "YYYY-MM-DD",
     "sources": [],
@@ -31,53 +39,93 @@ Every JSON file has exactly two root fields:
 }
 ```
 
-`metadata.sources` is the provenance registry for that file. Every source has a stable snapshot-local `id`, publisher, title, public HTTPS URL, access date, role list, and optional note. Records inside `data` use `sourceId` to reference this registry. Local filesystem paths are forbidden.
+All sources use the same schema: `id`, `publisher`, `title`, public HTTPS `url`, `accessedAt`, `roles`, and nullable `notes`. Local filesystem paths are forbidden.
 
-Snapshots are immutable. A refresh copies the latest schema into a new dated directory, updates and normalizes the evidence there, validates it, and publishes it. Earlier directories remain unchanged so any published result can be reproduced.
+Snapshots are immutable. A refresh creates a new dated directory, updates sources there, rebuilds the consolidated gates, validates the release, and publishes it. Earlier directories remain unchanged so every published result is reproducible.
+
+## Source files
+
+Every `[source]-data.json` has exactly one entry in `metadata.sources`. Its `data` object is:
+
+```json
+{
+  "gateId": "gate1",
+  "fragments": [
+    {
+      "datasetId": "capability-benchmarks",
+      "collection": "observations",
+      "kind": "records",
+      "items": [
+        { "order": 0, "record": {} }
+      ]
+    }
+  ]
+}
+```
+
+A fragment assigns source-specific data to one logical dataset and collection. `kind: "records"` is used for ordered arrays; `kind: "value"` is used for one object or scalar. The `order` field preserves deterministic ordering when records from many sources are merged. Records with a `sourceId` use the ID of the source file's single metadata source.
+
+Forecast-authored definitions, normalization rules, and scenario assumptions live in a methodology source file for their gate. They are not mixed into an external source's file. One public URL may appear once per gate if it supplies evidence to both gates, but it should not be duplicated within a gate.
+
+## Consolidated gates
+
+Run:
+
+```powershell
+& $NodeExe scripts/consolidate_snapshot.mjs
+```
+
+The consolidator reads `database.json`, loads every source file, orders and merges its fragments, and writes:
+
+- `gate1-consolidated.json`, containing the capability, METR, adoption, research-evidence, and user-capability logical datasets;
+- `gate2-consolidated.json`, containing the compute-capacity logical dataset.
+
+Each consolidated file also includes a `sourceFiles` index with repository path, publisher, original URL, access date, roles, affected logical datasets, and record count. The website uses this index for its provenance modal. Consolidated files must never be hand-edited.
 
 ## Manifest and ETL entry point
 
-`database.json` is the entry point for both software and an updating agent. Its `data` object contains:
+`database.json` is the entry point for software and an updating agent. Its `data` object contains:
 
-- `datasets`: filename, stable dataset ID, human title, record count, and whether the dataset drives the countdown;
+- `gates`: gate IDs, source directories, consolidated filenames, labels, and logical dataset membership;
+- `datasets`: stable logical dataset IDs, gate assignment, collection names, descriptions, record counts, and whether the dataset drives the countdown;
 - `defaults`: threshold, forecast horizon, report window, and the rule that supply must serve 100% of the already-selected population target;
-- `etl`: directory pattern, selection rule, required root fields, immutability rule, and refresh workflow.
+- `etl`: directory patterns, source-first workflow, immutable-snapshot rule, latest-snapshot rule, and the declaration that calculations use consolidated gates only.
 
-The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest valid `snapshot-YYYYMMDD` directory. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No surface chooses its own evidence cutoff.
+The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest valid `snapshot-YYYYMMDD` directory and loads its two consolidated files. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No surface chooses its own cutoff or reads individual source fragments independently.
 
-## Current datasets
+## Logical datasets
 
-| File | Purpose | Countdown input |
-|---|---|---:|
-| `capability-benchmarks.json` | Four-category economic benchmark basket, normalized observations, and supporting registry | Yes |
-| `metr-task-horizon.json` | H50 capability-velocity series, H80 reliability guardrail, published trend estimates, and forecast policy | Yes |
-| `compute-capacity.json` | U.S. operational/expected H100e path, population target, token workload, serving envelope, and projection policy | Yes |
-| `adoption.json` | Adoption-series definitions, observations, and agent-product events | No; triangulation |
-| `research-evidence.json` | Evidence ledger supporting the conjecture and assumptions | No; triangulation |
-| `user-capabilities.json` | Consumer capability catalog and operational metrics | No; ontology |
+| Logical dataset | Gate | Purpose | Countdown input |
+|---|---|---|---:|
+| `capability-benchmarks` | 1 | Four-category economic benchmark basket, normalized observations, and supporting registry | Yes |
+| `metr-task-horizon` | 1 | H50 capability velocity, H80 reliability guardrail, trend estimates, and forecast policy | Yes |
+| `adoption` | 1 | Adoption definitions, observations, and agent-product events | No; triangulation |
+| `research-evidence` | 1 | Evidence ledger supporting the conjecture and assumptions | No; triangulation |
+| `user-capabilities` | 1 | Consumer capability catalog and operational metrics | No; ontology |
+| `compute-capacity` | 2 | U.S. H100-equivalent path, population target, workload, serving envelope, and projection policy | Yes |
 
-The capability file deliberately distinguishes the forecast-driving benchmark basket from the older supporting registry. Supporting observations remain visible for provenance and future model revisions, but only records explicitly labeled as forecast inputs affect the current gate.
+The capability dataset distinguishes the forecast-driving benchmark basket from the supporting registry. Supporting observations remain visible for provenance and future revisions, but only records explicitly labeled as forecast inputs affect the gate.
 
 ## Update rules
 
-1. Preserve source meaning before normalization. A benchmark reset, metric change, task-budget change, or materially different harness is a new series or an explicit comparability break.
+1. Preserve source meaning before normalization. A benchmark reset, metric change, task-budget change, or materially different harness is a new series or explicit comparability break.
 2. Keep model and harness together. Tools, planning, memory, verification, environment policy, and budgets are part of the evaluated system.
-3. Separate release date, observation date, and snapshot date.
+3. Separate release date, observation date, source access date, and snapshot date.
 4. Never convert vague prose, an Elo value, or an unmatched benchmark version into a percentage without a documented normalization rule.
 5. Unknown values remain null or explicitly unknown; they are not zero.
 6. Observed and projected compute rows remain distinguishable through `evidenceClass`.
 7. Adoption series retain their units and populations; users, subscriptions, seats, downloads, and stars are not one curve.
-8. `sourceId` foreign keys must resolve inside the same JSON file.
-9. New snapshot schemas require a `schemaVersion` change and corresponding loader/validator update.
+8. Every `sourceId` must resolve to the source file that contributed the record and to the consolidated gate's source registry.
+9. New schemas require a `schemaVersion` change and corresponding consolidator, loader, and validator update.
 
-## Adding a model, agent, benchmark, or compute update
+## Adding evidence
 
-- Add or update the appropriate record in the new snapshot, never the old one.
-- Add every cited public page to that file's `metadata.sources` and reference it by `sourceId`.
-- For a model–harness score, preserve benchmark version, metric, release date, system/harness label, normalization basis, and comparability note.
-- For an agent product, preserve availability, authority, computer use, authenticated integration, memory, verification, and rollback facts separately from adoption.
-- For compute, reconstruct each cutoff under one coverage rule and keep operational observations separate from expected/projected pipeline rows.
-- Update `database.json` record counts and dataset descriptors.
-- Run `scripts/validate_snapshots.mjs` before rebuilding either surface.
+- Create a new snapshot and update the relevant source file; never modify a published snapshot.
+- Add a new source file when the URL is new to that gate.
+- Preserve benchmark version, metric, release date, system/harness label, normalization basis, and comparability note for model–harness results.
+- Preserve availability, authority, computer use, authenticated integration, memory, verification, and rollback separately for agent products.
+- Reconstruct compute cutoffs under one coverage rule and keep operational observations separate from expected or projected pipeline rows.
+- Update the manifest's record counts and logical dataset descriptors.
+- Run the consolidator before validation, workbook builds, or the website build.
 
-The data structure is the updating mechanism: future work should add a snapshot and preserve definitions, not copy values into code or rebuild the forecast from disconnected spreadsheets.
+The source files are the evidence layer; the consolidated gates are the calculation layer. Keeping them separate makes updates auditable without asking every public surface to reimplement the same joins.

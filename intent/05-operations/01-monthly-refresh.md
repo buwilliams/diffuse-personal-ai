@@ -11,8 +11,10 @@ This is the authoritative operating procedure for updating the Diffuse Personal 
 | Layer | Path | Role |
 |---|---|---|
 | Meaning and rules | `intent/` | Normative source of truth |
-| Evidence and assumptions | `data/snapshot-YYYYMMDD/*.json` | Immutable canonical record |
-| ETL manifest | `data/snapshot-YYYYMMDD/database.json` | Agent-readable refresh contract and dataset inventory |
+| Source evidence | `data/snapshot-YYYYMMDD/gate[1|2]-sources/[source]-data.json` | One immutable normalized file per public source |
+| Consolidated inputs | `data/snapshot-YYYYMMDD/gate[1|2]-consolidated.json` | Deterministic calculation inputs generated from source files |
+| ETL manifest | `data/snapshot-YYYYMMDD/database.json` | Agent-readable gate, source, dataset, and refresh contract |
+| Consolidator | `scripts/consolidate_snapshot.mjs` | Rebuilds both gate inputs from source fragments |
 | Shared calculations | `model/forecast-model.mjs` | One implementation for capability and compute |
 | Snapshot loader | `scripts/lib/snapshots.mjs` | Selects the latest valid dated directory |
 | Validator | `scripts/validate_snapshots.mjs` | Schema, provenance, foreign-key, and forecast-invariant checks |
@@ -29,8 +31,8 @@ The repository root owns Git history. The existing Sites project is configured b
 
 Choose one evidence cutoff for capability, METR, compute, adoption, and publication. Copy the latest `data/snapshot-YYYYMMDD/` directory to the new date and immediately update:
 
-- every file's `metadata.snapshotDate`, `metadata.asOfDate`, source access dates, and update note;
-- `database.json` description, dataset inventory, and record counts;
+- every source file's `metadata.snapshotDate`, `metadata.asOfDate`, source access date, and update note;
+- `database.json` description, gate inventory, logical dataset inventory, and record counts;
 - the publication date implicit in the selected snapshot.
 
 Never revise a previously published snapshot.
@@ -50,7 +52,7 @@ Refresh METR H50 and H80 task-horizon observations and official trend estimates.
 
 For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Reconstruct quarter cutoffs under a stable public-coverage rule. Prefer primary sources and preserve uncertainty.
 
-For every value, record a public HTTPS source in that JSON file's `metadata.sources` and use `sourceId` from the normalized record. Do not infer an exact score from vague prose.
+For every value, update or create exactly one `[source]-data.json` file under the appropriate gate. Each file names one public HTTPS source in `metadata.sources`; its `data.fragments` attributes normalized records or model values to logical datasets. Do not infer an exact score from vague prose.
 
 ### 3. Normalize into the new snapshot
 
@@ -66,6 +68,14 @@ Follow [the data structure](../02-model/05-data-structure.md) and [the calculati
 - Change population, workload, allocation, or serving assumptions only with new evidence or an explicit scenario decision.
 - Keep `supplyGateShareOfTarget = 1`: population share is selected once, then compute must serve 100% of that selected target.
 
+After source normalization, rebuild both calculation inputs:
+
+```powershell
+& $NodeExe scripts/consolidate_snapshot.mjs
+```
+
+Do not hand-edit either `gate1-consolidated.json` or `gate2-consolidated.json`. They are deterministic products of the source files and manifest.
+
 ### 4. Validate the snapshot and model
 
 Run from the repository root with the bundled Node runtime:
@@ -76,9 +86,10 @@ Run from the repository root with the bundled Node runtime:
 
 Validation must confirm:
 
-- `data/` tracks only `snapshot-YYYYMMDD/*.json`;
+- `data/` tracks only the manifest, two consolidated gate files, and source JSON files under `snapshot-YYYYMMDD/`;
 - every file has exactly `metadata` and `data` at its root;
-- the manifest and files agree;
+- every source file represents exactly one source and uses the common fragment schema;
+- the manifest, source directories, source-file indexes, logical datasets, and consolidated files agree;
 - source IDs resolve and every source is a public HTTPS URL;
 - no local filesystem path appears in data;
 - benchmark and observation IDs are coherent;
@@ -114,7 +125,7 @@ pnpm run typecheck
 pnpm run build
 ```
 
-`prebuild` runs `scripts/generate_site_snapshot.mjs`. It selects the latest snapshot and writes an ignored bundle at `surfaces/website/app/generated/latest-snapshot.json`. The browser loads that bundle once; it does not fetch dozens of files or calculate from a workbook at runtime.
+`prebuild` first runs `scripts/consolidate_snapshot.mjs`, then `scripts/generate_site_snapshot.mjs`. The latter selects the latest snapshot and writes an ignored bundle at `surfaces/website/app/generated/latest-snapshot.json`. The browser loads that bundle once; it does not fetch dozens of files or calculate from a workbook at runtime.
 
 Reconcile the default scenario:
 
@@ -124,13 +135,13 @@ Reconcile the default scenario:
 4. Supply progress equals supported users divided by the selected target population.
 5. The headline is the later of the capability and compute crossings.
 6. Population, population share, tokens per user/day, serving efficiency, personal-AI allocation, threshold, and both acceleration controls affect only their intended terms.
-7. The source modal lists every dataset and its public source metadata.
+7. The source modal groups every source file by gate and links both the public source and its normalized repository JSON.
 8. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
 9. Built output contains no local filesystem paths.
 
 ### 7. Commit and publish
 
-1. Review `git diff` and confirm that `data/` contains only the new JSON snapshot(s).
+1. Review `git diff` and confirm that `data/` contains only the source-first JSON snapshot(s).
 2. Commit the exact source and artifacts being published.
 3. Push to the public GitHub repository.
 4. Package the committed `surfaces/website/dist` output and deploy it to the existing Sites project.

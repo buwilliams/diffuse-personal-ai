@@ -1,0 +1,300 @@
+{
+  "metadata": {
+    "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+    "title": "AI Data Center Timelines CSV",
+    "description": "Normalized gate 2 · compute supply data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-25",
+    "sources": [
+      {
+        "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+        "publisher": "Epoch AI",
+        "title": "AI Data Center Timelines CSV",
+        "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+        "accessedAt": "2026-08-25",
+        "roles": [
+          "capacity observation",
+          "capacity projection"
+        ],
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "quarters",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "quarterIndex": 1,
+              "quarter": "2024-Q1",
+              "cutoffDate": "2024-03-31",
+              "usH100e": 245664,
+              "includedSites": 8,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "quarterIndex": 2,
+              "quarter": "2024-Q2",
+              "cutoffDate": "2024-06-30",
+              "usH100e": 475238,
+              "includedSites": 13,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "quarterIndex": 3,
+              "quarter": "2024-Q3",
+              "cutoffDate": "2024-09-30",
+              "usH100e": 722180,
+              "includedSites": 16,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "quarterIndex": 4,
+              "quarter": "2024-Q4",
+              "cutoffDate": "2024-12-31",
+              "usH100e": 1012483,
+              "includedSites": 18,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "quarterIndex": 5,
+              "quarter": "2025-Q1",
+              "cutoffDate": "2025-03-31",
+              "usH100e": 1351240,
+              "includedSites": 20,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "quarterIndex": 6,
+              "quarter": "2025-Q2",
+              "cutoffDate": "2025-06-30",
+              "usH100e": 2386876,
+              "includedSites": 23,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 6,
+            "record": {
+              "quarterIndex": 7,
+              "quarter": "2025-Q3",
+              "cutoffDate": "2025-09-30",
+              "usH100e": 3139660,
+              "includedSites": 28,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "quarterIndex": 8,
+              "quarter": "2025-Q4",
+              "cutoffDate": "2025-12-31",
+              "usH100e": 5291375,
+              "includedSites": 34,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 8,
+            "record": {
+              "quarterIndex": 9,
+              "quarter": "2026-Q1",
+              "cutoffDate": "2026-03-31",
+              "usH100e": 6301294,
+              "includedSites": 40,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "quarterIndex": 10,
+              "quarter": "2026-Q2",
+              "cutoffDate": "2026-06-30",
+              "usH100e": 11223855,
+              "includedSites": 54,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 10,
+            "record": {
+              "quarterIndex": 11,
+              "quarter": "2026-Q3",
+              "cutoffDate": "2026-08-26",
+              "usH100e": 13524006,
+              "includedSites": 58,
+              "evidenceClass": "observed_qtd",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before evidence cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "quarterIndex": 12,
+              "quarter": "2026-Q4",
+              "cutoffDate": "2026-12-31",
+              "usH100e": 17399770,
+              "includedSites": 64,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "quarterIndex": 13,
+              "quarter": "2027-Q1",
+              "cutoffDate": "2027-03-31",
+              "usH100e": 20368064,
+              "includedSites": 65,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "quarterIndex": 14,
+              "quarter": "2027-Q2",
+              "cutoffDate": "2027-06-30",
+              "usH100e": 21439292,
+              "includedSites": 65,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "quarterIndex": 15,
+              "quarter": "2027-Q3",
+              "cutoffDate": "2027-09-30",
+              "usH100e": 23242366,
+              "includedSites": 67,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 15,
+            "record": {
+              "quarterIndex": 16,
+              "quarter": "2027-Q4",
+              "cutoffDate": "2027-12-31",
+              "usH100e": 30057691,
+              "includedSites": 67,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 16,
+            "record": {
+              "quarterIndex": 17,
+              "quarter": "2028-Q1",
+              "cutoffDate": "2028-03-31",
+              "usH100e": 37048243,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 17,
+            "record": {
+              "quarterIndex": 18,
+              "quarter": "2028-Q2",
+              "cutoffDate": "2028-06-30",
+              "usH100e": 46037632,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 18,
+            "record": {
+              "quarterIndex": 19,
+              "quarter": "2028-Q3",
+              "cutoffDate": "2028-09-30",
+              "usH100e": 47106859,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          },
+          {
+            "order": 19,
+            "record": {
+              "quarterIndex": 20,
+              "quarter": "2028-Q4",
+              "cutoffDate": "2028-12-31",
+              "usH100e": 61887051,
+              "includedSites": 72,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

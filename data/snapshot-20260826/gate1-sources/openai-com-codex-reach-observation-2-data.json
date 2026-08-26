@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-codex-reach-observation-2",
+    "title": "Codex reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-codex-reach-observation-2",
+        "publisher": "openai.com",
+        "title": "Codex reach observation",
+        "url": "https://openai.com/index/the-next-phase-of-education-for-countries/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "adoptobs_0008",
+              "seriesId": "adopt_codex_reach",
+              "observationDate": "2026-05-20",
+              "value": 4000000,
+              "unit": "weekly users",
+              "scope": "global",
+              "comparabilityNote": "Selected early agent population",
+              "sourceId": "gate1-openai-com-codex-reach-observation-2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-openai-chatgpt-for-work-seats",
+    "title": "OpenAI: ChatGPT for Work seats",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-openai-chatgpt-for-work-seats",
+        "publisher": "openai.com",
+        "title": "OpenAI: ChatGPT for Work seats",
+        "url": "https://openai.com/index/1-million-businesses-putting-ai-to-work/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "evidence-003",
+              "category": "Distribution",
+              "metricDate": "2025-11-05",
+              "entity": "OpenAI",
+              "metric": "ChatGPT for Work seats",
+              "value": null,
+              "unit": "seats",
+              "caveat": "Seats are not active users",
+              "sourceId": "gate1-openai-com-openai-chatgpt-for-work-seats"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

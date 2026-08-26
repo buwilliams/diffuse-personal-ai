@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "id": "gate1-code-claude-com-claude-code-per-app-permissions",
+    "title": "Claude Code per-app permissions",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-code-claude-com-claude-code-per-app-permissions",
+        "publisher": "code.claude.com",
+        "title": "Claude Code per-app permissions",
+        "url": "https://code.claude.com/docs/en/computer-use",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "C08",
+              "layer": "Access",
+              "capability": "Least-privilege permissions",
+              "userValue": "Enables trust without granting the whole computer",
+              "computerUseRole": "Scopes apps files actions and duration",
+              "operationalMetric": "Excess-permission rate; task success under scoped access",
+              "currentState": "Shipping but uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "Claude Code per-app permissions",
+              "sourceId": "gate1-code-claude-com-claude-code-per-app-permissions"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-enterprisearena-benchmark",
+    "title": "EnterpriseArena benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-enterprisearena-benchmark",
+        "publisher": "arxiv.org",
+        "title": "EnterpriseArena benchmark",
+        "url": "https://arxiv.org/html/2603.23638v2",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 4,
+            "record": {
+              "id": "DES-05",
+              "category": "Direct economic stewardship",
+              "name": "EnterpriseArena",
+              "metric": "Best-system full-horizon survival rate",
+              "normalization": "Already a 0–100% rate; use the best published full-survival result",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q1",
+              "sourceId": "gate1-arxiv-org-enterprisearena-benchmark",
+              "notes": "132-month CFO simulator; only five seeds per system and the best published result is a tie."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "forecast-observation-008",
+              "benchmarkId": "DES-05",
+              "releaseDate": "2026-03-20",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.6,
+              "systemHarness": "Codex CLI + GPT-5.5 / DeepSeek-V4 + ReAct (tie)",
+              "scoreBasis": "Best-system full-horizon survival",
+              "sourceId": "gate1-arxiv-org-enterprisearena-benchmark",
+              "notes": "Five seeds per system. The paper reports 60% full survival for both leaders and 20% for Qwen3.5-9B."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

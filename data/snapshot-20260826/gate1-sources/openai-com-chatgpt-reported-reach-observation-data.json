@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-chatgpt-reported-reach-observation",
+    "title": "ChatGPT reported reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-chatgpt-reported-reach-observation",
+        "publisher": "openai.com",
+        "title": "ChatGPT reported reach observation",
+        "url": "https://openai.com/index/how-people-are-using-chatgpt/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "adoptobs_0001",
+              "seriesId": "adopt_chatgpt_reach",
+              "observationDate": "2025-07-31",
+              "value": 700000000,
+              "unit": "weekly active users",
+              "scope": "global consumer",
+              "comparabilityNote": "Lower bound; reported as more than 700M",
+              "sourceId": "gate1-openai-com-chatgpt-reported-reach-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

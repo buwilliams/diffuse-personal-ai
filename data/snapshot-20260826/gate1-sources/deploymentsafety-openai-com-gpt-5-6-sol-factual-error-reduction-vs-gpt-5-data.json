@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "id": "gate1-deploymentsafety-openai-com-gpt-5-6-sol-factual-error-reduction-vs-gpt-5",
+    "title": "GPT-5.6 Sol: factual-error reduction vs GPT-5.5 Instant",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-deploymentsafety-openai-com-gpt-5-6-sol-factual-error-reduction-vs-gpt-5",
+        "publisher": "deploymentsafety.openai.com",
+        "title": "GPT-5.6 Sol: factual-error reduction vs GPT-5.5 Instant",
+        "url": "https://deploymentsafety.openai.com/gpt-5-6-august-update/model-safety-training-and-evaluation",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Factuality"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 24,
+            "record": {
+              "id": "evidence-025",
+              "category": "Factuality",
+              "metricDate": "2026-08-19",
+              "entity": "GPT-5.6 Sol",
+              "metric": "factual-error reduction vs GPT-5.5 Instant",
+              "value": null,
+              "unit": "percent relative",
+              "caveat": "Three curated sets; not production prevalence",
+              "sourceId": "gate1-deploymentsafety-openai-com-gpt-5-6-sol-factual-error-reduction-vs-gpt-5"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

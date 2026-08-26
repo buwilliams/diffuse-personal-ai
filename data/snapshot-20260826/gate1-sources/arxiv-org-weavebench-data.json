@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-weavebench",
+    "title": "WeaveBench",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-weavebench",
+        "publisher": "arxiv.org",
+        "title": "WeaveBench",
+        "url": "https://arxiv.org/abs/2606.09426",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 16,
+            "record": {
+              "id": "C17",
+              "layer": "Execute",
+              "capability": "Hybrid GUI API terminal and code routing",
+              "userValue": "Uses the best interface for each subtask",
+              "computerUseRole": "Switches among visual control structured tools and code",
+              "operationalMetric": "Pass rate cost and safety versus single-interface harness",
+              "currentState": "Uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "WeaveBench",
+              "sourceId": "gate1-arxiv-org-weavebench"
+            }
+          },
+          {
+            "order": 19,
+            "record": {
+              "id": "C20",
+              "layer": "Execute",
+              "capability": "Artifact creation and placement",
+              "userValue": "Produces work in the correct format and location",
+              "computerUseRole": "Edits documents sheets media code and files in place",
+              "operationalMetric": "Artifact correctness plus location format and metadata checks",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "WeaveBench and Agents' Last Exam",
+              "sourceId": "gate1-arxiv-org-weavebench"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

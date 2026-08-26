@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "id": "gate1-federalreserve-gov-us-work-genai-any-use-observation",
+    "title": "US work GenAI any use observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-federalreserve-gov-us-work-genai-any-use-observation",
+        "publisher": "federalreserve.gov",
+        "title": "US work GenAI any use observation",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/monitoring-ai-adoption-in-the-u-s-economy-20260403.html",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "adoptobs_0010",
+              "seriesId": "adopt_us_work_any",
+              "observationDate": "2024-11-30",
+              "value": 31,
+              "unit": "percent of workers",
+              "scope": "United States",
+              "comparabilityNote": "RPS; reconstructed from latest level minus reported YoY point change",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          },
+          {
+            "order": 10,
+            "record": {
+              "id": "adoptobs_0011",
+              "seriesId": "adopt_us_work_any",
+              "observationDate": "2025-11-30",
+              "value": 40.7,
+              "unit": "percent of workers",
+              "scope": "United States",
+              "comparabilityNote": "RPS survey",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "id": "adoptobs_0012",
+              "seriesId": "adopt_us_work_weekly",
+              "observationDate": "2024-11-30",
+              "value": 26.3,
+              "unit": "percent of workers",
+              "scope": "United States",
+              "comparabilityNote": "RPS; reconstructed from latest level minus reported YoY point change",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "id": "adoptobs_0013",
+              "seriesId": "adopt_us_work_weekly",
+              "observationDate": "2025-11-30",
+              "value": 35.2,
+              "unit": "percent of workers",
+              "scope": "United States",
+              "comparabilityNote": "RPS survey",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "id": "adoptobs_0014",
+              "seriesId": "adopt_us_nonwork",
+              "observationDate": "2024-11-30",
+              "value": 39.6,
+              "unit": "percent of population",
+              "scope": "United States",
+              "comparabilityNote": "RPS; approximate latest level minus reported 10.4-point YoY change",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "id": "adoptobs_0015",
+              "seriesId": "adopt_us_nonwork",
+              "observationDate": "2025-11-30",
+              "value": 50,
+              "unit": "percent of population",
+              "scope": "United States",
+              "comparabilityNote": "RPS; reported as about 50%",
+              "sourceId": "gate1-federalreserve-gov-us-work-genai-any-use-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

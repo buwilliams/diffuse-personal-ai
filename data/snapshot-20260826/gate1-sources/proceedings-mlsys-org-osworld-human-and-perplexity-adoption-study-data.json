@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "id": "gate1-proceedings-mlsys-org-osworld-human-and-perplexity-adoption-study",
+    "title": "OSWorld-Human and Perplexity adoption study",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-proceedings-mlsys-org-osworld-human-and-perplexity-adoption-study",
+        "publisher": "proceedings.mlsys.org",
+        "title": "OSWorld-Human and Perplexity adoption study",
+        "url": "https://proceedings.mlsys.org/paper_files/paper/2026/hash/5edb57c05c81d04beb716ef1d542fe9e-Abstract-Conference.html",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 32,
+            "record": {
+              "id": "C33",
+              "layer": "Economics",
+              "capability": "Human-attention efficiency",
+              "userValue": "Actually relieves the user's scarce time",
+              "computerUseRole": "Minimizes supervision clarifications and repair",
+              "operationalMetric": "Human attention minutes and interventions per successful task",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld-Human and Perplexity adoption study",
+              "sourceId": "gate1-proceedings-mlsys-org-osworld-human-and-perplexity-adoption-study"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

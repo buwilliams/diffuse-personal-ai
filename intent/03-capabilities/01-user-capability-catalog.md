@@ -20,7 +20,7 @@ The useful abstraction is a capability ladder:
 
 The forecast that agents perform at least half of eligible digital task episodes does not require universal L5 performance. It likely requires **reliable L3 across common, reversible tasks; economical L4 for recurring work; and early L5 personalization.**
 
-The dated evidence for how the associated benchmark families moved is maintained separately in [agent benchmark velocity](../02-model/04-benchmark-velocity.md) and the current snapshot's [`capability-benchmarks.json`](../../data/snapshot-20260826/capability-benchmarks.json). This keeps the capability ontology stable while benchmark versions and frontier models change.
+The dated evidence for how the associated benchmark families moved is maintained separately in [agent benchmark velocity](../02-model/04-benchmark-velocity.md) and the `capability-benchmarks` logical dataset inside the current snapshot's [`gate1-consolidated.json`](../../data/snapshot-20260826/gate1-consolidated.json). This keeps the capability ontology stable while benchmark versions and frontier models change.
 
 No live leaderboard currently measures the consumer resolution outcome. MyPCBench Perfect Task Rate is the closest frozen construct-validity reference, but it omits current frontier agents and mixes different step budgets in its broader leaderboard. The outcome is frequency-weighted Consumer Delegation Success Rate under cost, safety, and human-attention constraints; the two causal SCMs are defined in [the two-SCM framework](../02-model/02-success-compression-metrics.md). See also [the consumer-metric assessment](../02-model/03-consumer-delegation-metric.md).
 
@@ -49,7 +49,7 @@ The first majority-delegation wave should come from research, communication prep
 
 ## 2. Computer use is a stack of capabilities
 
-The structured catalog is in the current snapshot's [`user-capabilities.json`](../../data/snapshot-20260826/user-capabilities.json). Its 34 capabilities fall into six layers.
+The structured catalog is the `user-capabilities` logical dataset inside the current snapshot's [`gate1-consolidated.json`](../../data/snapshot-20260826/gate1-consolidated.json). Its 34 capabilities fall into six layers.
 
 ### A. Understand the user and task
 

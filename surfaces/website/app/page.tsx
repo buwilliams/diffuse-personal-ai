@@ -16,7 +16,7 @@ import {
   DEFAULT_COMPUTE_M,
   computeCapacityAt,
 } from './compute-projection';
-import { forecastModel, snapshotDatasets, snapshotManifest } from './snapshot-model';
+import { forecastModel, snapshotDatasets, snapshotGates, snapshotManifest } from './snapshot-model';
 import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './snapshot-report-data';
 
 const DAY = 86_400_000;
@@ -691,29 +691,40 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
 
 type DatasetDescriptor = {
   id: string;
-  file: string;
+  gateId: string;
+  consolidatedFile: string;
   title: string;
   requiredForCountdown: boolean;
   recordCount: number;
 };
 
-type DatasetSource = {
+type SourceFile = {
   id: string;
+  file: string;
   publisher: string;
   title: string;
   url: string;
   accessedAt: string;
   roles?: string[];
   notes?: string | null;
+  datasetIds: string[];
+  recordCount: number;
 };
 
 function DataSourcesModal({ onClose }: { onClose: () => void }) {
   const datasets = snapshotManifest.data.datasets as DatasetDescriptor[];
-  const datasetsById = snapshotDatasets as unknown as Record<string, {
-    metadata: { sources: DatasetSource[]; description: string };
+  const gateDescriptors = snapshotManifest.data.gates as Array<{
+    id: string;
+    label: string;
+    consolidatedFile: string;
   }>;
-  const sourceCount = new Set(datasets.flatMap((descriptor) =>
-    datasetsById[descriptor.id].metadata.sources.map((source) => source.url))).size;
+  const gatesById = snapshotGates as unknown as Record<string, {
+    metadata: { description: string };
+    data: { sourceFiles: SourceFile[] };
+  }>;
+  const sourceFileCount = gateDescriptors.reduce((sum, gate) => sum + gatesById[gate.id].data.sourceFiles.length, 0);
+  const sourceUrlCount = new Set(gateDescriptors.flatMap((gate) =>
+    gatesById[gate.id].data.sourceFiles.map((source) => source.url))).size;
 
   return (
     <div className="modal-backdrop sources-backdrop" role="presentation" onMouseDown={onClose}>
@@ -722,7 +733,7 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
         <header className="sources-head">
           <p className="modal-eyebrow">Data provenance</p>
           <h2 id="sources-title">Sources behind the forecast</h2>
-          <p>The site selects the newest valid <code>snapshot-YYYYMMDD</code> directory at build time. This page uses <b>snapshot-{forecastModel.snapshotId}</b>: {datasets.length} normalized datasets, {sourceCount} public source URLs, and one shared calculation layer for charts, reports, controls, and the countdown.</p>
+          <p>The site selects the newest valid <code>snapshot-YYYYMMDD</code> directory at build time. This page uses <b>snapshot-{forecastModel.snapshotId}</b>: {sourceFileCount} source files spanning {sourceUrlCount} public URLs, consolidated into {gateDescriptors.length} gates and one shared calculation layer.</p>
           <div className="sources-meta">
             <span><small>Snapshot</small><strong>{forecastModel.snapshotDate}</strong></span>
             <span><small>Schema</small><strong>{snapshotManifest.metadata.schemaVersion}</strong></span>
@@ -732,27 +743,32 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
         </header>
 
         <div className="sources-list">
-          {datasets.map((descriptor, index) => {
-            const dataset = datasetsById[descriptor.id];
-            const sources = dataset.metadata.sources;
+          {gateDescriptors.map((descriptor, index) => {
+            const gate = gatesById[descriptor.id];
+            const sources = gate.data.sourceFiles;
             return (
               <article className="source-dataset" key={descriptor.id}>
                 <div className="source-dataset-head">
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <div>
-                    <p>{descriptor.requiredForCountdown ? 'Forecast input' : 'Context / triangulation'}</p>
-                    <h3>{descriptor.title}</h3>
-                    <small>{descriptor.file} · {descriptor.recordCount.toLocaleString('en-US')} normalized records · {sources.length} sources</small>
+                    <p>Forecast gate</p>
+                    <h3>{descriptor.label}</h3>
+                    <small>{descriptor.consolidatedFile} · {sources.length} source files · {datasets.filter((dataset) => dataset.gateId === descriptor.id).length} logical datasets</small>
                   </div>
                 </div>
-                <p className="source-description">{dataset.metadata.description}</p>
+                <p className="source-description">{gate.metadata.description}</p>
                 <div className="source-links">
                   {sources.map((source) => (
-                    <a href={source.url} target="_blank" rel="noreferrer" key={`${descriptor.id}-${source.id}-${source.url}`}>
-                      <span>{source.publisher}</span>
-                      <b>{source.title}</b>
-                      <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
-                    </a>
+                    <div className="source-file" key={`${descriptor.id}-${source.id}-${source.url}`}>
+                      <a className="source-primary" href={source.url} target="_blank" rel="noreferrer">
+                        <span>{source.publisher}</span>
+                        <b>{source.title}</b>
+                        <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
+                      </a>
+                      <a className="source-json" href={`https://github.com/buwilliams/diffuse-personal-ai/blob/main/data/snapshot-${forecastModel.snapshotId}/${source.file}`} target="_blank" rel="noreferrer">
+                        Normalized JSON · {source.recordCount.toLocaleString('en-US')} records ↗
+                      </a>
+                    </div>
                   ))}
                 </div>
               </article>
@@ -761,7 +777,7 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <footer className="sources-foot">
-          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update and normalize every source through <code>database.json</code>, validate it, and rebuild. Earlier snapshots remain available for reproducibility.</p>
+          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update each source file through <code>database.json</code>, consolidate both gates, validate, and rebuild. The site and workbooks read only the consolidated files.</p>
           <a href="https://github.com/buwilliams/diffuse-personal-ai/tree/main/data" target="_blank" rel="noreferrer">Browse snapshot JSON ↗</a>
         </footer>
       </section>

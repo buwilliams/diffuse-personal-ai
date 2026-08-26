@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "id": "gate1-ceobench-com-ceo-bench-benchmark",
+    "title": "CEO-Bench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-ceobench-com-ceo-bench-benchmark",
+        "publisher": "ceobench.com",
+        "title": "CEO-Bench benchmark",
+        "url": "https://ceobench.com/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "DES-02",
+              "category": "Direct economic stewardship",
+              "name": "CEO-Bench",
+              "metric": "Frontier best-run final cash / $2.2B estimated upper bound",
+              "normalization": "Cap at 100%; only three runs per model, so treat as high variance",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-ceobench-com-ceo-bench-benchmark",
+              "notes": "500-day startup simulation from $1M initial cash."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "forecast-observation-004",
+              "benchmarkId": "DES-02",
+              "releaseDate": "2026-06-09",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.005740944545454546,
+              "systemHarness": "Claude Fable 5",
+              "scoreBasis": "Best-run final cash / $2.2B upper bound",
+              "sourceId": "gate1-ceobench-com-ceo-bench-benchmark",
+              "notes": "Three runs/model; best-run statistic is noisy."
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "forecast-observation-005",
+              "benchmarkId": "DES-02",
+              "releaseDate": "2026-08-01",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.010067435,
+              "systemHarness": "Kimi K3",
+              "scoreBasis": "Best-run final cash / $2.2B upper bound",
+              "sourceId": "gate1-ceobench-com-ceo-bench-benchmark",
+              "notes": "Three runs/model; best-run statistic is noisy."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

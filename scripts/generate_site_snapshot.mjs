@@ -13,6 +13,13 @@ await fs.mkdir(outputDirectory, { recursive: true });
 await fs.writeFile(outputPath, `${JSON.stringify({
   id: snapshot.id,
   manifest: snapshot.manifest,
+  gates: Object.fromEntries(Object.entries(snapshot.gates).map(([id, gate]) => [id, {
+    metadata: gate.metadata,
+    data: {
+      gate: gate.data.gate,
+      sourceFiles: gate.data.sourceFiles,
+    },
+  }])),
   datasets: snapshot.datasets,
 }, null, 2)}\n`, 'utf8');
 

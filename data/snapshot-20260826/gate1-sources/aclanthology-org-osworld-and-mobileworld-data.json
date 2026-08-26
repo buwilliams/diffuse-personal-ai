@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "id": "gate1-aclanthology-org-osworld-and-mobileworld",
+    "title": "OSWorld and MobileWorld",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-aclanthology-org-osworld-and-mobileworld",
+        "publisher": "aclanthology.org",
+        "title": "OSWorld and MobileWorld",
+        "url": "https://aclanthology.org/2026.acl-long.278/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 12,
+            "record": {
+              "id": "C13",
+              "layer": "Execute",
+              "capability": "Precise mouse keyboard and touch control",
+              "userValue": "Completes actions in ordinary apps",
+              "computerUseRole": "Clicks types drags selects and uses shortcuts correctly",
+              "operationalMetric": "Action grounding accuracy; coordinate-error rate",
+              "currentState": "Improving",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "OSWorld and MobileWorld",
+              "sourceId": "gate1-aclanthology-org-osworld-and-mobileworld"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

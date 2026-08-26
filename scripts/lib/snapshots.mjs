@@ -25,20 +25,30 @@ export async function loadSnapshot(snapshotDirectory) {
   if (!manifest?.metadata || !manifest?.data) throw new Error(`Invalid snapshot manifest: ${manifestPath}`);
 
   const datasets = {};
-  for (const descriptor of manifest.data.datasets ?? []) {
-    const file = path.join(snapshotDirectory, descriptor.file);
-    const dataset = await readJson(file);
-    if (!dataset?.metadata || !dataset?.data) throw new Error(`Invalid dataset envelope: ${file}`);
-    if (dataset.metadata.id !== descriptor.id) {
-      throw new Error(`Dataset id mismatch in ${descriptor.file}: expected ${descriptor.id}, received ${dataset.metadata.id}`);
+  const gates = {};
+  for (const descriptor of manifest.data.gates ?? []) {
+    const file = path.join(snapshotDirectory, descriptor.consolidatedFile);
+    const gate = await readJson(file);
+    if (!gate?.metadata || !gate?.data?.datasets) throw new Error(`Invalid consolidated gate envelope: ${file}`);
+    if (gate.metadata.id !== `${descriptor.id}-consolidated`) {
+      throw new Error(`Gate id mismatch in ${descriptor.consolidatedFile}`);
     }
-    datasets[descriptor.id] = dataset;
+    gates[descriptor.id] = gate;
+    Object.assign(datasets, gate.data.datasets);
+  }
+
+  for (const descriptor of manifest.data.datasets ?? []) {
+    if (!datasets[descriptor.id]) throw new Error(`Missing consolidated dataset: ${descriptor.id}`);
+    if (datasets[descriptor.id].metadata.id !== descriptor.id) {
+      throw new Error(`Dataset id mismatch for ${descriptor.id}`);
+    }
   }
 
   return {
     id: path.basename(snapshotDirectory).match(SNAPSHOT_PATTERN)?.[1] ?? null,
     directory: snapshotDirectory,
     manifest,
+    gates,
     datasets,
   };
 }

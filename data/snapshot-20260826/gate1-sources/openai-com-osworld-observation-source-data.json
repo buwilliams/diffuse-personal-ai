@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-osworld-observation-source",
+    "title": "OSWorld observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-osworld-observation-source",
+        "publisher": "openai.com",
+        "title": "OSWorld observation source",
+        "url": "https://openai.com/index/introducing-gpt-5-4/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "release metadata",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 13,
+            "record": {
+              "id": "benchobs_0014",
+              "releaseId": "openai_gpt54_20260305",
+              "benchmarkId": "osworld_verified_success",
+              "family": "OSWorld",
+              "version": "Verified",
+              "capabilityDimension": "Desktop computer use",
+              "metric": "Success rate",
+              "modelSystem": "GPT-5.4",
+              "modelReleaseDate": "2026-03-05",
+              "observationDate": "2026-03-05",
+              "score": 75,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "release_snapshot",
+              "harnessScope": "OpenAI computer-use harness",
+              "sourceId": "gate1-openai-com-osworld-observation-source",
+              "comparabilityNote": "Vendor and harness changed from the Claude points"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 5,
+            "record": {
+              "id": "openai_gpt54_20260305",
+              "entityType": "model",
+              "provider": "OpenAI",
+              "name": "GPT-5.4",
+              "releaseDate": "2026-03-05",
+              "parentReleaseId": "openai_gpt52_20251211",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "ChatGPT API and Codex",
+              "sourceId": "gate1-openai-com-osworld-observation-source",
+              "notes": ""
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

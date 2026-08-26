@@ -1,6 +1,6 @@
 # Report cards
 
-The capability and compute builders select the latest `data/snapshot-YYYYMMDD/` directory and use `model/forecast-model.mjs`, the same calculation layer as the website.
+The capability and compute builders select the latest `data/snapshot-YYYYMMDD/` directory, load its two consolidated gates, and use `model/forecast-model.mjs`, the same calculation layer as the website.
 
 ```text
 capability/build_report_card.mjs   Capability workbook
@@ -11,6 +11,7 @@ shared/inspect_tables.mjs          Optional inspection-summary helper
 Using the bundled Node runtime, run from the repository root:
 
 ```powershell
+& $NodeExe scripts/consolidate_snapshot.mjs
 & $NodeExe scripts/validate_snapshots.mjs
 & $NodeExe surfaces/report-cards/capability/build_report_card.mjs
 & $NodeExe surfaces/report-cards/compute/build_compute_report_card.mjs

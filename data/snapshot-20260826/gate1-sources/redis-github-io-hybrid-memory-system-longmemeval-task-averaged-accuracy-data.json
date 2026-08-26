@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "id": "gate1-redis-github-io-hybrid-memory-system-longmemeval-task-averaged-accuracy",
+    "title": "hybrid memory system: LongMemEval task-averaged accuracy",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-redis-github-io-hybrid-memory-system-longmemeval-task-averaged-accuracy",
+        "publisher": "redis.github.io",
+        "title": "hybrid memory system: LongMemEval task-averaged accuracy",
+        "url": "https://redis.github.io/redis-ai-research-public/longmemeval-agent-memory/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Memory"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 25,
+            "record": {
+              "id": "evidence-026",
+              "category": "Memory",
+              "metricDate": "2026-08-25",
+              "entity": "hybrid memory system",
+              "metric": "LongMemEval task-averaged accuracy",
+              "value": 86.1,
+              "unit": "percent",
+              "caveat": "500-question retrieval benchmark; not continual learning",
+              "sourceId": "gate1-redis-github-io-hybrid-memory-system-longmemeval-task-averaged-accuracy"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

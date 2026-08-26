@@ -1,0 +1,281 @@
+{
+  "metadata": {
+    "id": "gate1-osworld-v2-xlang-ai-osworld-source",
+    "title": "OSWorld source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-osworld-v2-xlang-ai-osworld-source",
+        "publisher": "osworld-v2.xlang.ai",
+        "title": "OSWorld source",
+        "url": "https://osworld-v2.xlang.ai/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Computer use",
+          "capability evidence",
+          "supporting evaluation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "osworld2_partial",
+              "family": "OSWorld",
+              "version": "2.0",
+              "metric": "Partial reward",
+              "capabilityDimension": "Long-horizon computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "separate_from_osworld_verified",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source",
+              "notes": "Never splice to OSWorld-Verified"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "osworld2_binary",
+              "family": "OSWorld",
+              "version": "2.0",
+              "metric": "Binary completion",
+              "capabilityDimension": "Long-horizon computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "separate_from_osworld_verified",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source",
+              "notes": "Primary adoption-relevant OSWorld metric"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 14,
+            "record": {
+              "id": "evidence-015",
+              "category": "Computer use",
+              "metricDate": "2026-06-25",
+              "entity": "Claude Opus 4.8",
+              "metric": "OSWorld 2.0 binary full completion",
+              "value": 20.6,
+              "unit": "percent",
+              "caveat": "500-step configuration in benchmark paper",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "C02",
+              "layer": "Understand",
+              "capability": "Proactive clarification",
+              "userValue": "Prevents wrong guesses and unnecessary supervision",
+              "computerUseRole": "Pauses when required state is missing or contradictory",
+              "operationalMetric": "Precision and recall of clarification; unnecessary-question rate",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 proactive interaction",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "C03",
+              "layer": "Understand",
+              "capability": "Constraint and policy following",
+              "userValue": "Keeps actions within budgets deadlines preferences and rules",
+              "computerUseRole": "Carries constraints through long GUI trajectories",
+              "operationalMetric": "Constraint satisfaction and critical-policy violation rate",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 and tau3 Banking",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "C04",
+              "layer": "Understand",
+              "capability": "Cross-source reasoning",
+              "userValue": "Combines email files websites records and messages",
+              "computerUseRole": "Reconciles state spread across applications",
+              "operationalMetric": "Full completion on cross-source tasks; source omission rate",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 cross-source reasoning",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "C05",
+              "layer": "Understand",
+              "capability": "Conflict disambiguation",
+              "userValue": "Uses the authoritative current information",
+              "computerUseRole": "Rejects stale noisy or contradictory UI data",
+              "operationalMetric": "Authoritative-source selection accuracy",
+              "currentState": "Major gap",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "OSWorld 2.0 conflict disambiguation",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "C06",
+              "layer": "Understand",
+              "capability": "Tutorial and demonstration following",
+              "userValue": "Learns unfamiliar software and user procedures",
+              "computerUseRole": "Extracts steps from PDFs videos or live demonstration",
+              "operationalMetric": "Novel-procedure completion and transfer rate",
+              "currentState": "Early",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "OSWorld 2.0 tutorial following and Grok Bot routines",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "id": "C10",
+              "layer": "Access",
+              "capability": "Visual and accessibility-tree perception",
+              "userValue": "Lets the agent understand any interface",
+              "computerUseRole": "Reads screenshots DOM accessibility trees icons and layout",
+              "operationalMetric": "Element recognition and grounding under interface variation",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 visual-spatial precision",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "id": "C15",
+              "layer": "Execute",
+              "capability": "Dynamic and streaming interfaces",
+              "userValue": "Works while screens and requirements change",
+              "computerUseRole": "Re-observes and updates action plans between frames",
+              "operationalMetric": "Success under live updates streaming and timing constraints",
+              "currentState": "Major gap",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "OSWorld 2.0 dynamic and streaming interaction",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 17,
+            "record": {
+              "id": "C18",
+              "layer": "Execute",
+              "capability": "Multi-item state tracking",
+              "userValue": "Avoids omissions and duplication across lists and records",
+              "computerUseRole": "Maintains a durable ledger of processed and pending items",
+              "operationalMetric": "Item-level precision recall and duplicate rate",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 multi-item state tracking",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 18,
+            "record": {
+              "id": "C19",
+              "layer": "Execute",
+              "capability": "Long-horizon planning and completion",
+              "userValue": "Allows users to hand off hours-long goals",
+              "computerUseRole": "Maintains dependencies budget and stopping conditions",
+              "operationalMetric": "Binary completion by human task duration",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 23,
+            "record": {
+              "id": "C24",
+              "layer": "Persist",
+              "capability": "Durable task state",
+              "userValue": "Resumes without losing decisions evidence or progress",
+              "computerUseRole": "Checkpoints a workflow across sessions and failures",
+              "operationalMetric": "Resume success and state-drift rate",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 implicit state and current persistent agents",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 26,
+            "record": {
+              "id": "C27",
+              "layer": "Control",
+              "capability": "Outcome verification",
+              "userValue": "Lets the user trust that done means done",
+              "computerUseRole": "Inspects real app state artifact semantics and side effects",
+              "operationalMetric": "Verification precision recall and false-done rate",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 failure analysis and WeaveBench",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          },
+          {
+            "order": 33,
+            "record": {
+              "id": "C34",
+              "layer": "Economics",
+              "capability": "Latency cost and repeatability",
+              "userValue": "Makes delegation preferable to doing it manually",
+              "computerUseRole": "Completes consistently at an acceptable price and elapsed time",
+              "operationalMetric": "Cost per success; p50/p95 latency; variance across reruns",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "OSWorld 2.0 cost curves and scaffold studies",
+              "sourceId": "gate1-osworld-v2-xlang-ai-osworld-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

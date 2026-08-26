@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-chatgpt-work-and-mypcbench",
+    "title": "ChatGPT Work and MyPCBench",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-chatgpt-work-and-mypcbench",
+        "publisher": "openai.com",
+        "title": "ChatGPT Work and MyPCBench",
+        "url": "https://openai.com/index/chatgpt-for-your-most-ambitious-work/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 10,
+            "record": {
+              "id": "C11",
+              "layer": "Access",
+              "capability": "Personal files and artifact context",
+              "userValue": "Connects tasks to the user's documents and history",
+              "computerUseRole": "Finds opens moves and attaches local or cloud files",
+              "operationalMetric": "Correct-file retrieval and data-boundary violation rate",
+              "currentState": "Shipping but uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "ChatGPT Work and MyPCBench",
+              "sourceId": "gate1-openai-com-chatgpt-work-and-mypcbench"
+            }
+          },
+          {
+            "order": 22,
+            "record": {
+              "id": "C23",
+              "layer": "Persist",
+              "capability": "Schedules triggers and monitoring",
+              "userValue": "Turns one-time help into ongoing delegation",
+              "computerUseRole": "Runs on time or when an event or condition occurs",
+              "operationalMetric": "Trigger precision recall and stale-data rate",
+              "currentState": "Shipping but uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "ChatGPT Scheduled Tasks and Grok Automations",
+              "sourceId": "gate1-openai-com-chatgpt-work-and-mypcbench"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

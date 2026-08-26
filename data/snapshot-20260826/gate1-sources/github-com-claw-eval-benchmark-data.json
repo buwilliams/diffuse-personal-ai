@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-github-com-claw-eval-benchmark",
+    "title": "Claw-Eval benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-github-com-claw-eval-benchmark",
+        "publisher": "github.com",
+        "title": "Claw-Eval benchmark",
+        "url": "https://github.com/claw-eval/claw-eval",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 22,
+            "record": {
+              "id": "VAL-04",
+              "category": "Economic value & governance",
+              "name": "Claw-Eval",
+              "metric": "Pass^3 on governed agent tasks",
+              "normalization": "Already a 0–100% strict reliability score",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q1",
+              "sourceId": "gate1-github-com-claw-eval-benchmark",
+              "notes": "Governance/reliability emphasis; one current frontier point."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 37,
+            "record": {
+              "id": "forecast-observation-038",
+              "benchmarkId": "VAL-04",
+              "releaseDate": "2026-02-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.704,
+              "systemHarness": "Claude Opus 4.6",
+              "scoreBasis": "Pass^3 governed-agent score",
+              "sourceId": "gate1-github-com-claw-eval-benchmark",
+              "notes": "One current frontier point."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

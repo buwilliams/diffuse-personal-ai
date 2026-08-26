@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "id": "gate1-anthropic-com-anthropic-business-customers",
+    "title": "Anthropic: business customers",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-anthropic-com-anthropic-business-customers",
+        "publisher": "anthropic.com",
+        "title": "Anthropic: business customers",
+        "url": "https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "evidence-004",
+              "category": "Distribution",
+              "metricDate": "2025-09-02",
+              "entity": "Anthropic",
+              "metric": "business customers",
+              "value": null,
+              "unit": "organizations",
+              "caveat": "Not consumer subscriptions or seats",
+              "sourceId": "gate1-anthropic-com-anthropic-business-customers"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

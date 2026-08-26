@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "id": "gate1-microsoft-com-microsoft-365-active-agents-index-observation",
+    "title": "Microsoft 365 active agents index observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-microsoft-com-microsoft-365-active-agents-index-observation",
+        "publisher": "microsoft.com",
+        "title": "Microsoft 365 active agents index observation",
+        "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 22,
+            "record": {
+              "id": "adoptobs_0023",
+              "seriesId": "adopt_ms365_agents",
+              "observationDate": "2025-03-31",
+              "value": 1,
+              "unit": "index",
+              "scope": "global Microsoft 365",
+              "comparabilityNote": "Index derived from disclosed YoY ratio; no absolute count",
+              "sourceId": "gate1-microsoft-com-microsoft-365-active-agents-index-observation"
+            }
+          },
+          {
+            "order": 23,
+            "record": {
+              "id": "adoptobs_0024",
+              "seriesId": "adopt_ms365_agents",
+              "observationDate": "2026-03-31",
+              "value": 15,
+              "unit": "index",
+              "scope": "global Microsoft 365",
+              "comparabilityNote": "An agent counts with one user-initiated day or one autonomous run in 28 days",
+              "sourceId": "gate1-microsoft-com-microsoft-365-active-agents-index-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

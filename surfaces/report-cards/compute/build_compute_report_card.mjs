@@ -141,7 +141,7 @@ const assumptionRows = [
 const assumptions = makeSheet(
   "Assumptions",
   "Serving Envelope and Demand Archetype",
-  "All population, allocation, workload, and hardware-normalization assumptions read directly from compute-capacity.json.",
+  "All population, allocation, workload, and hardware-normalization assumptions read from the compute-capacity logical dataset in gate2-consolidated.json.",
   ["Group", "Variable", "Value", "Unit / explanation"],
   assumptionRows,
   "ComputeAssumptionsTable",

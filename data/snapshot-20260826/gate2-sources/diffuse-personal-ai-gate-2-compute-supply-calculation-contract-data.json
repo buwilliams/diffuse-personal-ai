@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+    "title": "Gate 2 · Compute supply calculation contract",
+    "description": "Normalized gate 2 · compute supply data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "workload",
+        "kind": "value",
+        "value": {
+          "components": [
+            {
+              "id": "uncached-input",
+              "label": "Uncached input",
+              "tokensPerUserDay": 2000000,
+              "computeWeight": 1
+            },
+            {
+              "id": "visible-output",
+              "label": "Visible output",
+              "tokensPerUserDay": 300000,
+              "computeWeight": 2.5
+            },
+            {
+              "id": "internal-reasoning",
+              "label": "Internal reasoning",
+              "tokensPerUserDay": 5000000,
+              "computeWeight": 2.5
+            },
+            {
+              "id": "cached-context",
+              "label": "Cached/reused context",
+              "tokensPerUserDay": 10000000,
+              "computeWeight": 0.15
+            }
+          ]
+        }
+      },
+      {
+        "datasetId": "compute-capacity",
+        "collection": "serving",
+        "kind": "value",
+        "value": {
+          "dense8BitOpsPerH100eSecond": 1979000000000000,
+          "secondsPerDay": 86400,
+          "fleetShareAllocatedToInference": 0.4,
+          "sustainedServingUtilization": 0.35,
+          "activeModelParameters": 100000000000,
+          "forwardPassOpsPerParameterToken": 2,
+          "systemOverheadMultiplier": 1.5,
+          "servingGoodputMultiplier": 1,
+          "personalAiInferenceShare": 0.5
+        }
+      },
+      {
+        "datasetId": "compute-capacity",
+        "collection": "forecastPolicy",
+        "kind": "value",
+        "value": {
+          "reportEndQuarterIndex": 20,
+          "extrapolation": "recursiveLogVelocity"
+        }
+      }
+    ]
+  }
+}

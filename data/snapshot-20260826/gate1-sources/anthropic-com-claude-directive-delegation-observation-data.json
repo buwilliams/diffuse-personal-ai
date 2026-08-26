@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "id": "gate1-anthropic-com-claude-directive-delegation-observation",
+    "title": "Claude directive delegation observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-anthropic-com-claude-directive-delegation-observation",
+        "publisher": "anthropic.com",
+        "title": "Claude directive delegation observation",
+        "url": "https://www.anthropic.com/research/anthropic-economic-index-january-2026-report",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 24,
+            "record": {
+              "id": "adoptobs_0025",
+              "seriesId": "adopt_claude_delegation",
+              "observationDate": "2025-01-31",
+              "value": 27,
+              "unit": "percent of sampled conversations",
+              "scope": "Claude.ai",
+              "comparabilityNote": "Directive means task completed with minimal back-and-forth",
+              "sourceId": "gate1-anthropic-com-claude-directive-delegation-observation"
+            }
+          },
+          {
+            "order": 25,
+            "record": {
+              "id": "adoptobs_0026",
+              "seriesId": "adopt_claude_delegation",
+              "observationDate": "2025-08-31",
+              "value": 39,
+              "unit": "percent of sampled conversations",
+              "scope": "Claude.ai",
+              "comparabilityNote": "August spike later partly reversed",
+              "sourceId": "gate1-anthropic-com-claude-directive-delegation-observation"
+            }
+          },
+          {
+            "order": 26,
+            "record": {
+              "id": "adoptobs_0027",
+              "seriesId": "adopt_claude_delegation",
+              "observationDate": "2025-11-30",
+              "value": 32,
+              "unit": "percent of sampled conversations",
+              "scope": "Claude.ai",
+              "comparabilityNote": "Not equivalent to cross-app action or share of user tasks",
+              "sourceId": "gate1-anthropic-com-claude-directive-delegation-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

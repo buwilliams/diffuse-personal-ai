@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps",
+    "title": "o3: OSWorld baseline at 15 steps",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps",
+        "publisher": "arxiv.org",
+        "title": "o3: OSWorld baseline at 15 steps",
+        "url": "https://arxiv.org/abs/2510.24563",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Harness",
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 20,
+            "record": {
+              "id": "evidence-021",
+              "category": "Harness",
+              "metricDate": "2025-10-28",
+              "entity": "o3",
+              "metric": "OSWorld baseline at 15 steps",
+              "value": 8.3,
+              "unit": "percent",
+              "caveat": "Compare only with same study and step budget",
+              "sourceId": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps"
+            }
+          },
+          {
+            "order": 21,
+            "record": {
+              "id": "evidence-022",
+              "category": "Harness",
+              "metricDate": "2025-10-28",
+              "entity": "o3 plus MCP tools",
+              "metric": "OSWorld-MCP at 15 steps",
+              "value": 20.4,
+              "unit": "percent",
+              "caveat": "Controlled tool/harness uplift",
+              "sourceId": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps"
+            }
+          },
+          {
+            "order": 22,
+            "record": {
+              "id": "evidence-023",
+              "category": "Harness",
+              "metricDate": "2025-10-28",
+              "entity": "Claude 4 Sonnet",
+              "metric": "OSWorld baseline at 50 steps",
+              "value": 40.1,
+              "unit": "percent",
+              "caveat": "Compare only with same study and step budget",
+              "sourceId": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps"
+            }
+          },
+          {
+            "order": 23,
+            "record": {
+              "id": "evidence-024",
+              "category": "Harness",
+              "metricDate": "2025-10-28",
+              "entity": "Claude 4 Sonnet plus MCP tools",
+              "metric": "OSWorld-MCP at 50 steps",
+              "value": 43.3,
+              "unit": "percent",
+              "caveat": "Controlled tool/harness uplift",
+              "sourceId": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "C09",
+              "layer": "Access",
+              "capability": "Connectors APIs and MCP",
+              "userValue": "Provides fast structured reliable access",
+              "computerUseRole": "Uses structured tools instead of pixels where available",
+              "operationalMetric": "Tool selection accuracy; completion and cost uplift over GUI-only",
+              "currentState": "Uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "OSWorld-MCP",
+              "sourceId": "gate1-arxiv-org-o3-osworld-baseline-at-15-steps"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

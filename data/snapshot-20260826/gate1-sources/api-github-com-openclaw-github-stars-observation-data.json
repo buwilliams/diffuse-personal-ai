@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "gate1-api-github-com-openclaw-github-stars-observation",
+    "title": "OpenClaw GitHub stars observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-api-github-com-openclaw-github-stars-observation",
+        "publisher": "api.github.com",
+        "title": "OpenClaw GitHub stars observation",
+        "url": "https://api.github.com/repos/openclaw/openclaw",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution",
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 32,
+            "record": {
+              "id": "adoptobs_0033",
+              "seriesId": "adopt_openclaw_stars",
+              "observationDate": "2026-08-25",
+              "value": 387590,
+              "unit": "stars",
+              "scope": "global developer ecosystem",
+              "comparabilityNote": "Current GitHub API snapshot; not users",
+              "sourceId": "gate1-api-github-com-openclaw-github-stars-observation"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "evidence-007",
+              "category": "Distribution",
+              "metricDate": "2026-08-25",
+              "entity": "OpenClaw",
+              "metric": "GitHub stars",
+              "value": 387590,
+              "unit": "stars",
+              "caveat": "Developer-interest proxy; not users",
+              "sourceId": "gate1-api-github-com-openclaw-github-stars-observation"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "evidence-008",
+              "category": "Distribution",
+              "metricDate": "2026-08-25",
+              "entity": "OpenClaw",
+              "metric": "GitHub forks",
+              "value": 81363,
+              "unit": "forks",
+              "caveat": "Code-copy proxy; not users",
+              "sourceId": "gate1-api-github-com-openclaw-github-stars-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

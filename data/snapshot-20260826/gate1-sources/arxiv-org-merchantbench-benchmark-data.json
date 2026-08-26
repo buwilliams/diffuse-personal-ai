@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-merchantbench-benchmark",
+    "title": "MerchantBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-merchantbench-benchmark",
+        "publisher": "arxiv.org",
+        "title": "MerchantBench benchmark",
+        "url": "https://arxiv.org/abs/2607.28956",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "DES-07",
+              "category": "Direct economic stewardship",
+              "name": "MerchantBench",
+              "metric": "Best LLM mean final net assets / human-participant mean",
+              "normalization": "Use the authors' reported 27.3% human-relative ratio",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q3",
+              "sourceId": "gate1-arxiv-org-merchantbench-benchmark",
+              "notes": "Three runs per model-framework pairing; human reference is three non-expert participants."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "forecast-observation-010",
+              "benchmarkId": "DES-07",
+              "releaseDate": "2026-08-04",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.273,
+              "systemHarness": "Qwen3.7-Max + Hermes",
+              "scoreBasis": "Best LLM mean final net assets / human mean",
+              "sourceId": "gate1-arxiv-org-merchantbench-benchmark",
+              "notes": "Authors' reported ratio; three LLM runs per configuration and three non-expert human participants."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

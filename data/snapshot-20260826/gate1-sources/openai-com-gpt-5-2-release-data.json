@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-gpt-5-2-release",
+    "title": "GPT-5.2 release",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-gpt-5-2-release",
+        "publisher": "openai.com",
+        "title": "GPT-5.2 release",
+        "url": "https://openai.com/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "release metadata"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "openai_gpt52_20251211",
+              "entityType": "model",
+              "provider": "OpenAI",
+              "name": "GPT-5.2",
+              "releaseDate": "2025-12-11",
+              "parentReleaseId": "openai_gpt5_20250807",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "ChatGPT API and agent products",
+              "sourceId": "gate1-openai-com-gpt-5-2-release",
+              "notes": "Release date verified by benchmark source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

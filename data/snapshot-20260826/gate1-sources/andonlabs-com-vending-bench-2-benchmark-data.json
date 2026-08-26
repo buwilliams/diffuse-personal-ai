@@ -1,0 +1,298 @@
+{
+  "metadata": {
+    "id": "gate1-andonlabs-com-vending-bench-2-benchmark",
+    "title": "Vending-Bench 2 benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-andonlabs-com-vending-bench-2-benchmark",
+        "publisher": "andonlabs.com",
+        "title": "Vending-Bench 2 benchmark",
+        "url": "https://andonlabs.com/evals/vending-bench-2",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Business",
+          "forecast benchmark",
+          "forecast observation",
+          "supporting evaluation",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "DES-01",
+              "category": "Direct economic stewardship",
+              "name": "Vending-Bench 2",
+              "metric": "Frontier ending balance / $63,000 published good-strategy target",
+              "normalization": "Cap at 100%; target is a published strategy anchor, not a human ceiling",
+              "status": "Graded",
+              "firstReleaseQuarter": "2025-Q4",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "notes": "Year-long autonomous retail operation; balance is path dependent."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "forecast-observation-001",
+              "benchmarkId": "DES-01",
+              "releaseDate": "2026-02-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.12726333333333334,
+              "systemHarness": "Claude Opus 4.6",
+              "scoreBasis": "Frontier balance / $63,000 strategy target",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "notes": "Observed release-quarter frontier."
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "id": "forecast-observation-002",
+              "benchmarkId": "DES-01",
+              "releaseDate": "2026-04-16",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.17359936507936508,
+              "systemHarness": "Claude Opus 4.7",
+              "scoreBasis": "Frontier balance / $63,000 strategy target",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "notes": "Observed release-quarter frontier."
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "forecast-observation-003",
+              "benchmarkId": "DES-01",
+              "releaseDate": "2026-07-24",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.17749,
+              "systemHarness": "Claude Opus 5",
+              "scoreBasis": "Frontier balance / $63,000 strategy target",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "notes": "Observed release-quarter frontier."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "metric": "Ending money balance",
+              "capabilityDimension": "Year-long business operation",
+              "unit": "USD",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "release_date_fit",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "notes": "Do not interpret dollars as a general task pass rate"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 33,
+            "record": {
+              "id": "benchobs_0034",
+              "releaseId": "anthropic_opus46_20260205",
+              "benchmarkId": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "capabilityDimension": "Year-long business operation",
+              "metric": "Ending money balance",
+              "modelSystem": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "observationDate": "2026-08-25",
+              "score": 8017.59,
+              "unit": "USD",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Andon Labs standard agent; mean across five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "comparabilityNote": "High run-to-run variance"
+            }
+          },
+          {
+            "order": 34,
+            "record": {
+              "id": "benchobs_0035",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "capabilityDimension": "Year-long business operation",
+              "metric": "Ending money balance",
+              "modelSystem": "Claude Opus 4.7",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-08-25",
+              "score": 10936.76,
+              "unit": "USD",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Andon Labs standard agent; mean across runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "comparabilityNote": "Reported standard error is large"
+            }
+          },
+          {
+            "order": 35,
+            "record": {
+              "id": "benchobs_0036",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "capabilityDimension": "Year-long business operation",
+              "metric": "Ending money balance",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-08-25",
+              "score": 7523.84,
+              "unit": "USD",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Andon Labs standard agent; mean across five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "comparabilityNote": "Later release does not imply higher score"
+            }
+          },
+          {
+            "order": 36,
+            "record": {
+              "id": "benchobs_0037",
+              "releaseId": "openai_gpt56sol_20260709",
+              "benchmarkId": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "capabilityDimension": "Year-long business operation",
+              "metric": "Ending money balance",
+              "modelSystem": "GPT-5.6 Sol",
+              "modelReleaseDate": "2026-07-09",
+              "observationDate": "2026-08-25",
+              "score": 9619.37,
+              "unit": "USD",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Andon Labs standard agent; mean across five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "comparabilityNote": "Improves on GPT-5.5 but remains below Claude frontier"
+            }
+          },
+          {
+            "order": 37,
+            "record": {
+              "id": "benchobs_0038",
+              "releaseId": "anthropic_opus5_20260724",
+              "benchmarkId": "vending2_balance",
+              "family": "Vending-Bench",
+              "version": "2",
+              "capabilityDimension": "Year-long business operation",
+              "metric": "Ending money balance",
+              "modelSystem": "Claude Opus 5",
+              "modelReleaseDate": "2026-07-24",
+              "observationDate": "2026-08-25",
+              "score": 11181.87,
+              "unit": "USD",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Andon Labs standard agent; mean across runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark",
+              "comparabilityNote": "Andon fits the Western frontier at plus 734 dollars per month with R-squared 0.96"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 15,
+            "record": {
+              "id": "evidence-016",
+              "category": "Business",
+              "metricDate": "2026-08-25",
+              "entity": "Claude Opus 5",
+              "metric": "Vending-Bench 2 mean profit",
+              "value": 11181.87,
+              "unit": "USD",
+              "caveat": "Simulated business; five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark"
+            }
+          },
+          {
+            "order": 16,
+            "record": {
+              "id": "evidence-017",
+              "category": "Business",
+              "metricDate": "2026-08-25",
+              "entity": "GPT-5.6 Sol",
+              "metric": "Vending-Bench 2 mean profit",
+              "value": 9619.37,
+              "unit": "USD",
+              "caveat": "Simulated business; five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark"
+            }
+          },
+          {
+            "order": 17,
+            "record": {
+              "id": "evidence-018",
+              "category": "Business",
+              "metricDate": "2026-08-25",
+              "entity": "Grok 4.6",
+              "metric": "Vending-Bench 2 mean profit",
+              "value": 9047,
+              "unit": "USD",
+              "caveat": "Simulated business; five runs",
+              "sourceId": "gate1-andonlabs-com-vending-bench-2-benchmark"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

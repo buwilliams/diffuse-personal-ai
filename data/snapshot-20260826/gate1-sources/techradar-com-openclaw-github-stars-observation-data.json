@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "id": "gate1-techradar-com-openclaw-github-stars-observation",
+    "title": "OpenClaw GitHub stars observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-techradar-com-openclaw-github-stars-observation",
+        "publisher": "techradar.com",
+        "title": "OpenClaw GitHub stars observation",
+        "url": "https://www.techradar.com/pro/wild-things-people-are-building-with-openclaw",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 31,
+            "record": {
+              "id": "adoptobs_0032",
+              "seriesId": "adopt_openclaw_stars",
+              "observationDate": "2026-03-02",
+              "value": 247000,
+              "unit": "stars",
+              "scope": "global developer ecosystem",
+              "comparabilityNote": "Secondary dated snapshot; not users",
+              "sourceId": "gate1-techradar-com-openclaw-github-stars-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

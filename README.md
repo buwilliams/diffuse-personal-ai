@@ -10,11 +10,15 @@ The repository follows an **intent → data snapshot → shared model → surfac
 intent/                         Normative conjecture, model, schema, and operating procedure
 data/
   snapshot-YYYYMMDD/            Immutable normalized JSON snapshot
-    database.json               Dataset manifest, defaults, and ETL instructions
-    *.json                      Source metadata plus compiled data
+    database.json               Gate manifest, defaults, and ETL instructions
+    gate1-sources/              One normalized JSON file per capability source
+    gate2-sources/              One normalized JSON file per compute source
+    gate1-consolidated.json     Deterministic model–harness calculation input
+    gate2-consolidated.json     Deterministic compute calculation input
 model/forecast-model.mjs        Shared capability and compute calculations
 scripts/
   lib/snapshots.mjs             Latest-snapshot selection and loading
+  consolidate_snapshot.mjs      Rebuilds both gates from source files
   generate_site_snapshot.mjs    Build-time website bundle
   validate_snapshots.mjs        Schema, provenance, and forecast-invariant checks
 artifacts/report-cards/         Downloadable capability and compute workbooks
@@ -23,11 +27,12 @@ surfaces/
   website/                      Vinext/Next site deployed with ChatGPT Sites
 ```
 
-The `data/` directory tracks only files matching `snapshot-YYYYMMDD/*.json`. A new refresh creates a new directory; it never revises a prior snapshot. Every dataset has exactly two root fields, `metadata` and `data`. The website build selects the lexicographically latest valid snapshot and bundles it once, so charts, report tables, defaults, controls, and the countdown all use the same values.
+The `data/` directory tracks only JSON inside dated snapshots. Each `gateN-sources/` file represents one public source; the two consolidated files are generated from those files and are the only calculation inputs. A refresh creates a new directory and never revises a prior snapshot. Every JSON file has exactly two root fields, `metadata` and `data`. The website build selects the lexicographically latest valid snapshot and bundles its consolidated gates once, so charts, report tables, defaults, controls, and the countdown all use the same values.
 
 ## Build and validate
 
 ```powershell
+& $NodeExe scripts/consolidate_snapshot.mjs
 & $NodeExe scripts/validate_snapshots.mjs
 & $NodeExe surfaces/report-cards/capability/build_report_card.mjs
 & $NodeExe surfaces/report-cards/compute/build_compute_report_card.mjs

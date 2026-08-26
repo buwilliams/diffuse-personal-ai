@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "id": "gate1-taubench-com-tau3-banking-benchmark",
+    "title": "tau3 Banking benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-taubench-com-tau3-banking-benchmark",
+        "publisher": "taubench.com",
+        "title": "tau3 Banking benchmark",
+        "url": "https://taubench.com/leaderboard/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 14,
+            "record": {
+              "id": "OPS-08",
+              "category": "Operational execution",
+              "name": "tau3 Banking",
+              "metric": "Pass^k / strict banking-agent success",
+              "normalization": "Already a 0–100% success rate; use one fixed leaderboard definition",
+              "status": "Graded",
+              "firstReleaseQuarter": "2025-Q3",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Customer-service policy and tool execution under realistic state."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 24,
+            "record": {
+              "id": "forecast-observation-025",
+              "benchmarkId": "OPS-08",
+              "releaseDate": "2025-09-29",
+              "quarter": "2025-Q3",
+              "quarterIndex": 7,
+              "score": 0.253,
+              "systemHarness": "Claude Sonnet 4.5",
+              "scoreBasis": "tau3 Banking strict success",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Release-quarter frontier."
+            }
+          },
+          {
+            "order": 25,
+            "record": {
+              "id": "forecast-observation-026",
+              "benchmarkId": "OPS-08",
+              "releaseDate": "2025-12-11",
+              "quarter": "2025-Q4",
+              "quarterIndex": 8,
+              "score": 0.322,
+              "systemHarness": "GPT-5.2",
+              "scoreBasis": "tau3 Banking strict success",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Release-quarter frontier."
+            }
+          },
+          {
+            "order": 26,
+            "record": {
+              "id": "forecast-observation-027",
+              "benchmarkId": "OPS-08",
+              "releaseDate": "2026-03-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.394,
+              "systemHarness": "GPT-5.4",
+              "scoreBasis": "tau3 Banking strict success",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Release-quarter frontier."
+            }
+          },
+          {
+            "order": 27,
+            "record": {
+              "id": "forecast-observation-028",
+              "benchmarkId": "OPS-08",
+              "releaseDate": "2026-05-01",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.446,
+              "systemHarness": "GPT-5.5",
+              "scoreBasis": "tau3 Banking strict success",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Release-quarter frontier."
+            }
+          },
+          {
+            "order": 28,
+            "record": {
+              "id": "forecast-observation-029",
+              "benchmarkId": "OPS-08",
+              "releaseDate": "2026-08-01",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.552,
+              "systemHarness": "Qwen 3.8 Max",
+              "scoreBasis": "tau3 Banking strict success",
+              "sourceId": "gate1-taubench-com-tau3-banking-benchmark",
+              "notes": "Current quarter frontier."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

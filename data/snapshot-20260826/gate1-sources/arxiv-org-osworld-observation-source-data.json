@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-osworld-observation-source",
+    "title": "OSWorld observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-osworld-observation-source",
+        "publisher": "arxiv.org",
+        "title": "OSWorld observation source",
+        "url": "https://arxiv.org/abs/2606.29537",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 18,
+            "record": {
+              "id": "benchobs_0019",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "osworld2_binary",
+              "family": "OSWorld",
+              "version": "2.0",
+              "capabilityDimension": "Long-horizon computer use",
+              "metric": "Binary completion",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-06-28",
+              "score": 13,
+              "unit": "percent",
+              "seriesRole": "baseline",
+              "curveType": "paper_baseline",
+              "harnessScope": "OSWorld 2.0 authors' 500-step evaluation",
+              "sourceId": "gate1-arxiv-org-osworld-observation-source",
+              "comparabilityNote": "Paper abstract describes the result as near 13 percent"
+            }
+          },
+          {
+            "order": 19,
+            "record": {
+              "id": "benchobs_0020",
+              "releaseId": "anthropic_opus48_20260528",
+              "benchmarkId": "osworld2_binary",
+              "family": "OSWorld",
+              "version": "2.0",
+              "capabilityDimension": "Long-horizon computer use",
+              "metric": "Binary completion",
+              "modelSystem": "Claude Opus 4.8",
+              "modelReleaseDate": "2026-05-28",
+              "observationDate": "2026-06-28",
+              "score": 20.6,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "paper_baseline",
+              "harnessScope": "OSWorld 2.0 authors' 500-step max-thinking batched-tool evaluation",
+              "sourceId": "gate1-arxiv-org-osworld-observation-source",
+              "comparabilityNote": "Full completion is the adoption-relevant metric"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

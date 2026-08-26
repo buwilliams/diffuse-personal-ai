@@ -1,0 +1,418 @@
+{
+  "metadata": {
+    "id": "gate2-consolidated",
+    "title": "Gate 2 consolidated compute evidence",
+    "description": "Source-normalized evidence and model inputs for the U.S. inference-compute supply gate.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+        "publisher": "Epoch AI",
+        "title": "AI Data Center Timelines CSV",
+        "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+        "accessedAt": "2026-08-25",
+        "roles": [
+          "capacity observation",
+          "capacity projection"
+        ],
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+      },
+      {
+        "id": "gate2-us-census-bureau-population-on-a-date",
+        "publisher": "U.S. Census Bureau",
+        "title": "Population on a Date",
+        "url": "https://www.census.gov/popclock/",
+        "accessedAt": "2026-07-26",
+        "roles": [
+          "population"
+        ],
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+      }
+    ],
+    "update": {
+      "method": "deterministic consolidation of source-first JSON files",
+      "notes": "Run scripts/consolidate_snapshot.mjs after changing files in gate2-sources."
+    }
+  },
+  "data": {
+    "gate": {
+      "id": "gate2",
+      "label": "Gate 2 · Compute supply",
+      "sourceDirectory": "gate2-sources"
+    },
+    "sourceFiles": [
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "file": "gate2-sources/diffuse-personal-ai-gate-2-compute-supply-calculation-contract-data.json",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 3
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+        "file": "gate2-sources/epoch-ai-ai-data-center-timelines-csv-data.json",
+        "publisher": "Epoch AI",
+        "title": "AI Data Center Timelines CSV",
+        "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+        "accessedAt": "2026-08-25",
+        "roles": [
+          "capacity observation",
+          "capacity projection"
+        ],
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 20
+      },
+      {
+        "id": "gate2-us-census-bureau-population-on-a-date",
+        "file": "gate2-sources/us-census-bureau-population-on-a-date-data.json",
+        "publisher": "U.S. Census Bureau",
+        "title": "Population on a Date",
+        "url": "https://www.census.gov/popclock/",
+        "accessedAt": "2026-07-26",
+        "roles": [
+          "population"
+        ],
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 1
+      }
+    ],
+    "datasets": {
+      "compute-capacity": {
+        "metadata": {
+          "id": "compute-capacity",
+          "title": "U.S. operational AI-compute capacity",
+          "description": "Observed and dated projected U.S. H100-equivalent capacity plus the serving envelope used to estimate supported high-autonomy users.",
+          "schemaVersion": "1.1.0",
+          "snapshotDate": "2026-08-26",
+          "asOfDate": "2026-08-26",
+          "sources": [
+            {
+              "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+              "publisher": "Diffuse Personal AI",
+              "title": "Gate 2 · Compute supply calculation contract",
+              "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+              "accessedAt": "2026-08-26",
+              "roles": [
+                "methodology",
+                "normalization",
+                "model configuration"
+              ],
+              "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+            },
+            {
+              "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "publisher": "Epoch AI",
+              "title": "AI Data Center Timelines CSV",
+              "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+              "accessedAt": "2026-08-25",
+              "roles": [
+                "capacity observation",
+                "capacity projection"
+              ],
+              "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+            },
+            {
+              "id": "gate2-us-census-bureau-population-on-a-date",
+              "publisher": "U.S. Census Bureau",
+              "title": "Population on a Date",
+              "url": "https://www.census.gov/popclock/",
+              "accessedAt": "2026-07-26",
+              "roles": [
+                "population"
+              ],
+              "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+            }
+          ],
+          "update": {
+            "method": "agent-assisted ETL with human review",
+            "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity."
+          }
+        },
+        "data": {
+          "quarters": [
+            {
+              "quarterIndex": 1,
+              "quarter": "2024-Q1",
+              "cutoffDate": "2024-03-31",
+              "usH100e": 245664,
+              "includedSites": 8,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 2,
+              "quarter": "2024-Q2",
+              "cutoffDate": "2024-06-30",
+              "usH100e": 475238,
+              "includedSites": 13,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 3,
+              "quarter": "2024-Q3",
+              "cutoffDate": "2024-09-30",
+              "usH100e": 722180,
+              "includedSites": 16,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 4,
+              "quarter": "2024-Q4",
+              "cutoffDate": "2024-12-31",
+              "usH100e": 1012483,
+              "includedSites": 18,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 5,
+              "quarter": "2025-Q1",
+              "cutoffDate": "2025-03-31",
+              "usH100e": 1351240,
+              "includedSites": 20,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 6,
+              "quarter": "2025-Q2",
+              "cutoffDate": "2025-06-30",
+              "usH100e": 2386876,
+              "includedSites": 23,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 7,
+              "quarter": "2025-Q3",
+              "cutoffDate": "2025-09-30",
+              "usH100e": 3139660,
+              "includedSites": 28,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 8,
+              "quarter": "2025-Q4",
+              "cutoffDate": "2025-12-31",
+              "usH100e": 5291375,
+              "includedSites": 34,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 9,
+              "quarter": "2026-Q1",
+              "cutoffDate": "2026-03-31",
+              "usH100e": 6301294,
+              "includedSites": 40,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 10,
+              "quarter": "2026-Q2",
+              "cutoffDate": "2026-06-30",
+              "usH100e": 11223855,
+              "includedSites": 54,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 11,
+              "quarter": "2026-Q3",
+              "cutoffDate": "2026-08-26",
+              "usH100e": 13524006,
+              "includedSites": 58,
+              "evidenceClass": "observed_qtd",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest published state on or before evidence cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 12,
+              "quarter": "2026-Q4",
+              "cutoffDate": "2026-12-31",
+              "usH100e": 17399770,
+              "includedSites": 64,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 13,
+              "quarter": "2027-Q1",
+              "cutoffDate": "2027-03-31",
+              "usH100e": 20368064,
+              "includedSites": 65,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 14,
+              "quarter": "2027-Q2",
+              "cutoffDate": "2027-06-30",
+              "usH100e": 21439292,
+              "includedSites": 65,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 15,
+              "quarter": "2027-Q3",
+              "cutoffDate": "2027-09-30",
+              "usH100e": 23242366,
+              "includedSites": 67,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 16,
+              "quarter": "2027-Q4",
+              "cutoffDate": "2027-12-31",
+              "usH100e": 30057691,
+              "includedSites": 67,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 17,
+              "quarter": "2028-Q1",
+              "cutoffDate": "2028-03-31",
+              "usH100e": 37048243,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 18,
+              "quarter": "2028-Q2",
+              "cutoffDate": "2028-06-30",
+              "usH100e": 46037632,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 19,
+              "quarter": "2028-Q3",
+              "cutoffDate": "2028-09-30",
+              "usH100e": 47106859,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            },
+            {
+              "quarterIndex": 20,
+              "quarter": "2028-Q4",
+              "cutoffDate": "2028-12-31",
+              "usH100e": 61887051,
+              "includedSites": 72,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          ],
+          "population": {
+            "usResidents": 342800000,
+            "targetShare": 0.5,
+            "sourceId": "gate2-us-census-bureau-population-on-a-date"
+          },
+          "workload": {
+            "components": [
+              {
+                "id": "uncached-input",
+                "label": "Uncached input",
+                "tokensPerUserDay": 2000000,
+                "computeWeight": 1
+              },
+              {
+                "id": "visible-output",
+                "label": "Visible output",
+                "tokensPerUserDay": 300000,
+                "computeWeight": 2.5
+              },
+              {
+                "id": "internal-reasoning",
+                "label": "Internal reasoning",
+                "tokensPerUserDay": 5000000,
+                "computeWeight": 2.5
+              },
+              {
+                "id": "cached-context",
+                "label": "Cached/reused context",
+                "tokensPerUserDay": 10000000,
+                "computeWeight": 0.15
+              }
+            ]
+          },
+          "serving": {
+            "dense8BitOpsPerH100eSecond": 1979000000000000,
+            "secondsPerDay": 86400,
+            "fleetShareAllocatedToInference": 0.4,
+            "sustainedServingUtilization": 0.35,
+            "activeModelParameters": 100000000000,
+            "forwardPassOpsPerParameterToken": 2,
+            "systemOverheadMultiplier": 1.5,
+            "servingGoodputMultiplier": 1,
+            "personalAiInferenceShare": 0.5
+          },
+          "forecastPolicy": {
+            "reportEndQuarterIndex": 20,
+            "extrapolation": "recursiveLogVelocity"
+          }
+        }
+      }
+    }
+  }
+}

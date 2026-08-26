@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "id": "gate1-anthropic-com-claude-opus-5-release",
+    "title": "Claude Opus 5 release",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-anthropic-com-claude-opus-5-release",
+        "publisher": "anthropic.com",
+        "title": "Claude Opus 5 release",
+        "url": "https://www.anthropic.com/news/claude-opus-5",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "release metadata"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 14,
+            "record": {
+              "id": "anthropic_opus5_20260724",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Opus 5",
+              "releaseDate": "2026-07-24",
+              "parentReleaseId": "anthropic_opus48_20260528",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Claude products and API",
+              "sourceId": "gate1-anthropic-com-claude-opus-5-release",
+              "notes": ""
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

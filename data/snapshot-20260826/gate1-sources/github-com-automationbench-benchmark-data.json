@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-github-com-automationbench-benchmark",
+    "title": "AutomationBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-github-com-automationbench-benchmark",
+        "publisher": "github.com",
+        "title": "AutomationBench benchmark",
+        "url": "https://github.com/zapier/AutomationBench",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "OPS-01",
+              "category": "Operational execution",
+              "name": "AutomationBench",
+              "metric": "Public 600-task pass rate, max reasoning",
+              "normalization": "Already a 0–100% pass rate; compare only within the public 600-task version",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-github-com-automationbench-benchmark",
+              "notes": "Pinned to the current public 600-task table after the July 2026 stricter-classifier rescore; the private leaderboard is a different evaluation."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 10,
+            "record": {
+              "id": "forecast-observation-011",
+              "benchmarkId": "OPS-01",
+              "releaseDate": "2026-05-28",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.3033,
+              "systemHarness": "Claude Opus 4.8",
+              "scoreBasis": "Public 600-task pass rate, max reasoning",
+              "sourceId": "gate1-github-com-automationbench-benchmark",
+              "notes": "Current public frontier after the July 2026 stricter-classifier rescore; 182/600 tasks. Later private-leaderboard results are not comparable."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

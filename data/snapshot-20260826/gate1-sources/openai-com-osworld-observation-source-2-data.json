@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-osworld-observation-source-2",
+    "title": "OSWorld observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-openai-com-osworld-observation-source-2",
+        "publisher": "openai.com",
+        "title": "OSWorld observation source",
+        "url": "https://openai.com/index/introducing-gpt-5-5/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability velocity",
+          "release metadata",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 14,
+            "record": {
+              "id": "benchobs_0015",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "osworld_verified_success",
+              "family": "OSWorld",
+              "version": "Verified",
+              "capabilityDimension": "Desktop computer use",
+              "metric": "Success rate",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-04-23",
+              "score": 78.7,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "release_snapshot",
+              "harnessScope": "OpenAI computer-use harness",
+              "sourceId": "gate1-openai-com-osworld-observation-source-2",
+              "comparabilityNote": "Same OpenAI comparison reports GPT-5.4 at 75.0"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "openai_gpt55_20260423",
+              "entityType": "model",
+              "provider": "OpenAI",
+              "name": "GPT-5.5",
+              "releaseDate": "2026-04-23",
+              "parentReleaseId": "openai_gpt54_20260305",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "ChatGPT API and Codex",
+              "sourceId": "gate1-openai-com-osworld-observation-source-2",
+              "notes": ""
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 31,
+            "record": {
+              "id": "evidence-032",
+              "category": "Capability velocity",
+              "metricDate": "2026-04-23",
+              "entity": "GPT-5.5",
+              "metric": "OSWorld-Verified success",
+              "value": 78.7,
+              "unit": "percent",
+              "caveat": "17.3pp release-frontier gain; benchmark nearing saturation",
+              "sourceId": "gate1-openai-com-osworld-observation-source-2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "id": "gate1-the-agent-company-com-theagentcompany-observation-source",
+    "title": "TheAgentCompany observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-the-agent-company-com-theagentcompany-observation-source",
+        "publisher": "the-agent-company.com",
+        "title": "TheAgentCompany observation source",
+        "url": "https://the-agent-company.com/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 21,
+            "record": {
+              "id": "forecast-observation-022",
+              "benchmarkId": "OPS-05",
+              "releaseDate": "2025-06-17",
+              "quarter": "2025-Q2",
+              "quarterIndex": 6,
+              "score": 0.303,
+              "systemHarness": "Gemini 2.5 Pro",
+              "scoreBasis": "Fraction of tasks completed",
+              "sourceId": "gate1-the-agent-company-com-theagentcompany-observation-source",
+              "notes": "Later leaderboard configuration; comparability caveat."
+            }
+          },
+          {
+            "order": 22,
+            "record": {
+              "id": "forecast-observation-023",
+              "benchmarkId": "OPS-05",
+              "releaseDate": "2025-09-01",
+              "quarter": "2025-Q3",
+              "quarterIndex": 7,
+              "score": 0.429,
+              "systemHarness": "DeepSeek V3.2 + specialized harness",
+              "scoreBasis": "Fraction of tasks completed",
+              "sourceId": "gate1-the-agent-company-com-theagentcompany-observation-source",
+              "notes": "Community/specialized harness; system-level frontier."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

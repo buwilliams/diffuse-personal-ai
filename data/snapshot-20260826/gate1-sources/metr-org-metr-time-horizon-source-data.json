@@ -1,0 +1,563 @@
+{
+  "metadata": {
+    "id": "gate1-metr-org-metr-time-horizon-source",
+    "title": "METR Time Horizon source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-metr-org-metr-time-horizon-source",
+        "publisher": "metr.org",
+        "title": "METR Time Horizon source",
+        "url": "https://metr.org/time-horizons/",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability",
+          "Capability velocity",
+          "release metadata",
+          "supporting evaluation",
+          "supporting evaluation observation",
+          "task-horizon observations"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "metric": "50%-success human-task horizon",
+              "capabilityDimension": "Long-horizon execution",
+              "unit": "minutes",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "fixed_version_log_scale",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "notes": "Primary model-capability SCM; freeze scaffold tools suite and inference budget"
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "id": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "metric": "80%-success human-task horizon",
+              "capabilityDimension": "Long-horizon execution",
+              "unit": "minutes",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "fixed_version_log_scale",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "notes": "Reliability guardrail derived from the same two-parameter fit; not an independent SCM"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "benchobs_0001",
+              "releaseId": "openai_gpt5_20250807",
+              "benchmarkId": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "50%-success human-task horizon",
+              "modelSystem": "GPT-5",
+              "modelReleaseDate": "2025-08-07",
+              "observationDate": "2026-05-08",
+              "score": 203.012577,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Mostly software/ML/cyber tasks; horizon is human task duration rather than agent runtime"
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "id": "benchobs_0002",
+              "releaseId": "anthropic_opus45_20251124",
+              "benchmarkId": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "50%-success human-task horizon",
+              "modelSystem": "Claude Opus 4.5",
+              "modelReleaseDate": "2025-11-24",
+              "observationDate": "2026-05-08",
+              "score": 292.994594,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "benchobs_0003",
+              "releaseId": "openai_gpt52_20251211",
+              "benchmarkId": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "50%-success human-task horizon",
+              "modelSystem": "GPT-5.2",
+              "modelReleaseDate": "2025-12-11",
+              "observationDate": "2026-05-08",
+              "score": 352.249302,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "benchobs_0004",
+              "releaseId": "anthropic_opus46_20260205",
+              "benchmarkId": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "50%-success human-task horizon",
+              "modelSystem": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "observationDate": "2026-05-08",
+              "score": 718.80683,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Point estimate has a wide confidence interval"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "benchobs_0005",
+              "releaseId": "anthropic_mythos_preview_20260407",
+              "benchmarkId": "metr_th11_p50",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "50%-success human-task horizon",
+              "modelSystem": "Claude Mythos Preview",
+              "modelReleaseDate": "2026-04-07",
+              "observationDate": "2026-05-08",
+              "score": 1044.780145,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "METR warns that estimates above 16 hours are unreliable"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "benchobs_0006",
+              "releaseId": "openai_gpt5_20250807",
+              "benchmarkId": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "80%-success human-task horizon",
+              "modelSystem": "GPT-5",
+              "modelReleaseDate": "2025-08-07",
+              "observationDate": "2026-05-08",
+              "score": 38.312431,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 6,
+            "record": {
+              "id": "benchobs_0007",
+              "releaseId": "anthropic_opus45_20251124",
+              "benchmarkId": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "80%-success human-task horizon",
+              "modelSystem": "Claude Opus 4.5",
+              "modelReleaseDate": "2025-11-24",
+              "observationDate": "2026-05-08",
+              "score": 49.430584,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "benchobs_0008",
+              "releaseId": "openai_gpt52_20251211",
+              "benchmarkId": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "80%-success human-task horizon",
+              "modelSystem": "GPT-5.2",
+              "modelReleaseDate": "2025-12-11",
+              "observationDate": "2026-05-08",
+              "score": 66.002649,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 8,
+            "record": {
+              "id": "benchobs_0009",
+              "releaseId": "anthropic_opus46_20260205",
+              "benchmarkId": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "80%-success human-task horizon",
+              "modelSystem": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "observationDate": "2026-05-08",
+              "score": 69.874587,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "id": "benchobs_0010",
+              "releaseId": "anthropic_mythos_preview_20260407",
+              "benchmarkId": "metr_th11_p80",
+              "family": "METR Time Horizon",
+              "version": "1.1",
+              "capabilityDimension": "Long-horizon execution",
+              "metric": "80%-success human-task horizon",
+              "modelSystem": "Claude Mythos Preview",
+              "modelReleaseDate": "2026-04-07",
+              "observationDate": "2026-05-08",
+              "score": 185.911829,
+              "unit": "minutes",
+              "seriesRole": "frontier",
+              "curveType": "periodic_re-evaluation",
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "metr-task-horizon",
+        "collection": "series",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "benchobs_0001",
+              "releaseId": "openai_gpt5_20250807",
+              "metric": "H50",
+              "modelSystem": "GPT-5",
+              "releaseDate": "2025-08-07",
+              "horizonMinutes": 203.012577,
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Mostly software/ML/cyber tasks; horizon is human task duration rather than agent runtime"
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "id": "benchobs_0002",
+              "releaseId": "anthropic_opus45_20251124",
+              "metric": "H50",
+              "modelSystem": "Claude Opus 4.5",
+              "releaseDate": "2025-11-24",
+              "horizonMinutes": 292.994594,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "benchobs_0003",
+              "releaseId": "openai_gpt52_20251211",
+              "metric": "H50",
+              "modelSystem": "GPT-5.2",
+              "releaseDate": "2025-12-11",
+              "horizonMinutes": 352.249302,
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Scaffold differs by model family because METR elicits each model"
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "benchobs_0004",
+              "releaseId": "anthropic_opus46_20260205",
+              "metric": "H50",
+              "modelSystem": "Claude Opus 4.6",
+              "releaseDate": "2026-02-05",
+              "horizonMinutes": 718.80683,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Point estimate has a wide confidence interval"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "benchobs_0005",
+              "releaseId": "anthropic_mythos_preview_20260407",
+              "metric": "H50",
+              "modelSystem": "Claude Mythos Preview",
+              "releaseDate": "2026-04-07",
+              "horizonMinutes": 1044.780145,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "METR warns that estimates above 16 hours are unreliable"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "benchobs_0006",
+              "releaseId": "openai_gpt5_20250807",
+              "metric": "H80",
+              "modelSystem": "GPT-5",
+              "releaseDate": "2025-08-07",
+              "horizonMinutes": 38.312431,
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 6,
+            "record": {
+              "id": "benchobs_0007",
+              "releaseId": "anthropic_opus45_20251124",
+              "metric": "H80",
+              "modelSystem": "Claude Opus 4.5",
+              "releaseDate": "2025-11-24",
+              "horizonMinutes": 49.430584,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "benchobs_0008",
+              "releaseId": "openai_gpt52_20251211",
+              "metric": "H80",
+              "modelSystem": "GPT-5.2",
+              "releaseDate": "2025-12-11",
+              "horizonMinutes": 66.002649,
+              "harnessScope": "METR-selected Triframe scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 8,
+            "record": {
+              "id": "benchobs_0009",
+              "releaseId": "anthropic_opus46_20260205",
+              "metric": "H80",
+              "modelSystem": "Claude Opus 4.6",
+              "releaseDate": "2026-02-05",
+              "horizonMinutes": 69.874587,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "id": "benchobs_0010",
+              "releaseId": "anthropic_mythos_preview_20260407",
+              "metric": "H80",
+              "modelSystem": "Claude Mythos Preview",
+              "releaseDate": "2026-04-07",
+              "horizonMinutes": 185.911829,
+              "harnessScope": "METR-selected ReAct scaffold",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "comparabilityNote": "Higher-reliability horizon on the same task suite"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "anthropic_mythos_preview_20260407",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Mythos Preview",
+              "releaseDate": "2026-04-07",
+              "parentReleaseId": "anthropic_opus46_20260205",
+              "availabilityStage": "preview",
+              "availabilityScope": "Limited preview",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source",
+              "notes": "Release represented through METR evaluation"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "evidence-010",
+              "category": "Capability",
+              "metricDate": "2024-05-13",
+              "entity": "GPT-4o",
+              "metric": "METR 50% time horizon",
+              "value": 7,
+              "unit": "minutes",
+              "caveat": "Clean mostly technical tasks",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          },
+          {
+            "order": 10,
+            "record": {
+              "id": "evidence-011",
+              "category": "Capability",
+              "metricDate": "2026-04-07",
+              "entity": "Claude Mythos Preview",
+              "metric": "METR 50% time horizon",
+              "value": 1044.8,
+              "unit": "minutes",
+              "caveat": "METR warns estimates above 16h are unreliable",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "id": "evidence-012",
+              "category": "Capability",
+              "metricDate": "2024-05-13",
+              "entity": "GPT-4o",
+              "metric": "METR 80% time horizon",
+              "value": 1.3,
+              "unit": "minutes",
+              "caveat": "Clean mostly technical tasks",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "id": "evidence-013",
+              "category": "Capability",
+              "metricDate": "2026-04-07",
+              "entity": "Claude Mythos Preview",
+              "metric": "METR 80% time horizon",
+              "value": 185.9,
+              "unit": "minutes",
+              "caveat": "Clean mostly technical tasks",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          },
+          {
+            "order": 28,
+            "record": {
+              "id": "evidence-029",
+              "category": "Capability velocity",
+              "metricDate": "2025-08-07",
+              "entity": "GPT-5",
+              "metric": "METR 50% time horizon",
+              "value": 203,
+              "unit": "minutes",
+              "caveat": "Start of 12-month release-frontier window; mostly technical tasks",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          },
+          {
+            "order": 29,
+            "record": {
+              "id": "evidence-030",
+              "category": "Capability velocity",
+              "metricDate": "2026-04-07",
+              "entity": "Claude Mythos Preview",
+              "metric": "METR 50% time horizon",
+              "value": 1044.8,
+              "unit": "minutes",
+              "caveat": "5.15x vs GPT-5; METR warns values above 16 hours are unreliable",
+              "sourceId": "gate1-metr-org-metr-time-horizon-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

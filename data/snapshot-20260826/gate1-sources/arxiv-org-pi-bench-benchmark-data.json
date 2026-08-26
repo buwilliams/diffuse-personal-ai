@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-pi-bench-benchmark",
+    "title": "pi-Bench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-pi-bench-benchmark",
+        "publisher": "arxiv.org",
+        "title": "pi-Bench benchmark",
+        "url": "https://arxiv.org/html/2605.14678v3",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 16,
+            "record": {
+              "id": "PER-02",
+              "category": "Personal stewardship transfer",
+              "name": "pi-Bench",
+              "metric": "Completeness checklist score",
+              "normalization": "Already a 0–100% score",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-arxiv-org-pi-bench-benchmark",
+              "notes": "Personal-computing workflows scored for completion."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 30,
+            "record": {
+              "id": "forecast-observation-031",
+              "benchmarkId": "PER-02",
+              "releaseDate": "2026-02-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.676,
+              "systemHarness": "Claude Opus 4.6",
+              "scoreBasis": "Completeness checklist score",
+              "sourceId": "gate1-arxiv-org-pi-bench-benchmark",
+              "notes": "One comparable frontier point."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

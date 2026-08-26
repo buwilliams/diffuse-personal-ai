@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-anthropic-com-osworld-observation-source",
+    "title": "OSWorld observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-anthropic-com-osworld-observation-source",
+        "publisher": "anthropic.com",
+        "title": "OSWorld observation source",
+        "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Capability velocity",
+          "release metadata",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 10,
+            "record": {
+              "id": "benchobs_0011",
+              "releaseId": "anthropic_sonnet45_20250929",
+              "benchmarkId": "osworld_verified_success",
+              "family": "OSWorld",
+              "version": "Verified",
+              "capabilityDimension": "Desktop computer use",
+              "metric": "First-attempt success",
+              "modelSystem": "Claude Sonnet 4.5",
+              "modelReleaseDate": "2025-09-29",
+              "observationDate": "2025-09-29",
+              "score": 61.4,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "release_snapshot",
+              "harnessScope": "Official OSWorld-Verified framework; 100 steps; four-run average",
+              "sourceId": "gate1-anthropic-com-osworld-observation-source",
+              "comparabilityNote": "Comparable within the stated framework; vendor-run result"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "anthropic_sonnet45_20250929",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Sonnet 4.5",
+              "releaseDate": "2025-09-29",
+              "parentReleaseId": null,
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Claude products and API",
+              "sourceId": "gate1-anthropic-com-osworld-observation-source",
+              "notes": ""
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 30,
+            "record": {
+              "id": "evidence-031",
+              "category": "Capability velocity",
+              "metricDate": "2025-09-29",
+              "entity": "Claude Sonnet 4.5",
+              "metric": "OSWorld-Verified success",
+              "value": 61.4,
+              "unit": "percent",
+              "caveat": "Fixed benchmark release-frontier point",
+              "sourceId": "gate1-anthropic-com-osworld-observation-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

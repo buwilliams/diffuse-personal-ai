@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-business-arena-benchmark",
+    "title": "Business Arena benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-business-arena-benchmark",
+        "publisher": "arxiv.org",
+        "title": "Business Arena benchmark",
+        "url": "https://arxiv.org/abs/2608.08621",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "DES-04",
+              "category": "Direct economic stewardship",
+              "name": "Business Arena",
+              "metric": "Best-model mean final worth / $436,195 expert-strategy final worth",
+              "normalization": "Cap at 100%; fixed expert strategy uses agent-visible information in the same world",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q3",
+              "sourceId": "gate1-arxiv-org-business-arena-benchmark",
+              "notes": "Ten-run model mean divided by the strongest published expert-designed strategy outcome."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "forecast-observation-007",
+              "benchmarkId": "DES-04",
+              "releaseDate": "2026-08-11",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.4321186625247882,
+              "systemHarness": "Gemini 3.1 Pro",
+              "scoreBasis": "Best-model mean final worth / expert-strategy final worth",
+              "sourceId": "gate1-arxiv-org-business-arena-benchmark",
+              "notes": "Ten matched runs per model; reference strategy uses only agent-visible information."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

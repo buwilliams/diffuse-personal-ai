@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "id": "gate1-mypcbench-pages-dev-mypcbench-source",
+    "title": "MyPCBench source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-mypcbench-pages-dev-mypcbench-source",
+        "publisher": "mypcbench.pages.dev",
+        "title": "MyPCBench source",
+        "url": "https://mypcbench.pages.dev/leaderboard.html",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Consumer benchmark",
+          "supporting evaluation",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "mypc01_perfect_200step_selfreported",
+              "family": "MyPCBench",
+              "version": "0.1 self-reported 200-step",
+              "metric": "Perfect task rate",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "separate_noncanonical_budget",
+              "sourceId": "gate1-mypcbench-pages-dev-mypcbench-source",
+              "notes": "Do not splice into canonical 100-step series; self-reported computer-only run"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 51,
+            "record": {
+              "id": "benchobs_0052",
+              "releaseId": "anthropic_opus48_20260528",
+              "benchmarkId": "mypc01_perfect_200step_selfreported",
+              "family": "MyPCBench",
+              "version": "0.1 self-reported 200-step",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Perfect task rate",
+              "modelSystem": "Claude Opus 4.8",
+              "modelReleaseDate": "2026-05-28",
+              "observationDate": "2026-08-25",
+              "score": 62,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "self_reported_release_snapshot",
+              "harnessScope": "Computer only; self-reported; 200-step maximum",
+              "sourceId": "gate1-mypcbench-pages-dev-mypcbench-source",
+              "comparabilityNote": "Not comparable to canonical 100-step series; latest Opus 5 and Fable 5 remain unevaluated"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 40,
+            "record": {
+              "id": "evidence-041",
+              "category": "Consumer benchmark",
+              "metricDate": "2026-08-25",
+              "entity": "Claude Opus 4.8",
+              "metric": "MyPCBench perfect completion",
+              "value": 62,
+              "unit": "percent",
+              "caveat": "Self-reported computer-only run with 200-step budget; not comparable to canonical 100-step series; Opus 5 and Fable 5 absent",
+              "sourceId": "gate1-mypcbench-pages-dev-mypcbench-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

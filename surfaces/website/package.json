@@ -6,15 +6,15 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "sync:data": "node ../../scripts/generate_site_snapshot.mjs",
-    "predev": "node ../../scripts/generate_site_snapshot.mjs",
+    "sync:data": "node ../../scripts/consolidate_snapshot.mjs && node ../../scripts/generate_site_snapshot.mjs",
+    "predev": "pnpm run sync:data",
     "dev": "vinext dev",
-    "prebuild": "node ../../scripts/generate_site_snapshot.mjs",
+    "prebuild": "pnpm run sync:data",
     "build": "vinext build",
     "start": "vinext start",
-    "prelint": "node ../../scripts/generate_site_snapshot.mjs",
+    "prelint": "pnpm run sync:data",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "pretypecheck": "node ../../scripts/generate_site_snapshot.mjs",
+    "pretypecheck": "pnpm run sync:data",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

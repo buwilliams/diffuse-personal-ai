@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "id": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation",
+    "title": "OpenClaw npm monthly downloads observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation",
+        "publisher": "api.npmjs.org",
+        "title": "OpenClaw npm monthly downloads observation",
+        "url": "https://api.npmjs.org/downloads/point/last-month/openclaw",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution",
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 33,
+            "record": {
+              "id": "adoptobs_0034",
+              "seriesId": "adopt_openclaw_npm",
+              "observationDate": "2026-08-24",
+              "value": 11371521,
+              "unit": "downloads",
+              "scope": "global developer ecosystem",
+              "comparabilityNote": "Repeated and automated downloads; not unique installs",
+              "sourceId": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "evidence-009",
+              "category": "Distribution",
+              "metricDate": "2026-08-24",
+              "entity": "OpenClaw",
+              "metric": "npm downloads previous month",
+              "value": 11371521,
+              "unit": "downloads",
+              "caveat": "Includes repeated and automated downloads",
+              "sourceId": "gate1-api-npmjs-org-openclaw-npm-monthly-downloads-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

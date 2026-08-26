@@ -2,8 +2,8 @@
   "metadata": {
     "id": "database",
     "title": "Diffuse Personal AI snapshot manifest",
-    "description": "Manifest, default scenario, and ETL contract for the immutable 26 August 2026 snapshot.",
-    "schemaVersion": "1.0.0",
+    "description": "Source-first ETL manifest, default scenario, and consolidation contract for the immutable 26 August 2026 snapshot.",
+    "schemaVersion": "1.1.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-26",
     "sources": [
@@ -20,53 +20,154 @@
       }
     ],
     "update": {
-      "method": "agent-assisted ETL with human review",
-      "notes": "This file is the entry point for an updating agent. Create a new immutable snapshot, refresh the listed datasets, validate, and publish; never revise history in place."
+      "method": "agent-assisted source-first ETL with deterministic consolidation and human review",
+      "notes": "This file is the updating agent entry point. Create a new immutable snapshot, refresh one JSON file per source, consolidate both gates, validate, and publish."
     }
   },
   "data": {
+    "gates": [
+      {
+        "id": "gate1",
+        "label": "Gate 1 · Model–harness capability",
+        "title": "Gate 1 consolidated model–harness evidence",
+        "description": "Source-normalized evidence and model inputs for the model–harness capability gate and its supporting context.",
+        "sourceDirectory": "gate1-sources",
+        "consolidatedFile": "gate1-consolidated.json",
+        "datasetIds": [
+          "capability-benchmarks",
+          "metr-task-horizon",
+          "adoption",
+          "research-evidence",
+          "user-capabilities"
+        ]
+      },
+      {
+        "id": "gate2",
+        "label": "Gate 2 · Compute supply",
+        "title": "Gate 2 consolidated compute evidence",
+        "description": "Source-normalized evidence and model inputs for the U.S. inference-compute supply gate.",
+        "sourceDirectory": "gate2-sources",
+        "consolidatedFile": "gate2-consolidated.json",
+        "datasetIds": [
+          "compute-capacity"
+        ]
+      }
+    ],
     "datasets": [
       {
         "id": "capability-benchmarks",
-        "file": "capability-benchmarks.json",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
         "title": "Model–harness economic capability benchmarks",
+        "description": "Normalized benchmark catalog and release-quarter frontier observations used to estimate current economic capability and its failure-gap velocity.",
+        "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 131
+        "recordCount": 131,
+        "collections": [
+          "categories",
+          "benchmarks",
+          "observations",
+          "supportingRegistry",
+          "supportingObservations",
+          "model"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Append comparable release-quarter frontier observations. Preserve benchmark versions, normalization anchors, harness scope, and comparability notes."
+        }
       },
       {
         "id": "metr-task-horizon",
-        "file": "metr-task-horizon.json",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
         "title": "METR task-completion horizons",
+        "description": "H50 capability-velocity signal and H80 reliability guardrail used to estimate relative acceleration.",
+        "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 14
-      },
-      {
-        "id": "compute-capacity",
-        "file": "compute-capacity.json",
-        "title": "U.S. operational AI-compute capacity",
-        "requiredForCountdown": true,
-        "recordCount": 20
+        "recordCount": 14,
+        "collections": [
+          "series",
+          "trendEstimates",
+          "forecastPolicy"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Fetch the current METR benchmark-results artifact, append comparable H50 and H80 release observations, and refresh published velocity estimates without erasing prior snapshots."
+        }
       },
       {
         "id": "adoption",
-        "file": "adoption.json",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
         "title": "AI adoption and product-release evidence",
+        "description": "Comparable adoption series and release events retained as context and forecast diagnostics; these do not directly set the two-gate countdown.",
+        "asOfDate": "2026-08-26",
         "requiredForCountdown": false,
-        "recordCount": 64
+        "recordCount": 64,
+        "collections": [
+          "series",
+          "observations",
+          "releases"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Append observations only when their population, cadence, and unit remain comparable. Do not convert downloads, revenue, seats, or subscriptions into active delegated users."
+        }
       },
       {
         "id": "research-evidence",
-        "file": "research-evidence.json",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
         "title": "Research evidence ledger",
+        "description": "Source-backed facts used in the conjecture, capability catalog, and contextual discussion but not necessarily in the live forecast equations.",
+        "asOfDate": "2026-08-26",
         "requiredForCountdown": false,
-        "recordCount": 41
+        "recordCount": 41,
+        "collections": [
+          "observations"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Refresh claims from primary sources, preserve caveats, and leave incomparable observations as separate records."
+        }
       },
       {
         "id": "user-capabilities",
-        "file": "user-capabilities.json",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
         "title": "Personal-agent capability catalog",
+        "description": "User-relevant capability stack, operational measures, maturity, and benchmark evidence for computer-use delegation.",
+        "asOfDate": "2026-08-26",
         "requiredForCountdown": false,
-        "recordCount": 34
+        "recordCount": 34,
+        "collections": [
+          "capabilities"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Add capabilities only when they map to a user outcome and an observable operational measure. Refresh current-state assessments from benchmark evidence."
+        }
+      },
+      {
+        "id": "compute-capacity",
+        "gateId": "gate2",
+        "consolidatedFile": "gate2-consolidated.json",
+        "title": "U.S. operational AI-compute capacity",
+        "description": "Observed and dated projected U.S. H100-equivalent capacity plus the serving envelope used to estimate supported high-autonomy users.",
+        "asOfDate": "2026-08-26",
+        "requiredForCountdown": true,
+        "recordCount": 20,
+        "collections": [
+          "quarters",
+          "population",
+          "workload",
+          "serving",
+          "forecastPolicy"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity."
+        }
       }
     ],
     "defaults": {
@@ -78,18 +179,23 @@
     },
     "etl": {
       "snapshotDirectoryPattern": "snapshot-YYYYMMDD",
+      "sourceDirectoryPattern": "gate[1|2]-sources",
+      "sourceFilePattern": "[source]-data.json",
+      "consolidatedFilePattern": "gate[1|2]-consolidated.json",
       "immutableSnapshots": true,
       "selectionRule": "lexicographically greatest valid snapshot directory",
+      "calculationInputs": "consolidated gate files only",
       "requiredRootFields": [
         "metadata",
         "data"
       ],
       "workflow": [
         "Copy the latest snapshot to a new dated directory.",
-        "Fetch every dataset from metadata.sources and preserve source-specific raw meaning.",
-        "Normalize records to the existing schema without rewriting earlier snapshots.",
-        "Validate identifiers, dates, units, source references, and forecast invariants.",
-        "Rebuild the reports and site; the build selects the latest valid snapshot automatically."
+        "Fetch each URL named by every source file and update only that source file.",
+        "Normalize records to the existing fragment schema without rewriting earlier snapshots.",
+        "Run scripts/consolidate_snapshot.mjs to rebuild both gate files deterministically.",
+        "Validate identifiers, dates, units, provenance, record counts, and forecast invariants.",
+        "Rebuild the reports and site; both read only the latest consolidated gate files."
       ]
     }
   }

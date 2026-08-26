@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "id": "gate2-us-census-bureau-population-on-a-date",
+    "title": "Population on a Date",
+    "description": "Normalized U.S. population input for the compute-supply gate.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-07-26",
+    "sources": [
+      {
+        "id": "gate2-us-census-bureau-population-on-a-date",
+        "publisher": "U.S. Census Bureau",
+        "title": "Population on a Date",
+        "url": "https://www.census.gov/popclock/",
+        "accessedAt": "2026-07-26",
+        "roles": [
+          "population"
+        ],
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "population",
+        "kind": "value",
+        "value": {
+          "usResidents": 342800000,
+          "targetShare": 0.5,
+          "sourceId": "gate2-us-census-bureau-population-on-a-date"
+        }
+      }
+    ]
+  }
+}

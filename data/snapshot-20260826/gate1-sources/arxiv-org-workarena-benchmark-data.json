@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-workarena-benchmark",
+    "title": "WorkArena++ benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-workarena-benchmark",
+        "publisher": "arxiv.org",
+        "title": "WorkArena++ benchmark",
+        "url": "https://arxiv.org/abs/2407.05291",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "forecast benchmark"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 12,
+            "record": {
+              "id": "OPS-06",
+              "category": "Operational execution",
+              "name": "WorkArena++",
+              "metric": "Browser workplace task success",
+              "normalization": "Ungraded until a consistent current frontier series is entered",
+              "status": "Ungraded",
+              "firstReleaseQuarter": "2024-Q3",
+              "sourceId": "gate1-arxiv-org-workarena-benchmark",
+              "notes": "Cataloged as an important browser/computer-use signal."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "metadata": {
+    "id": "gate1-sec-gov-grok-active-paid-subscriptions-observation",
+    "title": "Grok active paid subscriptions observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.1.0",
+    "snapshotDate": "2026-08-26",
+    "asOfDate": "2026-08-26",
+    "sources": [
+      {
+        "id": "gate1-sec-gov-grok-active-paid-subscriptions-observation",
+        "publisher": "sec.gov",
+        "title": "Grok active paid subscriptions observation",
+        "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026039276/spaceexplorationtechnologi.htm",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "Distribution",
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 27,
+            "record": {
+              "id": "adoptobs_0028",
+              "seriesId": "adopt_grok_paid",
+              "observationDate": "2025-12-31",
+              "value": 4900000,
+              "unit": "subscriptions",
+              "scope": "global",
+              "comparabilityNote": "Includes X plans with Grok access",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          },
+          {
+            "order": 28,
+            "record": {
+              "id": "adoptobs_0029",
+              "seriesId": "adopt_grok_paid",
+              "observationDate": "2026-03-31",
+              "value": 6300000,
+              "unit": "subscriptions",
+              "scope": "global",
+              "comparabilityNote": "Includes X plans with Grok access",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          },
+          {
+            "order": 29,
+            "record": {
+              "id": "adoptobs_0030",
+              "seriesId": "adopt_grok_features",
+              "observationDate": "2025-12-31",
+              "value": 89000000,
+              "unit": "monthly active users",
+              "scope": "global",
+              "comparabilityNote": "Any Grok AI feature; not agent use",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          },
+          {
+            "order": 30,
+            "record": {
+              "id": "adoptobs_0031",
+              "seriesId": "adopt_grok_features",
+              "observationDate": "2026-03-31",
+              "value": 117000000,
+              "unit": "monthly active users",
+              "scope": "global",
+              "comparabilityNote": "Any Grok AI feature; not agent use",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 4,
+            "record": {
+              "id": "evidence-005",
+              "category": "Distribution",
+              "metricDate": "2026-03-31",
+              "entity": "xAI/X",
+              "metric": "active paid subscriptions",
+              "value": 6300000,
+              "unit": "subscriptions",
+              "caveat": "Includes X subscriptions with Grok access",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "evidence-006",
+              "category": "Distribution",
+              "metricDate": "2026-03-31",
+              "entity": "Grok",
+              "metric": "monthly users of Grok features",
+              "value": 117000000,
+              "unit": "people",
+              "caveat": "Feature usage is not task delegation",
+              "sourceId": "gate1-sec-gov-grok-active-paid-subscriptions-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
