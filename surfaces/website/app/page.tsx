@@ -1181,7 +1181,7 @@ export default function Home() {
       </div>
 
       <header className="masthead">
-        <span className="publication-stamp"><b>Personal AI Observatory</b><small>Published · {PUBLICATION_DATE}</small></span>
+        <span className="publication-stamp"><b>Personal AI Scenario</b><small>Published · {PUBLICATION_DATE}</small></span>
         <span className="mast-actions">
           <span className="signal"><i /> {isDefault ? 'Default projection' : 'Adjusted scenario'}</span>
           <button className="tune-button" onClick={() => setTunerOpen(true)}>Tune model <b>↗</b></button>
