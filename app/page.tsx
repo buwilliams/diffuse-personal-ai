@@ -371,6 +371,7 @@ function reportRowClass(row: ReportCell[]) {
 type ReportChartProps = {
   kind: 'capability' | 'compute';
   capabilityThreshold: number;
+  computeThresholdM: number;
 };
 
 const CHART_CATEGORIES = [
@@ -386,7 +387,7 @@ function chartSeriesColorToken(item: ReportChartSeries, kind: ReportChartProps['
   return `--chart-${Math.max(1, categoryIndex + 1)}`;
 }
 
-function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
+function ReportChart({ kind, capabilityThreshold, computeThresholdM }: ReportChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [hiddenSeries, setHiddenSeries] = useState<Set<string>>(() => new Set());
   const [highlightedSeries, setHighlightedSeries] = useState<string | null>(null);
@@ -419,7 +420,9 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
       const plotHeight = height - margin.top - margin.bottom;
       const xAt = (index: number) => margin.left + index / (REPORT_QUARTERS.length - 1) * plotWidth;
       const allValues = series.flatMap((item) => item.values.filter((value): value is number => value !== null));
-      const yMaximum = kind === 'capability' ? 100 : Math.max(20, Math.ceil(Math.max(...allValues) / 20) * 20);
+      const yMaximum = kind === 'capability'
+        ? 100
+        : Math.max(20, Math.ceil(Math.max(...allValues, computeThresholdM) / 20) * 20);
       const yAt = (value: number) => margin.top + plotHeight - value / yMaximum * plotHeight;
       const projectionX = (xAt(OBSERVED_END_INDEX) + xAt(OBSERVED_END_INDEX + 1)) / 2;
 
@@ -483,6 +486,23 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
         context.textAlign = 'right';
         context.textBaseline = 'bottom';
         context.fillText(`GATE ${capabilityThreshold.toFixed(0)}%`, margin.left + plotWidth - 5, thresholdY - 4);
+      }
+
+      if (kind === 'compute') {
+        const thresholdY = yAt(computeThresholdM);
+        context.save();
+        context.setLineDash([2, 5]);
+        context.strokeStyle = color('--chart-threshold');
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(margin.left, thresholdY);
+        context.lineTo(margin.left + plotWidth, thresholdY);
+        context.stroke();
+        context.restore();
+        context.fillStyle = color('--chart-threshold');
+        context.textAlign = 'right';
+        context.textBaseline = 'bottom';
+        context.fillText(`GATE ${computeThresholdM.toFixed(1)}M H100e`, margin.left + plotWidth - 5, thresholdY - 4);
       }
 
       if (kind === 'compute') {
@@ -562,7 +582,7 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
     const observer = new ResizeObserver(draw);
     observer.observe(canvas);
     return () => observer.disconnect();
-  }, [capabilityThreshold, hiddenSeries, highlightedSeries, hoverIndex, kind, series]);
+  }, [capabilityThreshold, computeThresholdM, hiddenSeries, highlightedSeries, hoverIndex, kind, series]);
 
   const updateHover = (clientX: number) => {
     const canvas = canvasRef.current;
@@ -593,8 +613,8 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
     ? 'Four-year capability trajectory'
     : 'Four-year compute trajectory';
   const chartDescription = kind === 'capability'
-    ? `${CAPABILITY_BENCHMARK_SERIES.length} graded benchmarks and the equal-category aggregate, quarterly from 2024-Q1 through 2028-Q4.`
-    : 'U.S. operational H100-equivalents in millions, quarterly from 2024-Q1 through 2028-Q4.';
+    ? `${CAPABILITY_BENCHMARK_SERIES.length} graded benchmarks and the confidence-weighted aggregate, quarterly from 2024-Q1 through 2028-Q4.`
+    : `U.S. operational H100-equivalent accelerators in millions—not users—from 2024-Q1 through 2028-Q4. The gate line is ${computeThresholdM.toFixed(1)} million H100-equivalents under the live assumptions.`;
 
   return (
     <section className={`report-chart report-chart-${kind}`} aria-labelledby={`report-chart-title-${kind}`}>
@@ -602,6 +622,7 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
         <div>
           <p>Workbook model · observed through 2026-Q3</p>
           <h3 id={`report-chart-title-${kind}`}>{chartTitle}</h3>
+          <small className="chart-unit">{kind === 'capability' ? 'Vertical axis · normalized benchmark score' : 'Vertical axis · millions of H100-equivalents, not users'}</small>
         </div>
         <div className="chart-phase-key" aria-label="Line styles">
           <span><i className="solid" />Observed</span>
@@ -626,7 +647,7 @@ function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
                 <b>{item.name}</b>
                 <em>{kind === 'capability'
                   ? `${(item.values[hoverIndex] as number).toFixed(1)}%`
-                  : `${(item.values[hoverIndex] as number).toFixed(2)}M`}</em>
+                  : `${(item.values[hoverIndex] as number).toFixed(2)}M H100e`}</em>
               </span>
             ))}
             {kind === 'capability' && hoverItems.length === 6 && <small>Hover a legend label to isolate its line.</small>}
@@ -667,10 +688,13 @@ type WorkbookBrowserProps = {
   onSheet: (name: string) => void;
   onClose: () => void;
   scenario: { label: string; value: string }[];
+  calculationTitle: string;
+  calculationSteps: { title: string; explanation: string }[];
   capabilityThreshold: number;
+  computeThresholdM: number;
 };
 
-function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario, capabilityThreshold }: WorkbookBrowserProps) {
+function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario, calculationTitle, calculationSteps, capabilityThreshold, computeThresholdM }: WorkbookBrowserProps) {
   const rows = sheet.rows
     .map((row, index) => ({ row, index }))
     .filter(({ row }) => !query || row.some((value) => String(value ?? '').toLowerCase().includes(query.toLowerCase())));
@@ -693,7 +717,19 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
           {scenario.map((item) => <span key={item.label}><small>{item.label}</small><strong>{item.value}</strong></span>)}
         </div>
 
-        <ReportChart kind={workbook.id} capabilityThreshold={capabilityThreshold} />
+        <ReportChart kind={workbook.id} capabilityThreshold={capabilityThreshold} computeThresholdM={computeThresholdM} />
+
+        <section className="model-explainer" aria-labelledby={`model-explainer-${workbook.id}`}>
+          <div>
+            <p>Plain-language audit</p>
+            <h3 id={`model-explainer-${workbook.id}`}>{calculationTitle}</h3>
+          </div>
+          <ol>
+            {calculationSteps.map((step) => (
+              <li key={step.title}><strong>{step.title}</strong><span>{step.explanation}</span></li>
+            ))}
+          </ol>
+        </section>
 
         <div className="report-shell">
           <nav className="sheet-nav" aria-label="Workbook sheets">
@@ -778,20 +814,29 @@ export default function Home() {
 
   const projection = useMemo(() => {
     const targetUsersM = inputs.populationM * inputs.coverageThreshold / 100;
+    const requiredComputeM = targetUsersM * inputs.workloadM /
+      (TOKENS_PER_H100E_DAY_M * inputs.servingEfficiency);
     const currentSupportedM = supportedUsersAt(SNAPSHOT, inputs);
     const capabilityCrossing = findCrossing((timestamp) =>
       capabilityAt(timestamp, inputs) >= inputs.capabilityThreshold);
     const computeCrossing = findCrossing((timestamp) =>
-      supportedUsersAt(timestamp, inputs) / targetUsersM * 100 >= SUPPLY_THRESHOLD);
+      computeCapacityAt(timestamp, inputs) >= requiredComputeM);
     const target = capabilityCrossing && computeCrossing
       ? new Date(Math.max(capabilityCrossing.getTime(), computeCrossing.getTime()))
       : null;
+    const controllingGate = capabilityCrossing && computeCrossing
+      ? capabilityCrossing.getTime() === computeCrossing.getTime()
+        ? 'both'
+        : capabilityCrossing.getTime() > computeCrossing.getTime() ? 'capability' : 'compute'
+      : 'none';
     return {
       targetUsersM,
+      requiredComputeM,
       currentSupportedM,
       capabilityCrossing,
       computeCrossing,
       target,
+      controllingGate,
       capabilityProgress: clamp(inputs.currentCapability / inputs.capabilityThreshold * 100, 0, 100),
       computeProgress: clamp(currentSupportedM / targetUsersM * 100, 0, 100),
     };
@@ -801,6 +846,21 @@ export default function Home() {
   const targetLabel = formatDate(projection.target);
   const capabilityDate = formatDate(projection.capabilityCrossing);
   const computeDate = formatDate(projection.computeCrossing);
+  const horizonTimestamp = new Date('2028-12-31T00:00:00Z').getTime();
+  const horizonComputeM = computeCapacityAt(horizonTimestamp, inputs);
+  const horizonSupportedM = supportedUsersAt(horizonTimestamp, inputs);
+  const gateGapDays = projection.capabilityCrossing && projection.computeCrossing
+    ? Math.round(Math.abs(projection.capabilityCrossing.getTime() - projection.computeCrossing.getTime()) / DAY)
+    : null;
+  const controllingGateLabel = projection.controllingGate === 'capability'
+    ? 'Model–harness capability'
+    : projection.controllingGate === 'compute' ? 'Compute supply'
+      : projection.controllingGate === 'both' ? 'Both gates' : 'No joint crossing';
+  const gateRule = projection.controllingGate === 'both'
+    ? `Both gates clear together on ${targetLabel}.`
+    : projection.controllingGate === 'none'
+      ? 'At least one gate does not clear inside the 15-year horizon.'
+      : `${controllingGateLabel} controls the clock because it clears ${gateGapDays?.toLocaleString('en-US')} days later.`;
   const isDefault = (Object.keys(DEFAULTS) as Array<keyof ModelInputs>)
     .every((key) => Math.abs(inputs[key] - DEFAULTS[key]) < 0.00001);
 
@@ -846,6 +906,7 @@ export default function Home() {
         ['Supply threshold', `${SUPPLY_THRESHOLD}%`],
         ['Population target', `${inputs.coverageThreshold.toFixed(0)}% of U.S. · ${projection.targetUsersM.toFixed(1)}M users`],
         ['Current U.S. H100e', `${inputs.currentComputeM.toFixed(2)}M`],
+        ['Required U.S. H100e', `${projection.requiredComputeM.toFixed(2)}M`],
         ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
         ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× baseline`],
         ['Projected crossing', computeDate],
@@ -862,11 +923,33 @@ export default function Home() {
     { label: 'Crossing', value: reports.capability.crossing },
     { label: 'Confidence', value: `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%` },
   ] : [
-    { label: 'Supply threshold', value: reports.compute.threshold },
-    { label: 'Population target', value: `${inputs.coverageThreshold.toFixed(0)}% · ${projection.targetUsersM.toFixed(1)}M` },
+    { label: 'Current compute', value: `${inputs.currentComputeM.toFixed(2)}M H100e` },
+    { label: 'Required compute', value: `${projection.requiredComputeM.toFixed(2)}M H100e` },
+    { label: 'Supported / target users', value: `${projection.currentSupportedM.toFixed(1)}M / ${projection.targetUsersM.toFixed(1)}M` },
     { label: 'Crossing', value: reports.compute.crossing },
-    { label: 'Current progress', value: reports.compute.current },
   ];
+  const activeCalculation = modal === 'capability' ? {
+    title: 'How the demand-proxy score and gate are calculated',
+    steps: [
+      { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
+      { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
+      { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
+      { title: 'Project the remaining failure gap.', explanation: `Estimate how quickly each benchmark closes its distance to 100%. The acceleration control is ${inputs.capabilityAcceleration.toFixed(2)}× baseline and can materially bend the forecast.` },
+      { title: 'Set the capability gate.', explanation: `The major judgment call is the delegation threshold: ${inputs.capabilityThreshold.toFixed(0)}%. The live composite is ${inputs.currentCapability.toFixed(1)}%, producing a ${capabilityDate} crossing.` },
+      { title: 'Use the later gate.', explanation: `The headline is not the capability date alone. It is the later of capability and compute. ${gateRule}` },
+    ],
+  } : {
+    title: 'How compute becomes a supported-user score and gate',
+    steps: [
+      { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
+      { title: 'Convert hardware to daily tokens.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day and the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption.` },
+      { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
+      { title: 'Set the population target.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. The population percentage is directly adjustable.` },
+      { title: 'Translate users into required compute.', explanation: `Serving ${projection.targetUsersM.toFixed(1)}M users under those assumptions requires ${projection.requiredComputeM.toFixed(2)}M H100e. Current capacity is ${inputs.currentComputeM.toFixed(2)}M H100e, supporting ${projection.currentSupportedM.toFixed(1)}M users.` },
+      { title: 'Find the supply crossing.', explanation: `The compute gate passes when projected capacity reaches ${projection.requiredComputeM.toFixed(2)}M H100e, equivalent to ${projection.targetUsersM.toFixed(1)}M users. The crossing is ${computeDate}. At 2028-Q4, ${horizonComputeM.toFixed(2)}M H100e supports about ${horizonSupportedM.toFixed(1)}M users.` },
+      { title: 'Use the later gate.', explanation: `Both capability and supply must pass. The headline is MAX(${capabilityDate}, ${computeDate}) = ${targetLabel}. ${gateRule}` },
+    ],
+  };
 
   return (
     <main className="site-shell">
@@ -897,7 +980,7 @@ export default function Home() {
             <span><strong>{String(time.hours).padStart(2, '0')}</strong><small>hours</small></span>
           </div>
         ) : <div className="no-date">No crossing</div>}
-        <p className="target-date">{projection.target ? `Projected gate clearance · ${targetLabel}` : 'One or more gates do not cross within 15 years'}</p>
+        <p className="target-date">{projection.target ? `Projected joint clearance · ${targetLabel} · ${controllingGateLabel} is the later gate` : 'One or more gates do not cross within 15 years'}</p>
       </section>
 
       <section className="conjecture">
@@ -907,17 +990,17 @@ export default function Home() {
 
       <section className="gates" aria-label="Projection gates">
         <button onClick={() => openReport('capability')} className="gate-card">
-          <span className="gate-index">01 / demand proxy</span>
+          <span className="gate-index">01 / demand proxy{projection.controllingGate === 'capability' ? ' · controls clock' : ''}</span>
           <span className="gate-name">Model–harness</span>
           <span className="gate-meter"><i style={{ width: `${projection.capabilityProgress}%` }} /></span>
           <span className="gate-stats"><b>{inputs.currentCapability.toFixed(1)}%</b><em>of {inputs.capabilityThreshold.toFixed(0)}% · {capabilityDate}</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
         <button onClick={() => openReport('compute')} className="gate-card">
-          <span className="gate-index">02 / supply</span>
+          <span className="gate-index">02 / supply{projection.controllingGate === 'compute' ? ' · controls clock' : ''}</span>
           <span className="gate-name">U.S. compute</span>
           <span className="gate-meter"><i style={{ width: `${projection.computeProgress}%` }} /></span>
-          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>of {SUPPLY_THRESHOLD}% · {inputs.coverageThreshold.toFixed(0)}% of U.S. population · {computeDate}</em></span>
+          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>{projection.currentSupportedM.toFixed(1)}M of {projection.targetUsersM.toFixed(1)}M users · {computeDate}</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
       </section>
@@ -944,6 +1027,7 @@ export default function Home() {
               <span><small>Headline date</small><strong>{targetLabel}</strong></span>
               <span><small>Capability gate</small><strong>{capabilityDate}</strong></span>
               <span><small>Compute gate</small><strong>{computeDate}</strong></span>
+              <span><small>Controls clock</small><strong>{controllingGateLabel}</strong></span>
             </div>
 
             <div className="control-groups">
@@ -981,7 +1065,10 @@ export default function Home() {
           onSheet={(name) => { setActiveSheetName(name); setReportQuery(''); }}
           onClose={() => { setModal(null); setReportQuery(''); }}
           scenario={activeScenario}
+          calculationTitle={activeCalculation.title}
+          calculationSteps={activeCalculation.steps}
           capabilityThreshold={inputs.capabilityThreshold}
+          computeThresholdM={projection.requiredComputeM}
         />
       )}
     </main>
