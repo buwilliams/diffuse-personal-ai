@@ -36,6 +36,8 @@ const BASE_CAPABILITY_ACCELERATION_PP = (() => {
   const denominator = deltas.reduce((sum, _, index) => sum + (index - xMean) ** 2, 0);
   return numerator / denominator;
 })();
+const CAPABILITY_ACCELERATION_RESPONSE_PP = Math.abs(BASE_CAPABILITY_ACCELERATION_PP);
+const COMPUTE_ACCELERATION_RESPONSE_LOG2 = Math.abs(BASE_COMPUTE_ACCELERATION);
 
 const COMPUTE_CURVE = [
   ['2026-08-26', 13.524006],
@@ -172,7 +174,7 @@ function capabilityAt(timestamp: number, inputs: ModelInputs) {
   const quarters = Math.max(0, (timestamp - SNAPSHOT) / QUARTER);
   const currentShift = inputs.currentCapability - DEFAULTS.currentCapability;
   const accelerationShift =
-    0.5 * BASE_CAPABILITY_ACCELERATION_PP *
+    0.5 * CAPABILITY_ACCELERATION_RESPONSE_PP *
     (inputs.capabilityAcceleration - 1) * quarters * quarters;
   return clamp(baselineCapabilityAt(timestamp) + currentShift + accelerationShift, 0, 99);
 }
@@ -206,13 +208,14 @@ function baselineComputeLogAtQuarter(quarter: number) {
 
 function computeCapacityAt(timestamp: number, inputs: ModelInputs) {
   const quarters = modelQuarterAt(timestamp);
-  const acceleration = BASE_COMPUTE_ACCELERATION * inputs.computeAcceleration;
-  const stopQuarter = acceleration < 0
-    ? Math.max(0, 0.5 - BASE_NEXT_COMPUTE_VELOCITY / acceleration)
+  const netAcceleration = BASE_COMPUTE_ACCELERATION +
+    COMPUTE_ACCELERATION_RESPONSE_LOG2 * (inputs.computeAcceleration - 1);
+  const stopQuarter = netAcceleration < 0
+    ? Math.max(0, 0.5 - BASE_NEXT_COMPUTE_VELOCITY / netAcceleration)
     : Number.POSITIVE_INFINITY;
   const effectiveQuarters = Math.min(quarters, stopQuarter);
   const accelerationAdjustment = effectiveQuarters <= 1 ? 0 :
-    0.5 * BASE_COMPUTE_ACCELERATION * (inputs.computeAcceleration - 1) *
+    0.5 * COMPUTE_ACCELERATION_RESPONSE_LOG2 * (inputs.computeAcceleration - 1) *
     effectiveQuarters * (effectiveQuarters - 1);
   const currentShift = Math.log2(inputs.currentComputeM / DEFAULTS.currentComputeM);
   return 2 ** (baselineComputeLogAtQuarter(effectiveQuarters) + accelerationAdjustment + currentShift);
@@ -897,7 +900,7 @@ export default function Home() {
       rows: [
         ['Current composite', `${inputs.currentCapability.toFixed(1)}%`],
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
-        ['Acceleration', `${inputs.capabilityAcceleration.toFixed(2)}× baseline`],
+        ['Acceleration setting', `${inputs.capabilityAcceleration.toFixed(2)}× · higher increases quarterly gains`],
         ['Projected crossing', capabilityDate],
         ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
         ['Workbook default', '8 Oct 2027'],
@@ -918,7 +921,7 @@ export default function Home() {
         ['Current U.S. H100e', `${inputs.currentComputeM.toFixed(2)}M`],
         ['Required U.S. H100e', `${projection.requiredComputeM.toFixed(2)}M`],
         ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
-        ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× baseline`],
+        ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× · higher increases quarterly gains`],
         ['Projected crossing', computeDate],
       ],
     },
@@ -946,7 +949,7 @@ export default function Home() {
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
-      { title: 'Project the remaining failure gap.', explanation: `Estimate how quickly each benchmark closes its distance to 100%. The acceleration control is ${inputs.capabilityAcceleration.toFixed(2)}× baseline and can materially bend the forecast.` },
+      { title: 'Project the remaining failure gap.', explanation: `Estimate how quickly each benchmark closes its distance to 100%. At 1× the workbook path is unchanged; above 1×, each quarter adds more progress than the baseline path. The current setting is ${inputs.capabilityAcceleration.toFixed(2)}×.` },
       { title: 'Set the capability gate.', explanation: `The major judgment call is the delegation threshold: ${inputs.capabilityThreshold.toFixed(0)}%. The live composite is ${inputs.currentCapability.toFixed(1)}%, producing a ${capabilityDate} crossing.` },
       { title: 'Use the later gate.', explanation: `The headline is not the capability date alone. It is the later of capability and compute. ${gateRule}` },
     ],
@@ -954,7 +957,7 @@ export default function Home() {
     title: 'How compute becomes a supported-user score and gate',
     steps: [
       { title: 'Gather compute-supply sources.', explanation: 'Collect U.S. data-center projects, accelerator capacity, expected operational dates, and other evidence needed to reconstruct available inference supply over time.' },
-      { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
+      { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. At 1× the workbook path is unchanged; above 1×, each quarter adds more compute than the baseline path. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
       { title: 'Convert hardware to daily tokens.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day and the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
       { title: 'Select the population target once.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. This is the only population-share multiplication.` },
@@ -1048,7 +1051,7 @@ export default function Home() {
                 <legend>Model–harness capability</legend>
                 <ControlField label="Current score" note="Report-card composite" value={inputs.currentCapability} min={20} max={80} step={0.1} suffix="%" onChange={(value) => update('currentCapability', value)} />
                 <ControlField label="Passing threshold" note="First grade above F" value={inputs.capabilityThreshold} min={50} max={90} step={1} suffix="%" decimals={0} onChange={(value) => update('capabilityThreshold', value)} />
-                <ControlField label="Capability acceleration" note="Multiplier on fitted curvature" value={inputs.capabilityAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('capabilityAcceleration', value)} />
+                <ControlField label="Capability acceleration" note="1× = report path; higher = faster quarterly gains" value={inputs.capabilityAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('capabilityAcceleration', value)} />
               </fieldset>
 
               <fieldset>
@@ -1056,7 +1059,7 @@ export default function Home() {
                 <ControlField label="Population" note="Addressable U.S. population" value={inputs.populationM} min={250} max={450} step={0.1} suffix="M" onChange={(value) => update('populationM', value)} />
                 <ControlField label="Population target" note="Selected once; supply must serve 100% of this share" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
                 <ControlField label="Current compute" note="Operational U.S. H100e" value={inputs.currentComputeM} min={5} max={50} step={0.1} suffix="M" onChange={(value) => update('currentComputeM', value)} />
-                <ControlField label="Compute acceleration" note="1× = −0.031 log₂/q²" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
+                <ControlField label="Compute acceleration" note="1× = report path; higher = faster quarterly gains" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
                 <ControlField label="Agent workload" note="Compute-equivalent tokens/user/day" value={inputs.workloadM} min={5} max={50} step={0.25} suffix="M" decimals={2} onChange={(value) => update('workloadM', value)} />
                 <ControlField label="Serving efficiency" note="Inference hardware / goodput uplift" value={inputs.servingEfficiency} min={0.5} max={10} step={0.1} suffix="×" onChange={(value) => update('servingEfficiency', value)} />
               </fieldset>

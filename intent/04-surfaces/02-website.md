@@ -9,6 +9,7 @@ The website compresses the conjecture into one legible countdown, exposes the mo
 - The first viewport states the conjecture and shows years, months, days, and hours.
 - The publication date signals evidence freshness.
 - Readers can adjust capability threshold and acceleration, population and coverage, workload, serving efficiency, and compute acceleration.
+- Each acceleration control is anchored at `1×`, which preserves the report-card path. Raising it must increase quarter-over-quarter gains and must never move that gate's crossing later when all other inputs are unchanged.
 - The capability chart shows benchmark series plus the confidence-weighted aggregate.
 - The compute chart shows H100-equivalent capacity and its implied gate.
 - Both report modals explain the calculation in a flat numbered list and expose the full workbook tables.
