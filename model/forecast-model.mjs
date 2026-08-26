@@ -344,23 +344,38 @@ function computeModel(snapshot, defaults) {
   }));
   const workloadTokens = components.reduce((sum, component) => sum + component.computeEquivalentTokens, 0);
   const serving = compute.serving;
-  const tokensPerH100eDay = serving.dense8BitOpsPerH100eSecond * serving.secondsPerDay *
-    serving.fleetShareAllocatedToInference * serving.sustainedServingUtilization * serving.servingGoodputMultiplier *
-    serving.personalAiInferenceShare /
+  const referenceTokensPerH100eDay = serving.dense8BitOpsPerH100eSecond * serving.secondsPerDay *
+    serving.sustainedServingUtilization * serving.servingGoodputMultiplier /
     (serving.activeModelParameters * serving.forwardPassOpsPerParameterToken * serving.systemOverheadMultiplier);
   const targetUsers = compute.population.usResidents * compute.population.targetShare;
-  const requiredH100e = targetUsers * workloadTokens / tokensPerH100eDay;
   const quarterRows = [...compute.quarters].sort((a, b) => a.quarterIndex - b.quarterIndex).map((quarter, index, rows) => {
+    const itPowerGw = quarter.usItPowerMw / 1_000;
+    const h100ePerItGw = quarter.usH100e / itPowerGw;
+    const referenceTokensPerItGwDay = h100ePerItGw * referenceTokensPerH100eDay;
     const log2H100e = Math.log2(quarter.usH100e);
-    const priorLog = index ? Math.log2(rows[index - 1].usH100e) : null;
-    const supportedUsers = quarter.usH100e * tokensPerH100eDay / workloadTokens;
+    const log2ItPowerGw = Math.log2(itPowerGw);
+    const log2ReferenceProductivity = Math.log2(referenceTokensPerItGwDay);
+    const priorH100eLog = index ? Math.log2(rows[index - 1].usH100e) : null;
+    const priorPowerLog = index ? Math.log2(rows[index - 1].usItPowerMw / 1_000) : null;
+    const priorH100ePerGw = index ? rows[index - 1].usH100e / (rows[index - 1].usItPowerMw / 1_000) : null;
+    const priorProductivityLog = priorH100ePerGw === null ? null : Math.log2(priorH100ePerGw * referenceTokensPerH100eDay);
+    const personalAiTokensPerDay = itPowerGw * referenceTokensPerItGwDay *
+      serving.fleetShareAllocatedToInference * serving.personalAiInferenceShare;
+    const supportedUsers = personalAiTokensPerDay / workloadTokens;
     const score = Math.min(1, supportedUsers / targetUsers);
     return {
       ...quarter,
       phase: quarter.evidenceClass.startsWith('observed') ? quarter.evidenceClass : 'projected',
+      itPowerGw,
+      h100ePerItGw,
+      referenceTokensPerItGwDay,
       log2H100e,
-      logGrowth: priorLog === null ? null : log2H100e - priorLog,
-      tokensPerDay: quarter.usH100e * tokensPerH100eDay,
+      log2ItPowerGw,
+      log2ReferenceProductivity,
+      logGrowthH100e: priorH100eLog === null ? null : log2H100e - priorH100eLog,
+      logGrowthItPower: priorPowerLog === null ? null : log2ItPowerGw - priorPowerLog,
+      logGrowthProductivity: priorProductivityLog === null ? null : log2ReferenceProductivity - priorProductivityLog,
+      personalAiTokensPerDay,
       supportedUsers,
       score,
       ...grade(score),
@@ -368,65 +383,95 @@ function computeModel(snapshot, defaults) {
   });
   const currentRow = quarterRows.filter((row) => row.evidenceClass.startsWith('observed')).at(-1);
   const projectedRows = quarterRows.filter((row) => row.quarterIndex > currentRow.quarterIndex);
-  const growthPoints = projectedRows.map((row) => ({ x: row.quarterIndex, y: row.logGrowth }));
-  const acceleration = linearSlope(growthPoints);
-  const velocity = average(growthPoints.map((point) => point.y));
-  const curve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex).map((row) => ({ date: row.cutoffDate, capacityM: row.usH100e / 1_000_000 }));
+  const powerGrowthPoints = projectedRows.map((row) => ({ x: row.quarterIndex, y: row.logGrowthItPower }));
+  const productivityGrowthPoints = projectedRows.map((row) => ({ x: row.quarterIndex, y: row.logGrowthProductivity }));
+  const powerAcceleration = linearSlope(powerGrowthPoints);
+  const productivityAcceleration = linearSlope(productivityGrowthPoints);
+  const powerVelocity = average(powerGrowthPoints.map((point) => point.y));
+  const productivityVelocity = average(productivityGrowthPoints.map((point) => point.y));
+  const powerCurve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex)
+    .map((row) => ({ date: row.cutoffDate, value: row.itPowerGw }));
+  const productivityCurve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex)
+    .map((row) => ({ date: row.cutoffDate, value: row.referenceTokensPerItGwDay }));
+  const serviceCurve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex)
+    .map((row) => ({ date: row.cutoffDate, supportedUsers: row.supportedUsers }));
 
-  const baselineLogAt = (quarter) => {
-    const capacities = curve.map((point) => point.capacityM);
-    const logs = capacities.map(Math.log2);
+  const baselineLogAt = (quarter, curve, acceleration) => {
+    const values = curve.map((point) => point.value);
+    const logs = values.map(Math.log2);
     if (quarter <= 0) return logs[0];
     if (quarter < logs.length - 1) {
       const lower = Math.floor(quarter);
       const fraction = quarter - lower;
-      return Math.log2(capacities[lower] + (capacities[lower + 1] - capacities[lower]) * fraction);
+      return Math.log2(values[lower] + (values[lower + 1] - values[lower]) * fraction);
     }
     const lastIndex = logs.length - 1;
     return logs[lastIndex] + recursiveProgressGain(quarter - lastIndex, logs[lastIndex] - logs[lastIndex - 1], acceleration);
   };
-  const capacityAt = (timestamp, scenarioCurrentM = currentRow.usH100e / 1_000_000, scenarioAcceleration = acceleration) => {
+  const projectAt = (timestamp, scenarioCurrent, scenarioAcceleration, currentValue, velocity, acceleration, curve) => {
     const quarter = modelHorizonAt(timestamp, curve);
     const adjustment = recursiveProgressGain(quarter, velocity, scenarioAcceleration) - recursiveProgressGain(quarter, velocity, acceleration);
-    const currentShift = Math.log2(scenarioCurrentM / (currentRow.usH100e / 1_000_000));
-    return 2 ** (Math.max(Math.log2(currentRow.usH100e / 1_000_000), baselineLogAt(quarter) + adjustment) + currentShift);
+    const currentShift = Math.log2(scenarioCurrent / currentValue);
+    return 2 ** (Math.max(Math.log2(currentValue), baselineLogAt(quarter, curve, acceleration) + adjustment) + currentShift);
   };
+  const itPowerAt = (timestamp, scenarioCurrentGw = currentRow.itPowerGw, scenarioAcceleration = powerAcceleration) =>
+    projectAt(timestamp, scenarioCurrentGw, scenarioAcceleration, currentRow.itPowerGw, powerVelocity, powerAcceleration, powerCurve);
+  const productivityAt = (timestamp, scenarioCurrent = currentRow.referenceTokensPerItGwDay, scenarioAcceleration = productivityAcceleration) =>
+    projectAt(timestamp, scenarioCurrent, scenarioAcceleration, currentRow.referenceTokensPerItGwDay,
+      productivityVelocity, productivityAcceleration, productivityCurve);
+  const supportedUsersAt = (
+    timestamp,
+    scenarioCurrentGw = currentRow.itPowerGw,
+    scenarioPowerAcceleration = powerAcceleration,
+    scenarioCurrentProductivity = currentRow.referenceTokensPerItGwDay,
+    scenarioProductivityAcceleration = productivityAcceleration,
+    fleetInferenceShare = serving.fleetShareAllocatedToInference,
+    personalAiInferenceShare = serving.personalAiInferenceShare,
+    scenarioWorkloadTokens = workloadTokens,
+  ) => itPowerAt(timestamp, scenarioCurrentGw, scenarioPowerAcceleration) *
+    productivityAt(timestamp, scenarioCurrentProductivity, scenarioProductivityAcceleration) *
+    fleetInferenceShare * personalAiInferenceShare / scenarioWorkloadTokens;
 
+  const start = Date.parse(`${currentRow.cutoffDate}T00:00:00Z`);
+  const end = start + defaults.maximumForecastYears * 365.2425 * DAY_MS;
   let continuousCrossing = null;
-  const fullRowIndex = quarterRows.findIndex((row) => row.usH100e >= requiredH100e);
-  if (fullRowIndex > 0) {
-    const previous = quarterRows[fullRowIndex - 1];
-    const next = quarterRows[fullRowIndex];
-    const fraction = (requiredH100e - previous.usH100e) / (next.usH100e - previous.usH100e);
-    continuousCrossing = Date.parse(`${previous.cutoffDate}T00:00:00Z`) + fraction *
-      (Date.parse(`${next.cutoffDate}T00:00:00Z`) - Date.parse(`${previous.cutoffDate}T00:00:00Z`));
-  } else {
-    const final = quarterRows.at(-1);
-    const remainingLog = Math.log2(requiredH100e / final.usH100e);
-    const finalVelocity = final.logGrowth;
-    const relative = acceleration / finalVelocity;
-    const extraQuarters = Math.abs(acceleration) < 1e-9
-      ? remainingLog / finalVelocity
-      : Math.log(1 + relative * remainingLog / finalVelocity) / relative;
-    continuousCrossing = Date.parse(`${final.cutoffDate}T00:00:00Z`) + extraQuarters * QUARTER_MS;
+  if (supportedUsersAt(start) >= targetUsers) {
+    continuousCrossing = start;
+  } else if (supportedUsersAt(end) >= targetUsers) {
+    let lower = start;
+    let upper = end;
+    for (let iteration = 0; iteration < 80; iteration += 1) {
+      const midpoint = (lower + upper) / 2;
+      if (supportedUsersAt(midpoint) >= targetUsers) upper = midpoint;
+      else lower = midpoint;
+    }
+    continuousCrossing = upper;
   }
 
   return {
     components,
     workloadTokens,
-    tokensPerH100eDay,
+    referenceTokensPerH100eDay,
+    serving,
     targetUsers,
-    requiredH100e,
     quarterRows,
-    curve,
+    powerCurve,
+    productivityCurve,
+    serviceCurve,
     currentRow,
-    currentComputeM: currentRow.usH100e / 1_000_000,
+    currentItPowerGw: currentRow.itPowerGw,
+    currentReferenceProductivity: currentRow.referenceTokensPerItGwDay,
+    currentReferenceProductivityT: currentRow.referenceTokensPerItGwDay / 1e12,
     currentSupportedUsers: currentRow.supportedUsers,
     currentScore: currentRow.score,
-    acceleration,
-    velocity,
+    powerAcceleration,
+    powerVelocity,
+    productivityAcceleration,
+    productivityVelocity,
     continuousCrossing,
-    capacityAt,
+    itPowerAt,
+    productivityAt,
+    supportedUsersAt,
   };
 }
 

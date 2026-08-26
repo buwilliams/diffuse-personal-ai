@@ -1,16 +1,24 @@
 import { forecastModel } from './snapshot-model';
 
-export const DEFAULT_COMPUTE_M = forecastModel.compute.currentComputeM;
-export const BASE_COMPUTE_ACCELERATION = forecastModel.compute.acceleration;
-export const BASE_COMPUTE_VELOCITY = forecastModel.compute.velocity ?? 0;
-export const COMPUTE_CURVE = forecastModel.compute.curve.map(
-  ({ date, capacityM }: { date: string; capacityM: number }) => [date, capacityM] as const,
-);
+export const DEFAULT_IT_POWER_GW = forecastModel.compute.currentItPowerGw;
+export const DEFAULT_PRODUCTIVITY_T = forecastModel.compute.currentReferenceProductivityT;
+export const BASE_POWER_ACCELERATION = forecastModel.compute.powerAcceleration;
+export const BASE_POWER_VELOCITY = forecastModel.compute.powerVelocity ?? 0;
+export const BASE_PRODUCTIVITY_ACCELERATION = forecastModel.compute.productivityAcceleration;
+export const BASE_PRODUCTIVITY_VELOCITY = forecastModel.compute.productivityVelocity ?? 0;
 
-export function computeCapacityAt(
+export function itPowerAt(
   timestamp: number,
-  currentComputeM: number,
+  currentItPowerGw: number,
   scenarioAcceleration: number,
 ) {
-  return forecastModel.compute.capacityAt(timestamp, currentComputeM, scenarioAcceleration);
+  return forecastModel.compute.itPowerAt(timestamp, currentItPowerGw, scenarioAcceleration);
+}
+
+export function productivityAt(
+  timestamp: number,
+  currentProductivityT: number,
+  scenarioAcceleration: number,
+) {
+  return forecastModel.compute.productivityAt(timestamp, currentProductivityT * 1e12, scenarioAcceleration) / 1e12;
 }

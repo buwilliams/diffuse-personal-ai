@@ -20,13 +20,13 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 - The publication date comes from the selected snapshot.
 - Conjecture and Refutation remain terse and explicitly distinguish a scenario crossing from a calibrated probability.
 - Both gate cards show current state, threshold, crossing, and which gate controls the clock.
-- The model tuner exposes the major decisions: capability threshold, H50 acceleration, U.S. population, population target, current compute, compute acceleration, tokens per user/day, serving efficiency, and personal-AI inference allocation.
+- The model tuner exposes the major decisions: capability threshold, H50 acceleration, U.S. population, population target, current IT power, IT-power acceleration, current inference productivity, productivity acceleration, tokens per user/day, fleet inference allocation, and Personal-AI inference allocation.
 - Acceleration fields display actual rates with units. A higher positive acceleration cannot push its gate later when other inputs are fixed.
 - Population share is applied once. The supply gate then requires 100% of that selected target.
 - Each report modal contains its chart, current scenario strip, flat numbered calculation audit, normalized source tables, filtering, and XLSX download.
 - The footer has separate **Sources** and **Source data** controls.
 - **Sources** opens a provenance modal grouped by gate. It lists every public source, access date, role, affected logical datasets, whether it directly affects the countdown, and a direct link to the original source.
-- **Source data** opens a searchable JSON catalog containing the six logical datasets, manifest, two consolidated gate files, and every source-normalized file. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
+- **Source data** opens a searchable JSON catalog containing the six logical datasets, manifest, two consolidated gate files, and every source-normalized file, including the Epoch site registry and dated timeline. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
 - Source URLs are clickable HTTPS links. No `C:\`, `file://`, WSL, or other local path may appear in public output.
 - The site-hosted Geist and Geist Mono web fonts remain the production fonts so numeral metrics are stable across systems.
 

@@ -103,16 +103,35 @@ type ComputeQuarter = {
   quarter: string;
   cutoffDate: string;
   phase: string;
+  usItPowerMw: number;
+  usFacilityPowerMw: number;
   usH100e: number;
+  itPowerGw: number;
+  h100ePerItGw: number;
+  referenceTokensPerItGwDay: number;
   log2H100e: number;
-  logGrowth: number | null;
-  tokensPerDay: number;
+  logGrowthItPower: number | null;
+  logGrowthProductivity: number | null;
+  logGrowthH100e: number | null;
+  personalAiTokensPerDay: number;
   supportedUsers: number;
   score: number;
   letter: string;
   gpa: number;
   sourceId: string;
   methodNote: string;
+};
+
+type ComputeSite = {
+  id: string;
+  name: string;
+  country: string | null;
+  currentH100e: number | null;
+  currentFacilityPowerMw: number | null;
+  owner: string | null;
+  users: string | null;
+  address: string | null;
+  sourceId: string;
 };
 
 type WorkloadComponent = {
@@ -285,29 +304,42 @@ const metrRows: ReportCell[][] = [
 const computeSummaryRows: ReportCell[][] = [
   ['Metric', 'Value', 'Unit / interpretation'],
   ['Snapshot', forecastModel.snapshotDate, 'Latest dated snapshot selected at build'],
-  ['Current operational U.S. H100e', forecastModel.compute.currentRow.usH100e, 'H100-equivalents'],
-  ['Current supported high-autonomy users', forecastModel.compute.currentSupportedUsers, 'users'],
+  ['Current operational U.S. IT power', forecastModel.compute.currentItPowerGw, 'IT GW'],
+  ['Current reference inference productivity', forecastModel.compute.currentReferenceProductivityT, 'trillion reference token-equivalents / IT GW-day'],
+  ['Current H100e audit bridge', forecastModel.compute.currentRow.usH100e, 'H100-equivalents; secondary productivity calibration'],
+  ['Current supported Personal-AI users', forecastModel.compute.currentSupportedUsers, 'user-equivalents'],
   ['Target users', forecastModel.compute.targetUsers, `${(computeDataset.data.population.targetShare * 100).toFixed(0)}% of modeled U.S. population`],
-  ['Required H100e', forecastModel.compute.requiredH100e, 'H100-equivalents'],
   ['Current supply score', forecastModel.compute.currentScore, 'supported users / target users'],
-  ['Tokens per H100e per day', forecastModel.compute.tokensPerH100eDay, 'compute-equivalent tokens'],
+  ['Reference tokens per H100e per day', forecastModel.compute.referenceTokensPerH100eDay, 'reference token-equivalents; excludes allocation shares'],
   ['Agent workload per user per day', forecastModel.compute.workloadTokens, 'compute-equivalent tokens'],
-  ['Mean projected log velocity', forecastModel.compute.velocity, 'log₂ H100e / quarter'],
-  ['Projected log acceleration', forecastModel.compute.acceleration, 'log₂ H100e / quarter²'],
-  ['Continuous base-case crossing', forecastModel.compute.continuousCrossing, 'UTC'],
+  ['Fleet inference allocation', computeDataset.data.serving.fleetShareAllocatedToInference, 'share of total AI service capacity'],
+  ['Personal-AI inference share', computeDataset.data.serving.personalAiInferenceShare, 'share of inference allocated to Personal AI'],
+  ['IT-power mean projected log velocity', forecastModel.compute.powerVelocity, 'log₂ IT GW / quarter'],
+  ['IT-power projected log acceleration', forecastModel.compute.powerAcceleration, 'log₂ IT GW / quarter²'],
+  ['Productivity mean projected log velocity', forecastModel.compute.productivityVelocity, 'log₂ reference-token productivity / quarter'],
+  ['Productivity projected log acceleration', forecastModel.compute.productivityAcceleration, 'log₂ reference-token productivity / quarter²'],
+  ['Continuous base-case crossing', forecastModel.compute.continuousCrossing === null
+    ? 'No crossing within horizon'
+    : new Date(forecastModel.compute.continuousCrossing).toISOString(), 'UTC'],
 ];
 
 const computeQuarterRows: ReportCell[][] = [
-  ['Quarter index', 'Quarter', 'Cutoff', 'Phase', 'U.S. operational H100e', 'log2 H100e', 'Log growth / quarter', 'Compute-equivalent tokens/day', 'Supported users', 'Score vs target', 'Letter', 'GPA', 'Source ID', 'Method note'],
+  ['Quarter index', 'Quarter', 'Cutoff', 'Phase', 'U.S. IT power MW', 'U.S. IT power GW', 'U.S. facility power MW', 'H100e audit bridge', 'H100e / IT GW', 'Reference token-equivalents / IT GW-day', 'IT-power log growth / quarter', 'Productivity log growth / quarter', 'H100e log growth / quarter', 'Personal-AI token-equivalents/day', 'Supported users', 'Score vs target', 'Letter', 'GPA', 'Source ID', 'Method note'],
   ...forecastModel.compute.quarterRows.map((quarter: ComputeQuarter) => [
     quarter.quarterIndex,
     quarter.quarter,
     quarter.cutoffDate,
     quarter.phase,
+    quarter.usItPowerMw,
+    quarter.itPowerGw,
+    quarter.usFacilityPowerMw,
     quarter.usH100e,
-    quarter.log2H100e,
-    quarter.logGrowth,
-    quarter.tokensPerDay,
+    quarter.h100ePerItGw,
+    quarter.referenceTokensPerItGwDay,
+    quarter.logGrowthItPower,
+    quarter.logGrowthProductivity,
+    quarter.logGrowthH100e,
+    quarter.personalAiTokensPerDay,
     quarter.supportedUsers,
     quarter.score,
     quarter.letter,
@@ -322,6 +354,7 @@ const computeAssumptionRows: ReportCell[][] = [
   ['Population', 'U.S. population', computeDataset.data.population.usResidents, 'people'],
   ['Population', 'Coverage target', computeDataset.data.population.targetShare, 'share of U.S. population'],
   ['Population', 'Supply gate share of selected target', forecastModel.defaults.supplyGateShareOfTarget, 'must remain 100% in the default'],
+  ['Serving', 'Fleet inference allocation', computeDataset.data.serving.fleetShareAllocatedToInference, 'share of total AI service capacity'],
   ['Serving', 'Personal-AI inference share', computeDataset.data.serving.personalAiInferenceShare, 'share of modeled inference supply'],
   ['Serving', 'Serving goodput', computeDataset.data.serving.servingGoodputMultiplier, 'multiplier'],
   ['Serving', 'H100e dense 8-bit operations', computeDataset.data.serving.dense8BitOpsPerH100eSecond, 'operations / second'],
@@ -332,6 +365,20 @@ const computeAssumptionRows: ReportCell[][] = [
     component.label,
     component.tokensPerUserDay,
     `${component.computeWeight}× compute weight; ${component.computeEquivalentTokens.toLocaleString('en-US')} compute-equivalent tokens`,
+  ]),
+];
+
+const computeSiteRows: ReportCell[][] = [
+  ['Site', 'Country', 'Current H100e', 'Current facility power MW', 'Owner', 'Users', 'Address', 'Source ID'],
+  ...(computeDataset.data.siteRegistry as ComputeSite[]).map((site) => [
+    site.name,
+    site.country,
+    site.currentH100e,
+    site.currentFacilityPowerMw,
+    site.owner,
+    site.users,
+    site.address,
+    site.sourceId,
   ]),
 ];
 
@@ -369,12 +416,13 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
   },
   compute: {
     id: 'compute',
-    title: 'Compute supply report card',
+    title: 'Service-capacity report card',
     download: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/artifacts/report-cards/personal-ai-compute-report-card.xlsx',
     sheets: [
-      sheet('Summary', 'Current supply, serving assumptions, and the base-case crossing.', computeSummaryRows),
-      sheet('Quarterly Model', 'Observed and expected U.S. operational H100-equivalent capacity by quarter.', computeQuarterRows),
+      sheet('Summary', 'Current physical supply, inference productivity, allocations, and the base-case crossing.', computeSummaryRows),
+      sheet('Quarterly Model', 'Observed and expected U.S. IT power, inference productivity, and supported-user equivalents by quarter.', computeQuarterRows),
       sheet('Assumptions', 'Population, workload, allocation, and serving assumptions.', computeAssumptionRows),
+      sheet('Site Registry', 'Epoch data-center registry used to select U.S. sites and audit the facility join.', computeSiteRows),
       sheet('Supporting Evidence', 'Independent quantitative supply diagnostics retained in their reported units; these rows do not directly enter the countdown.', computeSupportingEvidenceRows),
       sheet('Sources', 'Public sources and provenance for the compute dataset.', sourceRows(computeDataset.metadata.sources as Source[])),
     ],

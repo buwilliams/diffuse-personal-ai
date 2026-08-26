@@ -171,19 +171,58 @@ export function buildSourceResults(envelope, manifest) {
           sourceRecord: path,
           caveat: record.comparabilityNote ?? null,
         }));
-      } else if (collectionId === 'compute-capacity.quarters' && typeof record.usH100e === 'number') {
+      } else if (collectionId === 'compute-capacity.quarters' && typeof record.usItPowerMw === 'number') {
         measurements.push(measurement({
-          id: path,
-          metric: 'U.S. operational or projected AI compute',
+          id: `${path}.usItPowerMw`,
+          metric: 'U.S. operational or projected AI IT power',
+          value: record.usItPowerMw,
+          unit: 'MW IT',
+          subject: record.quarter ?? null,
+          observationDate: record.cutoffDate ?? null,
+          origin: 'derived-from-source',
+          usedInCountdown: true,
+          sourceRecord: `${path}.usItPowerMw`,
+          caveat: `${record.evidenceClass}: ${record.methodNote}`,
+        }));
+        measurements.push(measurement({
+          id: `${path}.usH100e`,
+          metric: 'U.S. operational or projected H100-equivalent audit bridge',
           value: record.usH100e,
           unit: 'H100e',
           subject: record.quarter ?? null,
           observationDate: record.cutoffDate ?? null,
           origin: 'derived-from-source',
           usedInCountdown: true,
-          sourceRecord: path,
-          caveat: `${record.evidenceClass}: ${record.methodNote}`,
+          sourceRecord: `${path}.usH100e`,
+          caveat: `${record.evidenceClass}: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric.`,
         }));
+      } else if (collectionId === 'compute-capacity.siteRegistry') {
+        if (typeof record.currentH100e === 'number') {
+          measurements.push(measurement({
+            id: `${path}.currentH100e`,
+            metric: 'Current facility H100-equivalent capacity',
+            value: record.currentH100e,
+            unit: 'H100e',
+            subject: record.name ?? null,
+            origin: 'source-reported',
+            usedInCountdown: false,
+            sourceRecord: `${path}.currentH100e`,
+            caveat: 'Facility-level registry field retained to audit the U.S. geography join and current state.',
+          }));
+        }
+        if (typeof record.currentFacilityPowerMw === 'number') {
+          measurements.push(measurement({
+            id: `${path}.currentFacilityPowerMw`,
+            metric: 'Current facility power',
+            value: record.currentFacilityPowerMw,
+            unit: 'MW facility',
+            subject: record.name ?? null,
+            origin: 'source-reported',
+            usedInCountdown: false,
+            sourceRecord: `${path}.currentFacilityPowerMw`,
+            caveat: 'Facility power includes non-IT overhead and is not substituted for IT power in the gate.',
+          }));
+        }
       } else if (collectionId === 'compute-capacity.supportingEvidence' && typeof record.value === 'number') {
         measurements.push(measurement({
           id: path,

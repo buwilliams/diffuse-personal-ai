@@ -217,33 +217,37 @@
         "id": "compute-capacity",
         "gateId": "gate2",
         "consolidatedFile": "gate2-consolidated.json",
-        "title": "U.S. operational AI-compute capacity",
-        "description": "Observed and dated projected U.S. H100-equivalent capacity, the serving envelope used to estimate supported high-autonomy users, and independently sourced build-rate and allocation diagnostics.",
+        "title": "U.S. operational AI service capacity",
+        "description": "Observed and dated projected U.S. AI IT power, inference productivity per IT GW-day, the resulting supported Personal-AI users, and independently sourced build-rate and allocation diagnostics.",
         "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 35,
+        "recordCount": 118,
         "calculation": {
           "role": "Direct Gate 2 input",
-          "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions. Global gigawatt outlooks and lab-allocation estimates remain separate supporting diagnostics unless a defensible H100e conversion is available.",
-          "countdownEffect": "Converts operational compute into supported high-autonomy users. The gate passes only when capacity can serve 100% of the selected population target.",
+          "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. H100-equivalents remain a secondary bridge for estimating reference token-equivalents per IT GW-day. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+          "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
           "pipeline": [
-            "U.S. H100-equivalent capacity",
-            "Daily personal-AI token supply",
-            "Supported users",
-            "Compute gate crossing"
+            "U.S. operational IT power",
+            "Reference token-equivalents per IT GW-day",
+            "Inference and Personal-AI allocation",
+            "Supported user-equivalents",
+            "Service-capacity gate crossing"
           ],
           "adjustableAssumptions": [
             "U.S. population",
             "Population target",
-            "Current compute",
-            "Compute acceleration",
+            "Current U.S. IT power",
+            "IT-power acceleration",
+            "Current inference productivity",
+            "Inference-productivity acceleration",
             "Tokens per user per day",
-            "Serving efficiency",
+            "Fleet inference allocation",
             "Personal-AI inference share"
           ]
         },
         "collections": [
           "quarters",
+          "siteRegistry",
           "supportingEvidence",
           "population",
           "workload",
@@ -252,7 +256,7 @@
         ],
         "update": {
           "method": "agent-assisted ETL with human review",
-          "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into U.S. H100-equivalents."
+          "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and review productivity and allocation assumptions separately from physical power. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
         }
       }
     ],

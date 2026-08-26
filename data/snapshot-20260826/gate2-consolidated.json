@@ -40,10 +40,24 @@
         "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
         "accessedAt": "2026-08-25",
         "roles": [
-          "capacity observation",
-          "capacity projection"
+          "IT-power observation",
+          "IT-power projection",
+          "H100e productivity audit bridge"
         ],
-        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry."
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-csv",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers CSV",
+        "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+        "accessedAt": "2026-08-25",
+        "roles": [
+          "site registry",
+          "geography filter",
+          "facility audit"
+        ],
+        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is facility power, not IT power, and is retained only as an audit field."
       },
       {
         "id": "gate2-us-census-bureau-population-on-a-date",
@@ -129,10 +143,11 @@
         "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
         "accessedAt": "2026-08-25",
         "roles": [
-          "capacity observation",
-          "capacity projection"
+          "IT-power observation",
+          "IT-power projection",
+          "H100e productivity audit bridge"
         ],
-        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff.",
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry.",
         "datasetIds": [
           "compute-capacity"
         ],
@@ -141,9 +156,35 @@
         "countdownRole": "direct-input",
         "resultCounts": {
           "scores": 0,
-          "measurements": 20,
+          "measurements": 40,
           "assumptions": 0,
-          "directInputs": 20
+          "directInputs": 40
+        }
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-csv",
+        "file": "gate2-sources/epoch-ai-ai-data-centers-csv-data.json",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers CSV",
+        "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+        "accessedAt": "2026-08-25",
+        "roles": [
+          "site registry",
+          "geography filter",
+          "facility audit"
+        ],
+        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is facility power, not IT power, and is retained only as an audit field.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 83,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 166,
+          "assumptions": 0,
+          "directInputs": 0
         }
       },
       {
@@ -175,8 +216,8 @@
       "compute-capacity": {
         "metadata": {
           "id": "compute-capacity",
-          "title": "U.S. operational AI-compute capacity",
-          "description": "Observed and dated projected U.S. H100-equivalent capacity, the serving envelope used to estimate supported high-autonomy users, and independently sourced build-rate and allocation diagnostics.",
+          "title": "U.S. operational AI service capacity",
+          "description": "Observed and dated projected U.S. AI IT power, inference productivity per IT GW-day, the resulting supported Personal-AI users, and independently sourced build-rate and allocation diagnostics.",
           "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
@@ -214,10 +255,24 @@
               "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
               "accessedAt": "2026-08-25",
               "roles": [
-                "capacity observation",
-                "capacity projection"
+                "IT-power observation",
+                "IT-power projection",
+                "H100e productivity audit bridge"
               ],
-              "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+              "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry."
+            },
+            {
+              "id": "gate2-epoch-ai-ai-data-centers-csv",
+              "publisher": "Epoch AI",
+              "title": "AI Data Centers CSV",
+              "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+              "accessedAt": "2026-08-25",
+              "roles": [
+                "site registry",
+                "geography filter",
+                "facility audit"
+              ],
+              "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is facility power, not IT power, and is retained only as an audit field."
             },
             {
               "id": "gate2-us-census-bureau-population-on-a-date",
@@ -233,27 +288,30 @@
           ],
           "calculation": {
             "role": "Direct Gate 2 input",
-            "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions. Global gigawatt outlooks and lab-allocation estimates remain separate supporting diagnostics unless a defensible H100e conversion is available.",
-            "countdownEffect": "Converts operational compute into supported high-autonomy users. The gate passes only when capacity can serve 100% of the selected population target.",
+            "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. H100-equivalents remain a secondary bridge for estimating reference token-equivalents per IT GW-day. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+            "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
             "pipeline": [
-              "U.S. H100-equivalent capacity",
-              "Daily personal-AI token supply",
-              "Supported users",
-              "Compute gate crossing"
+              "U.S. operational IT power",
+              "Reference token-equivalents per IT GW-day",
+              "Inference and Personal-AI allocation",
+              "Supported user-equivalents",
+              "Service-capacity gate crossing"
             ],
             "adjustableAssumptions": [
               "U.S. population",
               "Population target",
-              "Current compute",
-              "Compute acceleration",
+              "Current U.S. IT power",
+              "IT-power acceleration",
+              "Current inference productivity",
+              "Inference-productivity acceleration",
               "Tokens per user per day",
-              "Serving efficiency",
+              "Fleet inference allocation",
               "Personal-AI inference share"
             ]
           },
           "update": {
             "method": "agent-assisted ETL with human review",
-            "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into U.S. H100-equivalents."
+            "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and review productivity and allocation assumptions separately from physical power. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
           }
         },
         "data": {
@@ -266,7 +324,9 @@
               "includedSites": 8,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 473,
+              "usFacilityPowerMw": 603
             },
             {
               "quarterIndex": 2,
@@ -276,7 +336,9 @@
               "includedSites": 13,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 887,
+              "usFacilityPowerMw": 1121
             },
             {
               "quarterIndex": 3,
@@ -286,7 +348,9 @@
               "includedSites": 16,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1335,
+              "usFacilityPowerMw": 1676
             },
             {
               "quarterIndex": 4,
@@ -296,27 +360,33 @@
               "includedSites": 18,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1713,
+              "usFacilityPowerMw": 2165
             },
             {
               "quarterIndex": 5,
               "quarter": "2025-Q1",
               "cutoffDate": "2025-03-31",
               "usH100e": 1351240,
-              "includedSites": 20,
+              "includedSites": 21,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 2267.32971,
+              "usFacilityPowerMw": 2874
             },
             {
               "quarterIndex": 6,
               "quarter": "2025-Q2",
               "cutoffDate": "2025-06-30",
               "usH100e": 2386876,
-              "includedSites": 23,
+              "includedSites": 24,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3342.32971,
+              "usFacilityPowerMw": 4187
             },
             {
               "quarterIndex": 7,
@@ -326,7 +396,9 @@
               "includedSites": 28,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3772.32971,
+              "usFacilityPowerMw": 4764
             },
             {
               "quarterIndex": 8,
@@ -336,7 +408,9 @@
               "includedSites": 34,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 5642.32971,
+              "usFacilityPowerMw": 7211
             },
             {
               "quarterIndex": 9,
@@ -346,7 +420,9 @@
               "includedSites": 40,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 6620.32971,
+              "usFacilityPowerMw": 8454.2
             },
             {
               "quarterIndex": 10,
@@ -356,7 +432,9 @@
               "includedSites": 54,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 10534.32971,
+              "usFacilityPowerMw": 13559.8
             },
             {
               "quarterIndex": 11,
@@ -366,7 +444,9 @@
               "includedSites": 58,
               "evidenceClass": "observed_qtd",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before evidence cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_qtd: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 11879.32971,
+              "usFacilityPowerMw": 15229.8
             },
             {
               "quarterIndex": 12,
@@ -376,7 +456,9 @@
               "includedSites": 64,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 14026.32971,
+              "usFacilityPowerMw": 18051.3
             },
             {
               "quarterIndex": 13,
@@ -386,7 +468,9 @@
               "includedSites": 65,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 16045.32971,
+              "usFacilityPowerMw": 20792.8
             },
             {
               "quarterIndex": 14,
@@ -396,7 +480,9 @@
               "includedSites": 65,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 16634.32971,
+              "usFacilityPowerMw": 21589.8
             },
             {
               "quarterIndex": 15,
@@ -406,7 +492,9 @@
               "includedSites": 67,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 17451.32971,
+              "usFacilityPowerMw": 22700.2
             },
             {
               "quarterIndex": 16,
@@ -416,7 +504,9 @@
               "includedSites": 67,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 19777.32971,
+              "usFacilityPowerMw": 25804.3
             },
             {
               "quarterIndex": 17,
@@ -426,7 +516,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 23626.32971,
+              "usFacilityPowerMw": 30729.3
             },
             {
               "quarterIndex": 18,
@@ -436,7 +528,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 26122.32971,
+              "usFacilityPowerMw": 33779.3
             },
             {
               "quarterIndex": 19,
@@ -446,7 +540,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 26757.32971,
+              "usFacilityPowerMw": 34541.3
             },
             {
               "quarterIndex": 20,
@@ -456,7 +552,924 @@
               "includedSites": 72,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 31674.32971,
+              "usFacilityPowerMw": 41462.3
+            }
+          ],
+          "siteRegistry": [
+            {
+              "id": "Colossus 2",
+              "name": "Colossus 2",
+              "country": "United States",
+              "currentH100e": 1111672.5618999496,
+              "currentFacilityPowerMw": 946,
+              "owner": "SpaceXAI #confident",
+              "users": "Anthropic #confident, Cursor #confident, SpaceXAI #confident",
+              "address": "5420 Tulane Rd, Memphis, TN 38109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Fairwater Atlanta",
+              "name": "Microsoft Fairwater Atlanta",
+              "country": "United States",
+              "currentH100e": 768768.7220818596,
+              "currentFacilityPowerMw": 636,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #likely",
+              "address": "1435 Hwy 54 W, Fayetteville, GA 30214",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Pryor (North)",
+              "name": "Google Pryor (North)",
+              "country": "United States",
+              "currentH100e": 763011.622031329,
+              "currentFacilityPowerMw": 368,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "4581 Webb St, Pryor, OK 74361",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Anthropic-Amazon New Carlisle",
+              "name": "Anthropic-Amazon New Carlisle",
+              "country": "United States",
+              "currentH100e": 685912.076806468,
+              "currentFacilityPowerMw": 910,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #confident",
+              "address": "55001 Larrison Blvd, New Carlisle, IN 46552",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Prometheus",
+              "name": "Meta Prometheus",
+              "country": "United States",
+              "currentH100e": 677109.6513390602,
+              "currentFacilityPowerMw": 562,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1 Community Cir, New Albany, OH 43054",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google New Albany",
+              "name": "Google New Albany",
+              "country": "United States",
+              "currentH100e": 616472.9661445174,
+              "currentFacilityPowerMw": 453,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "1101 Beech Rd SW, New Albany, OH 43054",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Abilene",
+              "name": "OpenAI Stargate Abilene",
+              "country": "United States",
+              "currentH100e": 509348.15563415864,
+              "currentFacilityPowerMw": 421,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": "5502 Spinks Rd, Abilene, TX 79601",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Fairwater Wisconsin",
+              "name": "Microsoft Fairwater Wisconsin",
+              "country": "United States",
+              "currentH100e": 445679.63617988885,
+              "currentFacilityPowerMw": 369,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #likely",
+              "address": "4800 90th St, Mount Pleasant, WI 53403",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Columbus",
+              "name": "Google Columbus",
+              "country": "United States",
+              "currentH100e": 408792.3193532087,
+              "currentFacilityPowerMw": 303,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "5076 S High St, Columbus, OH 43207",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Mesa",
+              "name": "Google Mesa",
+              "country": "United States",
+              "currentH100e": 343102.57705912075,
+              "currentFacilityPowerMw": 183,
+              "owner": "Google #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Council Bluffs (East)",
+              "name": "Google Council Bluffs (East)",
+              "country": "United States",
+              "currentH100e": 289034.86609398684,
+              "currentFacilityPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "10410 Bunge Ave, Council Bluffs, IA 51503",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Lincoln",
+              "name": "Google Lincoln",
+              "country": "United States",
+              "currentH100e": 287518.9489641233,
+              "currentFacilityPowerMw": 141,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "5475 Cloud Ct, Lincoln, NE 68514",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Bristow",
+              "name": "Google Bristow",
+              "country": "United States",
+              "currentH100e": 283675.08842849924,
+              "currentFacilityPowerMw": 279,
+              "owner": "Google",
+              "users": "Google DeepMind",
+              "address": "13001 Rollins Ford Road, Bristow, VA 20136",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "DayOne Nusajaya",
+              "name": "DayOne Nusajaya",
+              "country": "Malaysia",
+              "currentH100e": 281670.4396159676,
+              "currentFacilityPowerMw": 240,
+              "owner": null,
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Colossus 1",
+              "name": "Colossus 1",
+              "country": "United States",
+              "currentH100e": 275795.85649317835,
+              "currentFacilityPowerMw": 340,
+              "owner": "SpaceXAI #confident",
+              "users": "Anthropic #confident",
+              "address": "3231 Riverport Rd, Memphis, TN 38109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Omaha",
+              "name": "Google Omaha",
+              "country": "United States",
+              "currentH100e": 267812.02627589693,
+              "currentFacilityPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "11110 State St, Omaha, NE 68142",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Denton TX",
+              "name": "CoreWeave Denton TX",
+              "country": "United States",
+              "currentH100e": 252652.85497726125,
+              "currentFacilityPowerMw": 262,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #likely",
+              "address": "8171 Jim Christal Rd, Denton, TX 76207",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Kansas City East",
+              "name": "Google Kansas City East",
+              "country": "United States",
+              "currentH100e": 244567.9636179889,
+              "currentFacilityPowerMw": 105,
+              "owner": "Google #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 1",
+              "name": "QTS Richmond 1",
+              "country": "United States",
+              "currentH100e": 242546.7407781708,
+              "currentFacilityPowerMw": 238,
+              "owner": null,
+              "users": null,
+              "address": "6000 Technology Blvd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Rosemount",
+              "name": "Meta Rosemount",
+              "country": "United States",
+              "currentH100e": 215765.5381505811,
+              "currentFacilityPowerMw": 178,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1772-2396 145th St, Rosemount, MN 55068, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Amazon Madison Mega Site",
+              "name": "Amazon Madison Mega Site",
+              "country": "United States",
+              "currentH100e": 214348.14354550533,
+              "currentFacilityPowerMw": 284,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "Amazon Data Services Inc, Madison Mega Site Nissan Parkway and Highway 22 Canton, Mississippi Madison County",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Goodyear",
+              "name": "Microsoft Goodyear",
+              "country": "United States",
+              "currentH100e": 205154.11824153614,
+              "currentFacilityPowerMw": 202,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #confident",
+              "address": "14250 W Broadway Rd, Goodyear, AZ 85338",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Jeffersonville",
+              "name": "Meta Jeffersonville",
+              "country": "United States",
+              "currentH100e": 203132.89540171804,
+              "currentFacilityPowerMw": 178,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "500 8th St, Jeffersonville, IN 47130, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google The Dalles",
+              "name": "Google The Dalles",
+              "country": "United States",
+              "currentH100e": 201616.97827185446,
+              "currentFacilityPowerMw": 154,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "3500 River Rd, The Dalles, OR",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Midlothian",
+              "name": "Google Midlothian",
+              "country": "United States",
+              "currentH100e": 191005.5583628095,
+              "currentFacilityPowerMw": 103,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "3250 Railport Parkway, Midlothian, TX 76065",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 2",
+              "name": "QTS Richmond 2",
+              "country": "United States",
+              "currentH100e": 182920.66700353715,
+              "currentFacilityPowerMw": 180,
+              "owner": null,
+              "users": null,
+              "address": "6030–6070 Technology Blvd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 3",
+              "name": "QTS Richmond 3",
+              "country": "United States",
+              "currentH100e": 174835.77564426477,
+              "currentFacilityPowerMw": 144,
+              "owner": null,
+              "users": null,
+              "address": "3525–3543 Portugee Rd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Montgomery",
+              "name": "Meta Montgomery",
+              "country": "United States",
+              "currentH100e": 174517.43304699342,
+              "currentFacilityPowerMw": 153,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Co Rd 42, Montgomery, AL 36105, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Kuna",
+              "name": "Meta Kuna",
+              "country": "United States",
+              "currentH100e": 173319.85851440122,
+              "currentFacilityPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "601 Kuna Mora Rd,  Kuna ID 83634",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Temple",
+              "name": "Meta Temple",
+              "country": "United States",
+              "currentH100e": 173247.6719844078,
+              "currentFacilityPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "2310 Eberhardt Rd, Temple, TX 76504",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Cheyenne",
+              "name": "Meta Cheyenne",
+              "country": "United States",
+              "currentH100e": 172814.5528044467,
+              "currentFacilityPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Cheyenne, WY 82007, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Amazon Ridgeland",
+              "name": "Amazon Ridgeland",
+              "country": "United States",
+              "currentH100e": 171298.6356745831,
+              "currentFacilityPowerMw": 228,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "1626 County Line Road Ridgeland, Mississippi",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Huntsville",
+              "name": "Meta Huntsville",
+              "country": "United States",
+              "currentH100e": 166760.9903991915,
+              "currentFacilityPowerMw": 146,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "5400 Prosperity Dr NW, Toney, AL",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Aiken",
+              "name": "Meta Aiken",
+              "country": "United States",
+              "currentH100e": 161697.82718544718,
+              "currentFacilityPowerMw": 142,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "7601 State Hwy 105, Trenton, SC 29847, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Coreweave Helios",
+              "name": "Coreweave Helios",
+              "country": "United States",
+              "currentH100e": 159551.768236855,
+              "currentFacilityPowerMw": 132,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "984 County Road 112, Afton, TX 79220",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Arcola",
+              "name": "Google Arcola",
+              "country": "United States",
+              "currentH100e": 157150.07579585648,
+              "currentFacilityPowerMw": 77,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "42575 Arcola Blvd, Sterling, VA 20166",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Project Osmium",
+              "name": "Microsoft Project Osmium",
+              "country": "United States",
+              "currentH100e": 155634.15866599293,
+              "currentFacilityPowerMw": 190,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #speculative",
+              "address": "5855 SW Kerry St, Cumming, IA 50061",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Storey County",
+              "name": "Google Storey County",
+              "country": "United States",
+              "currentH100e": 153612.93582617483,
+              "currentFacilityPowerMw": 161,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Eagle Mountain",
+              "name": "Meta Eagle Mountain",
+              "country": "United States",
+              "currentH100e": 151354.21930267813,
+              "currentFacilityPowerMw": 133,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1275 N Community Cir, Eagle Mountain, UT 84005",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Lancaster",
+              "name": "Google Lancaster",
+              "country": "United States",
+              "currentH100e": 130368.8731682668,
+              "currentFacilityPowerMw": 137,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "105 Whiley Rd, Lancaster, OH 43130",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta-QTS Hillsboro 2",
+              "name": "Meta-QTS Hillsboro 2",
+              "country": "United States",
+              "currentH100e": 123839,
+              "currentFacilityPowerMw": 180,
+              "owner": "Meta #likely",
+              "users": "Meta #likely",
+              "address": "4755 NE Huffman St, Hillsboro, OR 97124",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Waltham Cross",
+              "name": "Google Waltham Cross",
+              "country": "United Kingdom",
+              "currentH100e": 123799.89893885801,
+              "currentFacilityPowerMw": 88,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "Land at Maxwell's Farm West, Great Cambridge Road, Cheshunt, EN8 8XH",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "VNET Bayin Ulanqab",
+              "name": "VNET Bayin Ulanqab",
+              "country": "China",
+              "currentH100e": 122789.28751894896,
+              "currentFacilityPowerMw": 221,
+              "owner": "VNET #confident",
+              "users": "ByteDance #speculative",
+              "address": "Bayin, Ulanqab, China",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Huawei Horinger",
+              "name": "Huawei Horinger",
+              "country": "China",
+              "currentH100e": 117230.92470944922,
+              "currentFacilityPowerMw": 241.8,
+              "owner": "Huawei #confident",
+              "users": null,
+              "address": "Huawei, Horinger, China",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Red Oak",
+              "name": "Google Red Oak",
+              "country": "United States",
+              "currentH100e": 108135.42193026781,
+              "currentFacilityPowerMw": 77,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "330 Austin Blvd, Red Oak, TX 75154",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Gallatin",
+              "name": "Meta Gallatin",
+              "country": "United States",
+              "currentH100e": 99545.22486104093,
+              "currentFacilityPowerMw": 87,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1 Meta Lp, Gallatin, TN 37066",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Los Lunas",
+              "name": "Meta Los Lunas",
+              "country": "United States",
+              "currentH100e": 99545.22486104093,
+              "currentFacilityPowerMw": 87,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "4250 Messenger Lp, Los Lunas, NM 87031",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Ellendale ND",
+              "name": "CoreWeave Ellendale ND",
+              "country": "United States",
+              "currentH100e": 93481.55634158666,
+              "currentFacilityPowerMw": 68,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "9685 87th Ave SE, Ellendale, ND 58436",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Sarpy",
+              "name": "Meta Sarpy",
+              "country": "United States",
+              "currentH100e": 91965.63921172309,
+              "currentFacilityPowerMw": 80,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "14436-14998 Fairview Rd, Springfield, NE 68059, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Chester VA",
+              "name": "CoreWeave Chester VA",
+              "country": "United States",
+              "currentH100e": 88428.49924204143,
+              "currentFacilityPowerMw": 82,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "1401 Meadowville Technology Parkway, Chester, VA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Oracle Batam",
+              "name": "Oracle Batam",
+              "country": "Indonesia",
+              "currentH100e": 84386.05356240526,
+              "currentFacilityPowerMw": 72,
+              "owner": "Oracle #likely",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "AWS Berwick",
+              "name": "AWS Berwick",
+              "country": "United States",
+              "currentH100e": 81354.21930267812,
+              "currentFacilityPowerMw": 108,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "1125 Electron Ave, Berwick, PA 18603",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Papillion",
+              "name": "Google Papillion",
+              "country": "United States",
+              "currentH100e": 80343.60788276908,
+              "currentFacilityPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "14651-15249 Gold Coast Rd 68138 Papillion Nebraska, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Marble NC",
+              "name": "CoreWeave Marble NC",
+              "country": "United States",
+              "currentH100e": 78827.6907529055,
+              "currentFacilityPowerMw": 65,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "155 Palmer Ln, Marble, NC 28905",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft SAT40",
+              "name": "Microsoft SAT40",
+              "country": "United States",
+              "currentH100e": 64679.13087417888,
+              "currentFacilityPowerMw": 75,
+              "owner": "Microsoft #confident",
+              "users": null,
+              "address": "15000 Lambda Drive, San Antonio, TX 78245",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "STACK Infrastructure NVA02",
+              "name": "STACK Infrastructure NVA02",
+              "country": "United States",
+              "currentH100e": 61141.99090449722,
+              "currentFacilityPowerMw": 85,
+              "owner": null,
+              "users": null,
+              "address": "9590 Hornbaker Rd, Manassas, VA 20109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Anthropic Lake Mariner",
+              "name": "Anthropic Lake Mariner",
+              "country": "United States",
+              "currentH100e": 58564.93178372915,
+              "currentFacilityPowerMw": 42,
+              "owner": "AI XPV Platform #confident",
+              "users": "Anthropic #likely",
+              "address": "7725 Lake Rd, Barker, NY 14012",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft-Nebius New Jersey",
+              "name": "Microsoft-Nebius New Jersey",
+              "country": "United States",
+              "currentH100e": 56846.89236988378,
+              "currentFacilityPowerMw": 50,
+              "owner": "Nebius #confident",
+              "users": "Microsoft #likely",
+              "address": "3963 S Lincoln Ave, Vineland, New Jersey",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Norway",
+              "name": "CoreWeave Norway",
+              "country": "Norway",
+              "currentH100e": 50773.11773623042,
+              "currentFacilityPowerMw": 42,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "Stølevegen 39, 4715 Øvrebø, Norway",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Southgate Melbourne",
+              "name": "Southgate Melbourne",
+              "country": "Australia",
+              "currentH100e": 46488.12531581607,
+              "currentFacilityPowerMw": 41,
+              "owner": "Firmus #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Stream Phoenix",
+              "name": "Stream Phoenix",
+              "country": "United States",
+              "currentH100e": 46134.4113188479,
+              "currentFacilityPowerMw": 64,
+              "owner": null,
+              "users": null,
+              "address": "2950 S. Litchfield Road",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft SAT14",
+              "name": "Microsoft SAT14",
+              "country": "United States",
+              "currentH100e": 45174.33046993431,
+              "currentFacilityPowerMw": 47,
+              "owner": "Microsoft #confident",
+              "users": null,
+              "address": "3545 Wiseman Boulevard, San Antonio, TX 78251",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Vantage TX1",
+              "name": "Vantage TX1",
+              "country": "United States",
+              "currentH100e": 38706.417382516425,
+              "currentFacilityPowerMw": 32,
+              "owner": null,
+              "users": null,
+              "address": "14720 Omicron Dr, San Antonio, TX 78245",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Dalton 1 & 2",
+              "name": "CoreWeave Dalton 1 & 2",
+              "country": "United States",
+              "currentH100e": 32238.504295098533,
+              "currentFacilityPowerMw": 28,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "2205 Industrial South Rd, Dalton, GA, 30721",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Alibaba Zhangbei",
+              "name": "Alibaba Zhangbei",
+              "country": "China",
+              "currentH100e": 31884.79029813037,
+              "currentFacilityPowerMw": 169,
+              "owner": "Alibaba #confident",
+              "users": "Alibaba #likely",
+              "address": "Alibaba Zhangbei Yun Calculation Data Center, Zhangbei County, Zhangjiakou, Hebei, China, 076471",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Start Campus Sines Data Campus",
+              "name": "Start Campus Sines Data Campus",
+              "country": "Portugal",
+              "currentH100e": 31834.259727134915,
+              "currentFacilityPowerMw": 33,
+              "owner": "Nscale #confident",
+              "users": "Microsoft #confident",
+              "address": "Start Campus - Sustainable Data Center Services, Sines, Portugal",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "xAI QTS Atlanta",
+              "name": "xAI QTS Atlanta",
+              "country": "United States",
+              "currentH100e": 11470.43961596766,
+              "currentFacilityPowerMw": 17.32971,
+              "owner": "SpaceXAI #confident",
+              "users": "SpaceXAI #confident",
+              "address": "1025 Jefferson Street NW, Atlanta, GA 30318",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Muskogee OK",
+              "name": "CoreWeave Muskogee OK",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "1525 W 43rd St S, Muskogee, OK 74401, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Crusoe Abilene Expansion",
+              "name": "Crusoe Abilene Expansion",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Microsoft #confident",
+              "users": "Microsoft #likely",
+              "address": "5502 Spinks Rd, Abilene, TX 79601",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Goodnight",
+              "name": "Goodnight",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Google #speculative",
+              "users": "Google DeepMind #speculative",
+              "address": "10001 Lima Rd, Claude, TX 79019",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Cedar Rapids",
+              "name": "Google Cedar Rapids",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "5800 EDGEWOOD RD SW CEDAR RAPIDS, IA 52404",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Fort Wayne",
+              "name": "Google Fort Wayne",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "6015 Adams Center Road, Fort Wayne, IN 46806",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Hyperion",
+              "name": "Meta Hyperion",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Holly Ridge, LA 71269",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Narvik Norway",
+              "name": "Microsoft Narvik Norway",
+              "country": "Norway",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Nscale #likely",
+              "users": "Microsoft #likely",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Lordstown",
+              "name": "OpenAI Stargate Lordstown",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Softbank #confident",
+              "users": "OpenAI #confident",
+              "address": "2300 Hallock Young Rd, Warren, OH 44481",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Michigan",
+              "name": "OpenAI Stargate Michigan",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Milam",
+              "name": "OpenAI Stargate Milam",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Softbank #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate New Mexico",
+              "name": "OpenAI Stargate New Mexico",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Shackelford",
+              "name": "OpenAI Stargate Shackelford",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": "175 Private Road 1604, Abilene, TX 79601, Shackelford County",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate UAE",
+              "name": "OpenAI Stargate UAE",
+              "country": "United Arab Emirates",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "G42 #likely",
+              "users": "OpenAI #confident",
+              "address": "Nexus L&T Project Office, Al Bihouth, Al Dhafrah, Abu Dhabi, United Arab Emirates",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Wisconsin",
+              "name": "OpenAI Stargate Wisconsin",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Cedar Rapids",
+              "name": "QTS Cedar Rapids",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": null,
+              "users": null,
+              "address": "6200 76th Ave SW, Fairfax, IA 52228",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Eagle Mountain",
+              "name": "QTS Eagle Mountain",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentFacilityPowerMw": 0,
+              "owner": null,
+              "users": "Meta #speculative",
+              "address": "652 E Hyperscale Way, Eagle Mountain, UT 84013",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
             }
           ],
           "supportingEvidence": [

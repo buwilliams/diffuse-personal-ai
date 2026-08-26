@@ -10,7 +10,7 @@ The forecast is best organized as two linked models:
 1. **Supply and demand:** can the available inference fleet economically serve the token intensity created by agentic use?
 2. **Model-harness capability:** can an AI system perform economically valuable, closed-loop stewardship for long enough and reliably enough to replace human task execution?
 
-The two earlier success-compression metrics sit inside these models rather than constituting the models themselves. Operational H100-equivalent capacity is a supply variable. Model-plus-harness task horizon is a capability variable. Adoption is the dependent outcome.
+The two earlier success-compression metrics sit inside these models rather than constituting the models themselves. Operational U.S. AI IT power and reference-token productivity are the physical and technical supply variables. Model-plus-harness task horizon is a capability variable. Adoption is the dependent outcome.
 
 The central forecasting condition is:
 
@@ -22,18 +22,22 @@ Distribution, trust, permissions, regulation, and habit determine how quickly te
 
 ### Supply
 
-Supply is not merely chips or nameplate power. It is the daily volume of compute-equivalent tokens that an operational fleet can deliver under a specified service level:
+Supply is not merely chips or nameplate facility power. It is the daily volume of reference token-equivalents that an operational fleet can deliver under a specified service level:
 
-> `S(t) = Cops(t) × F_H100_day × s × u × g(t, workload, SLA) ÷ q(t, workload)`
+> `S_PAI(t) = P_IT(t) × η_ref(t) × s_inference(t) × s_PAI(t)`
 
 where:
 
-- `Cops(t)` is operational accelerator capacity in H100-equivalents;
-- `F_H100_day` is the daily reference compute represented by one H100-equivalent;
-- `s` is the share allocated to inference rather than training or other work;
-- `u` is sustained fleet utilization;
-- `g` is workload- and service-level-specific serving goodput relative to the reference fleet; and
-- `q` is compute per compute-equivalent token, including active parameters and serving overhead.
+- `P_IT(t)` is operational U.S. AI IT power in GW, excluding facility overhead;
+- `η_ref(t)` is reference token-equivalents served per IT GW-day under the disclosed model-size, utilization, overhead, latency, and goodput envelope;
+- `s_inference(t)` is the share of total AI service capacity allocated to inference rather than training, research, or development; and
+- `s_PAI(t)` is the share of inference allocated to the modeled Personal-AI cohort.
+
+The current source data also report H100-equivalents. The model retains them only as a transparent calibration bridge:
+
+> `η_ref(t) = [H100e(t) ÷ P_IT(t)] × reference tokens/H100e-day`
+
+This lets the model separate physical buildout from inference productivity. H100e is not the headline gate unit and facility MW is never substituted for IT MW.
 
 This makes four distinctions essential:
 
@@ -42,7 +46,7 @@ This makes four distinctions essential:
 - single-chip performance versus the deployed share of the fleet;
 - raw billed tokens versus compute-equivalent tokens.
 
-Cerebras CS-4 and OpenAI's Jalapeño therefore enter through `g` and deployment share, not as blanket multipliers on the entire global fleet. Cerebras describes CS-4 as up to 30× faster than production GPU systems; OpenAI reports Jalapeño's much larger gains at a matched, highly interactive operating point but a smaller 1.5–1.9× peak work-per-watt advantage. These are valuable serving observations with different denominators, not interchangeable capacity claims. [Cerebras CS-4](https://www.cerebras.ai/cs4), [OpenAI Jalapeño](https://openai.com/index/jalapeno-first-results/)
+Cerebras CS-4 and OpenAI's Jalapeño therefore enter through measured, deployed `η_ref` at a defined service level, not as blanket multipliers on the entire fleet. Cerebras describes CS-4 as up to 30× faster than production GPU systems; OpenAI reports Jalapeño's much larger gains at a matched, highly interactive operating point but a smaller 1.5–1.9× peak work-per-watt advantage. These are valuable serving observations with different denominators, not interchangeable capacity claims. [Cerebras CS-4](https://www.cerebras.ai/cs4), [OpenAI Jalapeño](https://openai.com/index/jalapeno-first-results/)
 
 ### Demand
 
@@ -219,8 +223,8 @@ A new release should not require a new framework:
 
 - **New model or harness:** add the system configuration and its stewardship episodes, component benchmarks, costs, tokens, human attention, and failures.
 - **New agent product:** add shipped permissions, tools, persistence, memory, scheduling, availability, and approval policy; do not infer performance from the feature list.
-- **New chip or serving method:** add workload-specific throughput, latency, power, service-level, deployment date, and deployed share.
-- **New data-center evidence:** add the dated milestone; move capacity into operational supply only after commissioning evidence.
+- **New chip or serving method:** add workload-specific throughput, latency, power, service level, deployment date, and deployed share; update reference-token productivity only when the evidence is commensurable.
+- **New data-center evidence:** add the dated IT-power milestone; move capacity into observed operational supply only after commissioning evidence.
 - **New usage evidence:** update archetype counts and realized token intensity without overwriting prior observations.
 
-The forecast can then be recomputed from two evolving quantities: the distribution of `ESH` across relevant tasks and the ratio of available serving supply to capability-induced token demand.
+The forecast can then be recomputed from the distribution of `ESH` across relevant tasks and supported user-equivalents produced by operational IT power, reference-token productivity, allocation, and capability-induced token demand.

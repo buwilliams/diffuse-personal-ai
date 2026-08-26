@@ -2,7 +2,7 @@
   "metadata": {
     "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
     "title": "AI Data Center Timelines CSV",
-    "description": "Normalized gate 2 · compute supply data attributable to this source.",
+    "description": "Normalized U.S. operational IT-power and secondary H100-equivalent audit data attributable to Epoch AI timelines.",
     "schemaVersion": "1.2.0",
     "snapshotDate": "2026-08-26",
     "asOfDate": "2026-08-25",
@@ -14,10 +14,11 @@
         "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
         "accessedAt": "2026-08-25",
         "roles": [
-          "capacity observation",
-          "capacity projection"
+          "IT-power observation",
+          "IT-power projection",
+          "H100e productivity audit bridge"
         ],
-        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff."
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry."
       }
     ],
     "update": {
@@ -30,17 +31,34 @@
     "results": {
       "status": "reported-measurements",
       "countdownRole": "direct-input",
-      "summary": "20 explicit numeric measurement(s); 20 item(s) affect the countdown.",
+      "summary": "40 explicit numeric measurement(s); 40 item(s) affect the countdown.",
       "counts": {
         "scores": 0,
-        "measurements": 20,
+        "measurements": 40,
         "assumptions": 0,
-        "directInputs": 20
+        "directInputs": 40
       },
       "measurements": [
         {
-          "id": "compute-capacity.quarters.2024-Q1",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2024-Q1.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 473,
+          "unit": "MW IT",
+          "displayValue": "473 MW IT",
+          "subject": "2024-Q1",
+          "observationDate": "2024-03-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2024-Q1.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2024-Q1.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 245664,
           "unit": "H100e",
           "displayValue": "245,664 H100e",
@@ -52,12 +70,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2024-Q1",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2024-Q1.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2024-Q2",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2024-Q2.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 887,
+          "unit": "MW IT",
+          "displayValue": "887 MW IT",
+          "subject": "2024-Q2",
+          "observationDate": "2024-06-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2024-Q2.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2024-Q2.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 475238,
           "unit": "H100e",
           "displayValue": "475,238 H100e",
@@ -69,12 +104,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2024-Q2",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2024-Q2.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2024-Q3",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2024-Q3.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 1335,
+          "unit": "MW IT",
+          "displayValue": "1,335 MW IT",
+          "subject": "2024-Q3",
+          "observationDate": "2024-09-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2024-Q3.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2024-Q3.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 722180,
           "unit": "H100e",
           "displayValue": "722,180 H100e",
@@ -86,12 +138,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2024-Q3",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2024-Q3.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2024-Q4",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2024-Q4.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 1713,
+          "unit": "MW IT",
+          "displayValue": "1,713 MW IT",
+          "subject": "2024-Q4",
+          "observationDate": "2024-12-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2024-Q4.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2024-Q4.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 1012483,
           "unit": "H100e",
           "displayValue": "1,012,483 H100e",
@@ -103,12 +172,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2024-Q4",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2024-Q4.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2025-Q1",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2025-Q1.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 2267.32971,
+          "unit": "MW IT",
+          "displayValue": "2,267.32971 MW IT",
+          "subject": "2025-Q1",
+          "observationDate": "2025-03-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2025-Q1.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2025-Q1.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 1351240,
           "unit": "H100e",
           "displayValue": "1,351,240 H100e",
@@ -120,12 +206,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2025-Q1",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2025-Q1.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2025-Q2",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2025-Q2.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 3342.32971,
+          "unit": "MW IT",
+          "displayValue": "3,342.32971 MW IT",
+          "subject": "2025-Q2",
+          "observationDate": "2025-06-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2025-Q2.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2025-Q2.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 2386876,
           "unit": "H100e",
           "displayValue": "2,386,876 H100e",
@@ -137,12 +240,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2025-Q2",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2025-Q2.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2025-Q3",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2025-Q3.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 3772.32971,
+          "unit": "MW IT",
+          "displayValue": "3,772.32971 MW IT",
+          "subject": "2025-Q3",
+          "observationDate": "2025-09-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2025-Q3.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2025-Q3.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 3139660,
           "unit": "H100e",
           "displayValue": "3,139,660 H100e",
@@ -154,12 +274,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2025-Q3",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2025-Q3.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2025-Q4",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2025-Q4.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 5642.32971,
+          "unit": "MW IT",
+          "displayValue": "5,642.32971 MW IT",
+          "subject": "2025-Q4",
+          "observationDate": "2025-12-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2025-Q4.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2025-Q4.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 5291375,
           "unit": "H100e",
           "displayValue": "5,291,375 H100e",
@@ -171,12 +308,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2025-Q4",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2025-Q4.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2026-Q1",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2026-Q1.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 6620.32971,
+          "unit": "MW IT",
+          "displayValue": "6,620.32971 MW IT",
+          "subject": "2026-Q1",
+          "observationDate": "2026-03-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2026-Q1.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2026-Q1.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 6301294,
           "unit": "H100e",
           "displayValue": "6,301,294 H100e",
@@ -188,12 +342,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2026-Q1",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2026-Q1.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2026-Q2",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2026-Q2.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 10534.32971,
+          "unit": "MW IT",
+          "displayValue": "10,534.32971 MW IT",
+          "subject": "2026-Q2",
+          "observationDate": "2026-06-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2026-Q2.usItPowerMw",
+          "caveat": "observed_quarter_end: observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2026-Q2.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 11223855,
           "unit": "H100e",
           "displayValue": "11,223,855 H100e",
@@ -205,12 +376,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2026-Q2",
-          "caveat": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2026-Q2.usH100e",
+          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2026-Q3",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2026-Q3.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 11879.32971,
+          "unit": "MW IT",
+          "displayValue": "11,879.32971 MW IT",
+          "subject": "2026-Q3",
+          "observationDate": "2026-08-26",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2026-Q3.usItPowerMw",
+          "caveat": "observed_qtd: observed_qtd: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2026-Q3.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 13524006,
           "unit": "H100e",
           "displayValue": "13,524,006 H100e",
@@ -222,12 +410,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2026-Q3",
-          "caveat": "observed_qtd: Latest published state on or before evidence cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2026-Q3.usH100e",
+          "caveat": "observed_qtd: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2026-Q4",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2026-Q4.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 14026.32971,
+          "unit": "MW IT",
+          "displayValue": "14,026.32971 MW IT",
+          "subject": "2026-Q4",
+          "observationDate": "2026-12-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2026-Q4.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2026-Q4.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 17399770,
           "unit": "H100e",
           "displayValue": "17,399,770 H100e",
@@ -239,12 +444,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2026-Q4",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2026-Q4.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2027-Q1",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2027-Q1.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 16045.32971,
+          "unit": "MW IT",
+          "displayValue": "16,045.32971 MW IT",
+          "subject": "2027-Q1",
+          "observationDate": "2027-03-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2027-Q1.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2027-Q1.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 20368064,
           "unit": "H100e",
           "displayValue": "20,368,064 H100e",
@@ -256,12 +478,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2027-Q1",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2027-Q1.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2027-Q2",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2027-Q2.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 16634.32971,
+          "unit": "MW IT",
+          "displayValue": "16,634.32971 MW IT",
+          "subject": "2027-Q2",
+          "observationDate": "2027-06-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2027-Q2.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2027-Q2.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 21439292,
           "unit": "H100e",
           "displayValue": "21,439,292 H100e",
@@ -273,12 +512,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2027-Q2",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2027-Q2.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2027-Q3",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2027-Q3.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 17451.32971,
+          "unit": "MW IT",
+          "displayValue": "17,451.32971 MW IT",
+          "subject": "2027-Q3",
+          "observationDate": "2027-09-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2027-Q3.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2027-Q3.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 23242366,
           "unit": "H100e",
           "displayValue": "23,242,366 H100e",
@@ -290,12 +546,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2027-Q3",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2027-Q3.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2027-Q4",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2027-Q4.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 19777.32971,
+          "unit": "MW IT",
+          "displayValue": "19,777.32971 MW IT",
+          "subject": "2027-Q4",
+          "observationDate": "2027-12-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2027-Q4.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2027-Q4.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 30057691,
           "unit": "H100e",
           "displayValue": "30,057,691 H100e",
@@ -307,12 +580,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2027-Q4",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2027-Q4.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2028-Q1",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2028-Q1.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 23626.32971,
+          "unit": "MW IT",
+          "displayValue": "23,626.32971 MW IT",
+          "subject": "2028-Q1",
+          "observationDate": "2028-03-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2028-Q1.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2028-Q1.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 37048243,
           "unit": "H100e",
           "displayValue": "37,048,243 H100e",
@@ -324,12 +614,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2028-Q1",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2028-Q1.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2028-Q2",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2028-Q2.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 26122.32971,
+          "unit": "MW IT",
+          "displayValue": "26,122.32971 MW IT",
+          "subject": "2028-Q2",
+          "observationDate": "2028-06-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2028-Q2.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2028-Q2.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 46037632,
           "unit": "H100e",
           "displayValue": "46,037,632 H100e",
@@ -341,12 +648,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2028-Q2",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2028-Q2.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2028-Q3",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2028-Q3.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 26757.32971,
+          "unit": "MW IT",
+          "displayValue": "26,757.32971 MW IT",
+          "subject": "2028-Q3",
+          "observationDate": "2028-09-30",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2028-Q3.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2028-Q3.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 47106859,
           "unit": "H100e",
           "displayValue": "47,106,859 H100e",
@@ -358,12 +682,29 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2028-Q3",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2028-Q3.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         },
         {
-          "id": "compute-capacity.quarters.2028-Q4",
-          "metric": "U.S. operational or projected AI compute",
+          "id": "compute-capacity.quarters.2028-Q4.usItPowerMw",
+          "metric": "U.S. operational or projected AI IT power",
+          "value": 31674.32971,
+          "unit": "MW IT",
+          "displayValue": "31,674.32971 MW IT",
+          "subject": "2028-Q4",
+          "observationDate": "2028-12-31",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.quarters.2028-Q4.usItPowerMw",
+          "caveat": "epoch_projected_pipeline: epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge."
+        },
+        {
+          "id": "compute-capacity.quarters.2028-Q4.usH100e",
+          "metric": "U.S. operational or projected H100-equivalent audit bridge",
           "value": 61887051,
           "unit": "H100e",
           "displayValue": "61,887,051 H100e",
@@ -375,8 +716,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.quarters.2028-Q4",
-          "caveat": "epoch_projected_pipeline: Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+          "sourceRecord": "compute-capacity.quarters.2028-Q4.usH100e",
+          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
         }
       ]
     },
@@ -396,7 +737,9 @@
               "includedSites": 8,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 473,
+              "usFacilityPowerMw": 603
             }
           },
           {
@@ -409,7 +752,9 @@
               "includedSites": 13,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 887,
+              "usFacilityPowerMw": 1121
             }
           },
           {
@@ -422,7 +767,9 @@
               "includedSites": 16,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1335,
+              "usFacilityPowerMw": 1676
             }
           },
           {
@@ -435,7 +782,9 @@
               "includedSites": 18,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1713,
+              "usFacilityPowerMw": 2165
             }
           },
           {
@@ -445,10 +794,12 @@
               "quarter": "2025-Q1",
               "cutoffDate": "2025-03-31",
               "usH100e": 1351240,
-              "includedSites": 20,
+              "includedSites": 21,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 2267.32971,
+              "usFacilityPowerMw": 2874
             }
           },
           {
@@ -458,10 +809,12 @@
               "quarter": "2025-Q2",
               "cutoffDate": "2025-06-30",
               "usH100e": 2386876,
-              "includedSites": 23,
+              "includedSites": 24,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3342.32971,
+              "usFacilityPowerMw": 4187
             }
           },
           {
@@ -474,7 +827,9 @@
               "includedSites": 28,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3772.32971,
+              "usFacilityPowerMw": 4764
             }
           },
           {
@@ -487,7 +842,9 @@
               "includedSites": 34,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 5642.32971,
+              "usFacilityPowerMw": 7211
             }
           },
           {
@@ -500,7 +857,9 @@
               "includedSites": 40,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 6620.32971,
+              "usFacilityPowerMw": 8454.2
             }
           },
           {
@@ -513,7 +872,9 @@
               "includedSites": 54,
               "evidenceClass": "observed_quarter_end",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 10534.32971,
+              "usFacilityPowerMw": 13559.8
             }
           },
           {
@@ -526,7 +887,9 @@
               "includedSites": 58,
               "evidenceClass": "observed_qtd",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest published state on or before evidence cutoff for each Epoch-covered U.S. site"
+              "methodNote": "observed_qtd: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 11879.32971,
+              "usFacilityPowerMw": 15229.8
             }
           },
           {
@@ -539,7 +902,9 @@
               "includedSites": 64,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 14026.32971,
+              "usFacilityPowerMw": 18051.3
             }
           },
           {
@@ -552,7 +917,9 @@
               "includedSites": 65,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 16045.32971,
+              "usFacilityPowerMw": 20792.8
             }
           },
           {
@@ -565,7 +932,9 @@
               "includedSites": 65,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 16634.32971,
+              "usFacilityPowerMw": 21589.8
             }
           },
           {
@@ -578,7 +947,9 @@
               "includedSites": 67,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 17451.32971,
+              "usFacilityPowerMw": 22700.2
             }
           },
           {
@@ -591,7 +962,9 @@
               "includedSites": 67,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 19777.32971,
+              "usFacilityPowerMw": 25804.3
             }
           },
           {
@@ -604,7 +977,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 23626.32971,
+              "usFacilityPowerMw": 30729.3
             }
           },
           {
@@ -617,7 +992,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 26122.32971,
+              "usFacilityPowerMw": 33779.3
             }
           },
           {
@@ -630,7 +1007,9 @@
               "includedSites": 68,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 26757.32971,
+              "usFacilityPowerMw": 34541.3
             }
           },
           {
@@ -643,7 +1022,9 @@
               "includedSites": 72,
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
-              "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 31674.32971,
+              "usFacilityPowerMw": 41462.3
             }
           }
         ]

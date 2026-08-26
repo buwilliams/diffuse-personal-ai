@@ -19,7 +19,7 @@ data/snapshot-YYYYMMDD/
   gate2-consolidated.json
 ```
 
-Gate 1 is model–harness capability, the demand proxy. Gate 2 is operational inference-compute supply. Each file under a gate's source directory represents exactly one public source. The consolidated files are deterministic generated views and are the only data files consumed by the shared model, website, and workbook builders.
+Gate 1 is model–harness capability, the demand proxy. Gate 2 is U.S. AI service capacity: operational IT power, reference-token productivity, allocation, workload, and supported user-equivalents. Each file under a gate's source directory represents exactly one public source. The consolidated files are deterministic generated views and are the only data files consumed by the shared model, website, and workbook builders.
 
 Every JSON file has exactly two root fields:
 
@@ -130,7 +130,7 @@ The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest
 | `adoption` | 1 | Adoption definitions, observations, and agent-product events | No; triangulation |
 | `research-evidence` | 1 | Evidence ledger supporting the conjecture and assumptions | No; triangulation |
 | `user-capabilities` | 1 | Consumer capability catalog and operational metrics | No; ontology |
-| `compute-capacity` | 2 | U.S. H100-equivalent path, population target, workload, serving envelope, projection policy, and separately labeled supporting supply evidence | Yes; only the compatible H100e path and serving inputs |
+| `compute-capacity` | 2 | Epoch site registry; U.S. IT-power path; H100e productivity audit bridge; population, workload, and allocation assumptions; supported-user path; projection policy; and supporting supply evidence | Yes; physical IT power, calibrated productivity, allocation, workload, and population target |
 
 The capability dataset distinguishes the forecast-driving benchmark basket from the supporting registry. Supporting observations remain visible for provenance and future revisions, but only records explicitly labeled as forecast inputs affect the gate.
 
@@ -142,7 +142,7 @@ The capability dataset distinguishes the forecast-driving benchmark basket from 
 4. Never convert vague prose, an Elo value, or an unmatched benchmark version into a percentage without a documented normalization rule.
 5. Unknown values remain null or explicitly unknown; they are not zero.
 6. Observed and projected compute rows remain distinguishable through `evidenceClass`.
-7. Global gigawatt outlooks, lab-allocation estimates, and other expert supply diagnostics remain in `supportingEvidence` unless they can be converted to the U.S. H100-equivalent series without hidden geography, hardware-mix, or performance-per-watt assumptions.
+7. Global gigawatt outlooks, lab-allocation estimates, and other expert supply diagnostics remain in `supportingEvidence` unless they can be reconciled to the U.S. IT-power, productivity, or allocation series without hidden geography, hardware-mix, or performance-per-watt assumptions.
 8. Adoption series retain their units and populations; users, subscriptions, seats, downloads, and stars are not one curve.
 9. Every `sourceId` must resolve to the source file that contributed the record and to the consolidated gate's source registry.
 10. Every source must materialize its numerical results and say whether each one is source-reported, normalized, derived, or a forecast assumption; missing scores remain explicitly missing.
@@ -154,7 +154,7 @@ The capability dataset distinguishes the forecast-driving benchmark basket from 
 - Add a new source file when the URL is new to that gate.
 - Preserve benchmark version, metric, release date, system/harness label, normalization basis, and comparability note for model–harness results.
 - Preserve availability, authority, computer use, authenticated integration, memory, verification, and rollback separately for agent products.
-- Reconstruct compute cutoffs under one coverage rule and keep operational observations separate from expected or projected pipeline rows.
+- Refresh Epoch's registry and timeline together, reconstruct IT-power and productivity cutoffs under one coverage rule, retain H100e as an audit bridge, and keep observations separate from expected or projected pipeline rows.
 - Update the manifest's record counts and logical dataset descriptors.
 - Run the consolidator before validation, workbook builds, or the website build.
 

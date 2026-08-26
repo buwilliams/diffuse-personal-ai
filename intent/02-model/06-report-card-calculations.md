@@ -19,7 +19,7 @@ The population share is applied once:
 
 > `target users = U.S. population × selected population share`
 >
-> `required H100e = target users × compute-equivalent tokens/user/day ÷ tokens/H100e/day`
+> `supported users = IT GW × reference token-equivalents/IT GW-day × inference allocation × Personal-AI allocation ÷ compute-equivalent tokens/user/day`
 
 The supply gate is 100% of that selected target. With the current defaults, `342.8M × 25% = 85.7M` users. A result near 21.4M would indicate that the population share was applied twice.
 
@@ -120,23 +120,48 @@ Letter grades are A ≥90%, B ≥80%, C ≥70%, D ≥60%, and F <60%.
 
 ## Compute calculation
 
-For each observed quarter:
+Gate 2 separates physical infrastructure from the amount of useful inference each watt can serve.
 
-> `compute-equivalent tokens/day = operational H100e × tokens/H100e/day`
+For each quarter:
+
+> `IT GW = U.S. IT power MW ÷ 1,000`
 >
-> `supported users = compute-equivalent tokens/day ÷ workload/user/day`
+> `H100e per IT GW = U.S. H100e ÷ IT GW`
+>
+> `reference tokens/H100e-day = dense 8-bit ops/H100e-second × seconds/day × sustained utilization × serving goodput ÷ (active parameters × forward-pass ops/parameter-token × system overhead)`
+>
+> `reference productivity = H100e per IT GW × reference tokens/H100e-day`
+>
+> `Personal-AI token-equivalents/day = IT GW × reference productivity × fleet inference allocation × Personal-AI inference share`
+>
+> `supported users = Personal-AI token-equivalents/day ÷ workload/user/day`
 >
 > `supply score = min(100%, supported users ÷ target users)`
 
-The base forecast uses dated expected or projected site states in the same Epoch data-center timeline used for the historical reconstruction. At each future quarter cutoff, take the latest published state for every covered U.S. site and sum its H100-equivalents. This makes the default a **published buildout-pipeline scenario**, not a regression extrapolation of recent fleet growth. A trend extrapolation may be shown as a separate sensitivity case, but it must not silently replace known project dates.
+The Epoch data-center registry supplies country and facility identity. The dated timeline supplies IT power, facility power, and H100-equivalents. At every cutoff, select the latest state on or before that date for each registry-identified U.S. site. Sum **IT power** as the physical series. Facility power includes cooling and other overhead and is retained only for audit. H100e is retained as a secondary productivity bridge.
 
-Quarterly log growth is still the first difference of `log2(H100e)`. The reported forward-path acceleration is the slope of those projected quarterly log-growth rates; it describes the source pipeline and is not a fitted causal law.
+The base forecast uses dated expected or projected site states for both physical IT power and the H100e/IT-GW ratio. This makes the default a **published buildout-and-hardware-mix scenario**, not a regression extrapolation of recent fleet growth. A trend extrapolation may be shown separately, but it must not silently replace known project dates.
 
-The website's compute-acceleration control is the actual initial pipeline acceleration in **log2 H100e per quarter²**, not a multiplier. The default equals the report's measured forward-path acceleration. Let `v_c` be mean pipeline log growth and `k_c = a_c / v_c`; the live scenario follows `dv_c/dh = k_c v_c` and therefore `v_c(h) = v_c exp(k_c h)`. The adjustment to the published pipeline is the difference between the selected and default recursive gains. Positive feedback therefore represents super-exponential capacity growth in ordinary H100e units. Negative feedback may reduce growth toward zero but must not make projected operational capacity shrink.
+### Separate acceleration controls
 
-Only operational U.S. capacity belongs in the observed series. Announced or under-construction projects enter the forward path only on a supported expected or projected commissioning date and must remain visibly labeled as projections.
+Quarterly physical growth is the first difference of `log2(IT GW)`. Quarterly productivity growth is the first difference of `log2(reference token-equivalents/IT GW-day)`. For each path, the reported acceleration is the slope of the projected quarterly log-growth rates; it describes the current source pipeline and is not an identified causal law.
 
-Independent supply outlooks remain visible as diagnostics when their units or scope are not directly comparable with the countdown series. The August 2026 Dylan Patel interview, for example, estimates global incremental AI-compute additions of 30 GW in 2026, 50 GW in 2027, and roughly 70 GW in 2028, while also estimating that about 70% of current watts are deployed in the United States. Those claims corroborate rapid buildout but do not identify U.S. operational H100-equivalents by quarter. They therefore appear in `compute-capacity.supportingEvidence` and the report card without entering the gate equation. The interview's current 40% inference-allocation estimate is also retained as a cross-check, not substituted for the model's editable personal-AI allocation assumption. Source: <https://www.dwarkesh.com/p/dylan-patel-3>.
+The website exposes two actual initial accelerations, never generic multipliers:
+
+- **IT-power acceleration** in `log2 IT GW per quarter²`;
+- **inference-productivity acceleration** in `log2 token-equivalents/IT GW-day per quarter²`.
+
+For either path, let `v` be mean projected log growth, `a` the selected acceleration, and `k = a/v`. The live scenario follows:
+
+> `dv/dh = k × v(h)`
+>
+> `v(h) = v × exp(kh)`
+
+The adjustment to the published path is the difference between the selected and default recursive gains. Positive feedback produces super-exponential growth in ordinary units. Negative feedback may reduce growth toward zero but must not make projected operational power or productivity shrink. Increasing either acceleration must move the gate earlier or leave it unchanged.
+
+Only operational U.S. IT power belongs in the observed physical series. Announced or under-construction projects enter the forward path only on a supported expected or projected commissioning date and remain labeled as projections.
+
+Independent supply outlooks remain visible as diagnostics when their units or scope are not directly comparable with the countdown series. The August 2026 Dylan Patel interview estimates global incremental AI-compute additions of 30 GW in 2026, 50 GW in 2027, and roughly 70 GW in 2028, while estimating that about 70% of current new watts are deployed in the United States. It also estimates a current lab allocation of 40% inference, 50% research, and 10% development. Those claims corroborate rapid buildout and motivate the editable inference-allocation control; they do not replace the source-reconstructed U.S. IT-power path. Source: <https://www.dwarkesh.com/p/dylan-patel-3>.
 
 ### Default workload
 
@@ -152,19 +177,24 @@ The current high-autonomy workload is 16.75 million compute-equivalent tokens pe
 
 ### Default serving envelope
 
-The current serving envelope produces 79.79328 million compute-equivalent inference tokens per H100e per day before the personal-AI cohort allocation, from:
+The current reference serving envelope produces **199.4832 million reference token-equivalents per H100e-day** before fleet or Personal-AI allocation, from:
 
 - 1.979e15 dense 8-bit operations per H100e-second;
-- 40% of the fleet allocated to inference;
 - 35% sustained serving utilization;
 - 100B active model parameters;
 - two forward-pass operations per parameter-token;
 - 1.5× system overhead; and
 - 1.0× additional serving-goodput multiplier.
-- 60% of modeled inference supply allocated to the target personal-AI cohort, leaving 47.875968 million compute-equivalent tokens per H100e per day available to that cohort.
 
-The 60% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so changing this input can materially move or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
+At the current cutoff, 13.524006M H100e divided by 11.879330 IT GW equals 1.138449M H100e/IT GW. Multiplying by the reference envelope produces **227.101365 trillion reference token-equivalents per IT GW-day**. The explicit allocations then apply:
 
-H100e already normalizes hardware peak compute. A Cerebras, Jalapeño, Rubin, or other chip multiplier is added only when it represents measured deployed serving goodput not already captured by H100e. Hardware gains must not be counted twice.
+- 40% of total AI service capacity allocated to inference;
+- 60% of inference allocated to the modeled Personal-AI cohort.
+
+With the 16.75M-token-equivalent workload, this supports **38.655217M users**, or **45.1053%** of the 85.7M-user target.
+
+The 40% inference allocation and 60% Personal-AI allocation are distinct, editable scenario assumptions. The former has an external expert cross-check; the latter is a forecast choice. The same fleet also serves training, research, development, enterprise applications, and other users, so changing either can materially move or remove the crossing. Epoch's tracker covers disclosed sites rather than a complete U.S. census, creating uncertainty in the opposite direction.
+
+H100e already normalizes peak 8-bit compute in Epoch's records. A Cerebras, Jalapeño, Rubin, or other productivity multiplier is added only when it represents measured deployed serving goodput not already captured by the dated H100e/IT-GW ratio. Hardware gains must not be counted twice.
 
 The current release values used to regression-test these formulas live in the [monthly refresh record](../05-operations/01-monthly-refresh.md#current-regression-anchors).

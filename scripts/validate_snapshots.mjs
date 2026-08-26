@@ -185,6 +185,12 @@ assert(model.compute.targetUsers === compute.population.usResidents * compute.po
 assert(model.defaults.supplyGateShareOfTarget === 1, 'Supply gate must require 100% of the already-selected population target');
 assert(model.compute.currentScore === model.compute.currentSupportedUsers / model.compute.targetUsers, 'Current compute score is inconsistent');
 assert(model.compute.quarterRows.every((row, index, rows) => index === 0 || row.quarterIndex > rows[index - 1].quarterIndex), 'Compute quarters are not strictly ordered');
+assert(model.compute.quarterRows.every((row) => row.usItPowerMw > 0 && row.usH100e > 0), 'Compute quarter is missing positive IT power or H100e audit data');
+assert(compute.siteRegistry.some((site) => site.country === 'United States'), 'Compute site registry does not identify U.S. sites');
+assert(model.compute.quarterRows.every((row) => {
+  const reconstructed = row.itPowerGw * row.referenceTokensPerItGwDay * compute.serving.fleetShareAllocatedToInference * compute.serving.personalAiInferenceShare;
+  return Math.abs(reconstructed - row.personalAiTokensPerDay) / row.personalAiTokensPerDay < 1e-12;
+}), 'Compute service-capacity decomposition is inconsistent');
 
 const snapshotTime = Date.parse(`${model.snapshotDate}T00:00:00Z`);
 const maximumDays = Math.round(365.2425 * model.defaults.maximumForecastYears);
@@ -193,10 +199,21 @@ const capabilityBase = firstCrossing(snapshotTime, maximumDays, (timestamp) => m
 const capabilityFaster = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.capability.capabilityAt(timestamp, model.capability.currentScore, model.capability.h50Acceleration + 0.1) >= capabilityThreshold);
 assert(capabilityBase !== null && capabilityFaster !== null && capabilityFaster <= capabilityBase, 'Increasing capability acceleration does not shorten or preserve the gate date');
 
-const requiredComputeM = model.compute.requiredH100e / 1_000_000;
-const computeBase = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.compute.capacityAt(timestamp, model.compute.currentComputeM, model.compute.acceleration) >= requiredComputeM);
-const computeFaster = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.compute.capacityAt(timestamp, model.compute.currentComputeM, model.compute.acceleration + 0.01) >= requiredComputeM);
-assert(computeBase !== null && computeFaster !== null && computeFaster <= computeBase, 'Increasing compute acceleration does not shorten or preserve the gate date');
+const computeBase = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.compute.supportedUsersAt(timestamp) >= model.compute.targetUsers);
+const powerFaster = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.compute.supportedUsersAt(
+  timestamp,
+  model.compute.currentItPowerGw,
+  model.compute.powerAcceleration + 0.01,
+) >= model.compute.targetUsers);
+const productivityFaster = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.compute.supportedUsersAt(
+  timestamp,
+  model.compute.currentItPowerGw,
+  model.compute.powerAcceleration,
+  model.compute.currentReferenceProductivity,
+  model.compute.productivityAcceleration + 0.01,
+) >= model.compute.targetUsers);
+assert(computeBase !== null && powerFaster !== null && powerFaster <= computeBase, 'Increasing IT-power acceleration does not shorten or preserve the gate date');
+assert(computeBase !== null && productivityFaster !== null && productivityFaster <= computeBase, 'Increasing inference-productivity acceleration does not shorten or preserve the gate date');
 
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join('\n'));
@@ -212,7 +229,8 @@ if (errors.length) {
     capabilityScorePercent: model.capability.currentScore * 100,
     capabilityAcceleration: model.capability.h50Acceleration,
     computeScore: model.compute.currentScore,
-    computeAcceleration: model.compute.acceleration,
+    powerAcceleration: model.compute.powerAcceleration,
+    productivityAcceleration: model.compute.productivityAcceleration,
     status: 'valid',
   }, null, 2));
 }

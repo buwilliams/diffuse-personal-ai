@@ -69,56 +69,66 @@ function makeSheet(name, title, subtitle, headers, rows, tableName) {
 
 const summaryRows = [
   ["Snapshot", forecast.snapshotDate, "Latest immutable snapshot selected automatically"],
-  ["Current U.S. operational capacity", forecast.compute.currentRow.usH100e, "H100-equivalents"],
-  ["Current supported users", forecast.compute.currentSupportedUsers, "high-autonomy users"],
+  ["Current U.S. operational IT power", forecast.compute.currentItPowerGw, "IT GW"],
+  ["Current reference inference productivity", forecast.compute.currentReferenceProductivityT, "trillion reference token-equivalents / IT GW-day"],
+  ["Current H100e audit bridge", forecast.compute.currentRow.usH100e, "secondary productivity calibration"],
+  ["Current supported users", forecast.compute.currentSupportedUsers, "Personal-AI user-equivalents"],
   ["Target users", forecast.compute.targetUsers, `${(compute.data.population.targetShare * 100).toFixed(0)}% of U.S. population`],
-  ["Required U.S. capacity", forecast.compute.requiredH100e, "H100-equivalents"],
   ["Current supply score", forecast.compute.currentScore, "supported users / target users"],
-  ["Personal-AI inference share", compute.data.serving.personalAiInferenceShare, "scenario allocation"],
+  ["Reference tokens per H100e/day", forecast.compute.referenceTokensPerH100eDay, "excludes inference and Personal-AI allocations"],
   ["Workload per user/day", forecast.compute.workloadTokens, "compute-equivalent tokens"],
-  ["Tokens per H100e/day", forecast.compute.tokensPerH100eDay, "after personal-AI allocation"],
-  ["Mean projected log velocity", forecast.compute.velocity, "log₂ H100e / quarter"],
-  ["Projected log acceleration", forecast.compute.acceleration, "log₂ H100e / quarter²"],
+  ["Fleet inference allocation", compute.data.serving.fleetShareAllocatedToInference, "scenario allocation"],
+  ["Personal-AI inference share", compute.data.serving.personalAiInferenceShare, "share of inference allocated to Personal AI"],
+  ["IT-power mean projected log velocity", forecast.compute.powerVelocity, "log₂ IT GW / quarter"],
+  ["IT-power projected log acceleration", forecast.compute.powerAcceleration, "log₂ IT GW / quarter²"],
+  ["Productivity mean projected log velocity", forecast.compute.productivityVelocity, "log₂ token productivity / quarter"],
+  ["Productivity projected log acceleration", forecast.compute.productivityAcceleration, "log₂ token productivity / quarter²"],
   ["Continuous base-case crossing", new Date(forecast.compute.continuousCrossing), "100% of selected target"],
 ];
 const summary = makeSheet(
   "Summary",
-  "Compute Supply Report Card",
-  `Snapshot ${forecast.snapshotDate}. The supply gate passes only when modeled U.S. capacity can serve 100% of the selected target population.`,
+  "U.S. Service-Capacity Report Card",
+  `Snapshot ${forecast.snapshotDate}. The supply gate combines operational IT power, inference productivity, allocation, and workload; it passes only at 100% of the selected population target.`,
   ["Metric", "Value", "Unit / interpretation"],
   summaryRows,
   "ComputeSummaryTable",
 );
-summary.getRange("B11:B12").format.numberFormat = "0.0%";
-summary.getRange("B17:B17").format.numberFormat = "yyyy-mm-dd";
-summary.getRange("A6:C17").format.fill = colors.lightGold;
+summary.getRange("B12:B12").format.numberFormat = "0.0%";
+summary.getRange("B15:B16").format.numberFormat = "0.0%";
+summary.getRange(`B${summaryRows.length + 5}:B${summaryRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
+summary.getRange(`A6:C${summaryRows.length + 5}`).format.fill = colors.lightGold;
 
 const quarterRows = forecast.compute.quarterRows.map((row) => [
-  row.quarterIndex, row.quarter, row.cutoffDate, row.phase, row.usH100e, row.includedSites,
-  row.log2H100e, row.logGrowth, row.tokensPerDay, row.supportedUsers, row.score,
-  row.letter, row.gpa, row.sourceId, row.methodNote,
+  row.quarterIndex, row.quarter, row.cutoffDate, row.phase, row.usItPowerMw, row.itPowerGw,
+  row.usFacilityPowerMw, row.usH100e, row.includedSites, row.h100ePerItGw,
+  row.referenceTokensPerItGwDay / 1e12, row.logGrowthItPower, row.logGrowthProductivity,
+  row.logGrowthH100e, row.personalAiTokensPerDay, row.supportedUsers, forecast.compute.targetUsers,
+  row.score, row.letter, row.gpa, row.sourceId, row.methodNote,
 ]);
 const quarterly = makeSheet(
   "Quarterly Model",
-  "U.S. Compute Capacity — Observed and Projected",
-  "Quarterly operational H100-equivalent supply from the selected snapshot, translated to supported users under the visible serving envelope.",
-  ["Quarter index", "Quarter", "Cutoff", "Phase", "U.S. H100e", "Included sites", "log₂ H100e", "Log growth / quarter", "Compute-equivalent tokens/day", "Supported users", "Score vs target", "Letter", "GPA", "Source ID", "Method note"],
+  "U.S. AI Service Capacity — Observed and Projected",
+  "Quarterly IT power and reference-token productivity from the selected snapshot, translated to supported Personal-AI user-equivalents. H100e remains a secondary audit bridge.",
+  ["Quarter index", "Quarter", "Cutoff", "Phase", "U.S. IT power MW", "U.S. IT power GW", "U.S. facility power MW", "H100e audit bridge", "Included sites", "H100e / IT GW", "Productivity T token-eq / IT GW-day", "IT-power log growth / qtr", "Productivity log growth / qtr", "H100e log growth / qtr", "Personal-AI token-eq/day", "Supported users", "Target users", "Score vs target", "Letter", "GPA", "Source ID", "Method note"],
   quarterRows,
   "ComputeQuarterlyModelTable",
 );
 quarterly.getRange(`C6:C${quarterRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
-quarterly.getRange(`E6:F${quarterRows.length + 5}`).format.numberFormat = "#,##0";
-quarterly.getRange(`G6:H${quarterRows.length + 5}`).format.numberFormat = "0.000";
-quarterly.getRange(`I6:J${quarterRows.length + 5}`).format.numberFormat = "#,##0";
-quarterly.getRange(`K6:K${quarterRows.length + 5}`).format.numberFormat = "0.0%";
-const chart = quarterly.charts.add("line", { chartType: "line", title: "U.S. operational H100-equivalent capacity", hasLegend: false });
-const capacitySeries = chart.series.add("U.S. H100e");
+quarterly.getRange(`E6:J${quarterRows.length + 5}`).format.numberFormat = "#,##0.00";
+quarterly.getRange(`K6:N${quarterRows.length + 5}`).format.numberFormat = "0.0000";
+quarterly.getRange(`O6:Q${quarterRows.length + 5}`).format.numberFormat = "#,##0";
+quarterly.getRange(`R6:R${quarterRows.length + 5}`).format.numberFormat = "0.0%";
+const chart = quarterly.charts.add("line", { chartType: "line", title: "Supported Personal-AI user-equivalents", hasLegend: true });
+const capacitySeries = chart.series.add("Supported users");
 capacitySeries.categoryFormula = `'Quarterly Model'!$B$6:$B$${quarterRows.length + 5}`;
-capacitySeries.formula = `'Quarterly Model'!$E$6:$E$${quarterRows.length + 5}`;
-chart.title = "U.S. operational H100-equivalent capacity";
-chart.hasLegend = false;
+capacitySeries.formula = `'Quarterly Model'!$P$6:$P$${quarterRows.length + 5}`;
+const targetSeries = chart.series.add("Selected target");
+targetSeries.categoryFormula = `'Quarterly Model'!$B$6:$B$${quarterRows.length + 5}`;
+targetSeries.formula = `'Quarterly Model'!$Q$6:$Q$${quarterRows.length + 5}`;
+chart.title = "Supported Personal-AI user-equivalents";
+chart.hasLegend = true;
 chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } };
-chart.setPosition("Q5", "Y23");
+chart.setPosition("X5", "AF23");
 
 const assumptionRows = [
   ["Population", "U.S. residents", compute.data.population.usResidents, "people"],
@@ -150,6 +160,20 @@ assumptions.getRange("C7:C8").format.numberFormat = "0%";
 assumptions.getRange("C11:C12").format.numberFormat = "0%";
 assumptions.getRange("C17:C17").format.numberFormat = "0%";
 
+const siteRegistryRows = compute.data.siteRegistry.map((site) => [
+  site.name, site.country ?? "", site.currentH100e, site.currentFacilityPowerMw,
+  site.owner ?? "", site.users ?? "", site.address ?? "", site.sourceId,
+]);
+const siteRegistry = makeSheet(
+  "Site Registry",
+  "Epoch AI Data-Center Registry",
+  "Facility-level source rows used to identify U.S. sites and audit the timeline join. Facility power includes non-IT overhead and is not substituted for IT power in the gate.",
+  ["Site", "Country", "Current H100e", "Current facility power MW", "Owner", "Users", "Address", "Source ID"],
+  siteRegistryRows,
+  "ComputeSiteRegistryTable",
+);
+siteRegistry.getRange(`C6:D${siteRegistryRows.length + 5}`).format.numberFormat = "#,##0.00";
+
 const supportingEvidenceRows = compute.data.supportingEvidence.map((record) => [
   record.id, record.metric, record.value, record.unit, record.scope, record.metricDate,
   record.evidenceClass, record.valueQualifier, record.sourceLocation, record.sourceId,
@@ -158,7 +182,7 @@ const supportingEvidenceRows = compute.data.supportingEvidence.map((record) => [
 const supportingEvidence = makeSheet(
   "Supporting Evidence",
   "Independent Compute-Supply Diagnostics",
-  "Source-reported global build-rate, geography, performance, and allocation estimates. These retain their original units and do not directly enter the U.S. H100e countdown.",
+  "Source-reported global build-rate, geography, performance, and allocation estimates. These retain their original units and do not directly enter the U.S. service-capacity countdown.",
   ["Evidence ID", "Metric", "Value", "Unit", "Scope", "Metric date", "Evidence class", "Qualifier", "Source location", "Source ID", "Claim", "Caveat", "Countdown input"],
   supportingEvidenceRows,
   "ComputeSupportingEvidenceTable",
@@ -179,8 +203,9 @@ const sources = makeSheet(
 
 const sheetsAndWidths = [
   [summary, [35, 22, 54]],
-  [quarterly, [12, 12, 14, 20, 18, 14, 16, 18, 22, 19, 17, 9, 9, 13, 55, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]],
+  [quarterly, [12, 12, 14, 20, 18, 18, 20, 18, 14, 18, 24, 20, 22, 20, 22, 18, 18, 17, 9, 9, 20, 58, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]],
   [assumptions, [16, 38, 22, 62]],
+  [siteRegistry, [40, 18, 18, 24, 34, 34, 52, 20]],
   [supportingEvidence, [38, 35, 14, 13, 38, 15, 18, 20, 15, 20, 62, 68, 16]],
   [sources, [13, 24, 40, 14, 24, 58, 55]],
 ];
@@ -192,9 +217,10 @@ for (const [sheet, widths] of sheetsAndWidths) {
 
 await fs.mkdir(previewDir, { recursive: true });
 for (const [sheetName, range, filename] of [
-  ["Summary", "A1:C17", "summary.png"],
-  ["Quarterly Model", `A1:Y${quarterRows.length + 5}`, "quarterly-model.png"],
+  ["Summary", `A1:C${summaryRows.length + 5}`, "summary.png"],
+  ["Quarterly Model", `A1:AF${quarterRows.length + 5}`, "quarterly-model.png"],
   ["Assumptions", `A1:D${assumptionRows.length + 5}`, "assumptions.png"],
+  ["Site Registry", `A1:H${siteRegistryRows.length + 5}`, "site-registry.png"],
   ["Supporting Evidence", `A1:M${supportingEvidenceRows.length + 5}`, "supporting-evidence.png"],
   ["Sources", `A1:G${sourceRows.length + 5}`, "sources.png"],
 ]) {
@@ -208,7 +234,7 @@ const errors = await workbook.inspect({
 });
 if (!(errors.ndjson ?? "").includes("matched 0 entries")) throw new Error(errors.ndjson);
 const inspection = await workbook.inspect({
-  kind: "table", sheetId: "Summary", range: "A1:C17",
+  kind: "table", sheetId: "Summary", range: `A1:C${summaryRows.length + 5}`,
   include: "values,formulas", tableMaxRows: 40, tableMaxCols: 6, maxChars: 30_000,
 });
 await fs.mkdir(outputDir, { recursive: true });

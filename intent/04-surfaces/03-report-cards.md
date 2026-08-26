@@ -11,7 +11,7 @@ The report cards are downloadable views of the same snapshot and calculation lay
 - Harness configuration and benchmark comparability are recorded.
 - Sparse evidence receives lower confidence and simpler projections.
 - Capability uses failure-gap velocity and acceleration.
-- Compute uses operational H100-equivalent capacity and a visible serving envelope.
+- Gate 2 separately reports operational U.S. IT power, inference productivity, inference and Personal-AI allocations, workload, supported users, and H100e as an audit bridge.
 - Both builders select the latest immutable JSON snapshot and call `model/forecast-model.mjs`; neither embeds an independent evidence table or forecast constant.
 - Workbook sources and website source links come from the JSON metadata registry.
 - Workbooks are generated into `artifacts/report-cards/`; `data/` remains JSON-only.

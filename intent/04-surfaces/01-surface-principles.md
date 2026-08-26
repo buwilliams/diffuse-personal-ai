@@ -8,7 +8,7 @@ Every public rendering should make the conjecture understandable without hiding 
 
 - The countdown is controlled by two gates, and the later crossing wins.
 - Capability is model–harness capability, not a naked model score.
-- Compute is operational U.S. H100-equivalent capacity, not announcements.
+- Supply is supported U.S. Personal-AI user-equivalents produced from operational IT power and inference productivity—not announced facility power. H100e remains an audit bridge.
 - The selected population share is applied once; supply must reach 100% of that selected target.
 - Forecasts are scenario extrapolations, not calibrated probabilities.
 - Confidence and material assumptions are visible and adjustable.
