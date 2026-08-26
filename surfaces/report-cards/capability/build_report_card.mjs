@@ -153,7 +153,7 @@ method.getRange("A6:D14").values = [
   ["Projection horizon", 20, "quarter", "Ends 2028-Q4"],
   ["Projection transform", "-LOG2(1-score)", "failure-gap halvings", "One unit means the remaining gap to 100% is halved"],
   ["Monotonic frontier floor", "Enabled", "rule", "Forecast cannot fall below the current frontier"],
-  ["Missing-history rule", "Blank", "rule", "No score is fabricated before release or without a normalized observation"],
+  ["Sparse-history rule", "Shared frontier", "rule", "Every graded benchmark receives the pooled frontier depth gain; sparse evidence widens uncertainty instead of forcing zero progress"],
   ["Acceleration summary", "Observed series only", "rule", "Average 3+ point acceleration estimates; coverage is reported separately"],
 ];
 styleHeader(method.getRange("A6:D6")); styleBody(method.getRange("A7:D14")); method.getRange("B7").format.numberFormat = "yyyy-mm-dd";
@@ -170,9 +170,9 @@ method.getRange("A16:J22").values = [
   ["Depth", "d = -LOG2(1 - score)", "Transforms a bounded percentage into halvings of the remaining failure gap. Exact 100% is represented as 30 halvings for finite computation.", null, null, null, null, null, null, null],
   ["Velocity", "v = (d_t - d_t-1) / elapsed quarters", "First derivative of failure-gap depth. Report-card Δ score cells separately show quarter-over-quarter percentage-point changes.", null, null, null, null, null, null, null],
   ["Acceleration", "a = (v_recent - v_prior) / average interval", "Second derivative: whether gap-closing speed is rising or falling.", null, null, null, null, null, null, null],
-  ["Projection", "d(h) = MAX(d_now, d_now + v·h + 0.5·a·h²)", "A monotonic frontier forecast; negative acceleration can flatten but not reverse capability.", null, null, null, null, null, null, null],
-  ["Back-transform", "score(h) = 1 - 2^(-d(h))", "Approaches 100% asymptotically rather than overshooting it.", null, null, null, null, null, null, null],
-  ["Evidence count", "3+ points: v + a; 2 points: v only; 1 point: flat; 0 points: blank", "Forecast strength is visible instead of disguised by a single smooth curve.", null, null, null, null, null, null, null],
+  ["Feedback", "k = a / v; dv/dh = k·v; v(h) = v·EXP(k·h)", "The conjectured causal loop: progress raises the next quarter's rate of progress. At h = 0, dv/dh equals the measured initial acceleration a.", null, null, null, null, null, null, null],
+  ["Projection", "Δd(h) = v·(EXP(k·h) - 1) / k", "Continuous shared-frontier depth gain; when k = 0, Δd = v·h. Each graded benchmark receives the same gain from its current depth.", null, null, null, null, null, null, null],
+  ["Back-transform", "score_b(h) = 1 - 2^(-(d_b,now + MAX(0,Δd(h))))", "Approaches 100% asymptotically. Evidence confidence reports uncertainty; it does not convert missing history into permanent zero progress.", null, null, null, null, null, null, null],
 ];
 for (let r = 16; r <= 22; r++) { method.getRange(`C${r}:J${r}`).merge(); }
 styleHeader(method.getRange("A16:J16")); styleBody(method.getRange("A17:J22"));
@@ -243,7 +243,7 @@ obs.tables.add(`A5:K${5 + obsRows.length}`, true, "BenchmarkObservationsTable");
 obs.freezePanes.freezeRows(5); obs.freezePanes.freezeColumns(3);
 
 // Model coefficients and current grades. These formulas make the workbook update from appended observations.
-titleBand(model, "A1:U2", "Projection Model — Failure-Gap Velocity and Acceleration", "A3:U3", "Helper sheet. Latest three comparable quarter frontiers determine velocity and acceleration; sparse histories fall back to constant velocity, flat, or blank. Evidence credits feed category confidence.");
+titleBand(model, "A1:U2", "Projection Model — Failure-Gap Velocity and Acceleration", "A3:U3", "Helper sheet. Longitudinal series estimate the shared frontier velocity and initial acceleration. The forecast compounds their causal feedback across every graded benchmark; evidence credits preserve uncertainty.");
 model.getRange("A5:U5").values = [["Benchmark ID", "Benchmark Name", "Category", "Obs count", "Prior-2 Q", "Prior Q", "Latest Q", "Prior-2 score", "Prior score", "Latest score", "Prior-2 depth", "Prior depth", "Latest depth", "Recent gap velocity", "Prior gap velocity", "Gap acceleration", "Projection basis", "Current score", "Letter", "GPA", "Evidence credits"]];
 styleHeader(model.getRange("A5:U5"));
 for (let i = 0; i < catalog.length; i++) {
@@ -262,7 +262,7 @@ for (let i = 0; i < catalog.length; i++) {
   model.getRange(`N${row}`).formulas = [[`=IF(D${row}<2,0,(M${row}-L${row})/(G${row}-F${row}))`]];
   model.getRange(`O${row}`).formulas = [[`=IF(D${row}<3,0,(L${row}-K${row})/(F${row}-E${row}))`]];
   model.getRange(`P${row}`).formulas = [[`=IF(D${row}<3,0,(N${row}-O${row})/(((G${row}-F${row})+(F${row}-E${row}))/2))`]];
-  model.getRange(`Q${row}`).formulas = [[`=IF(D${row}=0,"Ungraded — no normalized observation",IF(D${row}=1,"Flat — one observation",IF(D${row}=2,"Constant velocity — two observations","Velocity + acceleration — latest three observations")))`]];
+  model.getRange(`Q${row}`).formulas = [[`=IF(D${row}=0,"Ungraded — no normalized observation",IF(D${row}=1,"Shared frontier transfer — one observation",IF(D${row}=2,"Shared frontier transfer — velocity contributor","Shared frontier transfer — velocity + acceleration contributor")))`]];
   model.getRange(`R${row}`).formulas = [[`=IF(D${row}=0,"",J${row})`]];
   model.getRange(`S${row}`).formulas = [[`=IF(R${row}="","N/A",IF(R${row}>='Methodology'!$G$7,"A",IF(R${row}>='Methodology'!$G$8,"B",IF(R${row}>='Methodology'!$G$9,"C",IF(R${row}>='Methodology'!$G$10,"D","F")))))`]];
   model.getRange(`T${row}`).formulas = [[`=IF(R${row}="","",IF(R${row}>='Methodology'!$G$7,'Methodology'!$H$7,IF(R${row}>='Methodology'!$G$8,'Methodology'!$H$8,IF(R${row}>='Methodology'!$G$9,'Methodology'!$H$9,IF(R${row}>='Methodology'!$G$10,'Methodology'!$H$10,'Methodology'!$H$11)))))`]];
@@ -313,7 +313,7 @@ for (let i = 0; i < catalog.length; i++) {
     if (qi <= currentQuarterIndex) {
       report.getRange(`${scoreCol}${row}`).formulas = [[`=IF(COUNTIFS('Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,"<="&${qi})=0,"",SUMIFS('Observations'!$G$6:$G$500,'Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,MAXIFS('Observations'!$F$6:$F$500,'Observations'!$A$6:$A$500,$B${row},'Observations'!$F$6:$F$500,"<="&${qi})))`]];
     } else {
-      report.getRange(`${scoreCol}${row}`).formulas = [[`=IF('Model'!$D${modelRow}=0,"",1-POWER(2,-MAX('Model'!$M${modelRow},'Model'!$M${modelRow}+'Model'!$N${modelRow}*(${qi}-'Methodology'!$B$8)+0.5*'Model'!$P${modelRow}*POWER(${qi}-'Methodology'!$B$8,2))))`]];
+      report.getRange(`${scoreCol}${row}`).formulas = [[`=IF('Model'!$D${modelRow}=0,"",1-POWER(2,-('Model'!$M${modelRow}+MAX(0,IF(ABS('Summary'!$G$17)<0.000000001,0,IF(ABS('Summary'!$H$17/'Summary'!$G$17)<0.000000001,'Summary'!$G$17*(${qi}-'Methodology'!$B$8),'Summary'!$G$17*(EXP(('Summary'!$H$17/'Summary'!$G$17)*(${qi}-'Methodology'!$B$8))-1)/('Summary'!$H$17/'Summary'!$G$17)))))))`]];
     }
     if (q === 0) report.getRange(`${rateCol}${row}`).formulas = [[`=""`]];
     else {
@@ -415,7 +415,7 @@ summary.getRange("H31:R41").values = [
   ["Acceleration coverage", "Benchmarks with a 3+ point acceleration estimate divided by graded benchmarks. Coverage prevents a sparse estimate from looking universal.", null, null, null, null, null, null, null, null, null],
   ["Confidence", "Evidence coverage and longitudinal depth: one credit per distinct quarterly observation, capped at three per benchmark. Category weight = credits ÷ maximum credits. High ≥80%; Medium ≥50%; Low <50%.", null, null, null, null, null, null, null, null, null],
   ["Direct stewardship", "Low confidence: all 7 sources are graded, but 4 newly normalized series and EnterpriseArena each have one observation. Only Vending-Bench has a 3-point acceleration estimate.", null, null, null, null, null, null, null, null, null],
-  ["Caution", "The composite uses continuous confidence weights. Sparse series project flat or constant velocity; projections are scenarios, not calibrated probabilities.", null, null, null, null, null, null, null, null, null],
+  ["Caution", "The composite uses continuous confidence weights. The forecast conjectures that progress raises future progress and transfers across benchmarks; confidence and acceleration coverage expose how weakly that causal feedback is presently measured.", null, null, null, null, null, null, null, null, null],
 ];
 summary.getRange("H31:R31").merge();
 for (let r = 32; r <= 41; r++) summary.getRange(`I${r}:R${r}`).merge();

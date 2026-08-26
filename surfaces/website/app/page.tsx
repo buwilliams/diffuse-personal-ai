@@ -1,56 +1,29 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  CAPABILITY_ACCELERATION_COVERAGE,
+  CAPABILITY_GAP_ACCELERATION,
+  CAPABILITY_GAP_VELOCITY,
+  CAPABILITY_REPORT_END,
+  DEFAULT_CAPABILITY_SCORE,
+  capabilityAt,
+} from './capability-projection';
+import {
+  BASE_COMPUTE_ACCELERATION,
+  BASE_COMPUTE_VELOCITY,
+  DEFAULT_COMPUTE_M,
+  computeCapacityAt,
+} from './compute-projection';
 import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './report-data';
 
 const DAY = 86_400_000;
-const QUARTER = (365.2425 / 4) * DAY;
 const SNAPSHOT = new Date('2026-08-26T00:00:00Z').getTime();
 const PUBLICATION_DATE = '26 Aug 2026';
 const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
 const TOKENS_PER_H100E_DAY_M = 79.79328;
-const BASE_COMPUTE_ACCELERATION = 0.003372653;
-const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(17.39977 / 13.524006);
 const SUPPLY_GATE_SHARE_OF_TARGET = 1;
 const SUPPLY_THRESHOLD = SUPPLY_GATE_SHARE_OF_TARGET * 100;
-
-const CAPABILITY_CURVE = [
-  ['2026-08-26', 45.6605338349],
-  ['2026-12-31', 48.6645999787],
-  ['2027-03-31', 51.9462756313],
-  ['2027-06-30', 54.9025505410],
-  ['2027-09-30', 57.1877199175],
-  ['2027-12-31', 58.6955518339],
-  ['2028-03-31', 59.5793794544],
-  ['2028-06-30', 60.0567089955],
-  ['2028-09-30', 60.3092346948],
-  ['2028-12-31', 60.4522275615],
-] as const;
-
-const BASE_CAPABILITY_ACCELERATION_PP = (() => {
-  const scores = CAPABILITY_CURVE.slice(1).map(([, score]) => score);
-  const deltas = scores.slice(1).map((score, index) => score - scores[index]);
-  const xMean = (deltas.length - 1) / 2;
-  const yMean = deltas.reduce((sum, value) => sum + value, 0) / deltas.length;
-  const numerator = deltas.reduce((sum, value, index) => sum + (index - xMean) * (value - yMean), 0);
-  const denominator = deltas.reduce((sum, _, index) => sum + (index - xMean) ** 2, 0);
-  return numerator / denominator;
-})();
-const CAPABILITY_ACCELERATION_RESPONSE_PP = Math.abs(BASE_CAPABILITY_ACCELERATION_PP);
-const COMPUTE_ACCELERATION_RESPONSE_LOG2 = Math.abs(BASE_COMPUTE_ACCELERATION);
-
-const COMPUTE_CURVE = [
-  ['2026-08-26', 13.524006],
-  ['2026-12-31', 17.39977],
-  ['2027-03-31', 20.368064],
-  ['2027-06-30', 21.439292],
-  ['2027-09-30', 23.242366],
-  ['2027-12-31', 30.057691],
-  ['2028-03-31', 37.048243],
-  ['2028-06-30', 46.037632],
-  ['2028-09-30', 47.106859],
-  ['2028-12-31', 61.887051],
-] as const;
 
 const REPORT_QUARTERS = [
   '2024-Q1', '2024-Q2', '2024-Q3', '2024-Q4',
@@ -138,13 +111,13 @@ type ModelInputs = {
 };
 
 const DEFAULTS: ModelInputs = {
-  currentCapability: CAPABILITY_CURVE[0][1],
+  currentCapability: DEFAULT_CAPABILITY_SCORE,
   capabilityThreshold: 60,
-  capabilityAcceleration: 1,
+  capabilityAcceleration: CAPABILITY_GAP_ACCELERATION,
   populationM: 342.8,
   coverageThreshold: 50,
-  currentComputeM: 13.524006,
-  computeAcceleration: 1,
+  currentComputeM: DEFAULT_COMPUTE_M,
+  computeAcceleration: BASE_COMPUTE_ACCELERATION,
   workloadM: 16.75,
   servingEfficiency: 1,
   personalAiInferenceShare: 50,
@@ -154,77 +127,12 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
 }
 
-function baselineCapabilityAt(timestamp: number) {
-  const points = CAPABILITY_CURVE.map(([date, score]) => ({
-    timestamp: new Date(`${date}T00:00:00Z`).getTime(),
-    score,
-  }));
-
-  if (timestamp <= points[0].timestamp) return points[0].score;
-  for (let index = 1; index < points.length; index += 1) {
-    if (timestamp <= points[index].timestamp) {
-      const previous = points[index - 1];
-      const next = points[index];
-      const fraction = (timestamp - previous.timestamp) / (next.timestamp - previous.timestamp);
-      return previous.score + (next.score - previous.score) * fraction;
-    }
-  }
-  return points[points.length - 1].score;
-}
-
-function capabilityAt(timestamp: number, inputs: ModelInputs) {
-  const quarters = Math.max(0, (timestamp - SNAPSHOT) / QUARTER);
-  const currentShift = inputs.currentCapability - DEFAULTS.currentCapability;
-  const accelerationShift =
-    0.5 * CAPABILITY_ACCELERATION_RESPONSE_PP *
-    (inputs.capabilityAcceleration - 1) * quarters * quarters;
-  return clamp(baselineCapabilityAt(timestamp) + currentShift + accelerationShift, 0, 99);
-}
-
-function modelQuarterAt(timestamp: number) {
-  const points = COMPUTE_CURVE.map(([date]) => new Date(`${date}T00:00:00Z`).getTime());
-  if (timestamp <= points[0]) return 0;
-  for (let index = 1; index < points.length; index += 1) {
-    if (timestamp <= points[index]) {
-      return index - 1 + (timestamp - points[index - 1]) / (points[index] - points[index - 1]);
-    }
-  }
-  return points.length - 1 + (timestamp - points[points.length - 1]) / QUARTER;
-}
-
-function baselineComputeLogAtQuarter(quarter: number) {
-  const capacities = COMPUTE_CURVE.map(([, capacity]) => capacity);
-  const logs = capacities.map((capacity) => Math.log2(capacity));
-  if (quarter <= 0) return logs[0];
-  if (quarter < logs.length - 1) {
-    const lower = Math.floor(quarter);
-    const fraction = quarter - lower;
-    return Math.log2(capacities[lower] + (capacities[lower + 1] - capacities[lower]) * fraction);
-  }
-  const lastIndex = logs.length - 1;
-  const extra = quarter - lastIndex;
-  const lastVelocity = logs[lastIndex] - logs[lastIndex - 1];
-  return logs[lastIndex] + lastVelocity * extra +
-    0.5 * BASE_COMPUTE_ACCELERATION * extra * (extra + 1);
-}
-
-function computeCapacityAt(timestamp: number, inputs: ModelInputs) {
-  const quarters = modelQuarterAt(timestamp);
-  const netAcceleration = BASE_COMPUTE_ACCELERATION +
-    COMPUTE_ACCELERATION_RESPONSE_LOG2 * (inputs.computeAcceleration - 1);
-  const stopQuarter = netAcceleration < 0
-    ? Math.max(0, 0.5 - BASE_NEXT_COMPUTE_VELOCITY / netAcceleration)
-    : Number.POSITIVE_INFINITY;
-  const effectiveQuarters = Math.min(quarters, stopQuarter);
-  const accelerationAdjustment = effectiveQuarters <= 1 ? 0 :
-    0.5 * COMPUTE_ACCELERATION_RESPONSE_LOG2 * (inputs.computeAcceleration - 1) *
-    effectiveQuarters * (effectiveQuarters - 1);
-  const currentShift = Math.log2(inputs.currentComputeM / DEFAULTS.currentComputeM);
-  return 2 ** (baselineComputeLogAtQuarter(effectiveQuarters) + accelerationAdjustment + currentShift);
+function signed(value: number, decimals = 4) {
+  return `${value >= 0 ? '+' : ''}${value.toFixed(decimals)}`;
 }
 
 function supportedUsersAt(timestamp: number, inputs: ModelInputs) {
-  return computeCapacityAt(timestamp, inputs) * TOKENS_PER_H100E_DAY_M *
+  return computeCapacityAt(timestamp, inputs.currentComputeM, inputs.computeAcceleration) * TOKENS_PER_H100E_DAY_M *
     inputs.servingEfficiency * (inputs.personalAiInferenceShare / 100) / inputs.workloadM;
 }
 
@@ -238,7 +146,7 @@ function findCrossing(test: (timestamp: number) => boolean) {
 }
 
 function formatDate(date: Date | null) {
-  if (!date) return 'Beyond horizon';
+  if (!date) return 'No crossing within 15 years';
   return new Intl.DateTimeFormat('en-GB', {
     day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
   }).format(date);
@@ -514,7 +422,10 @@ function ReportChart({ kind, capabilityThreshold, computeThresholdM }: ReportCha
       if (kind === 'compute') {
         const values = COMPUTE_SUPPLY_SERIES.values;
         const firstIndex = values.findIndex((value) => value !== null);
-        const lastIndex = values.reduce((last, value, index) => value !== null ? index : last, firstIndex);
+        let lastIndex = firstIndex;
+        values.forEach((value, index) => {
+          if (value !== null) lastIndex = index;
+        });
         if (firstIndex >= 0 && lastIndex >= firstIndex) {
           context.save();
           const gradient = context.createLinearGradient(0, margin.top, 0, margin.top + plotHeight);
@@ -819,12 +730,15 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const report = new URLSearchParams(window.location.search).get('report');
-    if (report === 'capability' || report === 'compute') {
-      setActiveSheetName('Summary');
-      setReportQuery('');
-      setModal(report);
-    }
+    const syncReport = window.setTimeout(() => {
+      const report = new URLSearchParams(window.location.search).get('report');
+      if (report === 'capability' || report === 'compute') {
+        setActiveSheetName('Summary');
+        setReportQuery('');
+        setModal(report);
+      }
+    }, 0);
+    return () => window.clearTimeout(syncReport);
   }, []);
 
   const projection = useMemo(() => {
@@ -833,9 +747,12 @@ export default function Home() {
       (TOKENS_PER_H100E_DAY_M * inputs.servingEfficiency * (inputs.personalAiInferenceShare / 100));
     const currentSupportedM = supportedUsersAt(SNAPSHOT, inputs);
     const capabilityCrossing = findCrossing((timestamp) =>
-      capabilityAt(timestamp, inputs) >= inputs.capabilityThreshold);
+      capabilityAt(timestamp, inputs.currentCapability, inputs.capabilityAcceleration) >= inputs.capabilityThreshold);
+    const nextCapabilityThreshold = Math.min(99, inputs.capabilityThreshold + 1);
+    const nextCapabilityCrossing = findCrossing((timestamp) =>
+      capabilityAt(timestamp, inputs.currentCapability, inputs.capabilityAcceleration) >= nextCapabilityThreshold);
     const computeCrossing = findCrossing((timestamp) =>
-      computeCapacityAt(timestamp, inputs) >= requiredComputeM);
+      computeCapacityAt(timestamp, inputs.currentComputeM, inputs.computeAcceleration) >= requiredComputeM);
     const target = capabilityCrossing && computeCrossing
       ? new Date(Math.max(capabilityCrossing.getTime(), computeCrossing.getTime()))
       : null;
@@ -849,6 +766,8 @@ export default function Home() {
       requiredComputeM,
       currentSupportedM,
       capabilityCrossing,
+      nextCapabilityThreshold,
+      nextCapabilityCrossing,
       computeCrossing,
       target,
       controllingGate,
@@ -860,9 +779,17 @@ export default function Home() {
   const time = countdown(now, projection.target);
   const targetLabel = formatDate(projection.target);
   const capabilityDate = formatDate(projection.capabilityCrossing);
+  const nextCapabilityDate = formatDate(projection.nextCapabilityCrossing);
   const computeDate = formatDate(projection.computeCrossing);
+  const capabilityUsesExtendedProjection = Boolean(
+    projection.capabilityCrossing && projection.capabilityCrossing.getTime() > CAPABILITY_REPORT_END,
+  );
   const horizonTimestamp = new Date('2028-12-31T00:00:00Z').getTime();
-  const horizonComputeM = computeCapacityAt(horizonTimestamp, inputs);
+  const horizonComputeM = computeCapacityAt(
+    horizonTimestamp,
+    inputs.currentComputeM,
+    inputs.computeAcceleration,
+  );
   const horizonSupportedM = supportedUsersAt(horizonTimestamp, inputs);
   const gateGapDays = projection.capabilityCrossing && projection.computeCrossing
     ? Math.round(Math.abs(projection.capabilityCrossing.getTime() - projection.computeCrossing.getTime()) / DAY)
@@ -878,6 +805,12 @@ export default function Home() {
       : `${controllingGateLabel} controls the clock because it clears ${gateGapDays?.toLocaleString('en-US')} days later.`;
   const isDefault = (Object.keys(DEFAULTS) as Array<keyof ModelInputs>)
     .every((key) => Math.abs(inputs[key] - DEFAULTS[key]) < 0.00001);
+  const capabilityFeedbackRate = Math.expm1(
+    inputs.capabilityAcceleration / CAPABILITY_GAP_VELOCITY,
+  ) * 100;
+  const computeFeedbackRate = Math.expm1(
+    inputs.computeAcceleration / BASE_COMPUTE_VELOCITY,
+  ) * 100;
 
   const update = <Key extends keyof ModelInputs>(key: Key, value: ModelInputs[Key]) => {
     setInputs((current) => ({ ...current, [key]: value }));
@@ -897,15 +830,18 @@ export default function Home() {
       grade: grade(inputs.currentCapability),
       threshold: `${inputs.capabilityThreshold.toFixed(0)}%`,
       crossing: capabilityDate,
-      note: 'The live scenario applies your threshold and acceleration setting to the workbook curve. The workbook preserves the default evidence model.',
+      note: 'The live scenario exposes the report’s actual failure-gap acceleration. Crossings after 2028-Q4 continue the same benchmark-level method and are labeled as extended extrapolations.',
       href: 'https://raw.githubusercontent.com/buwilliams/diffuse-personal-ai/main/data/reports/personal-ai-four-year-capability-report-card.xlsx',
       rows: [
         ['Current composite', `${inputs.currentCapability.toFixed(1)}%`],
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
-        ['Acceleration setting', `${inputs.capabilityAcceleration.toFixed(2)}× · higher increases quarterly gains`],
-        ['Projected crossing', capabilityDate],
+        ['Initial gap acceleration', `${signed(inputs.capabilityAcceleration)} halvings / quarter²`],
+        ['Progress-rate feedback', `${signed(capabilityFeedbackRate, 1)}% per quarter`],
+        ['Acceleration coverage', `${CAPABILITY_ACCELERATION_COVERAGE.toFixed(0)}% of graded benchmarks`],
+        ['Projected crossing', `${capabilityDate}${capabilityUsesExtendedProjection ? ' · extended beyond 2028-Q4' : ''}`],
+        [`Sensitivity at ${projection.nextCapabilityThreshold.toFixed(0)}%`, nextCapabilityDate],
         ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
-        ['Workbook default', '20 Jun 2028'],
+        ['Workbook default', '25 Apr 2027'],
       ],
     },
     compute: {
@@ -924,7 +860,8 @@ export default function Home() {
         ['Required U.S. H100e', `${projection.requiredComputeM.toFixed(2)}M`],
         ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
         ['Personal-AI inference share', `${inputs.personalAiInferenceShare.toFixed(0)}% of modeled inference supply`],
-        ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× · higher increases quarterly gains`],
+        ['Initial log acceleration', `${signed(inputs.computeAcceleration)} log₂ H100e / quarter²`],
+        ['Buildout-rate feedback', `${signed(computeFeedbackRate, 1)}% per quarter`],
         ['Projected crossing', computeDate],
       ],
     },
@@ -936,14 +873,12 @@ export default function Home() {
   const activeScenario = modal === 'capability' ? [
     { label: 'Current score', value: reports.capability.current },
     { label: 'Threshold', value: reports.capability.threshold },
+    { label: 'Gap acceleration', value: `${signed(inputs.capabilityAcceleration)} h/q²` },
     { label: 'Crossing', value: reports.capability.crossing },
-    { label: 'Confidence', value: `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%` },
   ] : [
     { label: 'Gate rule', value: '100% of selected target' },
-    { label: 'Current compute', value: `${inputs.currentComputeM.toFixed(2)}M H100e` },
     { label: 'Required compute', value: `${projection.requiredComputeM.toFixed(2)}M H100e` },
-    { label: 'Supported / target users', value: `${projection.currentSupportedM.toFixed(1)}M / ${projection.targetUsersM.toFixed(1)}M` },
-    { label: 'Personal-AI inference share', value: `${inputs.personalAiInferenceShare.toFixed(0)}%` },
+    { label: 'Log acceleration', value: `${signed(inputs.computeAcceleration)} log₂/q²` },
     { label: 'Crossing', value: reports.compute.crossing },
   ];
   const activeCalculation = modal === 'capability' ? {
@@ -953,7 +888,8 @@ export default function Home() {
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
-      { title: 'Project the remaining failure gap.', explanation: `Estimate how quickly each benchmark closes its distance to 100%. At 1× the workbook path is unchanged; above 1×, each quarter adds more progress than the baseline path. The current setting is ${inputs.capabilityAcceleration.toFixed(2)}×.` },
+      { title: 'Project the remaining failure gap.', explanation: `Estimate a shared frontier velocity of ${CAPABILITY_GAP_VELOCITY.toFixed(4)} failure-gap halvings per quarter and an initial acceleration of ${signed(inputs.capabilityAcceleration)} halvings per quarter². Their ratio implies ${signed(capabilityFeedbackRate, 1)}% quarterly growth in the rate of progress. That recursive feedback is applied from every benchmark’s current depth.` },
+      { title: 'Continue the same method when needed.', explanation: `The visible report ends at 2028-Q4, but the countdown evaluates the benchmark-level equations for the full 15-year search horizon. A crossing after the report window is explicitly marked as an extended extrapolation. At ${projection.nextCapabilityThreshold.toFixed(0)}%, the current scenario crosses on ${nextCapabilityDate}.` },
       { title: 'Set the capability gate.', explanation: `The major judgment call is the delegation threshold: ${inputs.capabilityThreshold.toFixed(0)}%. The live composite is ${inputs.currentCapability.toFixed(1)}%, producing a ${capabilityDate} crossing.` },
       { title: 'Use the later gate.', explanation: `The headline is not the capability date alone. It is the later of capability and compute. ${gateRule}` },
     ],
@@ -961,7 +897,7 @@ export default function Home() {
     title: 'How compute becomes a supported-user score and gate',
     steps: [
       { title: 'Gather compute-supply sources.', explanation: 'Collect U.S. data-center projects, accelerator capacity, expected operational dates, and other evidence needed to reconstruct available inference supply over time.' },
-      { title: 'Build the forward U.S. compute path.', explanation: `Sum the dated expected or projected operating states in Epoch's current data-center timeline. At 1× the workbook path is unchanged; above 1×, each quarter adds more compute than that published pipeline. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
+      { title: 'Build the forward U.S. compute path.', explanation: `Sum the dated expected or projected operating states in Epoch's current data-center timeline. Mean log growth is ${BASE_COMPUTE_VELOCITY.toFixed(4)} per quarter and the live initial acceleration is ${signed(inputs.computeAcceleration)} log₂ H100e per quarter², implying ${signed(computeFeedbackRate, 1)}% quarterly growth in the buildout rate. Positive feedback produces super-exponential capacity growth in ordinary units. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
       { title: 'Allocate inference to personal AI.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day, the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption, and the explicit ${inputs.personalAiInferenceShare.toFixed(0)}% personal-AI share. This allocation is a scenario choice, not an observed fact.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
       { title: 'Select the population target once.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. This is the only population-share multiplication.` },
@@ -1050,13 +986,16 @@ export default function Home() {
               <span><small>Compute gate</small><strong>{computeDate}</strong></span>
               <span><small>Controls clock</small><strong>{controllingGateLabel}</strong></span>
             </div>
+            <p className="sensitivity-note">
+              Acceleration is an editable initial rate, not a multiplier. The causal feedback model compounds progress into future progress: capability currently implies {signed(capabilityFeedbackRate, 1)}% quarterly growth in its progress rate, while compute implies {signed(computeFeedbackRate, 1)}%. At a {projection.nextCapabilityThreshold.toFixed(0)}% capability threshold, this scenario crosses on {nextCapabilityDate}.
+            </p>
 
             <div className="control-groups">
               <fieldset>
                 <legend>Model–harness capability</legend>
                 <ControlField label="Current score" note="Report-card composite" value={inputs.currentCapability} min={20} max={80} step={0.1} suffix="%" onChange={(value) => update('currentCapability', value)} />
                 <ControlField label="Passing threshold" note="First grade above F" value={inputs.capabilityThreshold} min={50} max={90} step={1} suffix="%" decimals={0} onChange={(value) => update('capabilityThreshold', value)} />
-                <ControlField label="Capability acceleration" note="1× = report path; higher = faster quarterly gains" value={inputs.capabilityAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('capabilityAcceleration', value)} />
+                <ControlField label="Capability gap acceleration" note={`Initial halvings/qtr² · ${signed(capabilityFeedbackRate, 1)}% progress-rate growth/qtr`} value={inputs.capabilityAcceleration} min={-0.1} max={0.25} step={0.0025} suffix="h/q²" decimals={4} onChange={(value) => update('capabilityAcceleration', value)} />
               </fieldset>
 
               <fieldset>
@@ -1064,7 +1003,7 @@ export default function Home() {
                 <ControlField label="Population" note="Addressable U.S. population" value={inputs.populationM} min={250} max={450} step={0.1} suffix="M" onChange={(value) => update('populationM', value)} />
                 <ControlField label="Population target" note="Selected once; supply must serve 100% of this share" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
                 <ControlField label="Current compute" note="Operational U.S. H100e" value={inputs.currentComputeM} min={5} max={50} step={0.1} suffix="M" onChange={(value) => update('currentComputeM', value)} />
-                <ControlField label="Compute acceleration" note="1× = report path; higher = faster quarterly gains" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
+                <ControlField label="Compute log acceleration" note={`Initial log₂ H100e/qtr² · ${signed(computeFeedbackRate, 1)}% buildout-rate growth/qtr`} value={inputs.computeAcceleration} min={-0.05} max={0.15} step={0.001} suffix="log₂/q²" decimals={4} onChange={(value) => update('computeAcceleration', value)} />
                 <ControlField label="Agent workload" note="Compute-equivalent tokens/user/day" value={inputs.workloadM} min={5} max={50} step={0.25} suffix="M" decimals={2} onChange={(value) => update('workloadM', value)} />
                 <ControlField label="Serving efficiency" note="Inference hardware / goodput uplift" value={inputs.servingEfficiency} min={0.5} max={10} step={0.1} suffix="×" onChange={(value) => update('servingEfficiency', value)} />
                 <ControlField label="Personal-AI inference share" note="Modeled inference supply allocated to the target cohort" value={inputs.personalAiInferenceShare} min={10} max={100} step={5} suffix="%" decimals={0} onChange={(value) => update('personalAiInferenceShare', value)} />

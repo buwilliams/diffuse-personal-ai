@@ -187,6 +187,7 @@ footer button:hover { color:var(--mint); border-color:var(--mint); }
 .scenario-strip span + span { border-left:1px solid var(--line); }
 .scenario-strip small { color:var(--muted); text-transform:uppercase; letter-spacing:.14em; font:600 8px/1 var(--font-geist-mono),monospace; }
 .scenario-strip strong { font:500 clamp(13px,2vw,18px)/1.2 var(--font-geist-mono),monospace; }
+.sensitivity-note { margin:-12px 0 24px; color:#92aaa3; font:9px/1.55 var(--font-geist-mono),monospace; }
 .control-groups { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
 .control-groups fieldset { min-width:0; margin:0; padding:0; border:0; }
 .control-groups legend { width:100%; margin-bottom:7px; padding:0 0 12px; color:var(--mint); border-bottom:1px solid var(--line); text-transform:uppercase; letter-spacing:.18em; font:650 9px/1 var(--font-geist-mono),monospace; }
@@ -194,7 +195,7 @@ footer button:hover { color:var(--mint); border-color:var(--mint); }
 .control-heading { display:flex; justify-content:space-between; gap:18px; align-items:baseline; }
 .control-heading b { font-size:12px; font-weight:550; }
 .control-heading small { color:var(--muted); text-align:right; font:9px/1.35 var(--font-geist-mono),monospace; }
-.control-inputs { display:grid; grid-template-columns:minmax(80px,1fr) 92px; gap:14px; align-items:center; }
+.control-inputs { display:grid; grid-template-columns:minmax(80px,1fr) 126px; gap:14px; align-items:center; }
 .control-inputs input[type="range"] { width:100%; accent-color:var(--mint); cursor:pointer; }
 .number-wrap { display:grid; grid-template-columns:1fr auto; align-items:center; border:1px solid var(--line); background:rgba(0,0,0,.18); }
 .number-wrap input { min-width:0; width:100%; padding:8px 4px 8px 9px; color:var(--ink); border:0; outline:0; background:transparent; font:500 10px/1 var(--font-geist-mono),monospace; }

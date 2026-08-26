@@ -129,16 +129,16 @@ assumptions.getRange("A27:D35").values = [
   ["Mean pipeline log growth", null, "log2 H100e / quarter", "Mean quarterly log growth across the published forward path"],
   ["First projected log growth", null, "log2 H100e / quarter", "Growth from the current snapshot to 2026-Q4"],
   ["First model row at full supply threshold", null, "position", "First score that reaches 100%; 'Beyond window' when extrapolation is required"],
-  ["Projected supply crossing", null, "date", "Interpolate inside the report window; otherwise extend the final log-growth velocity and pipeline acceleration"],
+  ["Projected supply crossing", null, "date", "Interpolate inside the report window; otherwise use dv/dh = k·v with k = acceleration / velocity"],
   ["Capability threshold", 0.60, "%", "First grade above F"],
-  ["Projected capability crossing", d("2028-06-20"), "date", "First UTC day on which the capability report-card path reaches 60%"],
+  ["Projected capability crossing", d("2027-04-25"), "date", "First UTC day on which the shared-frontier capability path reaches 60%"],
   ["Countdown target", null, "date", "Later of supply and capability crossings"],
 ];
 assumptions.getRange("B28").formulas = [["=SLOPE('Quarterly Model'!$G$17:$G$25,'Quarterly Model'!$A$17:$A$25)"]];
 assumptions.getRange("B29").formulas = [["=AVERAGE('Quarterly Model'!$G$17:$G$25)"]];
 assumptions.getRange("B30").formulas = [["='Quarterly Model'!G17"]];
 assumptions.getRange("B31").formulas = [["=IFERROR(MATCH(1,'Quarterly Model'!$J$6:$J$25,0),\"Beyond window\")"]];
-assumptions.getRange("B32").formulas = [["=IF(ISNUMBER(B31),INDEX('Quarterly Model'!$C$6:$C$25,B31-1)+(B12-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))/(INDEX('Quarterly Model'!$E$6:$E$25,B31)-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))*(INDEX('Quarterly Model'!$C$6:$C$25,B31)-INDEX('Quarterly Model'!$C$6:$C$25,B31-1)),'Quarterly Model'!$C$25+IF(ABS(B28)<0.000000001,(LN(B12/'Quarterly Model'!$E$25)/LN(2))/'Quarterly Model'!$G$25,(-('Quarterly Model'!$G$25+B28/2)+SQRT(('Quarterly Model'!$G$25+B28/2)^2-2*B28*(LN('Quarterly Model'!$E$25/B12)/LN(2))))/B28)*(365.2425/4))"]];
+assumptions.getRange("B32").formulas = [["=IF(ISNUMBER(B31),INDEX('Quarterly Model'!$C$6:$C$25,B31-1)+(B12-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))/(INDEX('Quarterly Model'!$E$6:$E$25,B31)-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))*(INDEX('Quarterly Model'!$C$6:$C$25,B31)-INDEX('Quarterly Model'!$C$6:$C$25,B31-1)),'Quarterly Model'!$C$25+IF(ABS(B28)<0.000000001,(LN(B12/'Quarterly Model'!$E$25)/LN(2))/'Quarterly Model'!$G$25,IF(1+(B28/'Quarterly Model'!$G$25)*(LN(B12/'Quarterly Model'!$E$25)/LN(2))/'Quarterly Model'!$G$25<=0,NA(),LN(1+(B28/'Quarterly Model'!$G$25)*(LN(B12/'Quarterly Model'!$E$25)/LN(2))/'Quarterly Model'!$G$25)/(B28/'Quarterly Model'!$G$25)))*(365.2425/4))"]];
 assumptions.getRange("B35").formulas = [["=MAX(B32,B34)"]];
 header(assumptions.getRange("A27:D27")); body(assumptions.getRange("A28:D35")); assumptions.getRange("B28:B30").format.numberFormat = "0.000"; assumptions.getRange("B32").format.numberFormat = "yyyy-mm-dd"; assumptions.getRange("B33").format.numberFormat = "0%"; assumptions.getRange("B34:B35").format.numberFormat = "yyyy-mm-dd";
 assumptions.freezePanes.freezeRows(3);
@@ -199,7 +199,7 @@ for (const cell of ["A6", "D6", "G6", "J6", "M6"]) summary.getRange(cell).format
 summary.getRange("A6").format.numberFormat = "0.0%"; summary.getRange("D6:G6").format.numberFormat = "#,##0"; summary.getRange("J6").format.numberFormat = "yyyy-mm-dd";
 
 sectionBand(summary, "A11:F11", "TWO-KEY DIFFUSION GATE");
-summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥60%", 0.45660533834944794, d("2028-06-20"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
+summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥60%", 0.45660533834944794, d("2027-04-25"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
 summary.getRange("C14").formulas = [["='Quarterly Model'!J16"]]; summary.getRange("D14").formulas = [["='Assumptions'!B32"]]; summary.getRange("D15").formulas = [["='Assumptions'!B35"]];
 header(summary.getRange("A12:F12")); body(summary.getRange("A13:F15")); summary.getRange("C13:C14").format.numberFormat = "0.0%"; summary.getRange("D13:D15").format.numberFormat = "yyyy-mm-dd"; summary.getRange("A15:F15").format.fill = colors.lightGold; summary.getRange("A15:F15").format.font = { bold: true, color: colors.ink };
 
@@ -211,7 +211,7 @@ const chart = summary.charts.add("line", summary.getRange("A19:C39")); chart.tit
 
 summary.getRange("A41:N44").values = [
   ["Interpretation", "At the 50% personal-AI inference allocation, current U.S. operational capacity supports about 32 million high-autonomy users—18.8% of the 171.4 million-user threshold.", null, null, null, null, null, null, null, null, null, null, null, null],
-  ["Projection", "The base path sums dated expected or projected operating states in Epoch's current U.S. buildout timeline. The displayed acceleration is descriptive of that source path, not a fitted causal law.", null, null, null, null, null, null, null, null, null, null, null, null],
+  ["Projection", "The base path sums dated expected or projected operating states in Epoch's current U.S. buildout timeline. Beyond that window, log-growth follows dv/dh = k·v with k = acceleration / velocity; this causal feedback is a scenario assumption.", null, null, null, null, null, null, null, null, null, null, null, null],
   ["Boundary", "H100e already normalizes chip peak compute. No separate Jalapeño, Cerebras, or Rubin multiplier is added unless it represents deployed serving goodput beyond the H100e convention.", null, null, null, null, null, null, null, null, null, null, null, null],
   ["Caution", "Epoch covers publicly tracked large sites rather than the full U.S. fleet. Project timing and quantity are uncertain. The editable base case allocates 50% of modeled inference supply to this personal-AI cohort.", null, null, null, null, null, null, null, null, null, null, null, null],
 ];
@@ -227,7 +227,7 @@ sources.getRange("A6:F11").values = [
   ["SRC-003", "Epoch AI", "AI Data Centers CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_centers.csv", "Country filter and current site registry"],
   ["SRC-004", "U.S. Census Bureau", "Population on a Date", d("2026-07-26"), "https://www.census.gov/popclock/", "Model uses the user-specified rounded estimate of 342.8M residents; the selected target is 50%, or 171.4M users"],
   ["SRC-005", "Personal AI forecast", "Report-card calculation contract", asOf, "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md", "Serving envelope and high-autonomy token mix; assumptions remain editable"],
-  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability first reaches 60% on the daily site path on 2028-06-20"],
+  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability first reaches 60% on the daily shared-frontier path on 2027-04-25"],
 ];
 header(sources.getRange("A5:F5")); body(sources.getRange("A6:F11")); sources.getRange("D6:D11").format.numberFormat = "yyyy-mm-dd"; sources.tables.add("A5:F11", true, "ComputeSourcesTable"); sources.freezePanes.freezeRows(5);
 

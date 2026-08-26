@@ -43,22 +43,33 @@ For normalized score `s`, convert the remaining failure gap to depth:
 
 > `failure-gap depth = -log2(1 - s)`
 
-One additional unit means the remaining gap to 100% has halved. Forecast behavior depends on the number of comparable quarterly frontier observations:
+One additional unit means the remaining gap to 100% has halved. Comparable longitudinal benchmarks estimate a confidence-weighted shared-frontier velocity `v₀` and initial acceleration `a₀`. Scores with one observation are not held flat: every graded benchmark receives the same projected frontier depth gain from its own current depth. This treats missing history as uncertainty rather than permanent zero progress.
 
-- zero observations: blank and ungraded;
-- one observation: flat forecast;
-- two observations: constant failure-gap velocity; and
-- three or more observations: latest velocity plus acceleration estimated from the latest three points.
+The forecast makes the conjectured causal feedback explicit:
 
-Forecast depth is monotonic:
+> `k = a₀ / v₀`
+>
+> `dv/dh = k × v(h)`
+>
+> `v(h) = v₀ × exp(kh)`
+>
+> `Δd(h) = v₀ × (exp(kh) − 1) / k`
+>
+> `d_b(h) = d_b,now + max(0, Δd(h))`
 
-> `d(h) = max(d_now, d_now + velocity × h + 0.5 × acceleration × h²)`
+When `k = 0`, use the limit `Δd(h) = v₀ × h`. Because `dv/dh` at the evidence cutoff equals `a₀`, the control is exactly the initial second derivative it claims to represent. Positive `k` means that progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score. It is a causal scenario assumption about transferable model, harness, research, and tooling improvement—not a causal effect identified by the benchmark sample.
 
 Convert depth back to a score:
 
 > `score(h) = 1 - 2^(-d(h))`
 
-Negative acceleration may flatten a projection but cannot make capability regress below the current frontier.
+Negative feedback may flatten a projection but cannot make capability regress below the current frontier. Evidence confidence and acceleration coverage qualify how much trust to place in the shared rate; they do not suppress the central trajectory by forcing sparsely observed benchmarks to remain static.
+
+### Interactive acceleration scenario
+
+The website exposes `a₀` as an actual initial second derivative, never as a generic `1×` multiplier. The capability control is measured in **failure-gap halvings per quarter²**. Its default is the report card's confidence-weighted observed acceleration summary. Changing it recomputes `k = a₀ / v₀` and therefore the recursive future velocity; it does not add a cosmetic percentage-point adjustment to the aggregate curve.
+
+The four-year report remains the visible evidence window. If a selected threshold does not cross by 2028-Q4, the website must continue the same benchmark-level equations through its 15-year search horizon and label any resulting date **extended extrapolation beyond the report window**. It must not hold the 2028-Q4 aggregate flat merely because the report table ends there.
 
 ### Categories, confidence, and grades
 
@@ -83,6 +94,8 @@ For each observed quarter:
 The base forecast uses dated expected or projected site states in the same Epoch data-center timeline used for the historical reconstruction. At each future quarter cutoff, take the latest published state for every covered U.S. site and sum its H100-equivalents. This makes the default a **published buildout-pipeline scenario**, not a regression extrapolation of recent fleet growth. A trend extrapolation may be shown as a separate sensitivity case, but it must not silently replace known project dates.
 
 Quarterly log growth is still the first difference of `log2(H100e)`. The reported forward-path acceleration is the slope of those projected quarterly log-growth rates; it describes the source pipeline and is not a fitted causal law.
+
+The website's compute-acceleration control is the actual initial pipeline acceleration in **log2 H100e per quarter²**, not a multiplier. The default equals the report's measured forward-path acceleration. Let `v_c` be mean pipeline log growth and `k_c = a_c / v_c`; the live scenario follows `dv_c/dh = k_c v_c` and therefore `v_c(h) = v_c exp(k_c h)`. The adjustment to the published pipeline is the difference between the selected and default recursive gains. Positive feedback therefore represents super-exponential capacity growth in ordinary H100e units. Negative feedback may reduce growth toward zero but must not make projected operational capacity shrink.
 
 Only operational U.S. capacity belongs in the observed series. Announced or under-construction projects enter the forward path only on a supported expected or projected commissioning date and must remain visibly labeled as projections.
 

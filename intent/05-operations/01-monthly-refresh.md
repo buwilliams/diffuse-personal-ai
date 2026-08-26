@@ -19,7 +19,7 @@ The repository separates meaning, evidence, implementation, and output:
 | Capability implementation | `surfaces/report-cards/capability/build_report_card.mjs` | Executable implementation of intent; its embedded arrays remain a tracked migration debt |
 | Compute implementation | `surfaces/report-cards/compute/build_compute_report_card.mjs` | Executable implementation of intent; reads `data/sources/compute-capacity-timeseries.csv` |
 | HTML-data generator | `surfaces/report-cards/shared/generate_report_data.mjs` | Generated-surface transformation |
-| Live countdown and controls | `surfaces/website/app/page.tsx` | Website implementation of the model and current scenario |
+| Live countdown and controls | `surfaces/website/app/page.tsx`, `surfaces/website/app/capability-projection.ts`, `surfaces/website/app/compute-projection.ts` | Website implementation of the model and current scenario |
 | Generated HTML report data | `surfaces/website/app/report-data.ts` | Generated artifact; never edit by hand |
 | Generated workbooks | `data/reports/*.xlsx` | Generated artifacts and public downloads; never edit by hand |
 | Workbook previews and inspections | `data/previews/`, `data/reports/*.inspect.ndjson` | Generated verification artifacts |
@@ -80,7 +80,7 @@ Follow the supply, workload, and serving rules in [the calculation contract](../
 
 The compute builder currently embeds capability values in its two-key gate, assumptions, source note, and explanatory copy. Before every compute build, replace every embedded capability-current and capability-crossing value with the newly generated capability result. Search for the previous score and date instead of assuming a fixed number of occurrences.
 
-For the current release, the synchronized literals are `0.45660533834944794` and `2028-06-20`. Change them together when the capability report changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
+For the current release, the synchronized literals are `0.45660533834944794` and `2027-04-25`. Change them together when the capability report changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
 
 ### 5. Rebuild and inspect both workbooks
 
@@ -107,15 +107,15 @@ Both builders write full `.inspect.ndjson` files. Confirm that their modificatio
 
 ### 6. Synchronize the website model
 
-After the workbooks are final, update these values together in `surfaces/website/app/page.tsx`:
+After the workbooks are final, update these values together in the website model:
 
 - `SNAPSHOT`
 - `PUBLICATION_DATE`
-- `CAPABILITY_CURVE`
-- `COMPUTE_CURVE`
+- `CAPABILITY_CURVE` in `surfaces/website/app/capability-projection.ts`
+- `COMPUTE_CURVE` in `surfaces/website/app/compute-projection.ts`
 - `TOKENS_PER_H100E_DAY_M` when the serving envelope changes
 - `BASE_COMPUTE_ACCELERATION`
-- inputs to `BASE_NEXT_COMPUTE_VELOCITY`
+- `BASE_COMPUTE_VELOCITY`
 - `DEFAULTS.currentCapability`
 - `DEFAULTS.populationM`
 - `DEFAULTS.currentComputeM`
@@ -125,7 +125,9 @@ After the workbooks are final, update these values together in `surfaces/website
 - report prose or workbook-default dates containing calculated results
 - `REPORT_QUARTERS` and `OBSERVED_END_INDEX` if the window changes
 
-`CAPABILITY_CURVE` is the confidence-weighted Summary trajectory beginning at the evidence cutoff. `COMPUTE_CURVE` is the compute workbook's `U.S. H100e` quarterly series in millions, also beginning at the evidence cutoff.
+`CAPABILITY_CURVE` is the confidence-weighted Summary trajectory beginning at the evidence cutoff. The capability projection module reads benchmark velocity, acceleration, category weights, and the default overall gap acceleration from generated `report-data.ts`; confirm those rows remain present after generation. `COMPUTE_CURVE` is the compute workbook's `U.S. H100e` quarterly series in millions, also beginning at the evidence cutoff.
+
+The two live acceleration inputs are actual rates with different units, not multipliers. Confirm that the capability default matches the report's confidence-weighted gap acceleration in failure-gap halvings per quarter² and that the compute default matches `BASE_COMPUTE_ACCELERATION` in `log2 H100e` per quarter².
 
 The HTML charts read generated workbook rows, while the countdown reads these constants. Updating only one side creates an internally inconsistent publication.
 
@@ -165,8 +167,10 @@ Then verify the default scenario end to end:
 7. Compute crossing matches the site calculation.
 8. The headline is the later crossing.
 9. Population share, tokens per user per day, serving efficiency, personal-AI inference allocation, capability threshold, and both acceleration controls affect the correct gate.
-10. Both report modals show current data and both downloads open the current workbooks.
-11. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
+10. Raising either acceleration while holding every other input fixed never moves its gate later; lowering it never moves the gate earlier.
+11. A capability threshold just above the four-year endpoint continues the benchmark-level equations rather than holding the final aggregate flat, and the site labels the crossing as an extended extrapolation.
+12. Both report modals show current data and both downloads open the current workbooks.
+13. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
 
 ## Publication
 
@@ -200,7 +204,7 @@ A refresh is complete only when:
 
 ## Maintenance debt
 
-1. **Automate site-curve extraction.** `CAPABILITY_CURVE` and `COMPUTE_CURVE` are copied manually into `page.tsx`, creating the largest silent-drift risk.
+1. **Automate site-curve extraction.** `CAPABILITY_CURVE` and `COMPUTE_CURVE` are copied manually into their projection modules, creating the largest silent-drift risk.
 2. **Remove capability literals from the compute builder.** Generate or pass a shared capability result.
 3. **Read capability registries directly.** The compute builder now reads its canonical capacity series, but the capability builder still embeds operative arrays even though `data/sources/` defines the intended append-only evidence structure.
 4. **Set a rolling-window policy.** The current publication is fixed at `2024-Q1` through `2028-Q4`; do not change it silently at a quarter rollover.
@@ -233,14 +237,18 @@ Notes or comparability breaks:
 |---|---:|
 | Current capability composite | 45.661% |
 | Capability confidence | Low, about 47.8% evidence coverage |
+| Capability gap acceleration | +0.046537 failure-gap halvings per quarter² |
+| Implied capability-velocity growth | about 47.1% per quarter under the causal-feedback conjecture |
 | Capability threshold | 60% |
-| Capability crossing | 20 June 2028 |
+| Capability crossing | 25 April 2027 |
 | Current U.S. compute | 13.524006M H100e |
 | Population target | 171.4M users |
 | Personal-AI inference allocation | 50% of modeled inference supply |
 | Current supported users | about 32.2M |
 | Required compute | about 71.96M H100e |
 | Compute progress | about 18.8% |
+| Compute log-capacity acceleration | +0.003373 log2 H100e per quarter² |
+| Implied compute-velocity growth | about 1.39% per quarter under the causal-feedback conjecture |
 | Compute crossing | 19 February 2029 (continuous extrapolation; 20 February at daily site resolution) |
 | Headline date | 20 February 2029 |
 
