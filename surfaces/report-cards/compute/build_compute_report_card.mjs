@@ -150,6 +150,20 @@ assumptions.getRange("C7:C8").format.numberFormat = "0%";
 assumptions.getRange("C11:C12").format.numberFormat = "0%";
 assumptions.getRange("C17:C17").format.numberFormat = "0%";
 
+const supportingEvidenceRows = compute.data.supportingEvidence.map((record) => [
+  record.id, record.metric, record.value, record.unit, record.scope, record.metricDate,
+  record.evidenceClass, record.valueQualifier, record.sourceLocation, record.sourceId,
+  record.claim, record.caveat, "No",
+]);
+const supportingEvidence = makeSheet(
+  "Supporting Evidence",
+  "Independent Compute-Supply Diagnostics",
+  "Source-reported global build-rate, geography, performance, and allocation estimates. These retain their original units and do not directly enter the U.S. H100e countdown.",
+  ["Evidence ID", "Metric", "Value", "Unit", "Scope", "Metric date", "Evidence class", "Qualifier", "Source location", "Source ID", "Claim", "Caveat", "Countdown input"],
+  supportingEvidenceRows,
+  "ComputeSupportingEvidenceTable",
+);
+
 const sourceRows = compute.metadata.sources.map((source) => [
   source.id, source.publisher, source.title, source.accessedAt,
   source.roles.join(", "), source.url, source.notes ?? "",
@@ -167,6 +181,7 @@ const sheetsAndWidths = [
   [summary, [35, 22, 54]],
   [quarterly, [12, 12, 14, 20, 18, 14, 16, 18, 22, 19, 17, 9, 9, 13, 55, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]],
   [assumptions, [16, 38, 22, 62]],
+  [supportingEvidence, [38, 35, 14, 13, 38, 15, 18, 20, 15, 20, 62, 68, 16]],
   [sources, [13, 24, 40, 14, 24, 58, 55]],
 ];
 for (const [sheet, widths] of sheetsAndWidths) {
@@ -180,6 +195,7 @@ for (const [sheetName, range, filename] of [
   ["Summary", "A1:C17", "summary.png"],
   ["Quarterly Model", `A1:Y${quarterRows.length + 5}`, "quarterly-model.png"],
   ["Assumptions", `A1:D${assumptionRows.length + 5}`, "assumptions.png"],
+  ["Supporting Evidence", `A1:M${supportingEvidenceRows.length + 5}`, "supporting-evidence.png"],
   ["Sources", `A1:G${sourceRows.length + 5}`, "sources.png"],
 ]) {
   const image = await workbook.render({ sheetName, range, autoCrop: "all", scale: 0.85, format: "png" });

@@ -184,6 +184,20 @@ export function buildSourceResults(envelope, manifest) {
           sourceRecord: path,
           caveat: `${record.evidenceClass}: ${record.methodNote}`,
         }));
+      } else if (collectionId === 'compute-capacity.supportingEvidence' && typeof record.value === 'number') {
+        measurements.push(measurement({
+          id: path,
+          metric: record.metric ?? 'Compute-supply supporting evidence',
+          value: record.value,
+          unit: record.unit ?? 'value',
+          subject: record.scope ?? record.entity ?? null,
+          observationDate: record.metricDate ?? record.observationDate ?? null,
+          origin: 'source-reported',
+          usedInCountdown: false,
+          sourceLocation: record.sourceLocation ?? null,
+          sourceRecord: path,
+          caveat: record.caveat ?? record.comparabilityNote ?? null,
+        }));
       } else if (['adoption.observations', 'research-evidence.observations'].includes(collectionId) && typeof record.value === 'number') {
         measurements.push(measurement({
           id: path,

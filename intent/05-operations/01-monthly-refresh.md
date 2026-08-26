@@ -50,7 +50,7 @@ For capability, gather benchmarks, leaderboards, and evaluations of model–harn
 
 Refresh METR H50 and H80 task-horizon observations and official trend estimates. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, model, scaffold, metric, source, confidence interval when available, and measurement-ceiling warnings.
 
-For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Reconstruct quarter cutoffs under a stable public-coverage rule. Prefer primary sources and preserve uncertainty.
+For compute, gather U.S. data-center projects, accelerator capacity, operational or expected operational dates, and serving evidence. Reconstruct quarter cutoffs under a stable public-coverage rule. Preserve global build-rate, allocation, and financing outlooks as separately labeled supporting evidence when they cannot be converted to U.S. H100-equivalents without additional assumptions. Prefer primary sources and preserve uncertainty.
 
 For every value, update or create exactly one `[source]-data.json` file under the appropriate gate. Each file names one public HTTPS source in `metadata.sources`; its `data.fragments` attributes normalized records or model values to logical datasets. The consolidator materializes `data.results` so readers see every explicit score or measurement, its origin, normalization, and countdown use before the lower-level fragments. Do not infer an exact score from vague prose; a source without a numerical result must say so.
 

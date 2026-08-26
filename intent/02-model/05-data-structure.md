@@ -130,7 +130,7 @@ The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest
 | `adoption` | 1 | Adoption definitions, observations, and agent-product events | No; triangulation |
 | `research-evidence` | 1 | Evidence ledger supporting the conjecture and assumptions | No; triangulation |
 | `user-capabilities` | 1 | Consumer capability catalog and operational metrics | No; ontology |
-| `compute-capacity` | 2 | U.S. H100-equivalent path, population target, workload, serving envelope, and projection policy | Yes |
+| `compute-capacity` | 2 | U.S. H100-equivalent path, population target, workload, serving envelope, projection policy, and separately labeled supporting supply evidence | Yes; only the compatible H100e path and serving inputs |
 
 The capability dataset distinguishes the forecast-driving benchmark basket from the supporting registry. Supporting observations remain visible for provenance and future revisions, but only records explicitly labeled as forecast inputs affect the gate.
 
@@ -142,10 +142,11 @@ The capability dataset distinguishes the forecast-driving benchmark basket from 
 4. Never convert vague prose, an Elo value, or an unmatched benchmark version into a percentage without a documented normalization rule.
 5. Unknown values remain null or explicitly unknown; they are not zero.
 6. Observed and projected compute rows remain distinguishable through `evidenceClass`.
-7. Adoption series retain their units and populations; users, subscriptions, seats, downloads, and stars are not one curve.
-8. Every `sourceId` must resolve to the source file that contributed the record and to the consolidated gate's source registry.
-9. Every source must materialize its numerical results and say whether each one is source-reported, normalized, derived, or a forecast assumption; missing scores remain explicitly missing.
-10. New schemas require a `schemaVersion` change and corresponding consolidator, loader, and validator update.
+7. Global gigawatt outlooks, lab-allocation estimates, and other expert supply diagnostics remain in `supportingEvidence` unless they can be converted to the U.S. H100-equivalent series without hidden geography, hardware-mix, or performance-per-watt assumptions.
+8. Adoption series retain their units and populations; users, subscriptions, seats, downloads, and stars are not one curve.
+9. Every `sourceId` must resolve to the source file that contributed the record and to the consolidated gate's source registry.
+10. Every source must materialize its numerical results and say whether each one is source-reported, normalized, derived, or a forecast assumption; missing scores remain explicitly missing.
+11. New schemas require a `schemaVersion` change and corresponding consolidator, loader, and validator update.
 
 ## Adding evidence
 

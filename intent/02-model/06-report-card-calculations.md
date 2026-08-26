@@ -136,6 +136,8 @@ The website's compute-acceleration control is the actual initial pipeline accele
 
 Only operational U.S. capacity belongs in the observed series. Announced or under-construction projects enter the forward path only on a supported expected or projected commissioning date and must remain visibly labeled as projections.
 
+Independent supply outlooks remain visible as diagnostics when their units or scope are not directly comparable with the countdown series. The August 2026 Dylan Patel interview, for example, estimates global incremental AI-compute additions of 30 GW in 2026, 50 GW in 2027, and roughly 70 GW in 2028, while also estimating that about 70% of current watts are deployed in the United States. Those claims corroborate rapid buildout but do not identify U.S. operational H100-equivalents by quarter. They therefore appear in `compute-capacity.supportingEvidence` and the report card without entering the gate equation. The interview's current 40% inference-allocation estimate is also retained as a cross-check, not substituted for the model's editable personal-AI allocation assumption. Source: <https://www.dwarkesh.com/p/dylan-patel-3>.
+
 ### Default workload
 
 The current high-autonomy workload is 16.75 million compute-equivalent tokens per user per day:

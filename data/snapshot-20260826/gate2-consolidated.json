@@ -21,6 +21,19 @@
         "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
       },
       {
+        "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+        "publisher": "Dwarkesh Podcast",
+        "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+        "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capacity outlook",
+          "allocation cross-check",
+          "supply constraint context"
+        ],
+        "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path."
+      },
+      {
         "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
         "publisher": "Epoch AI",
         "title": "AI Data Center Timelines CSV",
@@ -83,6 +96,32 @@
         }
       },
       {
+        "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+        "file": "gate2-sources/dwarkesh-com-dylan-patel-compute-outlook-data.json",
+        "publisher": "Dwarkesh Podcast",
+        "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+        "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "capacity outlook",
+          "allocation cross-check",
+          "supply constraint context"
+        ],
+        "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 15,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 15,
+          "assumptions": 0,
+          "directInputs": 0
+        }
+      },
+      {
         "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
         "file": "gate2-sources/epoch-ai-ai-data-center-timelines-csv-data.json",
         "publisher": "Epoch AI",
@@ -137,7 +176,7 @@
         "metadata": {
           "id": "compute-capacity",
           "title": "U.S. operational AI-compute capacity",
-          "description": "Observed and dated projected U.S. H100-equivalent capacity plus the serving envelope used to estimate supported high-autonomy users.",
+          "description": "Observed and dated projected U.S. H100-equivalent capacity, the serving envelope used to estimate supported high-autonomy users, and independently sourced build-rate and allocation diagnostics.",
           "schemaVersion": "1.2.0",
           "snapshotDate": "2026-08-26",
           "asOfDate": "2026-08-26",
@@ -154,6 +193,19 @@
                 "model configuration"
               ],
               "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+            },
+            {
+              "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "publisher": "Dwarkesh Podcast",
+              "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+              "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+              "accessedAt": "2026-08-26",
+              "roles": [
+                "capacity outlook",
+                "allocation cross-check",
+                "supply constraint context"
+              ],
+              "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path."
             },
             {
               "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
@@ -181,7 +233,7 @@
           ],
           "calculation": {
             "role": "Direct Gate 2 input",
-            "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions.",
+            "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions. Global gigawatt outlooks and lab-allocation estimates remain separate supporting diagnostics unless a defensible H100e conversion is available.",
             "countdownEffect": "Converts operational compute into supported high-autonomy users. The gate passes only when capacity can serve 100% of the selected population target.",
             "pipeline": [
               "U.S. H100-equivalent capacity",
@@ -201,7 +253,7 @@
           },
           "update": {
             "method": "agent-assisted ETL with human review",
-            "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity."
+            "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into U.S. H100-equivalents."
           }
         },
         "data": {
@@ -405,6 +457,218 @@
               "evidenceClass": "epoch_projected_pipeline",
               "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
               "methodNote": "Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site"
+            }
+          ],
+          "supportingEvidence": [
+            {
+              "id": "global-incremental-ai-compute-2026",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 30,
+              "unit": "GW",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 30 GW in 2026.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2027",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 50,
+              "unit": "GW",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 50 GW in 2027.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2028",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 70,
+              "unit": "GW",
+              "scope": "Global additions in 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds roughly 70 GW in 2028.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2029-lower",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 90,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Lower bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            },
+            {
+              "id": "global-incremental-ai-compute-2029-upper",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 100,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Upper bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            },
+            {
+              "id": "global-ai-compute-stock-2028-lower",
+              "metric": "Global AI-compute capacity stock",
+              "value": 200,
+              "unit": "GW",
+              "scope": "Global stock by end of 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:32",
+              "claim": "Global AI-compute capacity would exceed 200 GW by the end of 2028.",
+              "caveat": "Interview cross-check derived from the preceding annual additions; hardware generations and usable performance are heterogeneous."
+            },
+            {
+              "id": "us-share-new-ai-compute-watts-2026",
+              "metric": "U.S. share of new AI-compute watts",
+              "value": 0.7,
+              "unit": "proportion",
+              "scope": "Current new deployments",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "34:58",
+              "claim": "About 70% of watts currently being deployed for AI compute are in the United States.",
+              "caveat": "Share of new watts, not share of installed H100-equivalent capacity; the denominator and site-coverage rule differ from Epoch."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2026",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.3,
+              "unit": "proportion",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:06",
+              "claim": "OpenAI and Anthropic account for about 30% of incremental compute added in 2026.",
+              "caveat": "Frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2027-lower",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Lower bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2027-upper",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Upper bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "frontier-lab-inference-allocation-2026",
+              "metric": "Frontier-lab compute allocated to inference",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 40% of compute to inference.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement and not the model's editable share of inference capacity allocated to personal AI."
+            },
+            {
+              "id": "frontier-lab-research-allocation-2026",
+              "metric": "Frontier-lab compute allocated to research",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 50% of compute to research.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            },
+            {
+              "id": "frontier-lab-development-allocation-2026",
+              "metric": "Frontier-lab compute allocated to development",
+              "value": 0.1,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 10% of compute to development.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            },
+            {
+              "id": "new-chip-performance-per-watt-uplift-lower",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 3,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Lower bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+            },
+            {
+              "id": "new-chip-performance-per-watt-uplift-upper",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 5,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Upper bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
             }
           ],
           "population": {

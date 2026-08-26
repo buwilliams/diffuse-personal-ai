@@ -218,13 +218,13 @@
         "gateId": "gate2",
         "consolidatedFile": "gate2-consolidated.json",
         "title": "U.S. operational AI-compute capacity",
-        "description": "Observed and dated projected U.S. H100-equivalent capacity plus the serving envelope used to estimate supported high-autonomy users.",
+        "description": "Observed and dated projected U.S. H100-equivalent capacity, the serving envelope used to estimate supported high-autonomy users, and independently sourced build-rate and allocation diagnostics.",
         "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 20,
+        "recordCount": 35,
         "calculation": {
           "role": "Direct Gate 2 input",
-          "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions.",
+          "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions. Global gigawatt outlooks and lab-allocation estimates remain separate supporting diagnostics unless a defensible H100e conversion is available.",
           "countdownEffect": "Converts operational compute into supported high-autonomy users. The gate passes only when capacity can serve 100% of the selected population target.",
           "pipeline": [
             "U.S. H100-equivalent capacity",
@@ -244,6 +244,7 @@
         },
         "collections": [
           "quarters",
+          "supportingEvidence",
           "population",
           "workload",
           "serving",
@@ -251,7 +252,7 @@
         ],
         "update": {
           "method": "agent-assisted ETL with human review",
-          "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity."
+          "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into U.S. H100-equivalents."
         }
       }
     ],

@@ -122,6 +122,21 @@ type WorkloadComponent = {
   computeEquivalentTokens: number;
 };
 
+type ComputeSupportingEvidence = {
+  id: string;
+  metric: string;
+  value: number;
+  unit: string;
+  scope: string;
+  metricDate: string;
+  evidenceClass: string;
+  valueQualifier: string;
+  sourceId: string;
+  sourceLocation: string;
+  claim: string;
+  caveat: string;
+};
+
 type CapabilityQuarter = {
   quarter: string;
   date: string;
@@ -320,6 +335,25 @@ const computeAssumptionRows: ReportCell[][] = [
   ]),
 ];
 
+const computeSupportingEvidenceRows: ReportCell[][] = [
+  ['Evidence ID', 'Metric', 'Value', 'Unit', 'Scope', 'Metric date', 'Evidence class', 'Qualifier', 'Source location', 'Source ID', 'Claim', 'Caveat', 'Countdown input'],
+  ...(computeDataset.data.supportingEvidence as ComputeSupportingEvidence[]).map((record) => [
+    record.id,
+    record.metric,
+    record.value,
+    record.unit,
+    record.scope,
+    record.metricDate,
+    record.evidenceClass,
+    record.valueQualifier,
+    record.sourceLocation,
+    record.sourceId,
+    record.claim,
+    record.caveat,
+    false,
+  ]),
+];
+
 export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
   capability: {
     id: 'capability',
@@ -341,6 +375,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
       sheet('Summary', 'Current supply, serving assumptions, and the base-case crossing.', computeSummaryRows),
       sheet('Quarterly Model', 'Observed and expected U.S. operational H100-equivalent capacity by quarter.', computeQuarterRows),
       sheet('Assumptions', 'Population, workload, allocation, and serving assumptions.', computeAssumptionRows),
+      sheet('Supporting Evidence', 'Independent quantitative supply diagnostics retained in their reported units; these rows do not directly enter the countdown.', computeSupportingEvidenceRows),
       sheet('Sources', 'Public sources and provenance for the compute dataset.', sourceRows(computeDataset.metadata.sources as Source[])),
     ],
   },
