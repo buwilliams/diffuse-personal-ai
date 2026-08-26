@@ -15,6 +15,7 @@ The website compresses the conjecture into one legible countdown, exposes the mo
 - Workbook downloads resolve to the canonical files in `data/reports/` on the public GitHub repository.
 - Source cells render as clickable HTTPS links. Repository documents point to their public GitHub view, while report-to-report references open the corresponding HTML report when possible.
 - Public HTML, styles, generated report data, and URLs contain no local filesystem paths such as `C:\...`, `file://...`, or WSL mount paths.
+- The interface uses the site-hosted Geist and Geist Mono variable fonts. Their numeral shapes and metrics are part of the visual identity; do not substitute system fallbacks in production.
 
 ## Updating and publishing
 

@@ -1,6 +1,22 @@
 @import 'tailwindcss';
 
-:root { --font-geist-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; --ink: #d9fff0; --mint: #86ffd1; --muted: #77968d; --line: rgba(134,255,209,.18); --void: #020b0d; --chart-aggregate:#86ffd1; --chart-1:#63e7b7; --chart-2:#63b8ff; --chart-3:#b699ff; --chart-4:#ffc86b; --chart-grid:rgba(134,255,209,.09); --chart-frame:rgba(134,255,209,.2); --chart-projection:#ffc86b; --chart-threshold:#f3a76e; --chart-area-top:rgba(134,255,209,.2); --chart-area-bottom:rgba(134,255,209,.015); }
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-mono-variable.woff2') format('woff2');
+}
+
+:root { --font-geist-sans: 'Geist', Arial, sans-serif; --font-geist-mono: 'Geist Mono', monospace; --ink: #d9fff0; --mint: #86ffd1; --muted: #77968d; --line: rgba(134,255,209,.18); --void: #020b0d; --chart-aggregate:#86ffd1; --chart-1:#63e7b7; --chart-2:#63b8ff; --chart-3:#b699ff; --chart-4:#ffc86b; --chart-grid:rgba(134,255,209,.09); --chart-frame:rgba(134,255,209,.2); --chart-projection:#ffc86b; --chart-threshold:#f3a76e; --chart-area-top:rgba(134,255,209,.2); --chart-area-bottom:rgba(134,255,209,.015); }
 * { box-sizing: border-box; }
 html { background: var(--void); }
 body { margin: 0; background: var(--void); color: var(--ink); font-family: var(--font-geist-sans), Arial, sans-serif; }
