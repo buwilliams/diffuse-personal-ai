@@ -138,7 +138,7 @@ const DEFAULTS: ModelInputs = {
   currentCapability: CAPABILITY_CURVE[0][1],
   capabilityThreshold: 60,
   capabilityAcceleration: 1,
-  populationM: 342.697245,
+  populationM: 342.8,
   coverageThreshold: 50,
   currentComputeM: 13.524006,
   computeAcceleration: 1,
