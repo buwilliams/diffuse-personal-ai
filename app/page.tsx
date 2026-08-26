@@ -11,7 +11,8 @@ const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
 const TOKENS_PER_H100E_DAY_M = 79.79328;
 const BASE_COMPUTE_ACCELERATION = -0.0311262;
 const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(18.127258 / 13.524006);
-const SUPPLY_THRESHOLD = 100;
+const SUPPLY_GATE_SHARE_OF_TARGET = 1;
+const SUPPLY_THRESHOLD = SUPPLY_GATE_SHARE_OF_TARGET * 100;
 
 const CAPABILITY_CURVE = [
   ['2026-08-26', 47.5454716275],
@@ -814,7 +815,7 @@ export default function Home() {
 
   const projection = useMemo(() => {
     const targetUsersM = inputs.populationM * inputs.coverageThreshold / 100;
-    const requiredComputeM = targetUsersM * inputs.workloadM /
+    const requiredComputeM = targetUsersM * SUPPLY_GATE_SHARE_OF_TARGET * inputs.workloadM /
       (TOKENS_PER_H100E_DAY_M * inputs.servingEfficiency);
     const currentSupportedM = supportedUsersAt(SNAPSHOT, inputs);
     const capabilityCrossing = findCrossing((timestamp) =>
@@ -900,7 +901,7 @@ export default function Home() {
       grade: grade(projection.computeProgress),
       threshold: `${SUPPLY_THRESHOLD}%`,
       crossing: computeDate,
-      note: 'The supply gate clears at 100% of the selected population target. Changing the population share changes how many users that threshold represents.',
+      note: 'The population share selects the target; the supply gate then clears at 100% of that target. There is no second population-share multiplier.',
       href: '/reports/personal-ai-compute-report-card.xlsx',
       rows: [
         ['Supply threshold', `${SUPPLY_THRESHOLD}%`],
@@ -923,6 +924,7 @@ export default function Home() {
     { label: 'Crossing', value: reports.capability.crossing },
     { label: 'Confidence', value: `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%` },
   ] : [
+    { label: 'Gate rule', value: '100% of selected target' },
     { label: 'Current compute', value: `${inputs.currentComputeM.toFixed(2)}M H100e` },
     { label: 'Required compute', value: `${projection.requiredComputeM.toFixed(2)}M H100e` },
     { label: 'Supported / target users', value: `${projection.currentSupportedM.toFixed(1)}M / ${projection.targetUsersM.toFixed(1)}M` },
@@ -944,8 +946,8 @@ export default function Home() {
       { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
       { title: 'Convert hardware to daily tokens.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day and the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
-      { title: 'Set the population target.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. The population percentage is directly adjustable.` },
-      { title: 'Translate users into required compute.', explanation: `Serving ${projection.targetUsersM.toFixed(1)}M users under those assumptions requires ${projection.requiredComputeM.toFixed(2)}M H100e. Current capacity is ${inputs.currentComputeM.toFixed(2)}M H100e, supporting ${projection.currentSupportedM.toFixed(1)}M users.` },
+      { title: 'Select the population target once.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. This is the only population-share multiplication.` },
+      { title: 'Require 100% of that target.', explanation: `The supply gate is fixed at ${SUPPLY_THRESHOLD}% of the selected ${projection.targetUsersM.toFixed(1)}M-user target—not ${inputs.coverageThreshold.toFixed(0)}% of it. That requires ${projection.requiredComputeM.toFixed(2)}M H100e.` },
       { title: 'Find the supply crossing.', explanation: `The compute gate passes when projected capacity reaches ${projection.requiredComputeM.toFixed(2)}M H100e, equivalent to ${projection.targetUsersM.toFixed(1)}M users. The crossing is ${computeDate}. At 2028-Q4, ${horizonComputeM.toFixed(2)}M H100e supports about ${horizonSupportedM.toFixed(1)}M users.` },
       { title: 'Use the later gate.', explanation: `Both capability and supply must pass. The headline is MAX(${capabilityDate}, ${computeDate}) = ${targetLabel}. ${gateRule}` },
     ],
@@ -1000,7 +1002,7 @@ export default function Home() {
           <span className="gate-index">02 / supply{projection.controllingGate === 'compute' ? ' · controls clock' : ''}</span>
           <span className="gate-name">U.S. compute</span>
           <span className="gate-meter"><i style={{ width: `${projection.computeProgress}%` }} /></span>
-          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>{projection.currentSupportedM.toFixed(1)}M of {projection.targetUsersM.toFixed(1)}M users · {computeDate}</em></span>
+          <span className="gate-stats"><b>{projection.computeProgress.toFixed(1)}%</b><em>{projection.currentSupportedM.toFixed(1)}M of {projection.targetUsersM.toFixed(1)}M users · 100% required · {computeDate}</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
       </section>
@@ -1041,7 +1043,7 @@ export default function Home() {
               <fieldset>
                 <legend>U.S. compute supply</legend>
                 <ControlField label="Population" note="Addressable U.S. population" value={inputs.populationM} min={250} max={450} step={0.1} suffix="M" onChange={(value) => update('populationM', value)} />
-                <ControlField label="Population target" note="Share represented by the 100% supply threshold" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
+                <ControlField label="Population target" note="Selected once; supply must serve 100% of this share" value={inputs.coverageThreshold} min={10} max={100} step={1} suffix="%" decimals={0} onChange={(value) => update('coverageThreshold', value)} />
                 <ControlField label="Current compute" note="Operational U.S. H100e" value={inputs.currentComputeM} min={5} max={50} step={0.1} suffix="M" onChange={(value) => update('currentComputeM', value)} />
                 <ControlField label="Compute acceleration" note="1× = −0.031 log₂/q²" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
                 <ControlField label="Agent workload" note="Compute-equivalent tokens/user/day" value={inputs.workloadM} min={5} max={50} step={0.25} suffix="M" decimals={2} onChange={(value) => update('workloadM', value)} />
