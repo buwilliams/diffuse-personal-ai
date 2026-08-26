@@ -158,17 +158,41 @@ function formatDate(date: Date | null) {
 
 function countdown(now: number, target: Date | null) {
   if (!target) return null;
-  const remaining = Math.max(0, target.getTime() - now);
-  const totalDays = Math.floor(remaining / DAY);
-  const years = Math.floor(totalDays / 365.2425);
-  const days = Math.floor(totalDays - years * 365.2425);
-  return {
-    years,
-    days,
-    hours: Math.floor((remaining % DAY) / 3_600_000),
-    minutes: Math.floor((remaining % 3_600_000) / 60_000),
-    seconds: Math.floor((remaining % 60_000) / 1_000),
+  const targetTime = target.getTime();
+  if (targetTime <= now) return { years: 0, months: 0, days: 0, hours: 0 };
+
+  const addYears = (date: Date, years: number) => {
+    const result = new Date(date);
+    const month = result.getUTCMonth();
+    result.setUTCFullYear(result.getUTCFullYear() + years, month, 1);
+    const lastDay = new Date(Date.UTC(result.getUTCFullYear(), month + 1, 0)).getUTCDate();
+    result.setUTCDate(Math.min(date.getUTCDate(), lastDay));
+    return result;
   };
+  const addMonths = (date: Date, months: number) => {
+    const result = new Date(date);
+    const desiredMonth = result.getUTCMonth() + months;
+    result.setUTCDate(1);
+    result.setUTCMonth(desiredMonth);
+    const lastDay = new Date(Date.UTC(result.getUTCFullYear(), result.getUTCMonth() + 1, 0)).getUTCDate();
+    result.setUTCDate(Math.min(date.getUTCDate(), lastDay));
+    return result;
+  };
+
+  let cursor = new Date(now);
+  let years = target.getUTCFullYear() - cursor.getUTCFullYear();
+  if (addYears(cursor, years).getTime() > targetTime) years -= 1;
+  cursor = addYears(cursor, years);
+
+  let months = (target.getUTCFullYear() - cursor.getUTCFullYear()) * 12 +
+    target.getUTCMonth() - cursor.getUTCMonth();
+  if (addMonths(cursor, months).getTime() > targetTime) months -= 1;
+  cursor = addMonths(cursor, months);
+
+  const days = Math.floor((targetTime - cursor.getTime()) / DAY);
+  cursor = new Date(cursor.getTime() + days * DAY);
+  const hours = Math.floor((targetTime - cursor.getTime()) / 3_600_000);
+  return { years, months, days, hours };
 }
 
 function grade(score: number) {
@@ -326,16 +350,14 @@ export default function Home() {
       <section className="hero" aria-labelledby="countdown-title">
         <p className="kicker" id="countdown-title">Countdown to diffuse Personal AI</p>
         {time ? (
-          <div className="countdown" aria-live="polite" aria-label={`${time.years} years, ${time.days} days, ${time.hours} hours, ${time.minutes} minutes, ${time.seconds} seconds`}>
+          <div className="countdown" aria-live="polite" aria-label={`${time.years} years, ${time.months} months, ${time.days} days, ${time.hours} hours`}>
             <span><strong>{time.years}</strong><small>years</small></span>
             <b>:</b>
-            <span><strong>{String(time.days).padStart(3, '0')}</strong><small>days</small></span>
-            <b className="minor-separator">:</b>
-            <span className="minor"><strong>{String(time.hours).padStart(2, '0')}</strong><small>hours</small></span>
-            <b className="minor-separator">:</b>
-            <span className="minor"><strong>{String(time.minutes).padStart(2, '0')}</strong><small>min</small></span>
-            <b className="minor-separator">:</b>
-            <span className="minor"><strong>{String(time.seconds).padStart(2, '0')}</strong><small>sec</small></span>
+            <span><strong>{String(time.months).padStart(2, '0')}</strong><small>months</small></span>
+            <b>:</b>
+            <span><strong>{String(time.days).padStart(2, '0')}</strong><small>days</small></span>
+            <b>:</b>
+            <span><strong>{String(time.hours).padStart(2, '0')}</strong><small>hours</small></span>
           </div>
         ) : <div className="no-date">No crossing</div>}
         <p className="target-date">{projection.target ? `Projected gate clearance · ${targetLabel}` : 'One or more gates do not cross within 15 years'}</p>
