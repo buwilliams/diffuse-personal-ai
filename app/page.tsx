@@ -6,6 +6,7 @@ import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } fro
 const DAY = 86_400_000;
 const QUARTER = (365.2425 / 4) * DAY;
 const SNAPSHOT = new Date('2026-08-26T00:00:00Z').getTime();
+const PUBLICATION_DATE = '26 Aug 2026';
 const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
 const TOKENS_PER_H100E_DAY_M = 79.79328;
 const BASE_COMPUTE_ACCELERATION = -0.0311262;
@@ -13,16 +14,16 @@ const BASE_CAPABILITY_ACCELERATION_PP = -0.4421575;
 const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(18.127258 / 13.524006);
 
 const CAPABILITY_CURVE = [
-  ['2026-08-26', 44.6135738631],
-  ['2026-12-31', 47.9175128052],
-  ['2027-03-31', 51.644087357],
-  ['2027-06-30', 55.0781956749],
-  ['2027-09-30', 57.7892787858],
-  ['2027-12-31', 59.6528495951],
-  ['2028-03-31', 60.825037561],
-  ['2028-06-30', 61.5416817656],
-  ['2028-09-30', 62.0032352864],
-  ['2028-12-31', 62.3376617338],
+  ['2026-08-26', 46.6619285013],
+  ['2026-12-31', 49.9453547564],
+  ['2027-03-31', 53.6515058806],
+  ['2027-06-30', 57.0652796487],
+  ['2027-09-30', 59.7561166939],
+  ['2027-12-31', 61.5995295326],
+  ['2028-03-31', 62.7516472496],
+  ['2028-06-30', 63.4483085368],
+  ['2028-09-30', 63.8899661002],
+  ['2028-12-31', 64.2045831623],
 ] as const;
 
 const COMPUTE_CURVE = [
@@ -114,7 +115,7 @@ type ModelInputs = {
 };
 
 const DEFAULTS: ModelInputs = {
-  currentCapability: 44.6136,
+  currentCapability: 46.6619,
   capabilityThreshold: 60,
   capabilityAcceleration: 1,
   populationM: 342.697245,
@@ -809,7 +810,7 @@ export default function Home() {
         ['Passing threshold', `${inputs.capabilityThreshold.toFixed(0)}%`],
         ['Acceleration', `${inputs.capabilityAcceleration.toFixed(2)}× baseline`],
         ['Projected crossing', capabilityDate],
-        ['Workbook default', '27 Jan 2028'],
+        ['Workbook default', '13 Oct 2027'],
       ],
     },
     compute: {
@@ -838,7 +839,7 @@ export default function Home() {
     { label: 'Current score', value: reports.capability.current },
     { label: 'Threshold', value: reports.capability.threshold },
     { label: 'Crossing', value: reports.capability.crossing },
-    { label: 'Acceleration', value: `${inputs.capabilityAcceleration.toFixed(2)}×` },
+    { label: 'Accel. multiplier', value: `${inputs.capabilityAcceleration.toFixed(2)}×` },
   ] : [
     { label: 'Supported users', value: `${projection.currentSupportedM.toFixed(1)}M` },
     { label: 'Target users', value: reports.compute.threshold },
@@ -855,7 +856,7 @@ export default function Home() {
       </div>
 
       <header className="masthead">
-        <span>Personal AI Observatory</span>
+        <span className="publication-stamp"><b>Personal AI Observatory</b><small>Published · {PUBLICATION_DATE}</small></span>
         <span className="mast-actions">
           <span className="signal"><i /> {isDefault ? 'Default projection' : 'Adjusted scenario'}</span>
           <button className="tune-button" onClick={() => setTunerOpen(true)}>Tune model <b>↗</b></button>

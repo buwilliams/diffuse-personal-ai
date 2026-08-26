@@ -18,6 +18,9 @@ a { color: inherit; }
 @keyframes orbit { to { transform:rotate(360deg); } }
 @keyframes scan { 0%,100% { top:5%; opacity:0; } 15%,75% { opacity:.3; } 85% { top:95%; opacity:0; } }
 .masthead { display:flex; justify-content:space-between; align-items:center; text-transform:uppercase; letter-spacing:.2em; font:600 10px/1 var(--font-geist-mono),monospace; color:var(--muted); }
+.publication-stamp { display:grid; gap:7px; }
+.publication-stamp b { color:var(--muted); font:inherit; }
+.publication-stamp small { color:#4f7067; font:600 8px/1 var(--font-geist-mono),monospace; letter-spacing:.15em; }
 .mast-actions { display:flex; align-items:center; gap:18px; }
 .signal { display:flex; align-items:center; gap:8px; }
 .signal i { width:6px; height:6px; border-radius:50%; background:var(--mint); box-shadow:0 0 12px var(--mint); animation:pulse 2s ease-in-out infinite; }
