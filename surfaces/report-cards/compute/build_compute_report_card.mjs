@@ -161,14 +161,14 @@ assumptions.getRange("C11:C12").format.numberFormat = "0%";
 assumptions.getRange("C17:C17").format.numberFormat = "0%";
 
 const siteRegistryRows = compute.data.siteRegistry.map((site) => [
-  site.name, site.country ?? "", site.currentH100e, site.currentFacilityPowerMw,
+  site.name, site.country ?? "", site.currentH100e, site.currentItPowerMw,
   site.owner ?? "", site.users ?? "", site.address ?? "", site.sourceId,
 ]);
 const siteRegistry = makeSheet(
   "Site Registry",
   "Epoch AI Data-Center Registry",
-  "Facility-level source rows used to identify U.S. sites and audit the timeline join. Facility power includes non-IT overhead and is not substituted for IT power in the gate.",
-  ["Site", "Country", "Current H100e", "Current facility power MW", "Owner", "Users", "Address", "Source ID"],
+  "Facility-level source rows used to identify U.S. sites and audit current IT power. The quarterly gate path is reconstructed from the dated timeline.",
+  ["Site", "Country", "Current H100e", "Current IT power MW", "Owner", "Users", "Address", "Source ID"],
   siteRegistryRows,
   "ComputeSiteRegistryTable",
 );

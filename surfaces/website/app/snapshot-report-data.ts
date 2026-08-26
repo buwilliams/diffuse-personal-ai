@@ -127,7 +127,7 @@ type ComputeSite = {
   name: string;
   country: string | null;
   currentH100e: number | null;
-  currentFacilityPowerMw: number | null;
+  currentItPowerMw: number | null;
   owner: string | null;
   users: string | null;
   address: string | null;
@@ -369,12 +369,12 @@ const computeAssumptionRows: ReportCell[][] = [
 ];
 
 const computeSiteRows: ReportCell[][] = [
-  ['Site', 'Country', 'Current H100e', 'Current facility power MW', 'Owner', 'Users', 'Address', 'Source ID'],
+  ['Site', 'Country', 'Current H100e', 'Current IT power MW', 'Owner', 'Users', 'Address', 'Source ID'],
   ...(computeDataset.data.siteRegistry as ComputeSite[]).map((site) => [
     site.name,
     site.country,
     site.currentH100e,
-    site.currentFacilityPowerMw,
+    site.currentItPowerMw,
     site.owner,
     site.users,
     site.address,

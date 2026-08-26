@@ -18,7 +18,7 @@
           "geography filter",
           "facility audit"
         ],
-        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is facility power, not IT power, and is retained only as an audit field."
+        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline."
       }
     ],
     "update": {
@@ -57,11 +57,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Colossus 2.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Colossus 2.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 946,
-          "unit": "MW facility",
-          "displayValue": "946 MW facility",
+          "unit": "MW IT",
+          "displayValue": "946 MW IT",
           "subject": "Colossus 2",
           "observationDate": null,
           "measurementType": "measurement",
@@ -70,8 +70,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Colossus 2.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Colossus 2.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft Fairwater Atlanta.currentH100e",
@@ -91,11 +91,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft Fairwater Atlanta.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft Fairwater Atlanta.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 636,
-          "unit": "MW facility",
-          "displayValue": "636 MW facility",
+          "unit": "MW IT",
+          "displayValue": "636 MW IT",
           "subject": "Microsoft Fairwater Atlanta",
           "observationDate": null,
           "measurementType": "measurement",
@@ -104,8 +104,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Fairwater Atlanta.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Fairwater Atlanta.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Pryor (North).currentH100e",
@@ -125,11 +125,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Pryor (North).currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Pryor (North).currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 368,
-          "unit": "MW facility",
-          "displayValue": "368 MW facility",
+          "unit": "MW IT",
+          "displayValue": "368 MW IT",
           "subject": "Google Pryor (North)",
           "observationDate": null,
           "measurementType": "measurement",
@@ -138,8 +138,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Pryor (North).currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Pryor (North).currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Anthropic-Amazon New Carlisle.currentH100e",
@@ -159,11 +159,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Anthropic-Amazon New Carlisle.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Anthropic-Amazon New Carlisle.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 910,
-          "unit": "MW facility",
-          "displayValue": "910 MW facility",
+          "unit": "MW IT",
+          "displayValue": "910 MW IT",
           "subject": "Anthropic-Amazon New Carlisle",
           "observationDate": null,
           "measurementType": "measurement",
@@ -172,8 +172,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Anthropic-Amazon New Carlisle.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Anthropic-Amazon New Carlisle.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Prometheus.currentH100e",
@@ -193,11 +193,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Prometheus.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Prometheus.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 562,
-          "unit": "MW facility",
-          "displayValue": "562 MW facility",
+          "unit": "MW IT",
+          "displayValue": "562 MW IT",
           "subject": "Meta Prometheus",
           "observationDate": null,
           "measurementType": "measurement",
@@ -206,8 +206,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Prometheus.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Prometheus.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google New Albany.currentH100e",
@@ -227,11 +227,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google New Albany.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google New Albany.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 453,
-          "unit": "MW facility",
-          "displayValue": "453 MW facility",
+          "unit": "MW IT",
+          "displayValue": "453 MW IT",
           "subject": "Google New Albany",
           "observationDate": null,
           "measurementType": "measurement",
@@ -240,8 +240,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google New Albany.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google New Albany.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Abilene.currentH100e",
@@ -261,11 +261,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Abilene.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Abilene.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 421,
-          "unit": "MW facility",
-          "displayValue": "421 MW facility",
+          "unit": "MW IT",
+          "displayValue": "421 MW IT",
           "subject": "OpenAI Stargate Abilene",
           "observationDate": null,
           "measurementType": "measurement",
@@ -274,8 +274,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Abilene.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Abilene.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft Fairwater Wisconsin.currentH100e",
@@ -295,11 +295,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft Fairwater Wisconsin.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft Fairwater Wisconsin.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 369,
-          "unit": "MW facility",
-          "displayValue": "369 MW facility",
+          "unit": "MW IT",
+          "displayValue": "369 MW IT",
           "subject": "Microsoft Fairwater Wisconsin",
           "observationDate": null,
           "measurementType": "measurement",
@@ -308,8 +308,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Fairwater Wisconsin.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Fairwater Wisconsin.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Columbus.currentH100e",
@@ -329,11 +329,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Columbus.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Columbus.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 303,
-          "unit": "MW facility",
-          "displayValue": "303 MW facility",
+          "unit": "MW IT",
+          "displayValue": "303 MW IT",
           "subject": "Google Columbus",
           "observationDate": null,
           "measurementType": "measurement",
@@ -342,8 +342,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Columbus.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Columbus.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Mesa.currentH100e",
@@ -363,11 +363,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Mesa.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Mesa.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 183,
-          "unit": "MW facility",
-          "displayValue": "183 MW facility",
+          "unit": "MW IT",
+          "displayValue": "183 MW IT",
           "subject": "Google Mesa",
           "observationDate": null,
           "measurementType": "measurement",
@@ -376,8 +376,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Mesa.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Mesa.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Council Bluffs (East).currentH100e",
@@ -397,11 +397,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Council Bluffs (East).currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Council Bluffs (East).currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 237,
-          "unit": "MW facility",
-          "displayValue": "237 MW facility",
+          "unit": "MW IT",
+          "displayValue": "237 MW IT",
           "subject": "Google Council Bluffs (East)",
           "observationDate": null,
           "measurementType": "measurement",
@@ -410,8 +410,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Council Bluffs (East).currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Council Bluffs (East).currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Lincoln.currentH100e",
@@ -431,11 +431,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Lincoln.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Lincoln.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 141,
-          "unit": "MW facility",
-          "displayValue": "141 MW facility",
+          "unit": "MW IT",
+          "displayValue": "141 MW IT",
           "subject": "Google Lincoln",
           "observationDate": null,
           "measurementType": "measurement",
@@ -444,8 +444,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Lincoln.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Lincoln.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Bristow.currentH100e",
@@ -465,11 +465,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Bristow.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Bristow.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 279,
-          "unit": "MW facility",
-          "displayValue": "279 MW facility",
+          "unit": "MW IT",
+          "displayValue": "279 MW IT",
           "subject": "Google Bristow",
           "observationDate": null,
           "measurementType": "measurement",
@@ -478,8 +478,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Bristow.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Bristow.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.DayOne Nusajaya.currentH100e",
@@ -499,11 +499,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.DayOne Nusajaya.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.DayOne Nusajaya.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 240,
-          "unit": "MW facility",
-          "displayValue": "240 MW facility",
+          "unit": "MW IT",
+          "displayValue": "240 MW IT",
           "subject": "DayOne Nusajaya",
           "observationDate": null,
           "measurementType": "measurement",
@@ -512,8 +512,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.DayOne Nusajaya.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.DayOne Nusajaya.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Colossus 1.currentH100e",
@@ -533,11 +533,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Colossus 1.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Colossus 1.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 340,
-          "unit": "MW facility",
-          "displayValue": "340 MW facility",
+          "unit": "MW IT",
+          "displayValue": "340 MW IT",
           "subject": "Colossus 1",
           "observationDate": null,
           "measurementType": "measurement",
@@ -546,8 +546,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Colossus 1.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Colossus 1.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Omaha.currentH100e",
@@ -567,11 +567,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Omaha.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Omaha.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 237,
-          "unit": "MW facility",
-          "displayValue": "237 MW facility",
+          "unit": "MW IT",
+          "displayValue": "237 MW IT",
           "subject": "Google Omaha",
           "observationDate": null,
           "measurementType": "measurement",
@@ -580,8 +580,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Omaha.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Omaha.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Denton TX.currentH100e",
@@ -601,11 +601,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Denton TX.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Denton TX.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 262,
-          "unit": "MW facility",
-          "displayValue": "262 MW facility",
+          "unit": "MW IT",
+          "displayValue": "262 MW IT",
           "subject": "CoreWeave Denton TX",
           "observationDate": null,
           "measurementType": "measurement",
@@ -614,8 +614,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Denton TX.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Denton TX.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Kansas City East.currentH100e",
@@ -635,11 +635,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Kansas City East.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Kansas City East.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 105,
-          "unit": "MW facility",
-          "displayValue": "105 MW facility",
+          "unit": "MW IT",
+          "displayValue": "105 MW IT",
           "subject": "Google Kansas City East",
           "observationDate": null,
           "measurementType": "measurement",
@@ -648,8 +648,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Kansas City East.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Kansas City East.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.QTS Richmond 1.currentH100e",
@@ -669,11 +669,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.QTS Richmond 1.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.QTS Richmond 1.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 238,
-          "unit": "MW facility",
-          "displayValue": "238 MW facility",
+          "unit": "MW IT",
+          "displayValue": "238 MW IT",
           "subject": "QTS Richmond 1",
           "observationDate": null,
           "measurementType": "measurement",
@@ -682,8 +682,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 1.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 1.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Rosemount.currentH100e",
@@ -703,11 +703,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Rosemount.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Rosemount.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 178,
-          "unit": "MW facility",
-          "displayValue": "178 MW facility",
+          "unit": "MW IT",
+          "displayValue": "178 MW IT",
           "subject": "Meta Rosemount",
           "observationDate": null,
           "measurementType": "measurement",
@@ -716,8 +716,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Rosemount.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Rosemount.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Amazon Madison Mega Site.currentH100e",
@@ -737,11 +737,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Amazon Madison Mega Site.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Amazon Madison Mega Site.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 284,
-          "unit": "MW facility",
-          "displayValue": "284 MW facility",
+          "unit": "MW IT",
+          "displayValue": "284 MW IT",
           "subject": "Amazon Madison Mega Site",
           "observationDate": null,
           "measurementType": "measurement",
@@ -750,8 +750,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Amazon Madison Mega Site.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Amazon Madison Mega Site.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft Goodyear.currentH100e",
@@ -771,11 +771,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft Goodyear.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft Goodyear.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 202,
-          "unit": "MW facility",
-          "displayValue": "202 MW facility",
+          "unit": "MW IT",
+          "displayValue": "202 MW IT",
           "subject": "Microsoft Goodyear",
           "observationDate": null,
           "measurementType": "measurement",
@@ -784,8 +784,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Goodyear.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Goodyear.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Jeffersonville.currentH100e",
@@ -805,11 +805,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Jeffersonville.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Jeffersonville.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 178,
-          "unit": "MW facility",
-          "displayValue": "178 MW facility",
+          "unit": "MW IT",
+          "displayValue": "178 MW IT",
           "subject": "Meta Jeffersonville",
           "observationDate": null,
           "measurementType": "measurement",
@@ -818,8 +818,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Jeffersonville.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Jeffersonville.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google The Dalles.currentH100e",
@@ -839,11 +839,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google The Dalles.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google The Dalles.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 154,
-          "unit": "MW facility",
-          "displayValue": "154 MW facility",
+          "unit": "MW IT",
+          "displayValue": "154 MW IT",
           "subject": "Google The Dalles",
           "observationDate": null,
           "measurementType": "measurement",
@@ -852,8 +852,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google The Dalles.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google The Dalles.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Midlothian.currentH100e",
@@ -873,11 +873,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Midlothian.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Midlothian.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 103,
-          "unit": "MW facility",
-          "displayValue": "103 MW facility",
+          "unit": "MW IT",
+          "displayValue": "103 MW IT",
           "subject": "Google Midlothian",
           "observationDate": null,
           "measurementType": "measurement",
@@ -886,8 +886,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Midlothian.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Midlothian.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.QTS Richmond 2.currentH100e",
@@ -907,11 +907,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.QTS Richmond 2.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.QTS Richmond 2.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 180,
-          "unit": "MW facility",
-          "displayValue": "180 MW facility",
+          "unit": "MW IT",
+          "displayValue": "180 MW IT",
           "subject": "QTS Richmond 2",
           "observationDate": null,
           "measurementType": "measurement",
@@ -920,8 +920,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 2.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 2.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.QTS Richmond 3.currentH100e",
@@ -941,11 +941,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.QTS Richmond 3.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.QTS Richmond 3.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 144,
-          "unit": "MW facility",
-          "displayValue": "144 MW facility",
+          "unit": "MW IT",
+          "displayValue": "144 MW IT",
           "subject": "QTS Richmond 3",
           "observationDate": null,
           "measurementType": "measurement",
@@ -954,8 +954,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 3.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.QTS Richmond 3.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Montgomery.currentH100e",
@@ -975,11 +975,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Montgomery.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Montgomery.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 153,
-          "unit": "MW facility",
-          "displayValue": "153 MW facility",
+          "unit": "MW IT",
+          "displayValue": "153 MW IT",
           "subject": "Meta Montgomery",
           "observationDate": null,
           "measurementType": "measurement",
@@ -988,8 +988,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Montgomery.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Montgomery.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Kuna.currentH100e",
@@ -1009,11 +1009,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Kuna.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Kuna.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 152,
-          "unit": "MW facility",
-          "displayValue": "152 MW facility",
+          "unit": "MW IT",
+          "displayValue": "152 MW IT",
           "subject": "Meta Kuna",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1022,8 +1022,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Kuna.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Kuna.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Temple.currentH100e",
@@ -1043,11 +1043,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Temple.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Temple.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 152,
-          "unit": "MW facility",
-          "displayValue": "152 MW facility",
+          "unit": "MW IT",
+          "displayValue": "152 MW IT",
           "subject": "Meta Temple",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1056,8 +1056,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Temple.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Temple.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Cheyenne.currentH100e",
@@ -1077,11 +1077,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Cheyenne.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Cheyenne.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 152,
-          "unit": "MW facility",
-          "displayValue": "152 MW facility",
+          "unit": "MW IT",
+          "displayValue": "152 MW IT",
           "subject": "Meta Cheyenne",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1090,8 +1090,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Cheyenne.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Cheyenne.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Amazon Ridgeland.currentH100e",
@@ -1111,11 +1111,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Amazon Ridgeland.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Amazon Ridgeland.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 228,
-          "unit": "MW facility",
-          "displayValue": "228 MW facility",
+          "unit": "MW IT",
+          "displayValue": "228 MW IT",
           "subject": "Amazon Ridgeland",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1124,8 +1124,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Amazon Ridgeland.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Amazon Ridgeland.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Huntsville.currentH100e",
@@ -1145,11 +1145,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Huntsville.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Huntsville.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 146,
-          "unit": "MW facility",
-          "displayValue": "146 MW facility",
+          "unit": "MW IT",
+          "displayValue": "146 MW IT",
           "subject": "Meta Huntsville",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1158,8 +1158,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Huntsville.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Huntsville.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Aiken.currentH100e",
@@ -1179,11 +1179,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Aiken.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Aiken.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 142,
-          "unit": "MW facility",
-          "displayValue": "142 MW facility",
+          "unit": "MW IT",
+          "displayValue": "142 MW IT",
           "subject": "Meta Aiken",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1192,8 +1192,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Aiken.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Aiken.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Coreweave Helios.currentH100e",
@@ -1213,11 +1213,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Coreweave Helios.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Coreweave Helios.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 132,
-          "unit": "MW facility",
-          "displayValue": "132 MW facility",
+          "unit": "MW IT",
+          "displayValue": "132 MW IT",
           "subject": "Coreweave Helios",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1226,8 +1226,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Coreweave Helios.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Coreweave Helios.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Arcola.currentH100e",
@@ -1247,11 +1247,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Arcola.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Arcola.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 77,
-          "unit": "MW facility",
-          "displayValue": "77 MW facility",
+          "unit": "MW IT",
+          "displayValue": "77 MW IT",
           "subject": "Google Arcola",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1260,8 +1260,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Arcola.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Arcola.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft Project Osmium.currentH100e",
@@ -1281,11 +1281,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft Project Osmium.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft Project Osmium.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 190,
-          "unit": "MW facility",
-          "displayValue": "190 MW facility",
+          "unit": "MW IT",
+          "displayValue": "190 MW IT",
           "subject": "Microsoft Project Osmium",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1294,8 +1294,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Project Osmium.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Project Osmium.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Storey County.currentH100e",
@@ -1315,11 +1315,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Storey County.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Storey County.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 161,
-          "unit": "MW facility",
-          "displayValue": "161 MW facility",
+          "unit": "MW IT",
+          "displayValue": "161 MW IT",
           "subject": "Google Storey County",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1328,8 +1328,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Storey County.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Storey County.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Eagle Mountain.currentH100e",
@@ -1349,11 +1349,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Eagle Mountain.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Eagle Mountain.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 133,
-          "unit": "MW facility",
-          "displayValue": "133 MW facility",
+          "unit": "MW IT",
+          "displayValue": "133 MW IT",
           "subject": "Meta Eagle Mountain",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1362,8 +1362,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Eagle Mountain.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Eagle Mountain.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Lancaster.currentH100e",
@@ -1383,11 +1383,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Lancaster.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Lancaster.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 137,
-          "unit": "MW facility",
-          "displayValue": "137 MW facility",
+          "unit": "MW IT",
+          "displayValue": "137 MW IT",
           "subject": "Google Lancaster",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1396,8 +1396,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Lancaster.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Lancaster.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta-QTS Hillsboro 2.currentH100e",
@@ -1417,11 +1417,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta-QTS Hillsboro 2.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta-QTS Hillsboro 2.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 180,
-          "unit": "MW facility",
-          "displayValue": "180 MW facility",
+          "unit": "MW IT",
+          "displayValue": "180 MW IT",
           "subject": "Meta-QTS Hillsboro 2",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1430,8 +1430,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta-QTS Hillsboro 2.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta-QTS Hillsboro 2.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Waltham Cross.currentH100e",
@@ -1451,11 +1451,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Waltham Cross.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Waltham Cross.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 88,
-          "unit": "MW facility",
-          "displayValue": "88 MW facility",
+          "unit": "MW IT",
+          "displayValue": "88 MW IT",
           "subject": "Google Waltham Cross",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1464,8 +1464,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Waltham Cross.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Waltham Cross.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.VNET Bayin Ulanqab.currentH100e",
@@ -1485,11 +1485,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.VNET Bayin Ulanqab.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.VNET Bayin Ulanqab.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 221,
-          "unit": "MW facility",
-          "displayValue": "221 MW facility",
+          "unit": "MW IT",
+          "displayValue": "221 MW IT",
           "subject": "VNET Bayin Ulanqab",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1498,8 +1498,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.VNET Bayin Ulanqab.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.VNET Bayin Ulanqab.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Huawei Horinger.currentH100e",
@@ -1519,11 +1519,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Huawei Horinger.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Huawei Horinger.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 241.8,
-          "unit": "MW facility",
-          "displayValue": "241.8 MW facility",
+          "unit": "MW IT",
+          "displayValue": "241.8 MW IT",
           "subject": "Huawei Horinger",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1532,8 +1532,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Huawei Horinger.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Huawei Horinger.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Red Oak.currentH100e",
@@ -1553,11 +1553,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Red Oak.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Red Oak.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 77,
-          "unit": "MW facility",
-          "displayValue": "77 MW facility",
+          "unit": "MW IT",
+          "displayValue": "77 MW IT",
           "subject": "Google Red Oak",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1566,8 +1566,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Red Oak.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Red Oak.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Gallatin.currentH100e",
@@ -1587,11 +1587,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Gallatin.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Gallatin.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 87,
-          "unit": "MW facility",
-          "displayValue": "87 MW facility",
+          "unit": "MW IT",
+          "displayValue": "87 MW IT",
           "subject": "Meta Gallatin",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1600,8 +1600,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Gallatin.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Gallatin.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Los Lunas.currentH100e",
@@ -1621,11 +1621,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Los Lunas.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Los Lunas.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 87,
-          "unit": "MW facility",
-          "displayValue": "87 MW facility",
+          "unit": "MW IT",
+          "displayValue": "87 MW IT",
           "subject": "Meta Los Lunas",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1634,8 +1634,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Los Lunas.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Los Lunas.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Ellendale ND.currentH100e",
@@ -1655,11 +1655,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Ellendale ND.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Ellendale ND.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 68,
-          "unit": "MW facility",
-          "displayValue": "68 MW facility",
+          "unit": "MW IT",
+          "displayValue": "68 MW IT",
           "subject": "CoreWeave Ellendale ND",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1668,8 +1668,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Ellendale ND.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Ellendale ND.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Sarpy.currentH100e",
@@ -1689,11 +1689,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Sarpy.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Sarpy.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 80,
-          "unit": "MW facility",
-          "displayValue": "80 MW facility",
+          "unit": "MW IT",
+          "displayValue": "80 MW IT",
           "subject": "Meta Sarpy",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1702,8 +1702,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Sarpy.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Sarpy.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Chester VA.currentH100e",
@@ -1723,11 +1723,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Chester VA.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Chester VA.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 82,
-          "unit": "MW facility",
-          "displayValue": "82 MW facility",
+          "unit": "MW IT",
+          "displayValue": "82 MW IT",
           "subject": "CoreWeave Chester VA",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1736,8 +1736,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Chester VA.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Chester VA.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Oracle Batam.currentH100e",
@@ -1757,11 +1757,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Oracle Batam.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Oracle Batam.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 72,
-          "unit": "MW facility",
-          "displayValue": "72 MW facility",
+          "unit": "MW IT",
+          "displayValue": "72 MW IT",
           "subject": "Oracle Batam",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1770,8 +1770,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Oracle Batam.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Oracle Batam.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.AWS Berwick.currentH100e",
@@ -1791,11 +1791,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.AWS Berwick.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.AWS Berwick.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 108,
-          "unit": "MW facility",
-          "displayValue": "108 MW facility",
+          "unit": "MW IT",
+          "displayValue": "108 MW IT",
           "subject": "AWS Berwick",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1804,8 +1804,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.AWS Berwick.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.AWS Berwick.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Papillion.currentH100e",
@@ -1825,11 +1825,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Papillion.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Papillion.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 237,
-          "unit": "MW facility",
-          "displayValue": "237 MW facility",
+          "unit": "MW IT",
+          "displayValue": "237 MW IT",
           "subject": "Google Papillion",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1838,8 +1838,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Papillion.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Papillion.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Marble NC.currentH100e",
@@ -1859,11 +1859,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Marble NC.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Marble NC.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 65,
-          "unit": "MW facility",
-          "displayValue": "65 MW facility",
+          "unit": "MW IT",
+          "displayValue": "65 MW IT",
           "subject": "CoreWeave Marble NC",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1872,8 +1872,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Marble NC.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Marble NC.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft SAT40.currentH100e",
@@ -1893,11 +1893,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft SAT40.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft SAT40.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 75,
-          "unit": "MW facility",
-          "displayValue": "75 MW facility",
+          "unit": "MW IT",
+          "displayValue": "75 MW IT",
           "subject": "Microsoft SAT40",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1906,8 +1906,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft SAT40.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft SAT40.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.STACK Infrastructure NVA02.currentH100e",
@@ -1927,11 +1927,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.STACK Infrastructure NVA02.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.STACK Infrastructure NVA02.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 85,
-          "unit": "MW facility",
-          "displayValue": "85 MW facility",
+          "unit": "MW IT",
+          "displayValue": "85 MW IT",
           "subject": "STACK Infrastructure NVA02",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1940,8 +1940,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.STACK Infrastructure NVA02.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.STACK Infrastructure NVA02.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Anthropic Lake Mariner.currentH100e",
@@ -1961,11 +1961,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Anthropic Lake Mariner.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Anthropic Lake Mariner.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 42,
-          "unit": "MW facility",
-          "displayValue": "42 MW facility",
+          "unit": "MW IT",
+          "displayValue": "42 MW IT",
           "subject": "Anthropic Lake Mariner",
           "observationDate": null,
           "measurementType": "measurement",
@@ -1974,8 +1974,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Anthropic Lake Mariner.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Anthropic Lake Mariner.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft-Nebius New Jersey.currentH100e",
@@ -1995,11 +1995,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft-Nebius New Jersey.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft-Nebius New Jersey.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 50,
-          "unit": "MW facility",
-          "displayValue": "50 MW facility",
+          "unit": "MW IT",
+          "displayValue": "50 MW IT",
           "subject": "Microsoft-Nebius New Jersey",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2008,8 +2008,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft-Nebius New Jersey.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft-Nebius New Jersey.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Norway.currentH100e",
@@ -2029,11 +2029,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Norway.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Norway.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 42,
-          "unit": "MW facility",
-          "displayValue": "42 MW facility",
+          "unit": "MW IT",
+          "displayValue": "42 MW IT",
           "subject": "CoreWeave Norway",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2042,8 +2042,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Norway.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Norway.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Southgate Melbourne.currentH100e",
@@ -2063,11 +2063,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Southgate Melbourne.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Southgate Melbourne.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 41,
-          "unit": "MW facility",
-          "displayValue": "41 MW facility",
+          "unit": "MW IT",
+          "displayValue": "41 MW IT",
           "subject": "Southgate Melbourne",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2076,8 +2076,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Southgate Melbourne.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Southgate Melbourne.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Stream Phoenix.currentH100e",
@@ -2097,11 +2097,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Stream Phoenix.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Stream Phoenix.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 64,
-          "unit": "MW facility",
-          "displayValue": "64 MW facility",
+          "unit": "MW IT",
+          "displayValue": "64 MW IT",
           "subject": "Stream Phoenix",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2110,8 +2110,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Stream Phoenix.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Stream Phoenix.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft SAT14.currentH100e",
@@ -2131,11 +2131,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft SAT14.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft SAT14.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 47,
-          "unit": "MW facility",
-          "displayValue": "47 MW facility",
+          "unit": "MW IT",
+          "displayValue": "47 MW IT",
           "subject": "Microsoft SAT14",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2144,8 +2144,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft SAT14.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft SAT14.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Vantage TX1.currentH100e",
@@ -2165,11 +2165,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Vantage TX1.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Vantage TX1.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 32,
-          "unit": "MW facility",
-          "displayValue": "32 MW facility",
+          "unit": "MW IT",
+          "displayValue": "32 MW IT",
           "subject": "Vantage TX1",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2178,8 +2178,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Vantage TX1.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Vantage TX1.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Dalton 1 & 2.currentH100e",
@@ -2199,11 +2199,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Dalton 1 & 2.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Dalton 1 & 2.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 28,
-          "unit": "MW facility",
-          "displayValue": "28 MW facility",
+          "unit": "MW IT",
+          "displayValue": "28 MW IT",
           "subject": "CoreWeave Dalton 1 & 2",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2212,8 +2212,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Dalton 1 & 2.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Dalton 1 & 2.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Alibaba Zhangbei.currentH100e",
@@ -2233,11 +2233,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Alibaba Zhangbei.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Alibaba Zhangbei.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 169,
-          "unit": "MW facility",
-          "displayValue": "169 MW facility",
+          "unit": "MW IT",
+          "displayValue": "169 MW IT",
           "subject": "Alibaba Zhangbei",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2246,8 +2246,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Alibaba Zhangbei.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Alibaba Zhangbei.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Start Campus Sines Data Campus.currentH100e",
@@ -2267,11 +2267,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Start Campus Sines Data Campus.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Start Campus Sines Data Campus.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 33,
-          "unit": "MW facility",
-          "displayValue": "33 MW facility",
+          "unit": "MW IT",
+          "displayValue": "33 MW IT",
           "subject": "Start Campus Sines Data Campus",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2280,8 +2280,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Start Campus Sines Data Campus.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Start Campus Sines Data Campus.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.xAI QTS Atlanta.currentH100e",
@@ -2301,11 +2301,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.xAI QTS Atlanta.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.xAI QTS Atlanta.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 17.32971,
-          "unit": "MW facility",
-          "displayValue": "17.32971 MW facility",
+          "unit": "MW IT",
+          "displayValue": "17.32971 MW IT",
           "subject": "xAI QTS Atlanta",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2314,8 +2314,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.xAI QTS Atlanta.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.xAI QTS Atlanta.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.CoreWeave Muskogee OK.currentH100e",
@@ -2335,11 +2335,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.CoreWeave Muskogee OK.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.CoreWeave Muskogee OK.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "CoreWeave Muskogee OK",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2348,8 +2348,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Muskogee OK.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.CoreWeave Muskogee OK.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Crusoe Abilene Expansion.currentH100e",
@@ -2369,11 +2369,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Crusoe Abilene Expansion.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Crusoe Abilene Expansion.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Crusoe Abilene Expansion",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2382,8 +2382,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Crusoe Abilene Expansion.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Crusoe Abilene Expansion.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Goodnight.currentH100e",
@@ -2403,11 +2403,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Goodnight.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Goodnight.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Goodnight",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2416,8 +2416,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Goodnight.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Goodnight.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Cedar Rapids.currentH100e",
@@ -2437,11 +2437,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Cedar Rapids.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Cedar Rapids.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Google Cedar Rapids",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2450,8 +2450,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Cedar Rapids.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Cedar Rapids.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Google Fort Wayne.currentH100e",
@@ -2471,11 +2471,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Google Fort Wayne.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Google Fort Wayne.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Google Fort Wayne",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2484,8 +2484,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Google Fort Wayne.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Google Fort Wayne.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Meta Hyperion.currentH100e",
@@ -2505,11 +2505,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Meta Hyperion.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Meta Hyperion.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Meta Hyperion",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2518,8 +2518,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Meta Hyperion.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Meta Hyperion.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.Microsoft Narvik Norway.currentH100e",
@@ -2539,11 +2539,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.Microsoft Narvik Norway.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.Microsoft Narvik Norway.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "Microsoft Narvik Norway",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2552,8 +2552,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Narvik Norway.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.Microsoft Narvik Norway.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Lordstown.currentH100e",
@@ -2573,11 +2573,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Lordstown.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Lordstown.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate Lordstown",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2586,8 +2586,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Lordstown.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Lordstown.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Michigan.currentH100e",
@@ -2607,11 +2607,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Michigan.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Michigan.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate Michigan",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2620,8 +2620,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Michigan.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Michigan.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Milam.currentH100e",
@@ -2641,11 +2641,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Milam.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Milam.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate Milam",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2654,8 +2654,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Milam.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Milam.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate New Mexico.currentH100e",
@@ -2675,11 +2675,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate New Mexico.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate New Mexico.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate New Mexico",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2688,8 +2688,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate New Mexico.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate New Mexico.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Shackelford.currentH100e",
@@ -2709,11 +2709,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Shackelford.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Shackelford.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate Shackelford",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2722,8 +2722,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Shackelford.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Shackelford.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate UAE.currentH100e",
@@ -2743,11 +2743,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate UAE.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate UAE.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate UAE",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2756,8 +2756,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate UAE.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate UAE.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.OpenAI Stargate Wisconsin.currentH100e",
@@ -2777,11 +2777,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.OpenAI Stargate Wisconsin.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.OpenAI Stargate Wisconsin.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "OpenAI Stargate Wisconsin",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2790,8 +2790,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Wisconsin.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.OpenAI Stargate Wisconsin.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.QTS Cedar Rapids.currentH100e",
@@ -2811,11 +2811,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.QTS Cedar Rapids.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.QTS Cedar Rapids.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "QTS Cedar Rapids",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2824,8 +2824,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.QTS Cedar Rapids.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.QTS Cedar Rapids.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         },
         {
           "id": "compute-capacity.siteRegistry.QTS Eagle Mountain.currentH100e",
@@ -2845,11 +2845,11 @@
           "caveat": "Facility-level registry field retained to audit the U.S. geography join and current state."
         },
         {
-          "id": "compute-capacity.siteRegistry.QTS Eagle Mountain.currentFacilityPowerMw",
-          "metric": "Current facility power",
+          "id": "compute-capacity.siteRegistry.QTS Eagle Mountain.currentItPowerMw",
+          "metric": "Current facility-level IT power",
           "value": 0,
-          "unit": "MW facility",
-          "displayValue": "0 MW facility",
+          "unit": "MW IT",
+          "displayValue": "0 MW IT",
           "subject": "QTS Eagle Mountain",
           "observationDate": null,
           "measurementType": "measurement",
@@ -2858,8 +2858,8 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.siteRegistry.QTS Eagle Mountain.currentFacilityPowerMw",
-          "caveat": "Facility power includes non-IT overhead and is not substituted for IT power in the gate."
+          "sourceRecord": "compute-capacity.siteRegistry.QTS Eagle Mountain.currentItPowerMw",
+          "caveat": "Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states."
         }
       ]
     },
@@ -2877,7 +2877,7 @@
               "name": "Colossus 2",
               "country": "United States",
               "currentH100e": 1111672.5618999496,
-              "currentFacilityPowerMw": 946,
+              "currentItPowerMw": 946,
               "owner": "SpaceXAI #confident",
               "users": "Anthropic #confident, Cursor #confident, SpaceXAI #confident",
               "address": "5420 Tulane Rd, Memphis, TN 38109",
@@ -2892,7 +2892,7 @@
               "name": "Microsoft Fairwater Atlanta",
               "country": "United States",
               "currentH100e": 768768.7220818596,
-              "currentFacilityPowerMw": 636,
+              "currentItPowerMw": 636,
               "owner": "Microsoft #confident",
               "users": "OpenAI #likely, Microsoft #likely",
               "address": "1435 Hwy 54 W, Fayetteville, GA 30214",
@@ -2907,7 +2907,7 @@
               "name": "Google Pryor (North)",
               "country": "United States",
               "currentH100e": 763011.622031329,
-              "currentFacilityPowerMw": 368,
+              "currentItPowerMw": 368,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "4581 Webb St, Pryor, OK 74361",
@@ -2922,7 +2922,7 @@
               "name": "Anthropic-Amazon New Carlisle",
               "country": "United States",
               "currentH100e": 685912.076806468,
-              "currentFacilityPowerMw": 910,
+              "currentItPowerMw": 910,
               "owner": "Amazon #confident",
               "users": "Anthropic #confident",
               "address": "55001 Larrison Blvd, New Carlisle, IN 46552",
@@ -2937,7 +2937,7 @@
               "name": "Meta Prometheus",
               "country": "United States",
               "currentH100e": 677109.6513390602,
-              "currentFacilityPowerMw": 562,
+              "currentItPowerMw": 562,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "1 Community Cir, New Albany, OH 43054",
@@ -2952,7 +2952,7 @@
               "name": "Google New Albany",
               "country": "United States",
               "currentH100e": 616472.9661445174,
-              "currentFacilityPowerMw": 453,
+              "currentItPowerMw": 453,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "1101 Beech Rd SW, New Albany, OH 43054",
@@ -2967,7 +2967,7 @@
               "name": "OpenAI Stargate Abilene",
               "country": "United States",
               "currentH100e": 509348.15563415864,
-              "currentFacilityPowerMw": 421,
+              "currentItPowerMw": 421,
               "owner": "Oracle #confident",
               "users": "OpenAI #confident",
               "address": "5502 Spinks Rd, Abilene, TX 79601",
@@ -2982,7 +2982,7 @@
               "name": "Microsoft Fairwater Wisconsin",
               "country": "United States",
               "currentH100e": 445679.63617988885,
-              "currentFacilityPowerMw": 369,
+              "currentItPowerMw": 369,
               "owner": "Microsoft #confident",
               "users": "OpenAI #likely, Microsoft #likely",
               "address": "4800 90th St, Mount Pleasant, WI 53403",
@@ -2997,7 +2997,7 @@
               "name": "Google Columbus",
               "country": "United States",
               "currentH100e": 408792.3193532087,
-              "currentFacilityPowerMw": 303,
+              "currentItPowerMw": 303,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "5076 S High St, Columbus, OH 43207",
@@ -3012,7 +3012,7 @@
               "name": "Google Mesa",
               "country": "United States",
               "currentH100e": 343102.57705912075,
-              "currentFacilityPowerMw": 183,
+              "currentItPowerMw": 183,
               "owner": "Google #confident",
               "users": null,
               "address": null,
@@ -3027,7 +3027,7 @@
               "name": "Google Council Bluffs (East)",
               "country": "United States",
               "currentH100e": 289034.86609398684,
-              "currentFacilityPowerMw": 237,
+              "currentItPowerMw": 237,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "10410 Bunge Ave, Council Bluffs, IA 51503",
@@ -3042,7 +3042,7 @@
               "name": "Google Lincoln",
               "country": "United States",
               "currentH100e": 287518.9489641233,
-              "currentFacilityPowerMw": 141,
+              "currentItPowerMw": 141,
               "owner": "Google #confident",
               "users": null,
               "address": "5475 Cloud Ct, Lincoln, NE 68514",
@@ -3057,7 +3057,7 @@
               "name": "Google Bristow",
               "country": "United States",
               "currentH100e": 283675.08842849924,
-              "currentFacilityPowerMw": 279,
+              "currentItPowerMw": 279,
               "owner": "Google",
               "users": "Google DeepMind",
               "address": "13001 Rollins Ford Road, Bristow, VA 20136",
@@ -3072,7 +3072,7 @@
               "name": "DayOne Nusajaya",
               "country": "Malaysia",
               "currentH100e": 281670.4396159676,
-              "currentFacilityPowerMw": 240,
+              "currentItPowerMw": 240,
               "owner": null,
               "users": null,
               "address": null,
@@ -3087,7 +3087,7 @@
               "name": "Colossus 1",
               "country": "United States",
               "currentH100e": 275795.85649317835,
-              "currentFacilityPowerMw": 340,
+              "currentItPowerMw": 340,
               "owner": "SpaceXAI #confident",
               "users": "Anthropic #confident",
               "address": "3231 Riverport Rd, Memphis, TN 38109",
@@ -3102,7 +3102,7 @@
               "name": "Google Omaha",
               "country": "United States",
               "currentH100e": 267812.02627589693,
-              "currentFacilityPowerMw": 237,
+              "currentItPowerMw": 237,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "11110 State St, Omaha, NE 68142",
@@ -3117,7 +3117,7 @@
               "name": "CoreWeave Denton TX",
               "country": "United States",
               "currentH100e": 252652.85497726125,
-              "currentFacilityPowerMw": 262,
+              "currentItPowerMw": 262,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #likely",
               "address": "8171 Jim Christal Rd, Denton, TX 76207",
@@ -3132,7 +3132,7 @@
               "name": "Google Kansas City East",
               "country": "United States",
               "currentH100e": 244567.9636179889,
-              "currentFacilityPowerMw": 105,
+              "currentItPowerMw": 105,
               "owner": "Google #confident",
               "users": null,
               "address": null,
@@ -3147,7 +3147,7 @@
               "name": "QTS Richmond 1",
               "country": "United States",
               "currentH100e": 242546.7407781708,
-              "currentFacilityPowerMw": 238,
+              "currentItPowerMw": 238,
               "owner": null,
               "users": null,
               "address": "6000 Technology Blvd, Sandston, VA 23150",
@@ -3162,7 +3162,7 @@
               "name": "Meta Rosemount",
               "country": "United States",
               "currentH100e": 215765.5381505811,
-              "currentFacilityPowerMw": 178,
+              "currentItPowerMw": 178,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "1772-2396 145th St, Rosemount, MN 55068, USA",
@@ -3177,7 +3177,7 @@
               "name": "Amazon Madison Mega Site",
               "country": "United States",
               "currentH100e": 214348.14354550533,
-              "currentFacilityPowerMw": 284,
+              "currentItPowerMw": 284,
               "owner": "Amazon #confident",
               "users": "Anthropic #speculative",
               "address": "Amazon Data Services Inc, Madison Mega Site Nissan Parkway and Highway 22 Canton, Mississippi Madison County",
@@ -3192,7 +3192,7 @@
               "name": "Microsoft Goodyear",
               "country": "United States",
               "currentH100e": 205154.11824153614,
-              "currentFacilityPowerMw": 202,
+              "currentItPowerMw": 202,
               "owner": "Microsoft #confident",
               "users": "OpenAI #likely, Microsoft #confident",
               "address": "14250 W Broadway Rd, Goodyear, AZ 85338",
@@ -3207,7 +3207,7 @@
               "name": "Meta Jeffersonville",
               "country": "United States",
               "currentH100e": 203132.89540171804,
-              "currentFacilityPowerMw": 178,
+              "currentItPowerMw": 178,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "500 8th St, Jeffersonville, IN 47130, USA",
@@ -3222,7 +3222,7 @@
               "name": "Google The Dalles",
               "country": "United States",
               "currentH100e": 201616.97827185446,
-              "currentFacilityPowerMw": 154,
+              "currentItPowerMw": 154,
               "owner": "Google #confident",
               "users": null,
               "address": "3500 River Rd, The Dalles, OR",
@@ -3237,7 +3237,7 @@
               "name": "Google Midlothian",
               "country": "United States",
               "currentH100e": 191005.5583628095,
-              "currentFacilityPowerMw": 103,
+              "currentItPowerMw": 103,
               "owner": "Google #confident",
               "users": null,
               "address": "3250 Railport Parkway, Midlothian, TX 76065",
@@ -3252,7 +3252,7 @@
               "name": "QTS Richmond 2",
               "country": "United States",
               "currentH100e": 182920.66700353715,
-              "currentFacilityPowerMw": 180,
+              "currentItPowerMw": 180,
               "owner": null,
               "users": null,
               "address": "6030–6070 Technology Blvd, Sandston, VA 23150",
@@ -3267,7 +3267,7 @@
               "name": "QTS Richmond 3",
               "country": "United States",
               "currentH100e": 174835.77564426477,
-              "currentFacilityPowerMw": 144,
+              "currentItPowerMw": 144,
               "owner": null,
               "users": null,
               "address": "3525–3543 Portugee Rd, Sandston, VA 23150",
@@ -3282,7 +3282,7 @@
               "name": "Meta Montgomery",
               "country": "United States",
               "currentH100e": 174517.43304699342,
-              "currentFacilityPowerMw": 153,
+              "currentItPowerMw": 153,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "Co Rd 42, Montgomery, AL 36105, USA",
@@ -3297,7 +3297,7 @@
               "name": "Meta Kuna",
               "country": "United States",
               "currentH100e": 173319.85851440122,
-              "currentFacilityPowerMw": 152,
+              "currentItPowerMw": 152,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "601 Kuna Mora Rd,  Kuna ID 83634",
@@ -3312,7 +3312,7 @@
               "name": "Meta Temple",
               "country": "United States",
               "currentH100e": 173247.6719844078,
-              "currentFacilityPowerMw": 152,
+              "currentItPowerMw": 152,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "2310 Eberhardt Rd, Temple, TX 76504",
@@ -3327,7 +3327,7 @@
               "name": "Meta Cheyenne",
               "country": "United States",
               "currentH100e": 172814.5528044467,
-              "currentFacilityPowerMw": 152,
+              "currentItPowerMw": 152,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "Cheyenne, WY 82007, USA",
@@ -3342,7 +3342,7 @@
               "name": "Amazon Ridgeland",
               "country": "United States",
               "currentH100e": 171298.6356745831,
-              "currentFacilityPowerMw": 228,
+              "currentItPowerMw": 228,
               "owner": "Amazon #confident",
               "users": "Anthropic #speculative",
               "address": "1626 County Line Road Ridgeland, Mississippi",
@@ -3357,7 +3357,7 @@
               "name": "Meta Huntsville",
               "country": "United States",
               "currentH100e": 166760.9903991915,
-              "currentFacilityPowerMw": 146,
+              "currentItPowerMw": 146,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "5400 Prosperity Dr NW, Toney, AL",
@@ -3372,7 +3372,7 @@
               "name": "Meta Aiken",
               "country": "United States",
               "currentH100e": 161697.82718544718,
-              "currentFacilityPowerMw": 142,
+              "currentItPowerMw": 142,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "7601 State Hwy 105, Trenton, SC 29847, USA",
@@ -3387,7 +3387,7 @@
               "name": "Coreweave Helios",
               "country": "United States",
               "currentH100e": 159551.768236855,
-              "currentFacilityPowerMw": 132,
+              "currentItPowerMw": 132,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "984 County Road 112, Afton, TX 79220",
@@ -3402,7 +3402,7 @@
               "name": "Google Arcola",
               "country": "United States",
               "currentH100e": 157150.07579585648,
-              "currentFacilityPowerMw": 77,
+              "currentItPowerMw": 77,
               "owner": "Google #confident",
               "users": null,
               "address": "42575 Arcola Blvd, Sterling, VA 20166",
@@ -3417,7 +3417,7 @@
               "name": "Microsoft Project Osmium",
               "country": "United States",
               "currentH100e": 155634.15866599293,
-              "currentFacilityPowerMw": 190,
+              "currentItPowerMw": 190,
               "owner": "Microsoft #confident",
               "users": "OpenAI #speculative",
               "address": "5855 SW Kerry St, Cumming, IA 50061",
@@ -3432,7 +3432,7 @@
               "name": "Google Storey County",
               "country": "United States",
               "currentH100e": 153612.93582617483,
-              "currentFacilityPowerMw": 161,
+              "currentItPowerMw": 161,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": null,
@@ -3447,7 +3447,7 @@
               "name": "Meta Eagle Mountain",
               "country": "United States",
               "currentH100e": 151354.21930267813,
-              "currentFacilityPowerMw": 133,
+              "currentItPowerMw": 133,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "1275 N Community Cir, Eagle Mountain, UT 84005",
@@ -3462,7 +3462,7 @@
               "name": "Google Lancaster",
               "country": "United States",
               "currentH100e": 130368.8731682668,
-              "currentFacilityPowerMw": 137,
+              "currentItPowerMw": 137,
               "owner": "Google #confident",
               "users": null,
               "address": "105 Whiley Rd, Lancaster, OH 43130",
@@ -3477,7 +3477,7 @@
               "name": "Meta-QTS Hillsboro 2",
               "country": "United States",
               "currentH100e": 123839,
-              "currentFacilityPowerMw": 180,
+              "currentItPowerMw": 180,
               "owner": "Meta #likely",
               "users": "Meta #likely",
               "address": "4755 NE Huffman St, Hillsboro, OR 97124",
@@ -3492,7 +3492,7 @@
               "name": "Google Waltham Cross",
               "country": "United Kingdom",
               "currentH100e": 123799.89893885801,
-              "currentFacilityPowerMw": 88,
+              "currentItPowerMw": 88,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "Land at Maxwell's Farm West, Great Cambridge Road, Cheshunt, EN8 8XH",
@@ -3507,7 +3507,7 @@
               "name": "VNET Bayin Ulanqab",
               "country": "China",
               "currentH100e": 122789.28751894896,
-              "currentFacilityPowerMw": 221,
+              "currentItPowerMw": 221,
               "owner": "VNET #confident",
               "users": "ByteDance #speculative",
               "address": "Bayin, Ulanqab, China",
@@ -3522,7 +3522,7 @@
               "name": "Huawei Horinger",
               "country": "China",
               "currentH100e": 117230.92470944922,
-              "currentFacilityPowerMw": 241.8,
+              "currentItPowerMw": 241.8,
               "owner": "Huawei #confident",
               "users": null,
               "address": "Huawei, Horinger, China",
@@ -3537,7 +3537,7 @@
               "name": "Google Red Oak",
               "country": "United States",
               "currentH100e": 108135.42193026781,
-              "currentFacilityPowerMw": 77,
+              "currentItPowerMw": 77,
               "owner": "Google #confident",
               "users": null,
               "address": "330 Austin Blvd, Red Oak, TX 75154",
@@ -3552,7 +3552,7 @@
               "name": "Meta Gallatin",
               "country": "United States",
               "currentH100e": 99545.22486104093,
-              "currentFacilityPowerMw": 87,
+              "currentItPowerMw": 87,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "1 Meta Lp, Gallatin, TN 37066",
@@ -3567,7 +3567,7 @@
               "name": "Meta Los Lunas",
               "country": "United States",
               "currentH100e": 99545.22486104093,
-              "currentFacilityPowerMw": 87,
+              "currentItPowerMw": 87,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "4250 Messenger Lp, Los Lunas, NM 87031",
@@ -3582,7 +3582,7 @@
               "name": "CoreWeave Ellendale ND",
               "country": "United States",
               "currentH100e": 93481.55634158666,
-              "currentFacilityPowerMw": 68,
+              "currentItPowerMw": 68,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "9685 87th Ave SE, Ellendale, ND 58436",
@@ -3597,7 +3597,7 @@
               "name": "Meta Sarpy",
               "country": "United States",
               "currentH100e": 91965.63921172309,
-              "currentFacilityPowerMw": 80,
+              "currentItPowerMw": 80,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "14436-14998 Fairview Rd, Springfield, NE 68059, USA",
@@ -3612,7 +3612,7 @@
               "name": "CoreWeave Chester VA",
               "country": "United States",
               "currentH100e": 88428.49924204143,
-              "currentFacilityPowerMw": 82,
+              "currentItPowerMw": 82,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "1401 Meadowville Technology Parkway, Chester, VA",
@@ -3627,7 +3627,7 @@
               "name": "Oracle Batam",
               "country": "Indonesia",
               "currentH100e": 84386.05356240526,
-              "currentFacilityPowerMw": 72,
+              "currentItPowerMw": 72,
               "owner": "Oracle #likely",
               "users": null,
               "address": null,
@@ -3642,7 +3642,7 @@
               "name": "AWS Berwick",
               "country": "United States",
               "currentH100e": 81354.21930267812,
-              "currentFacilityPowerMw": 108,
+              "currentItPowerMw": 108,
               "owner": "Amazon #confident",
               "users": "Anthropic #speculative",
               "address": "1125 Electron Ave, Berwick, PA 18603",
@@ -3657,7 +3657,7 @@
               "name": "Google Papillion",
               "country": "United States",
               "currentH100e": 80343.60788276908,
-              "currentFacilityPowerMw": 237,
+              "currentItPowerMw": 237,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "14651-15249 Gold Coast Rd 68138 Papillion Nebraska, USA",
@@ -3672,7 +3672,7 @@
               "name": "CoreWeave Marble NC",
               "country": "United States",
               "currentH100e": 78827.6907529055,
-              "currentFacilityPowerMw": 65,
+              "currentItPowerMw": 65,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "155 Palmer Ln, Marble, NC 28905",
@@ -3687,7 +3687,7 @@
               "name": "Microsoft SAT40",
               "country": "United States",
               "currentH100e": 64679.13087417888,
-              "currentFacilityPowerMw": 75,
+              "currentItPowerMw": 75,
               "owner": "Microsoft #confident",
               "users": null,
               "address": "15000 Lambda Drive, San Antonio, TX 78245",
@@ -3702,7 +3702,7 @@
               "name": "STACK Infrastructure NVA02",
               "country": "United States",
               "currentH100e": 61141.99090449722,
-              "currentFacilityPowerMw": 85,
+              "currentItPowerMw": 85,
               "owner": null,
               "users": null,
               "address": "9590 Hornbaker Rd, Manassas, VA 20109",
@@ -3717,7 +3717,7 @@
               "name": "Anthropic Lake Mariner",
               "country": "United States",
               "currentH100e": 58564.93178372915,
-              "currentFacilityPowerMw": 42,
+              "currentItPowerMw": 42,
               "owner": "AI XPV Platform #confident",
               "users": "Anthropic #likely",
               "address": "7725 Lake Rd, Barker, NY 14012",
@@ -3732,7 +3732,7 @@
               "name": "Microsoft-Nebius New Jersey",
               "country": "United States",
               "currentH100e": 56846.89236988378,
-              "currentFacilityPowerMw": 50,
+              "currentItPowerMw": 50,
               "owner": "Nebius #confident",
               "users": "Microsoft #likely",
               "address": "3963 S Lincoln Ave, Vineland, New Jersey",
@@ -3747,7 +3747,7 @@
               "name": "CoreWeave Norway",
               "country": "Norway",
               "currentH100e": 50773.11773623042,
-              "currentFacilityPowerMw": 42,
+              "currentItPowerMw": 42,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "Stølevegen 39, 4715 Øvrebø, Norway",
@@ -3762,7 +3762,7 @@
               "name": "Southgate Melbourne",
               "country": "Australia",
               "currentH100e": 46488.12531581607,
-              "currentFacilityPowerMw": 41,
+              "currentItPowerMw": 41,
               "owner": "Firmus #confident",
               "users": null,
               "address": null,
@@ -3777,7 +3777,7 @@
               "name": "Stream Phoenix",
               "country": "United States",
               "currentH100e": 46134.4113188479,
-              "currentFacilityPowerMw": 64,
+              "currentItPowerMw": 64,
               "owner": null,
               "users": null,
               "address": "2950 S. Litchfield Road",
@@ -3792,7 +3792,7 @@
               "name": "Microsoft SAT14",
               "country": "United States",
               "currentH100e": 45174.33046993431,
-              "currentFacilityPowerMw": 47,
+              "currentItPowerMw": 47,
               "owner": "Microsoft #confident",
               "users": null,
               "address": "3545 Wiseman Boulevard, San Antonio, TX 78251",
@@ -3807,7 +3807,7 @@
               "name": "Vantage TX1",
               "country": "United States",
               "currentH100e": 38706.417382516425,
-              "currentFacilityPowerMw": 32,
+              "currentItPowerMw": 32,
               "owner": null,
               "users": null,
               "address": "14720 Omicron Dr, San Antonio, TX 78245",
@@ -3822,7 +3822,7 @@
               "name": "CoreWeave Dalton 1 & 2",
               "country": "United States",
               "currentH100e": 32238.504295098533,
-              "currentFacilityPowerMw": 28,
+              "currentItPowerMw": 28,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "2205 Industrial South Rd, Dalton, GA, 30721",
@@ -3837,7 +3837,7 @@
               "name": "Alibaba Zhangbei",
               "country": "China",
               "currentH100e": 31884.79029813037,
-              "currentFacilityPowerMw": 169,
+              "currentItPowerMw": 169,
               "owner": "Alibaba #confident",
               "users": "Alibaba #likely",
               "address": "Alibaba Zhangbei Yun Calculation Data Center, Zhangbei County, Zhangjiakou, Hebei, China, 076471",
@@ -3852,7 +3852,7 @@
               "name": "Start Campus Sines Data Campus",
               "country": "Portugal",
               "currentH100e": 31834.259727134915,
-              "currentFacilityPowerMw": 33,
+              "currentItPowerMw": 33,
               "owner": "Nscale #confident",
               "users": "Microsoft #confident",
               "address": "Start Campus - Sustainable Data Center Services, Sines, Portugal",
@@ -3867,7 +3867,7 @@
               "name": "xAI QTS Atlanta",
               "country": "United States",
               "currentH100e": 11470.43961596766,
-              "currentFacilityPowerMw": 17.32971,
+              "currentItPowerMw": 17.32971,
               "owner": "SpaceXAI #confident",
               "users": "SpaceXAI #confident",
               "address": "1025 Jefferson Street NW, Atlanta, GA 30318",
@@ -3882,7 +3882,7 @@
               "name": "CoreWeave Muskogee OK",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "CoreWeave #confident",
               "users": "OpenAI #speculative",
               "address": "1525 W 43rd St S, Muskogee, OK 74401, USA",
@@ -3897,7 +3897,7 @@
               "name": "Crusoe Abilene Expansion",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Microsoft #confident",
               "users": "Microsoft #likely",
               "address": "5502 Spinks Rd, Abilene, TX 79601",
@@ -3912,7 +3912,7 @@
               "name": "Goodnight",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Google #speculative",
               "users": "Google DeepMind #speculative",
               "address": "10001 Lima Rd, Claude, TX 79019",
@@ -3927,7 +3927,7 @@
               "name": "Google Cedar Rapids",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "5800 EDGEWOOD RD SW CEDAR RAPIDS, IA 52404",
@@ -3942,7 +3942,7 @@
               "name": "Google Fort Wayne",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Google #confident",
               "users": "Google DeepMind #speculative",
               "address": "6015 Adams Center Road, Fort Wayne, IN 46806",
@@ -3957,7 +3957,7 @@
               "name": "Meta Hyperion",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Meta #confident",
               "users": "Meta #confident",
               "address": "Holly Ridge, LA 71269",
@@ -3972,7 +3972,7 @@
               "name": "Microsoft Narvik Norway",
               "country": "Norway",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Nscale #likely",
               "users": "Microsoft #likely",
               "address": null,
@@ -3987,7 +3987,7 @@
               "name": "OpenAI Stargate Lordstown",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Softbank #confident",
               "users": "OpenAI #confident",
               "address": "2300 Hallock Young Rd, Warren, OH 44481",
@@ -4002,7 +4002,7 @@
               "name": "OpenAI Stargate Michigan",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Oracle #confident",
               "users": "OpenAI #confident",
               "address": null,
@@ -4017,7 +4017,7 @@
               "name": "OpenAI Stargate Milam",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Softbank #confident",
               "users": "OpenAI #confident",
               "address": null,
@@ -4032,7 +4032,7 @@
               "name": "OpenAI Stargate New Mexico",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Oracle #confident",
               "users": "OpenAI #confident",
               "address": null,
@@ -4047,7 +4047,7 @@
               "name": "OpenAI Stargate Shackelford",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Oracle #confident",
               "users": "OpenAI #confident",
               "address": "175 Private Road 1604, Abilene, TX 79601, Shackelford County",
@@ -4062,7 +4062,7 @@
               "name": "OpenAI Stargate UAE",
               "country": "United Arab Emirates",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "G42 #likely",
               "users": "OpenAI #confident",
               "address": "Nexus L&T Project Office, Al Bihouth, Al Dhafrah, Abu Dhabi, United Arab Emirates",
@@ -4077,7 +4077,7 @@
               "name": "OpenAI Stargate Wisconsin",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": "Oracle #confident",
               "users": "OpenAI #confident",
               "address": null,
@@ -4092,7 +4092,7 @@
               "name": "QTS Cedar Rapids",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": null,
               "users": null,
               "address": "6200 76th Ave SW, Fairfax, IA 52228",
@@ -4107,7 +4107,7 @@
               "name": "QTS Eagle Mountain",
               "country": "United States",
               "currentH100e": 0,
-              "currentFacilityPowerMw": 0,
+              "currentItPowerMw": 0,
               "owner": null,
               "users": "Meta #speculative",
               "address": "652 E Hyperscale Way, Eagle Mountain, UT 84013",

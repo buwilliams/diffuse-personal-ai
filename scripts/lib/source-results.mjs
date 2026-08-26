@@ -210,17 +210,17 @@ export function buildSourceResults(envelope, manifest) {
             caveat: 'Facility-level registry field retained to audit the U.S. geography join and current state.',
           }));
         }
-        if (typeof record.currentFacilityPowerMw === 'number') {
+        if (typeof record.currentItPowerMw === 'number') {
           measurements.push(measurement({
-            id: `${path}.currentFacilityPowerMw`,
-            metric: 'Current facility power',
-            value: record.currentFacilityPowerMw,
-            unit: 'MW facility',
+            id: `${path}.currentItPowerMw`,
+            metric: 'Current facility-level IT power',
+            value: record.currentItPowerMw,
+            unit: 'MW IT',
             subject: record.name ?? null,
             origin: 'source-reported',
             usedInCountdown: false,
-            sourceRecord: `${path}.currentFacilityPowerMw`,
-            caveat: 'Facility power includes non-IT overhead and is not substituted for IT power in the gate.',
+            sourceRecord: `${path}.currentItPowerMw`,
+            caveat: 'Facility-level registry value retained to audit current IT power; the quarterly path is reconstructed from dated timeline states.',
           }));
         }
       } else if (collectionId === 'compute-capacity.supportingEvidence' && typeof record.value === 'number') {

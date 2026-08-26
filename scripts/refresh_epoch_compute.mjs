@@ -141,7 +141,7 @@ const registryItems = registryRows.map((row, order) => ({
     name: row.Name,
     country: row.Country || null,
     currentH100e: number(row['Current H100 equivalents']),
-    currentFacilityPowerMw: number(row['Current power (MW)']),
+    currentItPowerMw: number(row['Current power (MW)']),
     owner: row.Owner || null,
     users: row.Users || null,
     address: row.Address || null,
@@ -164,7 +164,7 @@ const registryEnvelope = {
       url: registryUrl,
       accessedAt,
       roles: ['site registry', 'geography filter', 'facility audit'],
-      notes: 'Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is facility power, not IT power, and is retained only as an audit field.',
+      notes: 'Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline.',
     }],
     update: {
       method: 'deterministic source extraction and normalization with human review',
