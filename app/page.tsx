@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { workbooks, type ReportCell, type ReportSheet, type ReportWorkbook } from './report-data';
 
 const DAY = 86_400_000;
@@ -37,6 +37,67 @@ const COMPUTE_CURVE = [
   ['2028-09-30', 77.012566],
   ['2028-12-31', 86.861828],
 ] as const;
+
+const REPORT_QUARTERS = [
+  '2024-Q1', '2024-Q2', '2024-Q3', '2024-Q4',
+  '2025-Q1', '2025-Q2', '2025-Q3', '2025-Q4',
+  '2026-Q1', '2026-Q2', '2026-Q3', '2026-Q4',
+  '2027-Q1', '2027-Q2', '2027-Q3', '2027-Q4',
+  '2028-Q1', '2028-Q2', '2028-Q3', '2028-Q4',
+] as const;
+const OBSERVED_END_INDEX = REPORT_QUARTERS.indexOf('2026-Q3');
+
+type ReportChartSeries = {
+  id: string;
+  name: string;
+  category: string;
+  values: Array<number | null>;
+  aggregate?: boolean;
+};
+
+const CAPABILITY_BENCHMARK_SERIES: ReportChartSeries[] = (() => {
+  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Report Card');
+  if (!sheet) return [];
+  return sheet.rows
+    .filter((row) => typeof row[1] === 'string' && typeof row[2] === 'string' &&
+      REPORT_QUARTERS.some((_, index) => typeof row[4 + index * 2] === 'number'))
+    .map((row) => ({
+      id: String(row[1]),
+      name: String(row[2]),
+      category: String(row[0]),
+      values: REPORT_QUARTERS.map((_, index) => {
+        const value = row[4 + index * 2];
+        return typeof value === 'number' ? value * 100 : null;
+      }),
+    }));
+})();
+
+const CAPABILITY_AGGREGATE: ReportChartSeries = (() => {
+  const sheet = workbooks.capability.sheets.find((item) => item.name === 'Summary');
+  return {
+    id: 'aggregate',
+    name: 'Aggregate',
+    category: 'Overall',
+    aggregate: true,
+    values: REPORT_QUARTERS.map((quarter) => {
+      const row = sheet?.rows.find((item) => item[0] === quarter);
+      return typeof row?.[5] === 'number' ? row[5] * 100 : null;
+    }),
+  };
+})();
+
+const COMPUTE_SUPPLY_SERIES: ReportChartSeries = (() => {
+  const sheet = workbooks.compute.sheets.find((item) => item.name === 'Quarterly Model');
+  return {
+    id: 'us-h100e',
+    name: 'U.S. operational compute',
+    category: 'Compute supply',
+    values: REPORT_QUARTERS.map((quarter) => {
+      const row = sheet?.rows.find((item) => item[1] === quarter);
+      return typeof row?.[4] === 'number' ? row[4] / 1_000_000 : null;
+    }),
+  };
+})();
 
 type ModalName = 'capability' | 'compute' | null;
 
@@ -287,6 +348,297 @@ function reportRowClass(row: ReportCell[]) {
   return '';
 }
 
+type ReportChartProps = {
+  kind: 'capability' | 'compute';
+  capabilityThreshold: number;
+};
+
+const CHART_CATEGORIES = [
+  'Direct economic stewardship',
+  'Operational execution',
+  'Personal stewardship transfer',
+  'Economic value & governance',
+] as const;
+
+function chartSeriesColorToken(item: ReportChartSeries, kind: ReportChartProps['kind']) {
+  if (item.aggregate || kind === 'compute') return '--chart-aggregate';
+  const categoryIndex = CHART_CATEGORIES.indexOf(item.category as typeof CHART_CATEGORIES[number]);
+  return `--chart-${Math.max(1, categoryIndex + 1)}`;
+}
+
+function ReportChart({ kind, capabilityThreshold }: ReportChartProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [hiddenSeries, setHiddenSeries] = useState<Set<string>>(() => new Set());
+  const [highlightedSeries, setHighlightedSeries] = useState<string | null>(null);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const series = useMemo(() => kind === 'capability'
+    ? [CAPABILITY_AGGREGATE, ...CAPABILITY_BENCHMARK_SERIES]
+    : [COMPUTE_SUPPLY_SERIES], [kind]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const draw = () => {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (!width || !height) return;
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      const context = canvas.getContext('2d');
+      if (!context) return;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.clearRect(0, 0, width, height);
+
+      const styles = getComputedStyle(canvas);
+      const color = (token: string) => styles.getPropertyValue(token).trim();
+      const fontFamily = styles.fontFamily;
+      const margin = { top: 28, right: 22, bottom: 34, left: width < 520 ? 45 : 54 };
+      const plotWidth = width - margin.left - margin.right;
+      const plotHeight = height - margin.top - margin.bottom;
+      const xAt = (index: number) => margin.left + index / (REPORT_QUARTERS.length - 1) * plotWidth;
+      const allValues = series.flatMap((item) => item.values.filter((value): value is number => value !== null));
+      const yMaximum = kind === 'capability' ? 100 : Math.max(20, Math.ceil(Math.max(...allValues) / 20) * 20);
+      const yAt = (value: number) => margin.top + plotHeight - value / yMaximum * plotHeight;
+      const projectionX = (xAt(OBSERVED_END_INDEX) + xAt(OBSERVED_END_INDEX + 1)) / 2;
+
+      context.save();
+      context.fillStyle = color('--chart-projection');
+      context.globalAlpha = 0.04;
+      context.fillRect(projectionX, margin.top, margin.left + plotWidth - projectionX, plotHeight);
+      context.restore();
+
+      context.font = `9px ${fontFamily}`;
+      context.textBaseline = 'middle';
+      for (let tickIndex = 0; tickIndex <= 5; tickIndex += 1) {
+        const tickValue = yMaximum / 5 * tickIndex;
+        const y = yAt(tickValue);
+        context.strokeStyle = color('--chart-grid');
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(margin.left, y);
+        context.lineTo(margin.left + plotWidth, y);
+        context.stroke();
+        context.fillStyle = color('--muted');
+        context.textAlign = 'right';
+        context.fillText(kind === 'capability' ? `${tickValue.toFixed(0)}%` : tickValue.toFixed(0), margin.left - 8, y);
+      }
+
+      const xLabels = width < 520 ? [0, 4, 8, 12, 16, 19] : [0, 4, 8, 12, 16, 19];
+      context.textBaseline = 'top';
+      xLabels.forEach((index) => {
+        context.fillStyle = color('--muted');
+        context.textAlign = index === 0 ? 'left' : index === REPORT_QUARTERS.length - 1 ? 'right' : 'center';
+        context.fillText(REPORT_QUARTERS[index].replace('20', ''), xAt(index), margin.top + plotHeight + 10);
+      });
+
+      context.strokeStyle = color('--chart-frame');
+      context.lineWidth = 1;
+      context.strokeRect(margin.left, margin.top, plotWidth, plotHeight);
+      context.setLineDash([3, 4]);
+      context.strokeStyle = color('--chart-projection');
+      context.beginPath();
+      context.moveTo(projectionX, margin.top);
+      context.lineTo(projectionX, margin.top + plotHeight);
+      context.stroke();
+      context.setLineDash([]);
+      context.fillStyle = color('--chart-projection');
+      context.textAlign = 'left';
+      context.textBaseline = 'bottom';
+      context.fillText('PROJECTION →', Math.min(projectionX + 6, margin.left + plotWidth - 72), margin.top - 7);
+
+      if (kind === 'capability') {
+        const thresholdY = yAt(capabilityThreshold);
+        context.save();
+        context.setLineDash([2, 5]);
+        context.strokeStyle = color('--chart-threshold');
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(margin.left, thresholdY);
+        context.lineTo(margin.left + plotWidth, thresholdY);
+        context.stroke();
+        context.restore();
+        context.fillStyle = color('--chart-threshold');
+        context.textAlign = 'right';
+        context.textBaseline = 'bottom';
+        context.fillText(`GATE ${capabilityThreshold.toFixed(0)}%`, margin.left + plotWidth - 5, thresholdY - 4);
+      }
+
+      if (kind === 'compute') {
+        const values = COMPUTE_SUPPLY_SERIES.values;
+        const firstIndex = values.findIndex((value) => value !== null);
+        const lastIndex = values.reduce((last, value, index) => value !== null ? index : last, firstIndex);
+        if (firstIndex >= 0 && lastIndex >= firstIndex) {
+          context.save();
+          const gradient = context.createLinearGradient(0, margin.top, 0, margin.top + plotHeight);
+          gradient.addColorStop(0, color('--chart-area-top'));
+          gradient.addColorStop(1, color('--chart-area-bottom'));
+          context.fillStyle = gradient;
+          context.beginPath();
+          context.moveTo(xAt(firstIndex), yAt(values[firstIndex] as number));
+          for (let index = firstIndex + 1; index <= lastIndex; index += 1) {
+            const value = values[index];
+            if (value !== null) context.lineTo(xAt(index), yAt(value));
+          }
+          context.lineTo(xAt(lastIndex), yAt(0));
+          context.lineTo(xAt(firstIndex), yAt(0));
+          context.closePath();
+          context.fill();
+          context.restore();
+        }
+      }
+
+      const drawLine = (item: ReportChartSeries, start: number, end: number, projected: boolean) => {
+        if (hiddenSeries.has(item.id)) return;
+        const isHighlighted = highlightedSeries === item.id;
+        const isDimmed = highlightedSeries !== null && !isHighlighted && !item.aggregate;
+        const token = chartSeriesColorToken(item, kind);
+        context.save();
+        context.strokeStyle = color(token);
+        context.globalAlpha = isDimmed ? 0.1 : item.aggregate || kind === 'compute' || isHighlighted ? 1 : 0.38;
+        context.lineWidth = item.aggregate || kind === 'compute' ? 3 : isHighlighted ? 2.5 : 1.35;
+        context.lineJoin = 'round';
+        context.lineCap = 'round';
+        context.setLineDash(projected ? [6, 5] : []);
+        context.beginPath();
+        let drawing = false;
+        for (let index = start; index <= end; index += 1) {
+          const value = item.values[index];
+          if (value === null) {
+            drawing = false;
+            continue;
+          }
+          if (!drawing) {
+            context.moveTo(xAt(index), yAt(value));
+            drawing = true;
+          } else {
+            context.lineTo(xAt(index), yAt(value));
+          }
+        }
+        context.stroke();
+        context.restore();
+      };
+
+      const orderedSeries = [...series].sort((a, b) => Number(Boolean(a.aggregate)) - Number(Boolean(b.aggregate)));
+      orderedSeries.forEach((item) => drawLine(item, 0, OBSERVED_END_INDEX, false));
+      orderedSeries.forEach((item) => drawLine(item, OBSERVED_END_INDEX, REPORT_QUARTERS.length - 1, true));
+
+      if (hoverIndex !== null) {
+        const hoverX = xAt(hoverIndex);
+        context.save();
+        context.strokeStyle = color('--ink');
+        context.globalAlpha = 0.42;
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(hoverX, margin.top);
+        context.lineTo(hoverX, margin.top + plotHeight);
+        context.stroke();
+        context.restore();
+      }
+    };
+
+    draw();
+    const observer = new ResizeObserver(draw);
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, [capabilityThreshold, hiddenSeries, highlightedSeries, hoverIndex, kind, series]);
+
+  const updateHover = (clientX: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const bounds = canvas.getBoundingClientRect();
+    const left = bounds.width < 520 ? 45 : 54;
+    const right = 22;
+    const fraction = clamp((clientX - bounds.left - left) / Math.max(1, bounds.width - left - right), 0, 1);
+    setHoverIndex(Math.round(fraction * (REPORT_QUARTERS.length - 1)));
+  };
+
+  const hoverItems = hoverIndex === null ? [] : series
+    .filter((item) => !hiddenSeries.has(item.id) && item.values[hoverIndex] !== null)
+    .sort((a, b) => Number(Boolean(b.aggregate)) - Number(Boolean(a.aggregate)) ||
+      (b.values[hoverIndex] as number) - (a.values[hoverIndex] as number))
+    .slice(0, kind === 'capability' ? 6 : 1);
+
+  const toggleSeries = (id: string) => {
+    setHiddenSeries((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const chartTitle = kind === 'capability'
+    ? 'Four-year capability trajectory'
+    : 'Four-year compute trajectory';
+  const chartDescription = kind === 'capability'
+    ? `${CAPABILITY_BENCHMARK_SERIES.length} graded benchmarks and the equal-category aggregate, quarterly from 2024-Q1 through 2028-Q4.`
+    : 'U.S. operational H100-equivalents in millions, quarterly from 2024-Q1 through 2028-Q4.';
+
+  return (
+    <section className={`report-chart report-chart-${kind}`} aria-labelledby={`report-chart-title-${kind}`}>
+      <div className="report-chart-head">
+        <div>
+          <p>Workbook model · observed through 2026-Q3</p>
+          <h3 id={`report-chart-title-${kind}`}>{chartTitle}</h3>
+        </div>
+        <div className="chart-phase-key" aria-label="Line styles">
+          <span><i className="solid" />Observed</span>
+          <span><i className="projected" />Projected</span>
+        </div>
+      </div>
+      <div className="report-chart-canvas-wrap">
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label={chartDescription}
+          onPointerMove={(event) => updateHover(event.clientX)}
+          onPointerLeave={() => setHoverIndex(null)}
+          onPointerDown={(event) => updateHover(event.clientX)}
+        />
+        {hoverIndex !== null && hoverItems.length > 0 && (
+          <div className="chart-tooltip" role="tooltip">
+            <strong>{REPORT_QUARTERS[hoverIndex]}</strong>
+            {hoverItems.map((item) => (
+              <span key={item.id}>
+                <i style={{ background: `var(${chartSeriesColorToken(item, kind)})` }} />
+                <b>{item.name}</b>
+                <em>{kind === 'capability'
+                  ? `${(item.values[hoverIndex] as number).toFixed(1)}%`
+                  : `${(item.values[hoverIndex] as number).toFixed(2)}M`}</em>
+              </span>
+            ))}
+            {kind === 'capability' && hoverItems.length === 6 && <small>Hover a legend label to isolate its line.</small>}
+          </div>
+        )}
+      </div>
+      {kind === 'capability' && (
+        <div className="report-chart-legend" aria-label="Capability benchmark lines">
+          {series.map((item) => {
+            const visible = !hiddenSeries.has(item.id);
+            return (
+              <button
+                type="button"
+                key={item.id}
+                className={item.aggregate ? 'aggregate' : ''}
+                aria-pressed={visible}
+                onClick={() => toggleSeries(item.id)}
+                onMouseEnter={() => setHighlightedSeries(item.id)}
+                onMouseLeave={() => setHighlightedSeries(null)}
+                onFocus={() => setHighlightedSeries(item.id)}
+                onBlur={() => setHighlightedSeries(null)}
+              >
+                <i style={{ background: `var(${chartSeriesColorToken(item, kind)})` }} />{item.name}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
 type WorkbookBrowserProps = {
   workbook: ReportWorkbook;
   sheet: ReportSheet;
@@ -295,9 +647,10 @@ type WorkbookBrowserProps = {
   onSheet: (name: string) => void;
   onClose: () => void;
   scenario: { label: string; value: string }[];
+  capabilityThreshold: number;
 };
 
-function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario }: WorkbookBrowserProps) {
+function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, scenario, capabilityThreshold }: WorkbookBrowserProps) {
   const rows = sheet.rows
     .map((row, index) => ({ row, index }))
     .filter(({ row }) => !query || row.some((value) => String(value ?? '').toLowerCase().includes(query.toLowerCase())));
@@ -319,6 +672,8 @@ function WorkbookBrowser({ workbook, sheet, query, onQuery, onSheet, onClose, sc
         <div className="report-scenario">
           {scenario.map((item) => <span key={item.label}><small>{item.label}</small><strong>{item.value}</strong></span>)}
         </div>
+
+        <ReportChart kind={workbook.id} capabilityThreshold={capabilityThreshold} />
 
         <div className="report-shell">
           <nav className="sheet-nav" aria-label="Workbook sheets">
@@ -604,6 +959,7 @@ export default function Home() {
           onSheet={(name) => { setActiveSheetName(name); setReportQuery(''); }}
           onClose={() => { setModal(null); setReportQuery(''); }}
           scenario={activeScenario}
+          capabilityThreshold={inputs.capabilityThreshold}
         />
       )}
     </main>
