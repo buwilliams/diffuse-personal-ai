@@ -2997,6 +2997,21 @@
               "notes": null
             }
           ],
+          "calculation": {
+            "role": "Direct Gate 1 input",
+            "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work categories, and confidence weighted.",
+            "countdownEffect": "Sets the current capability composite and the benchmark-level failure gaps projected forward. Stronger scores move the capability crossing earlier.",
+            "pipeline": [
+              "Source benchmark result",
+              "Normalized benchmark observation",
+              "Confidence-weighted category composite",
+              "Capability gate crossing"
+            ],
+            "adjustableAssumptions": [
+              "Current capability score",
+              "Passing threshold"
+            ]
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Append comparable release-quarter frontier observations. Preserve benchmark versions, normalization anchors, harness scope, and comparability notes."
@@ -4956,6 +4971,20 @@
               "notes": null
             }
           ],
+          "calculation": {
+            "role": "Direct Gate 1 velocity input",
+            "preparation": "Published H50 and H80 task-completion horizons are aligned by model release and converted to task-horizon velocity and acceleration.",
+            "countdownEffect": "H50 acceleration changes how quickly benchmark failure gaps close; H80 acts as a reliability guardrail. Higher positive acceleration moves the capability crossing earlier.",
+            "pipeline": [
+              "METR release horizons",
+              "H50/H80 velocity and acceleration",
+              "Economic-work transfer coefficient",
+              "Capability gate crossing"
+            ],
+            "adjustableAssumptions": [
+              "METR H50 acceleration"
+            ]
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Fetch the current METR benchmark-results artifact, append comparable H50 and H80 release observations, and refresh published velocity estimates without erasing prior snapshots."
@@ -5554,6 +5583,18 @@
               "notes": null
             }
           ],
+          "calculation": {
+            "role": "Context and falsification evidence",
+            "preparation": "Adoption observations retain their original population, cadence, and units; users, seats, downloads, subscriptions, and stars are never merged into one curve.",
+            "countdownEffect": "Does not directly change either gate. It tests the conjecture that usable capability transmits into delegation and can weaken the forecast if adoption fails to follow.",
+            "pipeline": [
+              "Product or adoption observation",
+              "Comparable series",
+              "Transmission check",
+              "Conjecture support or refutation"
+            ],
+            "adjustableAssumptions": []
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Append observations only when their population, cadence, and unit remain comparable. Do not convert downloads, revenue, seats, or subscriptions into active delegated users."
@@ -6515,6 +6556,18 @@
               "notes": null
             }
           ],
+          "calculation": {
+            "role": "Context and assumption evidence",
+            "preparation": "Source-backed claims are preserved with caveats and comparability notes instead of being converted into synthetic scores.",
+            "countdownEffect": "Does not directly move the date. It supports or challenges the assumptions, benchmark choices, and interpretation surrounding both gates.",
+            "pipeline": [
+              "Primary-source claim",
+              "Evidence ledger",
+              "Assumption review",
+              "Model revision when warranted"
+            ],
+            "adjustableAssumptions": []
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Refresh claims from primary sources, preserve caveats, and leave incomparable observations as separate records."
@@ -7189,6 +7242,18 @@
               "notes": null
             }
           ],
+          "calculation": {
+            "role": "Coverage ontology",
+            "preparation": "User-relevant capabilities are mapped to observable measures, maturity judgments, and applicable benchmark families.",
+            "countdownEffect": "Does not directly move the date. It reveals missing coverage and determines whether the benchmark basket represents real personal delegation well enough.",
+            "pipeline": [
+              "User outcome",
+              "Required agent capability",
+              "Observable measure",
+              "Benchmark coverage review"
+            ],
+            "adjustableAssumptions": []
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Add capabilities only when they map to a user outcome and an observable operational measure. Refresh current-state assessments from benchmark evidence."

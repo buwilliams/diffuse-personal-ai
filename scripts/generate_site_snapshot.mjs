@@ -8,8 +8,13 @@ const projectRoot = path.resolve(scriptDir, '..');
 const snapshot = await loadLatestSnapshot(path.join(projectRoot, 'data'));
 const outputDirectory = path.join(projectRoot, 'surfaces', 'website', 'app', 'generated');
 const outputPath = path.join(outputDirectory, 'latest-snapshot.json');
+const publicDataRoot = path.join(projectRoot, 'surfaces', 'website', 'public', 'data');
+const publicSnapshotDirectory = path.join(publicDataRoot, `snapshot-${snapshot.id}`);
 
 await fs.mkdir(outputDirectory, { recursive: true });
+await fs.rm(publicDataRoot, { recursive: true, force: true });
+await fs.mkdir(publicDataRoot, { recursive: true });
+await fs.cp(snapshot.directory, publicSnapshotDirectory, { recursive: true });
 await fs.writeFile(outputPath, `${JSON.stringify({
   id: snapshot.id,
   manifest: snapshot.manifest,
@@ -24,3 +29,4 @@ await fs.writeFile(outputPath, `${JSON.stringify({
 }, null, 2)}\n`, 'utf8');
 
 console.log(`Selected snapshot-${snapshot.id} for the website build.`);
+console.log(`Published snapshot JSON under /data/snapshot-${snapshot.id}/.`);

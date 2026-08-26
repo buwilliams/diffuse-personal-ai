@@ -82,6 +82,8 @@ The consolidator reads `database.json`, loads every source file, orders and merg
 
 Each consolidated file also includes a `sourceFiles` index with repository path, publisher, original URL, access date, roles, affected logical datasets, and record count. The website uses this index for its provenance modal. Consolidated files must never be hand-edited.
 
+Every logical dataset descriptor in `database.json` also includes a plain-language `calculation` block: its forecast role, preparation method, countdown effect, transformation pipeline, and adjustable assumptions. That lineage travels with the snapshot rather than living only in interface copy.
+
 ## Manifest and ETL entry point
 
 `database.json` is the entry point for software and an updating agent. Its `data` object contains:
@@ -91,7 +93,7 @@ Each consolidated file also includes a `sourceFiles` index with repository path,
 - `defaults`: threshold, forecast horizon, report window, and the rule that supply must serve 100% of the already-selected population target;
 - `etl`: directory patterns, source-first workflow, immutable-snapshot rule, latest-snapshot rule, and the declaration that calculations use consolidated gates only.
 
-The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest valid `snapshot-YYYYMMDD` directory and loads its two consolidated files. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No surface chooses its own cutoff or reads individual source fragments independently.
+The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest valid `snapshot-YYYYMMDD` directory and loads its two consolidated files. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No calculation surface chooses its own cutoff or reads individual source fragments independently. The website build also copies the selected snapshot to a generated same-origin `/data/snapshot-YYYYMMDD/` path so readers can view and copy every source file without downloading the repository.
 
 ## Logical datasets
 

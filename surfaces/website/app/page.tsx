@@ -694,8 +694,17 @@ type DatasetDescriptor = {
   gateId: string;
   consolidatedFile: string;
   title: string;
+  description: string;
+  collections: string[];
   requiredForCountdown: boolean;
   recordCount: number;
+  calculation: {
+    role: string;
+    preparation: string;
+    countdownEffect: string;
+    pipeline: string[];
+    adjustableAssumptions: string[];
+  };
 };
 
 type SourceFile = {
@@ -711,7 +720,7 @@ type SourceFile = {
   recordCount: number;
 };
 
-function DataSourcesModal({ onClose }: { onClose: () => void }) {
+function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpenData: (selection: string) => void }) {
   const datasets = snapshotManifest.data.datasets as DatasetDescriptor[];
   const gateDescriptors = snapshotManifest.data.gates as Array<{
     id: string;
@@ -733,7 +742,7 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
         <header className="sources-head">
           <p className="modal-eyebrow">Data provenance</p>
           <h2 id="sources-title">Sources behind the forecast</h2>
-          <p>The site selects the newest valid <code>snapshot-YYYYMMDD</code> directory at build time. This page uses <b>snapshot-{forecastModel.snapshotId}</b>: {sourceFileCount} source files spanning {sourceUrlCount} public URLs, consolidated into {gateDescriptors.length} gates and one shared calculation layer.</p>
+          <p>These are the {sourceUrlCount} public pages, papers, datasets, and methodology records used in <b>snapshot-{forecastModel.snapshotId}</b>, represented by {sourceFileCount} gate-specific source files. Open any source directly, or inspect the normalized JSON that entered the forecast.</p>
           <div className="sources-meta">
             <span><small>Snapshot</small><strong>{forecastModel.snapshotDate}</strong></span>
             <span><small>Schema</small><strong>{snapshotManifest.metadata.schemaVersion}</strong></span>
@@ -764,10 +773,9 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
                         <span>{source.publisher}</span>
                         <b>{source.title}</b>
                         <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
+                        <small>Feeds {source.datasetIds.map((id) => datasets.find((dataset) => dataset.id === id)?.title ?? id).join(', ')} · {source.datasetIds.some((id) => datasets.find((dataset) => dataset.id === id)?.requiredForCountdown) ? 'direct countdown input' : 'context only'}</small>
                       </a>
-                      <a className="source-json" href={`https://github.com/buwilliams/diffuse-personal-ai/blob/main/data/snapshot-${forecastModel.snapshotId}/${source.file}`} target="_blank" rel="noreferrer">
-                        Normalized JSON · {source.recordCount.toLocaleString('en-US')} records ↗
-                      </a>
+                      <button className="source-json" onClick={() => onOpenData(`source:${source.file}`)}>View normalized data · {source.recordCount.toLocaleString('en-US')} records ↗</button>
                     </div>
                   ))}
                 </div>
@@ -785,12 +793,207 @@ function DataSourcesModal({ onClose }: { onClose: () => void }) {
   );
 }
 
+type SourceDataItem = {
+  id: string;
+  kind: 'dataset' | 'system' | 'source';
+  title: string;
+  subtitle: string;
+  file: string;
+  datasetId?: string;
+  datasetIds: string[];
+  gateId?: string;
+  recordCount?: number;
+};
+
+function SourceDataModal({ onClose, initialSelection }: { onClose: () => void; initialSelection: string | null }) {
+  const datasets = snapshotManifest.data.datasets as DatasetDescriptor[];
+  const gateDescriptors = snapshotManifest.data.gates as Array<{
+    id: string;
+    label: string;
+    consolidatedFile: string;
+  }>;
+  const gatesById = snapshotGates as unknown as Record<string, {
+    data: { sourceFiles: SourceFile[] };
+  }>;
+  const items: SourceDataItem[] = [
+    ...datasets.map((dataset) => ({
+      id: `dataset:${dataset.id}`,
+      kind: 'dataset' as const,
+      title: dataset.title,
+      subtitle: `${dataset.recordCount.toLocaleString('en-US')} records · ${dataset.requiredForCountdown ? 'direct countdown input' : 'context / coverage'}`,
+      file: dataset.consolidatedFile,
+      datasetId: dataset.id,
+      datasetIds: [dataset.id],
+      gateId: dataset.gateId,
+      recordCount: dataset.recordCount,
+    })),
+    {
+      id: 'system:database.json',
+      kind: 'system' as const,
+      title: 'Snapshot manifest and ETL contract',
+      subtitle: 'Gates, defaults, logical datasets, lineage, and update procedure',
+      file: 'database.json',
+      datasetIds: datasets.map((dataset) => dataset.id),
+    },
+    ...gateDescriptors.map((gate) => ({
+      id: `system:${gate.consolidatedFile}`,
+      kind: 'system' as const,
+      title: `${gate.label} · consolidated`,
+      subtitle: 'Deterministic calculation input generated from source files',
+      file: gate.consolidatedFile,
+      datasetIds: datasets.filter((dataset) => dataset.gateId === gate.id).map((dataset) => dataset.id),
+      gateId: gate.id,
+    })),
+    ...gateDescriptors.flatMap((gate) => gatesById[gate.id].data.sourceFiles.map((source) => ({
+      id: `source:${source.file}`,
+      kind: 'source' as const,
+      title: source.title,
+      subtitle: `${source.publisher} · ${source.recordCount.toLocaleString('en-US')} normalized records`,
+      file: source.file,
+      datasetIds: source.datasetIds,
+      gateId: gate.id,
+      recordCount: source.recordCount,
+    }))),
+  ];
+  const [query, setQuery] = useState('');
+  const [selectedId, setSelectedId] = useState(initialSelection ?? `dataset:${datasets[0].id}`);
+  const [rawData, setRawData] = useState('');
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [copyState, setCopyState] = useState('Copy JSON');
+  const selected = items.find((item) => item.id === selectedId) ?? items[0];
+  const selectedDatasets = selected.datasetIds
+    .map((id) => datasets.find((dataset) => dataset.id === id))
+    .filter((dataset): dataset is DatasetDescriptor => Boolean(dataset));
+  const rawUrl = `/data/snapshot-${forecastModel.snapshotId}/${selected.file}`;
+  const groups = [
+    { label: 'Logical datasets', items: items.filter((item) => item.kind === 'dataset') },
+    { label: 'System files', items: items.filter((item) => item.kind === 'system') },
+    { label: 'Source files', items: items.filter((item) => item.kind === 'source') },
+  ].map((group) => ({
+    ...group,
+    items: group.items.filter((item) => !query || `${item.title} ${item.subtitle} ${item.file} ${item.datasetIds.join(' ')}`.toLowerCase().includes(query.toLowerCase())),
+  }));
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(rawUrl, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+      })
+      .then((text) => {
+        if (selected.datasetId) {
+          const parsed = JSON.parse(text);
+          const dataset = parsed?.data?.datasets?.[selected.datasetId];
+          if (!dataset) throw new Error(`Missing dataset ${selected.datasetId}`);
+          setRawData(`${JSON.stringify(dataset, null, 2)}\n`);
+        } else {
+          setRawData(text);
+        }
+        setLoadState('ready');
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') {
+          setRawData('This JSON file could not be loaded.');
+          setLoadState('error');
+        }
+      });
+    return () => controller.abort();
+  }, [rawUrl, selected.datasetId]);
+
+  const copyJson = async () => {
+    if (loadState !== 'ready') return;
+    try {
+      await navigator.clipboard.writeText(rawData);
+      setCopyState('Copied');
+    } catch {
+      setCopyState('Copy failed');
+    }
+    window.setTimeout(() => setCopyState('Copy JSON'), 1400);
+  };
+
+  const selectItem = (id: string) => {
+    setLoadState('loading');
+    setCopyState('Copy JSON');
+    setSelectedId(id);
+  };
+
+  return (
+    <div className="modal-backdrop sources-backdrop" role="presentation" onMouseDown={onClose}>
+      <section className="source-data-modal" role="dialog" aria-modal="true" aria-labelledby="source-data-title" onMouseDown={(event) => event.stopPropagation()}>
+        <button className="modal-close" aria-label="Close source data" onClick={onClose}>×</button>
+        <header className="sources-head data-head">
+          <p className="modal-eyebrow">Open data</p>
+          <h2 id="source-data-title">Source data and calculation lineage</h2>
+          <p>Select a logical dataset, generated gate file, or source-specific JSON file. You can inspect and copy the exact data, then see how it was prepared and whether it changes the countdown.</p>
+        </header>
+        <div className="source-data-browser">
+          <aside className="data-catalog">
+            <label className="report-search data-search">
+              <span>Find data</span>
+              <input type="search" value={query} placeholder="Dataset, publisher, file…" onChange={(event) => setQuery(event.target.value)} />
+            </label>
+            {groups.map((group) => group.items.length > 0 && (
+              <section key={group.label}>
+                <h3>{group.label}<span>{group.items.length}</span></h3>
+                {group.items.map((item) => (
+                  <button key={item.id} className={item.id === selected.id ? 'active' : ''} onClick={() => selectItem(item.id)}>
+                    <b>{item.title}</b><small>{item.subtitle}</small>
+                  </button>
+                ))}
+              </section>
+            ))}
+          </aside>
+          <section className="data-detail">
+            <header className="data-detail-head">
+              <p>{selected.kind === 'dataset' ? 'Logical dataset' : selected.kind === 'source' ? 'Source-normalized file' : 'System file'}</p>
+              <h3>{selected.title}</h3>
+              <code>{selected.datasetId ? `${selected.file} → data.datasets.${selected.datasetId}` : selected.file}</code>
+            </header>
+
+            <section className="data-lineage" aria-labelledby="lineage-title">
+              <p className="modal-eyebrow">Meaning for the countdown</p>
+              <h4 id="lineage-title">How this data is used</h4>
+              {selectedDatasets.map((dataset) => (
+                <article key={dataset.id}>
+                  <div><span>{dataset.calculation.role}</span><h5>{dataset.title}</h5></div>
+                  <p><b>Preparation.</b> {dataset.calculation.preparation}</p>
+                  <p><b>Countdown effect.</b> {dataset.calculation.countdownEffect}</p>
+                  <ol aria-label={`${dataset.title} calculation pipeline`}>
+                    {dataset.calculation.pipeline.map((step) => <li key={step}>{step}</li>)}
+                  </ol>
+                  <div className="assumption-tags">
+                    <b>Adjustable assumptions</b>
+                    {dataset.calculation.adjustableAssumptions.length
+                      ? dataset.calculation.adjustableAssumptions.map((assumption) => <span key={assumption}>{assumption}</span>)
+                      : <span>None · evidence only</span>}
+                  </div>
+                </article>
+              ))}
+            </section>
+
+            <section className="json-viewer">
+              <div className="json-toolbar">
+                <div><p>Snapshot JSON</p><small>{selected.datasetId ? 'Selected logical dataset extracted from the consolidated gate' : 'Complete site-hosted file'}</small></div>
+                <span><button onClick={copyJson} disabled={loadState !== 'ready'}>{copyState}</button><a href={rawUrl} target="_blank" rel="noreferrer">{selected.datasetId ? 'Open parent file' : 'Open raw'} ↗</a></span>
+              </div>
+              <pre aria-live="polite">{loadState === 'loading' ? 'Loading JSON…' : rawData}</pre>
+            </section>
+          </section>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function Home() {
   const [now, setNow] = useState(SNAPSHOT);
   const [inputs, setInputs] = useState<ModelInputs>(DEFAULTS);
   const [modal, setModal] = useState<ModalName>(null);
   const [tunerOpen, setTunerOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
+  const [sourceDataOpen, setSourceDataOpen] = useState(false);
+  const [sourceDataSelection, setSourceDataSelection] = useState<string | null>(null);
   const [activeSheetName, setActiveSheetName] = useState('Summary');
   const [reportQuery, setReportQuery] = useState('');
 
@@ -941,6 +1144,8 @@ export default function Home() {
     title: 'How the demand-proxy score and gate are calculated',
     steps: [
       { title: 'Gather real-world benchmarks.', explanation: 'Collect published benchmarks, leaderboards, and evaluations that track model–harness systems doing economically useful work—not model knowledge in isolation.' },
+      { title: 'Store each source separately.', explanation: 'Normalize every public source into its own dated JSON file, preserving its URL, access date, original meaning, and the logical datasets it feeds.' },
+      { title: 'Consolidate Gate 1 deterministically.', explanation: 'Combine source fragments into the capability, METR, adoption, research, and user-capability datasets. Only the consolidated Gate 1 file enters the shared model; the footer exposes every input and join.' },
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four category scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
@@ -955,6 +1160,8 @@ export default function Home() {
     title: 'How compute becomes a supported-user score and gate',
     steps: [
       { title: 'Gather compute-supply sources.', explanation: 'Collect U.S. data-center projects, accelerator capacity, expected operational dates, and other evidence needed to reconstruct available inference supply over time.' },
+      { title: 'Store each source separately.', explanation: 'Keep the compute timeline, population value, and forecast-authored serving assumptions in separate source JSON files with explicit provenance and roles.' },
+      { title: 'Consolidate Gate 2 deterministically.', explanation: 'Merge the source fragments into one compute-capacity dataset. Only the generated Gate 2 file enters the shared model; the footer exposes every source record and transformation.' },
       { title: 'Build the forward U.S. compute path.', explanation: `Sum the dated expected or projected operating states in Epoch's current data-center timeline. Mean log growth is ${BASE_COMPUTE_VELOCITY.toFixed(4)} per quarter and the live initial acceleration is ${signed(inputs.computeAcceleration)} log₂ H100e per quarter², implying ${signed(computeFeedbackRate, 1)}% quarterly growth in the buildout rate. Positive feedback produces super-exponential capacity growth in ordinary units. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
       { title: 'Allocate inference to personal AI.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day, the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption, and the explicit ${inputs.personalAiInferenceShare.toFixed(0)}% personal-AI share. This allocation is a scenario choice, not an observed fact.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
@@ -1022,10 +1229,20 @@ export default function Home() {
 
       <footer>
         <span>Two gates. One date. <button onClick={() => setTunerOpen(true)}>Adjust assumptions</button></span>
-        <span><button onClick={() => setSourcesOpen(true)}>Data sources &amp; provenance</button> · Snapshot {forecastModel.snapshotId}</span>
+        <span><button onClick={() => setSourcesOpen(true)}>Sources</button> · <button onClick={() => { setSourceDataSelection(null); setSourceDataOpen(true); }}>Source data</button> · Snapshot {forecastModel.snapshotId}</span>
       </footer>
 
-      {sourcesOpen && <DataSourcesModal onClose={() => setSourcesOpen(false)} />}
+      {sourcesOpen && (
+        <DataSourcesModal
+          onClose={() => setSourcesOpen(false)}
+          onOpenData={(selection) => {
+            setSourcesOpen(false);
+            setSourceDataSelection(selection);
+            setSourceDataOpen(true);
+          }}
+        />
+      )}
+      {sourceDataOpen && <SourceDataModal initialSelection={sourceDataSelection} onClose={() => setSourceDataOpen(false)} />}
 
       {tunerOpen && (
         <div className="modal-backdrop tuner-backdrop" role="presentation" onMouseDown={() => setTunerOpen(false)}>

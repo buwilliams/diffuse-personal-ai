@@ -155,6 +155,26 @@
               "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
             }
           ],
+          "calculation": {
+            "role": "Direct Gate 2 input",
+            "preparation": "Dated U.S. accelerator states are converted to H100-equivalents and combined with population, workload, allocation, utilization, and serving assumptions.",
+            "countdownEffect": "Converts operational compute into supported high-autonomy users. The gate passes only when capacity can serve 100% of the selected population target.",
+            "pipeline": [
+              "U.S. H100-equivalent capacity",
+              "Daily personal-AI token supply",
+              "Supported users",
+              "Compute gate crossing"
+            ],
+            "adjustableAssumptions": [
+              "U.S. population",
+              "Population target",
+              "Current compute",
+              "Compute acceleration",
+              "Tokens per user per day",
+              "Serving efficiency",
+              "Personal-AI inference share"
+            ]
+          },
           "update": {
             "method": "agent-assisted ETL with human review",
             "notes": "Refresh the Epoch U.S. data-center timeline, recompute every quarter from the dated site states, and review the serving-envelope assumptions separately from capacity."

@@ -138,6 +138,11 @@ for (const directory of directories) {
   assert(new Set(logicalIds).size === logicalIds.length, `${directory.name} has duplicate logical dataset IDs`);
   assert((manifest.data.datasets ?? []).filter((dataset) => dataset.requiredForCountdown).length >= 3, `${directory.name} must identify capability, METR, and compute as countdown inputs`);
   for (const descriptor of manifest.data.datasets ?? []) {
+    assert(Boolean(descriptor.calculation?.role), `${directory.name}/${descriptor.id} is missing calculation.role`);
+    assert(Boolean(descriptor.calculation?.preparation), `${directory.name}/${descriptor.id} is missing calculation.preparation`);
+    assert(Boolean(descriptor.calculation?.countdownEffect), `${directory.name}/${descriptor.id} is missing calculation.countdownEffect`);
+    assert(Array.isArray(descriptor.calculation?.pipeline) && descriptor.calculation.pipeline.length >= 3, `${directory.name}/${descriptor.id} has an incomplete calculation pipeline`);
+    assert(Array.isArray(descriptor.calculation?.adjustableAssumptions), `${directory.name}/${descriptor.id} is missing adjustable assumptions`);
     const gate = envelopes[descriptor.consolidatedFile];
     const dataset = gate?.data?.datasets?.[descriptor.id];
     assert(Boolean(dataset), `${directory.name} cannot resolve logical dataset ${descriptor.id}`);

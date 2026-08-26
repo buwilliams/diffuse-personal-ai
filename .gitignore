@@ -22,6 +22,7 @@
 
 # Generated snapshot bundle and report-card verification output
 surfaces/website/app/generated/latest-snapshot.json
+surfaces/website/public/data/
 artifacts/previews/
 data/previews/
 data/reports/legacy/

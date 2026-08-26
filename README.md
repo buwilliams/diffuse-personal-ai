@@ -19,7 +19,7 @@ model/forecast-model.mjs        Shared capability and compute calculations
 scripts/
   lib/snapshots.mjs             Latest-snapshot selection and loading
   consolidate_snapshot.mjs      Rebuilds both gates from source files
-  generate_site_snapshot.mjs    Build-time website bundle
+  generate_site_snapshot.mjs    Build-time model bundle and public JSON copy
   validate_snapshots.mjs        Schema, provenance, and forecast-invariant checks
 artifacts/report-cards/         Downloadable capability and compute workbooks
 surfaces/
@@ -27,7 +27,7 @@ surfaces/
   website/                      Vinext/Next site deployed with ChatGPT Sites
 ```
 
-The `data/` directory tracks only JSON inside dated snapshots. Each `gateN-sources/` file represents one public source; the two consolidated files are generated from those files and are the only calculation inputs. A refresh creates a new directory and never revises a prior snapshot. Every JSON file has exactly two root fields, `metadata` and `data`. The website build selects the lexicographically latest valid snapshot and bundles its consolidated gates once, so charts, report tables, defaults, controls, and the countdown all use the same values.
+The `data/` directory tracks only JSON inside dated snapshots. Each `gateN-sources/` file represents one public source; the two consolidated files are generated from those files and are the only calculation inputs. A refresh creates a new directory and never revises a prior snapshot. Every JSON file has exactly two root fields, `metadata` and `data`. The website build selects the lexicographically latest valid snapshot, bundles its consolidated gates once, and publishes a same-origin read-only copy of every JSON file for the Source data browser.
 
 ## Build and validate
 

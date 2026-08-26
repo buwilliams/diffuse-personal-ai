@@ -91,6 +91,7 @@ for (const gate of manifest.data.gates ?? []) {
         snapshotDate: manifest.metadata.snapshotDate,
         asOfDate: descriptor.asOfDate,
         sources: [...sourceMap.values()].sort((a, b) => a.id.localeCompare(b.id)),
+        calculation: descriptor.calculation,
         update: descriptor.update,
       },
       data,

@@ -18,7 +18,7 @@ This is the authoritative operating procedure for updating the Diffuse Personal 
 | Shared calculations | `model/forecast-model.mjs` | One implementation for capability and compute |
 | Snapshot loader | `scripts/lib/snapshots.mjs` | Selects the latest valid dated directory |
 | Validator | `scripts/validate_snapshots.mjs` | Schema, provenance, foreign-key, and forecast-invariant checks |
-| Website bundle | `scripts/generate_site_snapshot.mjs` | Build-time copy of the latest snapshot; generated and ignored |
+| Website bundle | `scripts/generate_site_snapshot.mjs` | Build-time model bundle plus generated public JSON copy of the latest snapshot |
 | Workbook builders | `surfaces/report-cards/` | Render the shared model as downloadable XLSX files |
 | Website | `surfaces/website/` | Renders the shared model as the countdown, controls, charts, tables, and source modal |
 | Published workbooks | `artifacts/report-cards/*.xlsx` | Generated downloads |
@@ -90,6 +90,7 @@ Validation must confirm:
 - every file has exactly `metadata` and `data` at its root;
 - every source file represents exactly one source and uses the common fragment schema;
 - the manifest, source directories, source-file indexes, logical datasets, and consolidated files agree;
+- every logical dataset explains its preparation, transformation pipeline, countdown effect, and adjustable assumptions;
 - source IDs resolve and every source is a public HTTPS URL;
 - no local filesystem path appears in data;
 - benchmark and observation IDs are coherent;
@@ -135,9 +136,11 @@ Reconcile the default scenario:
 4. Supply progress equals supported users divided by the selected target population.
 5. The headline is the later of the capability and compute crossings.
 6. Population, population share, tokens per user/day, serving efficiency, personal-AI allocation, threshold, and both acceleration controls affect only their intended terms.
-7. The source modal groups every source file by gate and links both the public source and its normalized repository JSON.
-8. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
-9. Built output contains no local filesystem paths.
+7. The Sources modal groups every public source by gate and links directly to the original evidence.
+8. The Source data modal lists every logical dataset, system file, and source-normalized JSON file; view, copy, and raw-file actions work from the site-hosted snapshot copy.
+9. Each selected dataset explains its preparation, calculation path, countdown effect, and adjustable assumptions.
+10. The HTML report tables and charts come from snapshot data, and both XLSX links point to `artifacts/report-cards/`.
+11. Built output contains no local filesystem paths.
 
 ### 7. Commit and publish
 
