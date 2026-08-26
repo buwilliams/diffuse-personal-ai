@@ -43,7 +43,15 @@ For normalized score `s`, convert the remaining failure gap to depth:
 
 > `failure-gap depth = -log2(1 - s)`
 
-One additional unit means the remaining gap to 100% has halved. Comparable longitudinal economic benchmarks estimate the confidence-weighted current economic gap velocity `vₑ`. Scores with one observation are not held flat: every graded benchmark receives the same projected frontier depth gain from its own current depth. This treats missing history as uncertainty rather than permanent zero progress.
+One additional unit means the remaining gap to 100% has halved. Comparable longitudinal benchmarks estimate a raw failure-gap velocity separately for each of the four economic-work benchmark families. A benchmark with one observation contributes to the current score but not to its family's observed velocity.
+
+Sparse family histories are partially pooled rather than held flat or assigned the fastest family's rate. Let `c_f` be the number of capped longitudinal history credits in family `f`, `p = 3` the prior strength, `v_f,raw` the family's observed velocity, and `v_global` the evidence-weighted velocity across families that have longitudinal evidence:
+
+> `w_f = c_f ÷ (c_f + p)`
+>
+> `v_f = w_f × v_f,raw + (1 - w_f) × v_global`
+
+A family with no longitudinal observation uses `v_global`; a mature family increasingly uses its own rate. The current pooled family velocities are **0.0766** gap halvings/quarter for direct economic stewardship, **0.2121** for operational execution, **0.1466** for personal stewardship transfer, and **0.1626** for economic value and governance. This makes the forecast updateable without pretending that Vending-Bench, computer use, and remote labor share one absolute curve.
 
 Benchmark-local second derivatives remain visible as diagnostics, but they do not drive the forecast. The current economic suite is too sparse and benchmark definitions change too often for its local accelerations to be a defensible shared capability law.
 
@@ -74,9 +82,9 @@ The displayed capability acceleration is the real H50 second derivative:
 
 > `a_H50 = vₕ × k_eff`
 
-The bridge from task horizon to economically valuable work is explicit:
+The aggregate bridge from task horizon to economically valuable work is explicit:
 
-> `transfer coefficient τ = vₑ / vₕ`
+> `transfer coefficient τ = weighted_mean(v_f) / vₕ`
 >
 > `initial economic acceleration = τ × a_H50 = vₑ × k_eff`
 
@@ -86,15 +94,15 @@ This preserves the economic benchmark suite's observed current velocity while im
 
 The forecast makes recursive progress explicit:
 
-> `dvₑ/dh = k_eff × vₑ(h)`
+> `dv_f/dh = k_eff × v_f(h)`
 >
-> `vₑ(h) = vₑ × exp(k_eff h)`
+> `v_f(h) = v_f × exp(k_eff h)`
 >
-> `Δd(h) = vₑ × (exp(k_eff h) − 1) / k_eff`
+> `Δd_f(h) = v_f × (exp(k_eff h) − 1) / k_eff`
 >
-> `d_b(h) = d_b,now + max(0, Δd(h))`
+> `d_b(h) = d_b,now + max(0, Δd_f(h))`, for benchmark `b` in family `f`
 
-When `k_eff = 0`, use the limit `Δd(h) = vₑ × h`. Positive `k_eff` means progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score.
+When `k_eff = 0`, use the limit `Δd_f(h) = v_f × h`. Positive `k_eff` means progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score while preserving differences among benchmark families.
 
 Convert depth back to a score:
 
@@ -122,15 +130,17 @@ Letter grades are A ≥90%, B ≥80%, C ≥70%, D ≥60%, and F <60%.
 
 Gate 2 separates physical infrastructure from the amount of useful inference each watt can serve.
 
+The countdown's productivity baseline is independent of the data-center capacity series. For a latency-constrained MLPerf Server power result:
+
+> `measured tokens/joule = reported tokens/second ÷ reported system watts`
+>
+> `reference parameter ratio = tested active parameters ÷ 100B reference parameters`
+>
+> `reference productivity = measured tokens/joule × reference parameter ratio × 10⁹ watts/GW × 86,400 seconds/day`
+
 For each quarter:
 
 > `IT GW = U.S. IT power MW ÷ 1,000`
->
-> `H100e per IT GW = U.S. H100e ÷ IT GW`
->
-> `reference tokens/H100e-day = dense 8-bit ops/H100e-second × seconds/day × sustained utilization × serving goodput ÷ (active parameters × forward-pass ops/parameter-token × system overhead)`
->
-> `reference productivity = H100e per IT GW × reference tokens/H100e-day`
 >
 > `Personal-AI token-equivalents/day = IT GW × reference productivity × fleet inference allocation × Personal-AI inference share`
 >
@@ -138,13 +148,15 @@ For each quarter:
 >
 > `supply score = min(100%, supported users ÷ target users)`
 
-The Epoch data-center registry supplies country and facility identity. The dated timeline supplies IT power, facility power, and H100-equivalents. At every cutoff, select the latest state on or before that date for each registry-identified U.S. site. Sum **IT power** as the physical series. Facility power includes cooling and other overhead and is retained only for audit. H100e is retained as a secondary productivity bridge.
+The Epoch data-center registry supplies country and facility identity. The dated timeline supplies IT power, facility power, and H100-equivalents. At every cutoff, select the latest state on or before that date for each registry-identified U.S. site. Sum **IT power** as the physical series. Facility power includes cooling and other overhead and is retained only for audit. H100e and H100e/IT-GW remain audit cross-checks; neither enters reference productivity or supported-user capacity.
 
-The base forecast uses dated expected or projected site states for both physical IT power and the H100e/IT-GW ratio. This makes the default a **published buildout-and-hardware-mix scenario**, not a regression extrapolation of recent fleet growth. A trend extrapolation may be shown separately, but it must not silently replace known project dates.
+The base physical forecast uses dated expected or projected Epoch site states. The absolute productivity baseline is the MLPerf v5.1 Llama 3.1 405B Server power result: **1,249.04 measured tokens/second at 9,566.182 W**, normalized from 405B active parameters to the 100B reference. This yields **45.688453 trillion reference token-equivalents per IT GW-day** without using H100e.
+
+The productivity velocity comes from a matched Llama 2 70B 99.9 Server power series: MLPerf v5.0 measures **16,848.6 tokens/s at 4,994.261 W**, and v5.1 measures **99,203.9 tokens/s at 10,434.706 W**. Reference productivity rises from **204.035T** to **574.990T token-equivalents/GW-day**, or **2.8181× in 160 days**. The resulting velocity is **0.853025 log₂ productivity per quarter**. Two comparable points identify a velocity but not acceleration, so the measured default acceleration is **0.000000 log₂ productivity per quarter²**. A third comparable observation is required before fitting productivity acceleration.
 
 ### Separate acceleration controls
 
-Quarterly physical growth is the first difference of `log2(IT GW)`. Quarterly productivity growth is the first difference of `log2(reference token-equivalents/IT GW-day)`. For each path, the reported acceleration is the slope of the projected quarterly log-growth rates; it describes the current source pipeline and is not an identified causal law.
+Quarterly physical growth is the first difference of `log2(IT GW)`. Its default acceleration is the slope of the projected quarterly log-growth rates in the dated Epoch pipeline. Productivity velocity is fitted from comparable measured goodput-per-power observations; acceleration remains zero until at least three comparable observations provide two velocity intervals.
 
 The website exposes two actual initial accelerations, never generic multipliers:
 
@@ -177,24 +189,17 @@ The current high-autonomy workload is 16.75 million compute-equivalent tokens pe
 
 ### Default serving envelope
 
-The current reference serving envelope produces **199.4832 million reference token-equivalents per H100e-day** before fleet or Personal-AI allocation, from:
+The current absolute baseline is the independently measured **45.688453T reference token-equivalents per IT GW-day** above. The former H100e serving envelope remains reproducible as an audit: 13.524006M H100e divided by 11.879330 IT GW, multiplied by 199.4832M reference token-equivalents/H100e-day, implies **227.101365T/GW-day**. This fivefold difference is an exposed model diagnostic, not an average or an input to capacity.
 
-- 1.979e15 dense 8-bit operations per H100e-second;
-- 35% sustained serving utilization;
-- 100B active model parameters;
-- two forward-pass operations per parameter-token;
-- 1.5× system overhead; and
-- 1.0× additional serving-goodput multiplier.
-
-At the current cutoff, 13.524006M H100e divided by 11.879330 IT GW equals 1.138449M H100e/IT GW. Multiplying by the reference envelope produces **227.101365 trillion reference token-equivalents per IT GW-day**. The explicit allocations then apply:
+The explicit allocations then apply:
 
 - 40% of total AI service capacity allocated to inference;
 - 60% of inference allocated to the modeled Personal-AI cohort.
 
-With the 16.75M-token-equivalent workload, this supports **38.655217M users**, or **45.1053%** of the 85.7M-user target.
+With the 16.75M-token-equivalent workload, the independent baseline supports **7.776691M users**, or **9.0743%** of the 85.7M-user target at the snapshot. Under the measured two-point productivity velocity and the dated power path, the continuous compute crossing is **4 August 2027**; the website's daily-resolution crossing is **5 August 2027**.
 
 The 40% inference allocation and 60% Personal-AI allocation are distinct, editable scenario assumptions. The former has an external expert cross-check; the latter is a forecast choice. The same fleet also serves training, research, development, enterprise applications, and other users, so changing either can materially move or remove the crossing. Epoch's tracker covers disclosed sites rather than a complete U.S. census, creating uncertainty in the opposite direction.
 
-H100e already normalizes peak 8-bit compute in Epoch's records. A Cerebras, Jalapeño, Rubin, or other productivity multiplier is added only when it represents measured deployed serving goodput not already captured by the dated H100e/IT-GW ratio. Hardware gains must not be counted twice.
+A Cerebras, Jalapeño, Rubin, or other serving system enters the productivity series only through comparable measured goodput, full-system power, service-level constraints, and a disclosed model normalization. H100e may diagnose the fleet's nominal accelerator mix, but it never multiplies the measured productivity series.
 
 The current release values used to regression-test these formulas live in the [monthly refresh record](../05-operations/01-monthly-refresh.md#current-regression-anchors).

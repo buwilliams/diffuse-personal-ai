@@ -51,7 +51,7 @@ For capability, gather benchmarks, leaderboards, and evaluations of model–harn
 
 Refresh METR H50 and H80 task-horizon observations and official trend estimates. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, model, scaffold, metric, source, confidence interval when available, and measurement-ceiling warnings.
 
-For Gate 2, gather U.S. data-center registries, IT power, facility power, accelerator capacity, operational or expected operating dates, deployed serving productivity, and allocation evidence. Refresh Epoch's registry and timeline together, then reconstruct quarter cutoffs under a stable U.S. coverage rule. Preserve H100e as a secondary productivity audit bridge. Keep global build-rate, allocation, and financing outlooks as separately labeled supporting evidence when they cannot be reconciled to the U.S. IT-power, productivity, or allocation series without additional assumptions. Prefer primary sources and preserve uncertainty.
+For Gate 2, gather U.S. data-center registries, IT power, facility power, accelerator capacity, operational or expected operating dates, independently measured latency-constrained goodput and full-system power, and allocation evidence. Refresh Epoch's registry and timeline together, then reconstruct quarter cutoffs under a stable U.S. coverage rule. Refresh the matched MLPerf productivity series separately, preserving model, accuracy target, scenario, system power, and service-level constraints. Preserve H100e as an audit-only cross-check. Keep global build-rate, allocation, and financing outlooks as separately labeled supporting evidence when they cannot be reconciled to the U.S. IT-power, productivity, or allocation series without additional assumptions. Prefer primary sources and preserve uncertainty.
 
 For every value, update or create exactly one `[source]-data.json` file under the appropriate gate. Each file names one public HTTPS source in `metadata.sources`; its `data.fragments` attributes normalized records or model values to logical datasets. The consolidator materializes `data.results` so readers see every explicit score or measurement, its origin, normalization, and countdown use before the lower-level fragments. Do not infer an exact score from vague prose; a source without a numerical result must say so.
 
@@ -178,26 +178,30 @@ These values describe snapshot `20260826`; they are checks, not permanent assump
 |---|---:|
 | Capability composite | 45.1651% |
 | Capability evidence confidence | Low, 47.2222% |
-| Economic gap velocity | 0.118440 gap halvings / quarter |
+| Pooled economic gap velocity | 0.152813 gap halvings / quarter |
+| Cross-family velocity prior | 0.146598 gap halvings / quarter |
 | METR H50 acceleration | 0.209121 task-horizon doublings / quarter² |
 | METR H80 guardrail | 0.342917 task-horizon doublings / quarter² |
-| Economic transfer coefficient | 0.166996 |
+| Economic transfer coefficient | 0.215460 |
 | Capability threshold | 75% |
-| Capability crossing | 20 November 2027 |
-| 2028-Q4 capability | 98.6127% |
+| Continuous capability crossing | 12 October 2027 |
+| Daily-resolution capability crossing | 13 October 2027 |
+| 2028-Q4 capability | 98.2312% |
 | Current U.S. operational IT power | 11.879330 GW |
-| Current inference productivity | 227.101365T reference token-equivalents / IT GW-day |
+| Current inference productivity | 45.688453T reference token-equivalents / IT GW-day; MLPerf measured baseline |
 | Current H100e audit bridge | 13.524006M H100e |
+| H100e-derived audit productivity | 227.101365T reference token-equivalents / IT GW-day; excluded from capacity |
 | Population target | 85.7M users |
 | Fleet inference allocation | 40% |
 | Personal-AI inference share | 60% |
-| Current supported users | 38.6552M |
-| Current compute progress | 45.1053% |
+| Current supported users | 7.7767M |
+| Current compute progress | 9.0743% |
 | IT-power log acceleration | −0.001503 log₂ IT GW / quarter² |
-| Inference-productivity log acceleration | +0.004876 log₂ productivity / quarter² |
-| Continuous service-capacity crossing | 30 December 2027 |
-| Daily-resolution website crossing | 31 December 2027 |
-| Headline date | 31 December 2027 |
+| Inference-productivity log velocity | +0.853025 log₂ productivity / quarter |
+| Inference-productivity log acceleration | 0.000000 log₂ productivity / quarter²; two comparable points |
+| Continuous service-capacity crossing | 4 August 2027 |
+| Daily-resolution service-capacity crossing | 5 August 2027 |
+| Headline date | 13 October 2027; capability is the limiter |
 
 ## Refresh record template
 

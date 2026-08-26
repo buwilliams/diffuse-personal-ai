@@ -171,6 +171,47 @@ export function buildSourceResults(envelope, manifest) {
           sourceRecord: path,
           caveat: record.comparabilityNote ?? null,
         }));
+      } else if (collectionId === 'compute-capacity.inferenceProductivityObservations' &&
+        typeof record.performanceTokensPerSecond === 'number' && typeof record.systemPowerWatts === 'number') {
+        measurements.push(measurement({
+          id: `${path}.performanceTokensPerSecond`,
+          metric: 'Latency-constrained inference goodput',
+          value: record.performanceTokensPerSecond,
+          unit: 'tokens/s',
+          subject: `${record.model} · ${record.system}`,
+          observationDate: record.observationDate ?? null,
+          origin: 'source-reported',
+          usedInCountdown: true,
+          sourceLocation: record.sourceLocation ?? null,
+          sourceRecord: `${path}.performanceTokensPerSecond`,
+          caveat: record.comparabilityNote ?? null,
+        }));
+        measurements.push(measurement({
+          id: `${path}.systemPowerWatts`,
+          metric: 'Measured system power',
+          value: record.systemPowerWatts,
+          unit: 'W',
+          subject: `${record.model} · ${record.system}`,
+          observationDate: record.observationDate ?? null,
+          origin: 'source-reported',
+          usedInCountdown: true,
+          sourceLocation: record.sourceLocation ?? null,
+          sourceRecord: `${path}.systemPowerWatts`,
+          caveat: record.comparabilityNote ?? null,
+        }));
+        measurements.push(measurement({
+          id: `${path}.referenceTokenEquivalentsPerItGwDay`,
+          metric: 'Reference inference productivity',
+          value: record.referenceTokenEquivalentsPerItGwDay,
+          unit: 'reference token-eq/IT GW-day',
+          subject: `${record.model} · ${record.system}`,
+          observationDate: record.observationDate ?? null,
+          origin: 'derived-from-source',
+          usedInCountdown: true,
+          sourceLocation: record.sourceLocation ?? null,
+          sourceRecord: `${path}.referenceTokenEquivalentsPerItGwDay`,
+          caveat: record.comparabilityNote ?? null,
+        }));
       } else if (collectionId === 'compute-capacity.quarters' && typeof record.usItPowerMw === 'number') {
         measurements.push(measurement({
           id: `${path}.usItPowerMw`,
@@ -192,9 +233,9 @@ export function buildSourceResults(envelope, manifest) {
           subject: record.quarter ?? null,
           observationDate: record.cutoffDate ?? null,
           origin: 'derived-from-source',
-          usedInCountdown: true,
+          usedInCountdown: false,
           sourceRecord: `${path}.usH100e`,
-          caveat: `${record.evidenceClass}: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric.`,
+          caveat: `${record.evidenceClass}: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity.`,
         }));
       } else if (collectionId === 'compute-capacity.siteRegistry') {
         if (typeof record.currentH100e === 'number') {

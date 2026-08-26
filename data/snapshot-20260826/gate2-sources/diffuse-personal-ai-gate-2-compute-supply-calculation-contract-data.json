@@ -176,23 +176,6 @@
           "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
         },
         {
-          "id": "compute-capacity.serving.dense8BitOpsPerH100eSecond",
-          "metric": "dense8Bit Ops Per H100e Second",
-          "value": 1979000000000000,
-          "unit": "value",
-          "displayValue": "1,979,000,000,000,000 value",
-          "subject": null,
-          "observationDate": null,
-          "measurementType": "assumption",
-          "origin": "forecast-assumption",
-          "usedInCountdown": true,
-          "normalizedScore": null,
-          "normalization": null,
-          "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.dense8BitOpsPerH100eSecond",
-          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
-        },
-        {
           "id": "compute-capacity.serving.secondsPerDay",
           "metric": "seconds Per Day",
           "value": 86400,
@@ -227,25 +210,8 @@
           "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
         },
         {
-          "id": "compute-capacity.serving.sustainedServingUtilization",
-          "metric": "sustained Serving Utilization",
-          "value": 0.35,
-          "unit": "proportion",
-          "displayValue": "35%",
-          "subject": null,
-          "observationDate": null,
-          "measurementType": "assumption",
-          "origin": "forecast-assumption",
-          "usedInCountdown": true,
-          "normalizedScore": null,
-          "normalization": null,
-          "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.sustainedServingUtilization",
-          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
-        },
-        {
-          "id": "compute-capacity.serving.activeModelParameters",
-          "metric": "active Model Parameters",
+          "id": "compute-capacity.serving.referenceActiveModelParameters",
+          "metric": "reference Active Model Parameters",
           "value": 100000000000,
           "unit": "value",
           "displayValue": "100,000,000,000 value",
@@ -257,58 +223,7 @@
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.activeModelParameters",
-          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
-        },
-        {
-          "id": "compute-capacity.serving.forwardPassOpsPerParameterToken",
-          "metric": "forward Pass Ops Per Parameter Token",
-          "value": 2,
-          "unit": "value",
-          "displayValue": "2 value",
-          "subject": null,
-          "observationDate": null,
-          "measurementType": "assumption",
-          "origin": "forecast-assumption",
-          "usedInCountdown": true,
-          "normalizedScore": null,
-          "normalization": null,
-          "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.forwardPassOpsPerParameterToken",
-          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
-        },
-        {
-          "id": "compute-capacity.serving.systemOverheadMultiplier",
-          "metric": "system Overhead Multiplier",
-          "value": 1.5,
-          "unit": "proportion",
-          "displayValue": "150%",
-          "subject": null,
-          "observationDate": null,
-          "measurementType": "assumption",
-          "origin": "forecast-assumption",
-          "usedInCountdown": true,
-          "normalizedScore": null,
-          "normalization": null,
-          "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.systemOverheadMultiplier",
-          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
-        },
-        {
-          "id": "compute-capacity.serving.servingGoodputMultiplier",
-          "metric": "serving Goodput Multiplier",
-          "value": 1,
-          "unit": "proportion",
-          "displayValue": "100%",
-          "subject": null,
-          "observationDate": null,
-          "measurementType": "assumption",
-          "origin": "forecast-assumption",
-          "usedInCountdown": true,
-          "normalizedScore": null,
-          "normalization": null,
-          "sourceLocation": null,
-          "sourceRecord": "compute-capacity.serving.servingGoodputMultiplier",
+          "sourceRecord": "compute-capacity.serving.referenceActiveModelParameters",
           "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
         },
         {
@@ -326,6 +241,91 @@
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.serving.personalAiInferenceShare",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.dense8BitOpsPerH100eSecond",
+          "metric": "h100e Audit · dense8Bit Ops Per H100e Second",
+          "value": 1979000000000000,
+          "unit": "value",
+          "displayValue": "1,979,000,000,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.dense8BitOpsPerH100eSecond",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.sustainedServingUtilization",
+          "metric": "h100e Audit · sustained Serving Utilization",
+          "value": 0.35,
+          "unit": "proportion",
+          "displayValue": "35%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.sustainedServingUtilization",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.forwardPassOpsPerParameterToken",
+          "metric": "h100e Audit · forward Pass Ops Per Parameter Token",
+          "value": 2,
+          "unit": "value",
+          "displayValue": "2 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.forwardPassOpsPerParameterToken",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.systemOverheadMultiplier",
+          "metric": "h100e Audit · system Overhead Multiplier",
+          "value": 1.5,
+          "unit": "proportion",
+          "displayValue": "150%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.systemOverheadMultiplier",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.servingGoodputMultiplier",
+          "metric": "h100e Audit · serving Goodput Multiplier",
+          "value": 1,
+          "unit": "proportion",
+          "displayValue": "100%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.servingGoodputMultiplier",
           "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
         },
         {
@@ -386,15 +386,17 @@
         "collection": "serving",
         "kind": "value",
         "value": {
-          "dense8BitOpsPerH100eSecond": 1979000000000000,
           "secondsPerDay": 86400,
           "fleetShareAllocatedToInference": 0.4,
-          "sustainedServingUtilization": 0.35,
-          "activeModelParameters": 100000000000,
-          "forwardPassOpsPerParameterToken": 2,
-          "systemOverheadMultiplier": 1.5,
-          "servingGoodputMultiplier": 1,
-          "personalAiInferenceShare": 0.6
+          "referenceActiveModelParameters": 100000000000,
+          "personalAiInferenceShare": 0.6,
+          "h100eAudit": {
+            "dense8BitOpsPerH100eSecond": 1979000000000000,
+            "sustainedServingUtilization": 0.35,
+            "forwardPassOpsPerParameterToken": 2,
+            "systemOverheadMultiplier": 1.5,
+            "servingGoodputMultiplier": 1
+          }
         }
       },
       {
@@ -403,7 +405,13 @@
         "kind": "value",
         "value": {
           "reportEndQuarterIndex": 20,
-          "extrapolation": "recursiveLogVelocity"
+          "extrapolation": "recursiveLogVelocity",
+          "referenceProductivityObservationId": "mlperf-v5-1-llama31-405b-server-b200",
+          "productivityTrendObservationIds": [
+            "mlperf-v5-0-llama2-70b-99-9-server-h100",
+            "mlperf-v5-1-llama2-70b-99-9-server-b200"
+          ],
+          "productivityAccelerationRule": "zeroUntilThreeComparableObservations"
         }
       }
     ]

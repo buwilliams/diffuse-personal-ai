@@ -71,18 +71,21 @@ const summaryRows = [
   ["Snapshot", forecast.snapshotDate, "Latest immutable snapshot selected automatically"],
   ["Current U.S. operational IT power", forecast.compute.currentItPowerGw, "IT GW"],
   ["Current reference inference productivity", forecast.compute.currentReferenceProductivityT, "trillion reference token-equivalents / IT GW-day"],
-  ["Current H100e audit bridge", forecast.compute.currentRow.usH100e, "secondary productivity calibration"],
+  ["Productivity baseline result", forecast.compute.referenceProductivityObservation.id, `${forecast.compute.referenceProductivityObservation.model} ${forecast.compute.referenceProductivityObservation.scenario}`],
+  ["Measured baseline goodput", forecast.compute.referenceProductivityObservation.performanceTokensPerSecond, "tokens / second"],
+  ["Measured baseline system power", forecast.compute.referenceProductivityObservation.systemPowerWatts, "watts"],
+  ["Current H100e audit cross-check", forecast.compute.currentRow.usH100e, "audit only; excluded from capacity"],
+  ["H100e-derived audit productivity", forecast.compute.currentRow.h100eAuditReferenceProductivity / 1e12, "trillion reference token-equivalents / IT GW-day; audit only"],
   ["Current supported users", forecast.compute.currentSupportedUsers, "Personal-AI user-equivalents"],
   ["Target users", forecast.compute.targetUsers, `${(compute.data.population.targetShare * 100).toFixed(0)}% of U.S. population`],
   ["Current supply score", forecast.compute.currentScore, "supported users / target users"],
-  ["Reference tokens per H100e/day", forecast.compute.referenceTokensPerH100eDay, "excludes inference and Personal-AI allocations"],
   ["Workload per user/day", forecast.compute.workloadTokens, "compute-equivalent tokens"],
   ["Fleet inference allocation", compute.data.serving.fleetShareAllocatedToInference, "scenario allocation"],
   ["Personal-AI inference share", compute.data.serving.personalAiInferenceShare, "share of inference allocated to Personal AI"],
   ["IT-power mean projected log velocity", forecast.compute.powerVelocity, "log₂ IT GW / quarter"],
   ["IT-power projected log acceleration", forecast.compute.powerAcceleration, "log₂ IT GW / quarter²"],
-  ["Productivity mean projected log velocity", forecast.compute.productivityVelocity, "log₂ token productivity / quarter"],
-  ["Productivity projected log acceleration", forecast.compute.productivityAcceleration, "log₂ token productivity / quarter²"],
+  ["Productivity measured log velocity", forecast.compute.productivityVelocity, "log₂ token productivity / quarter; matched MLPerf series"],
+  ["Productivity measured log acceleration", forecast.compute.productivityAcceleration, "log₂ token productivity / quarter²; zero with two points"],
   ["Continuous base-case crossing", new Date(forecast.compute.continuousCrossing), "100% of selected target"],
 ];
 const summary = makeSheet(
@@ -93,15 +96,19 @@ const summary = makeSheet(
   summaryRows,
   "ComputeSummaryTable",
 );
-summary.getRange("B12:B12").format.numberFormat = "0.0%";
-summary.getRange("B15:B16").format.numberFormat = "0.0%";
+summary.getRange("B7:B8").format.numberFormat = "#,##0.0000";
+summary.getRange("B10:B15").format.numberFormat = "#,##0.0000";
+summary.getRange("B16:B16").format.numberFormat = "0.0%";
+summary.getRange("B17:B17").format.numberFormat = "#,##0";
+summary.getRange("B18:B19").format.numberFormat = "0%";
+summary.getRange("B20:B23").format.numberFormat = "0.000000";
 summary.getRange(`B${summaryRows.length + 5}:B${summaryRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
 summary.getRange(`A6:C${summaryRows.length + 5}`).format.fill = colors.lightGold;
 
 const quarterRows = forecast.compute.quarterRows.map((row) => [
   row.quarterIndex, row.quarter, row.cutoffDate, row.phase, row.usItPowerMw, row.itPowerGw,
   row.usFacilityPowerMw, row.usH100e, row.includedSites, row.h100ePerItGw,
-  row.referenceTokensPerItGwDay / 1e12, row.logGrowthItPower, row.logGrowthProductivity,
+  row.h100eAuditReferenceProductivity / 1e12, row.referenceTokensPerItGwDay / 1e12, row.logGrowthItPower, row.logGrowthProductivity,
   row.logGrowthH100e, row.personalAiTokensPerDay, row.supportedUsers, forecast.compute.targetUsers,
   row.score, row.letter, row.gpa, row.sourceId, row.methodNote,
 ]);
@@ -109,40 +116,38 @@ const quarterly = makeSheet(
   "Quarterly Model",
   "U.S. AI Service Capacity — Observed and Projected",
   "Quarterly IT power and reference-token productivity from the selected snapshot, translated to supported Personal-AI user-equivalents. H100e remains a secondary audit bridge.",
-  ["Quarter index", "Quarter", "Cutoff", "Phase", "U.S. IT power MW", "U.S. IT power GW", "U.S. facility power MW", "H100e audit bridge", "Included sites", "H100e / IT GW", "Productivity T token-eq / IT GW-day", "IT-power log growth / qtr", "Productivity log growth / qtr", "H100e log growth / qtr", "Personal-AI token-eq/day", "Supported users", "Target users", "Score vs target", "Letter", "GPA", "Source ID", "Method note"],
+  ["Quarter index", "Quarter", "Cutoff", "Phase", "U.S. IT power MW", "U.S. IT power GW", "U.S. facility power MW", "H100e audit bridge", "Included sites", "H100e / IT GW", "H100e audit productivity T/GW-day", "Independent productivity T/GW-day", "IT-power log growth / qtr", "Productivity log growth / qtr", "H100e log growth / qtr", "Personal-AI token-eq/day", "Supported users", "Target users", "Score vs target", "Letter", "GPA", "Source ID", "Method note"],
   quarterRows,
   "ComputeQuarterlyModelTable",
 );
 quarterly.getRange(`C6:C${quarterRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
 quarterly.getRange(`E6:J${quarterRows.length + 5}`).format.numberFormat = "#,##0.00";
-quarterly.getRange(`K6:N${quarterRows.length + 5}`).format.numberFormat = "0.0000";
-quarterly.getRange(`O6:Q${quarterRows.length + 5}`).format.numberFormat = "#,##0";
-quarterly.getRange(`R6:R${quarterRows.length + 5}`).format.numberFormat = "0.0%";
+quarterly.getRange(`K6:O${quarterRows.length + 5}`).format.numberFormat = "0.0000";
+quarterly.getRange(`P6:R${quarterRows.length + 5}`).format.numberFormat = "#,##0";
+quarterly.getRange(`S6:S${quarterRows.length + 5}`).format.numberFormat = "0.0%";
 const chart = quarterly.charts.add("line", { chartType: "line", title: "Supported Personal-AI user-equivalents", hasLegend: true });
 const capacitySeries = chart.series.add("Supported users");
 capacitySeries.categoryFormula = `'Quarterly Model'!$B$6:$B$${quarterRows.length + 5}`;
-capacitySeries.formula = `'Quarterly Model'!$P$6:$P$${quarterRows.length + 5}`;
+capacitySeries.formula = `'Quarterly Model'!$Q$6:$Q$${quarterRows.length + 5}`;
 const targetSeries = chart.series.add("Selected target");
 targetSeries.categoryFormula = `'Quarterly Model'!$B$6:$B$${quarterRows.length + 5}`;
-targetSeries.formula = `'Quarterly Model'!$Q$6:$Q$${quarterRows.length + 5}`;
-chart.title = "Supported Personal-AI user-equivalents";
+targetSeries.formula = `'Quarterly Model'!$R$6:$R$${quarterRows.length + 5}`;
+chart.title = "Service-capacity gate crossing (chart capped at 5× target)";
 chart.hasLegend = true;
 chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } };
+chart.yAxis = { numberFormatCode: "0,,\"M\"", min: 0, max: forecast.compute.targetUsers * 5 };
 chart.setPosition("X5", "AF23");
 
 const assumptionRows = [
   ["Population", "U.S. residents", compute.data.population.usResidents, "people"],
   ["Population", "Selected target", compute.data.population.targetShare, "share of residents"],
   ["Population", "Supply gate share of selected target", forecast.defaults.supplyGateShareOfTarget, "100% in the default"],
-  ["Serving", "Dense 8-bit ops / H100e-second", compute.data.serving.dense8BitOpsPerH100eSecond, "ops/s"],
   ["Serving", "Seconds per day", compute.data.serving.secondsPerDay, "seconds"],
   ["Serving", "Fleet share allocated to inference", compute.data.serving.fleetShareAllocatedToInference, "share"],
-  ["Serving", "Sustained utilization", compute.data.serving.sustainedServingUtilization, "share of peak"],
-  ["Serving", "Active model parameters", compute.data.serving.activeModelParameters, "parameters"],
-  ["Serving", "Forward-pass ops / parameter-token", compute.data.serving.forwardPassOpsPerParameterToken, "ops"],
-  ["Serving", "System overhead", compute.data.serving.systemOverheadMultiplier, "multiplier"],
-  ["Serving", "Serving goodput", compute.data.serving.servingGoodputMultiplier, "multiplier"],
+  ["Serving", "Reference active model parameters", compute.data.serving.referenceActiveModelParameters, "parameters used to normalize measured tokens"],
   ["Serving", "Personal-AI inference share", compute.data.serving.personalAiInferenceShare, "scenario allocation"],
+  ["Audit only", "Dense 8-bit ops / H100e-second", compute.data.serving.h100eAudit.dense8BitOpsPerH100eSecond, "excluded from capacity"],
+  ["Audit only", "Sustained utilization", compute.data.serving.h100eAudit.sustainedServingUtilization, "excluded from capacity"],
   ...forecast.compute.components.map((component) => [
     "Workload", component.label, component.tokensPerUserDay,
     `${component.computeWeight}× compute weight = ${component.computeEquivalentTokens.toLocaleString("en-US")} compute-equivalent tokens`,
@@ -156,9 +161,33 @@ const assumptions = makeSheet(
   assumptionRows,
   "ComputeAssumptionsTable",
 );
+assumptions.getRange("C6:C6").format.numberFormat = "#,##0";
 assumptions.getRange("C7:C8").format.numberFormat = "0%";
-assumptions.getRange("C11:C12").format.numberFormat = "0%";
-assumptions.getRange("C17:C17").format.numberFormat = "0%";
+assumptions.getRange("C9:C9").format.numberFormat = "#,##0";
+assumptions.getRange("C10:C10").format.numberFormat = "0%";
+assumptions.getRange("C11:C11").format.numberFormat = "#,##0";
+assumptions.getRange("C12:C12").format.numberFormat = "0%";
+assumptions.getRange("C14:C14").format.numberFormat = "0%";
+assumptions.getRange("C15:C18").format.numberFormat = "#,##0";
+
+const productivityRows = compute.data.inferenceProductivityObservations.map((record) => [
+  record.id, record.release, record.observationDate, record.model, record.scenario,
+  record.submitter, record.system, record.accelerator, record.acceleratorCount,
+  record.activeModelParameters, record.performanceTokensPerSecond, record.systemPowerWatts,
+  record.tokensPerJoule, record.referenceTokenEquivalentsPerItGwDay / 1e12,
+  record.roles.join(", "), record.rawResultId, record.sourceId, record.sourceLocation,
+  record.comparabilityNote,
+]);
+const productivity = makeSheet(
+  "Inference Productivity",
+  "Measured Inference Goodput per Watt",
+  "MLPerf Server power results used for the independent absolute baseline and matched productivity velocity. H100e is not an input to this sheet.",
+  ["Observation ID", "Release", "Date", "Model", "Scenario", "Submitter", "System", "Accelerator", "Count", "Active parameters", "Measured tokens/s", "Measured system W", "Tokens/J", "Reference productivity T/GW-day", "Role", "Raw result ID", "Source ID", "Source location", "Comparability note"],
+  productivityRows,
+  "InferenceProductivityTable",
+);
+productivity.getRange(`C6:C${productivityRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
+productivity.getRange(`J6:N${productivityRows.length + 5}`).format.numberFormat = "#,##0.0000";
 
 const siteRegistryRows = compute.data.siteRegistry.map((site) => [
   site.name, site.country ?? "", site.currentH100e, site.currentItPowerMw,
@@ -203,7 +232,8 @@ const sources = makeSheet(
 
 const sheetsAndWidths = [
   [summary, [35, 22, 54]],
-  [quarterly, [12, 12, 14, 20, 18, 18, 20, 18, 14, 18, 24, 20, 22, 20, 22, 18, 18, 17, 9, 9, 20, 58, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]],
+  [quarterly, [12, 12, 14, 20, 18, 18, 20, 18, 14, 18, 22, 22, 20, 22, 20, 22, 18, 18, 17, 9, 9, 20, 58, 3, 3, 3, 3, 3, 3, 3, 3, 3]],
+  [productivity, [36, 20, 14, 20, 14, 20, 48, 28, 10, 20, 20, 20, 16, 24, 28, 14, 22, 36, 70]],
   [assumptions, [16, 38, 22, 62]],
   [siteRegistry, [40, 18, 18, 24, 34, 34, 52, 20]],
   [supportingEvidence, [38, 35, 14, 13, 38, 15, 18, 20, 15, 20, 62, 68, 16]],
@@ -219,6 +249,7 @@ await fs.mkdir(previewDir, { recursive: true });
 for (const [sheetName, range, filename] of [
   ["Summary", `A1:C${summaryRows.length + 5}`, "summary.png"],
   ["Quarterly Model", `A1:AF${quarterRows.length + 5}`, "quarterly-model.png"],
+  ["Inference Productivity", `A1:S${productivityRows.length + 5}`, "inference-productivity.png"],
   ["Assumptions", `A1:D${assumptionRows.length + 5}`, "assumptions.png"],
   ["Site Registry", `A1:H${siteRegistryRows.length + 5}`, "site-registry.png"],
   ["Supporting Evidence", `A1:M${supportingEvidenceRows.length + 5}`, "supporting-evidence.png"],

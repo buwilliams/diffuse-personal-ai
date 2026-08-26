@@ -1880,8 +1880,8 @@
         "resultCounts": {
           "scores": 0,
           "measurements": 0,
-          "assumptions": 5,
-          "directInputs": 5
+          "assumptions": 6,
+          "directInputs": 6
         }
       },
       {
@@ -3707,12 +3707,13 @@
           ],
           "calculation": {
             "role": "Direct Gate 1 input",
-            "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work categories, and confidence weighted.",
-            "countdownEffect": "Sets the current capability composite and the benchmark-level failure gaps projected forward. Stronger scores move the capability crossing earlier.",
+            "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work benchmark families, and confidence weighted. Each family gets its own observed failure-gap velocity, partially pooled toward the evidence-weighted cross-family velocity when history is sparse.",
+            "countdownEffect": "Sets the current capability composite and the family-specific benchmark failure gaps projected forward. Stronger scores or faster family velocities move the capability crossing earlier.",
             "pipeline": [
               "Source benchmark result",
               "Normalized benchmark observation",
-              "Confidence-weighted category composite",
+              "Partially pooled benchmark-family trajectory",
+              "Confidence-weighted family composite",
               "Capability gate crossing"
             ],
             "adjustableAssumptions": [
@@ -5978,6 +5979,7 @@
             "firstForecastQuarterIndex": 12,
             "reportEndQuarterIndex": 20,
             "maximumEvidenceCreditsPerBenchmark": 3,
+            "partialPoolingPriorCredits": 3,
             "transform": "failureGapHalvings",
             "exactOneDepth": 30
           }

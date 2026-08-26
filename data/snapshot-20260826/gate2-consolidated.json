@@ -60,6 +60,33 @@
         "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline."
       },
       {
+        "id": "gate2-github-com-mlperf-inference-v5-0-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.0 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement."
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-1-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.1 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "absolute productivity baseline",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements."
+      },
+      {
         "id": "gate2-us-census-bureau-population-on-a-date",
         "publisher": "U.S. Census Bureau",
         "title": "Population on a Date",
@@ -158,7 +185,7 @@
           "scores": 0,
           "measurements": 40,
           "assumptions": 0,
-          "directInputs": 40
+          "directInputs": 20
         }
       },
       {
@@ -185,6 +212,59 @@
           "measurements": 166,
           "assumptions": 0,
           "directInputs": 0
+        }
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-0-power",
+        "file": "gate2-sources/github-com-mlperf-inference-v5-0-power-data.json",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.0 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 3
+        }
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-1-power",
+        "file": "gate2-sources/github-com-mlperf-inference-v5-1-power-data.json",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.1 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+        "accessedAt": "2026-08-26",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "absolute productivity baseline",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 6,
+          "assumptions": 0,
+          "directInputs": 6
         }
       },
       {
@@ -275,6 +355,33 @@
               "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline."
             },
             {
+              "id": "gate2-github-com-mlperf-inference-v5-0-power",
+              "publisher": "MLCommons",
+              "title": "MLPerf Inference v5.0 summary results",
+              "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+              "accessedAt": "2026-08-26",
+              "roles": [
+                "measured inference goodput",
+                "measured system power",
+                "productivity trend"
+              ],
+              "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement."
+            },
+            {
+              "id": "gate2-github-com-mlperf-inference-v5-1-power",
+              "publisher": "MLCommons",
+              "title": "MLPerf Inference v5.1 summary results",
+              "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+              "accessedAt": "2026-08-26",
+              "roles": [
+                "measured inference goodput",
+                "measured system power",
+                "absolute productivity baseline",
+                "productivity trend"
+              ],
+              "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements."
+            },
+            {
               "id": "gate2-us-census-bureau-population-on-a-date",
               "publisher": "U.S. Census Bureau",
               "title": "Population on a Date",
@@ -288,7 +395,7 @@
           ],
           "calculation": {
             "role": "Direct Gate 2 input",
-            "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. H100-equivalents remain a secondary bridge for estimating reference token-equivalents per IT GW-day. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+            "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. Independently measured MLPerf server goodput and full-system power set reference token-equivalents per IT GW-day, while a matched MLPerf series sets productivity velocity. H100-equivalents remain an audit cross-check only. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
             "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
             "pipeline": [
               "U.S. operational IT power",
@@ -311,7 +418,7 @@
           },
           "update": {
             "method": "agent-assisted ETL with human review",
-            "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and review productivity and allocation assumptions separately from physical power. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
+            "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and refresh comparable MLPerf power submissions separately. Select an absolute latency-constrained reference result and a matched workload series for productivity velocity; do not derive productivity from H100e. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
           }
         },
         "data": {
@@ -555,6 +662,89 @@
               "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
               "usItPowerMw": 31674.32971,
               "usFacilityPowerMw": 41462.3
+            }
+          ],
+          "inferenceProductivityObservations": [
+            {
+              "id": "mlperf-v5-0-llama2-70b-99-9-server-h100",
+              "release": "MLPerf Inference v5.0",
+              "observationDate": "2025-04-02",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Fujitsu",
+              "system": "PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+              "accelerator": "NVIDIA H100-NVL-94GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 16848.6,
+              "systemPowerWatts": 4994.2610980392,
+              "tokensPerJoule": 3.37359214291278,
+              "referenceTokenEquivalentsPerItGwDay": 204034852803364.94,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.0-0023",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-0-power",
+              "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+            },
+            {
+              "id": "mlperf-v5-1-llama2-70b-99-9-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 99203.9,
+              "systemPowerWatts": 10434.706455542,
+              "tokensPerJoule": 9.507109799654364,
+              "referenceTokenEquivalentsPerItGwDay": 574990000683095.9,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0061",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+            },
+            {
+              "id": "mlperf-v5-1-llama31-405b-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama3.1-405b",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 405000000000,
+              "performanceTokensPerSecond": 1249.04,
+              "systemPowerWatts": 9566.1823383085,
+              "tokensPerJoule": 0.13056828270961604,
+              "referenceTokenEquivalentsPerItGwDay": 45688453485748.84,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0062",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+              "roles": [
+                "absolute-productivity-baseline"
+              ],
+              "comparabilityNote": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
             }
           ],
           "siteRegistry": [
@@ -1718,19 +1908,27 @@
             ]
           },
           "serving": {
-            "dense8BitOpsPerH100eSecond": 1979000000000000,
             "secondsPerDay": 86400,
             "fleetShareAllocatedToInference": 0.4,
-            "sustainedServingUtilization": 0.35,
-            "activeModelParameters": 100000000000,
-            "forwardPassOpsPerParameterToken": 2,
-            "systemOverheadMultiplier": 1.5,
-            "servingGoodputMultiplier": 1,
-            "personalAiInferenceShare": 0.6
+            "referenceActiveModelParameters": 100000000000,
+            "personalAiInferenceShare": 0.6,
+            "h100eAudit": {
+              "dense8BitOpsPerH100eSecond": 1979000000000000,
+              "sustainedServingUtilization": 0.35,
+              "forwardPassOpsPerParameterToken": 2,
+              "systemOverheadMultiplier": 1.5,
+              "servingGoodputMultiplier": 1
+            }
           },
           "forecastPolicy": {
             "reportEndQuarterIndex": 20,
-            "extrapolation": "recursiveLogVelocity"
+            "extrapolation": "recursiveLogVelocity",
+            "referenceProductivityObservationId": "mlperf-v5-1-llama31-405b-server-b200",
+            "productivityTrendObservationIds": [
+              "mlperf-v5-0-llama2-70b-99-9-server-h100",
+              "mlperf-v5-1-llama2-70b-99-9-server-b200"
+            ],
+            "productivityAccelerationRule": "zeroUntilThreeComparableObservations"
           }
         }
       }

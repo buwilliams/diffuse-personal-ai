@@ -70,33 +70,38 @@ function makeSheet(name, title, subtitle, headers, rows, tableName) {
 }
 
 const summaryRows = [
-  ["Snapshot", forecast.snapshotDate, "Latest immutable snapshot selected automatically", null, null, null, null, null],
-  ["Current capability", forecast.capability.currentScore, "Confidence-weighted score", null, null, null, null, null],
-  ["Letter grade", forecast.capability.currentGrade, "A ≥90%, B ≥80%, C ≥70%, D ≥60%, F <60%", null, null, null, null, null],
-  ["GPA", forecast.capability.currentGpa, "0–4", null, null, null, null, null],
-  ["Evidence confidence", forecast.capability.confidence, forecast.capability.confidenceWeight, null, null, null, null, null],
-  ["Economic gap velocity", forecast.capability.economicGapVelocity, "failure-gap halvings / quarter", null, null, null, null, null],
-  ["METR H50 acceleration", forecast.capability.h50Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null],
-  ["METR H80 guardrail", forecast.capability.h80Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null],
+  ["Snapshot", forecast.snapshotDate, "Latest immutable snapshot selected automatically", null, null, null, null, null, null, null, null],
+  ["Current capability", forecast.capability.currentScore, "Confidence-weighted score", null, null, null, null, null, null, null, null],
+  ["Letter grade", forecast.capability.currentGrade, "A ≥90%, B ≥80%, C ≥70%, D ≥60%, F <60%", null, null, null, null, null, null, null, null],
+  ["GPA", forecast.capability.currentGpa, "0–4", null, null, null, null, null, null, null, null],
+  ["Evidence confidence", forecast.capability.confidence, forecast.capability.confidenceWeight, null, null, null, null, null, null, null, null],
+  ["Pooled economic gap velocity", forecast.capability.economicGapVelocity, "confidence-weighted family gap halvings / quarter", null, null, null, null, null, null, null, null],
+  ["Cross-family velocity prior", forecast.capability.globalGapVelocityPrior, "evidence-weighted prior for sparse families", null, null, null, null, null, null, null, null],
+  ["Partial-pooling prior strength", forecast.capability.partialPoolingPriorCredits, "history credits", null, null, null, null, null, null, null, null],
+  ["METR H50 acceleration", forecast.capability.h50Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null, null, null, null],
+  ["METR H80 guardrail", forecast.capability.h80Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null, null, null, null],
   ...forecast.capability.categories.map((row) => [
     row.category, row.currentScore, row.confidence, row.confidenceWeight,
-    row.currentGpa, row.graded, row.total, row.economicGapVelocity,
+    row.currentGpa, row.graded, row.total, row.rawGapVelocity, row.historyCredits,
+    row.poolingWeight, row.pooledGapVelocity,
   ]),
 ];
 const summary = makeSheet(
   "Summary",
   "Model–Harness Capability Report Card",
   `Snapshot ${forecast.snapshotDate}. Every value is calculated from the latest dated JSON snapshot through the same shared model used by the website.`,
-  ["Metric / category", "Score / value", "Interpretation / confidence", "Confidence weight", "GPA", "Graded", "Total", "Gap velocity"],
+  ["Metric / benchmark family", "Score / value", "Interpretation / confidence", "Confidence weight", "GPA", "Graded", "Total", "Raw gap velocity", "History credits", "Pooling weight", "Pooled gap velocity"],
   summaryRows,
   "CapabilitySummaryTable",
 );
 summary.getRange("B7:B7").format.numberFormat = "0.0%";
-summary.getRange("B9:B13").format.numberFormat = "0.000";
-summary.getRange("B14:B17").format.numberFormat = "0.0%";
-summary.getRange("D14:D17").format.numberFormat = "0%";
-summary.getRange("H14:H17").format.numberFormat = "0.0000";
-summary.getRange("A14:H17").format.fill = colors.lightGold;
+summary.getRange("B9:B15").format.numberFormat = "0.000";
+summary.getRange("B16:B19").format.numberFormat = "0.0%";
+summary.getRange("D16:D19").format.numberFormat = "0%";
+summary.getRange("H16:H19").format.numberFormat = "0.0000";
+summary.getRange("J16:J19").format.numberFormat = "0%";
+summary.getRange("K16:K19").format.numberFormat = "0.0000";
+summary.getRange("A16:K19").format.fill = colors.lightGold;
 
 const benchmarkRows = forecast.capability.benchmarkRows.map((row) => [
   row.category, row.id, row.name, row.metric, row.normalization, row.status,
@@ -195,7 +200,7 @@ makeSheet(
 );
 
 const widths = {
-  Summary: [34, 18, 45, 18, 10, 10, 10, 17],
+  Summary: [34, 18, 45, 18, 10, 10, 10, 17, 15, 15, 18],
   Benchmarks: [31, 12, 28, 40, 52, 12, 14, 14, 9, 9, 12, 15, 17, 17, 13, 50],
   Observations: [20, 14, 14, 12, 12, 14, 32, 48, 13, 52],
   "Quarterly Path": [13, 14, 15, 21, 21, 21, 21, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -211,7 +216,7 @@ for (const sheet of workbook.worksheets.items) {
 
 await fs.mkdir(previewDir, { recursive: true });
 for (const [sheetName, range, filename] of [
-  ["Summary", "A1:H17", "summary.png"],
+  ["Summary", "A1:K19", "summary.png"],
   ["Benchmarks", `A1:P${benchmarkRows.length + 5}`, "benchmarks.png"],
   ["Observations", `A1:J${observationRows.length + 5}`, "observations.png"],
   ["Quarterly Path", `A1:Q${pathRows.length + 5}`, "quarterly-path.png"],
@@ -228,7 +233,7 @@ const errors = await workbook.inspect({
 });
 if (!(errors.ndjson ?? "").includes("matched 0 entries")) throw new Error(errors.ndjson);
 const inspection = await workbook.inspect({
-  kind: "table", sheetId: "Summary", range: "A1:H17",
+  kind: "table", sheetId: "Summary", range: "A1:K19",
   include: "values,formulas", tableMaxRows: 40, tableMaxCols: 10, maxChars: 30_000,
 });
 await fs.mkdir(outputDir, { recursive: true });

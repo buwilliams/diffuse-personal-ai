@@ -65,12 +65,13 @@
         "recordCount": 151,
         "calculation": {
           "role": "Direct Gate 1 input",
-          "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work categories, and confidence weighted.",
-          "countdownEffect": "Sets the current capability composite and the benchmark-level failure gaps projected forward. Stronger scores move the capability crossing earlier.",
+          "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work benchmark families, and confidence weighted. Each family gets its own observed failure-gap velocity, partially pooled toward the evidence-weighted cross-family velocity when history is sparse.",
+          "countdownEffect": "Sets the current capability composite and the family-specific benchmark failure gaps projected forward. Stronger scores or faster family velocities move the capability crossing earlier.",
           "pipeline": [
             "Source benchmark result",
             "Normalized benchmark observation",
-            "Confidence-weighted category composite",
+            "Partially pooled benchmark-family trajectory",
+            "Confidence-weighted family composite",
             "Capability gate crossing"
           ],
           "adjustableAssumptions": [
@@ -221,10 +222,10 @@
         "description": "Observed and dated projected U.S. AI IT power, inference productivity per IT GW-day, the resulting supported Personal-AI users, and independently sourced build-rate and allocation diagnostics.",
         "asOfDate": "2026-08-26",
         "requiredForCountdown": true,
-        "recordCount": 118,
+        "recordCount": 121,
         "calculation": {
           "role": "Direct Gate 2 input",
-          "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. H100-equivalents remain a secondary bridge for estimating reference token-equivalents per IT GW-day. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+          "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. Independently measured MLPerf server goodput and full-system power set reference token-equivalents per IT GW-day, while a matched MLPerf series sets productivity velocity. H100-equivalents remain an audit cross-check only. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
           "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
           "pipeline": [
             "U.S. operational IT power",
@@ -247,6 +248,7 @@
         },
         "collections": [
           "quarters",
+          "inferenceProductivityObservations",
           "siteRegistry",
           "supportingEvidence",
           "population",
@@ -256,7 +258,7 @@
         ],
         "update": {
           "method": "agent-assisted ETL with human review",
-          "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and review productivity and allocation assumptions separately from physical power. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
+          "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and refresh comparable MLPerf power submissions separately. Select an absolute latency-constrained reference result and a matched workload series for productivity velocity; do not derive productivity from H100e. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
         }
       }
     ],

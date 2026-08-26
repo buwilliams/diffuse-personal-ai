@@ -125,12 +125,12 @@ The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest
 
 | Logical dataset | Gate | Purpose | Countdown input |
 |---|---|---|---:|
-| `capability-benchmarks` | 1 | Four-category economic benchmark basket, normalized observations, and supporting registry | Yes |
+| `capability-benchmarks` | 1 | Four-family economic benchmark basket, normalized observations, family-specific partially pooled trajectories, and supporting registry | Yes |
 | `metr-task-horizon` | 1 | H50 capability velocity, H80 reliability guardrail, trend estimates, and forecast policy | Yes |
 | `adoption` | 1 | Adoption definitions, observations, and agent-product events | No; triangulation |
 | `research-evidence` | 1 | Evidence ledger supporting the conjecture and assumptions | No; triangulation |
 | `user-capabilities` | 1 | Consumer capability catalog and operational metrics | No; ontology |
-| `compute-capacity` | 2 | Epoch site registry; U.S. IT-power path; H100e productivity audit bridge; population, workload, and allocation assumptions; supported-user path; projection policy; and supporting supply evidence | Yes; physical IT power, calibrated productivity, allocation, workload, and population target |
+| `compute-capacity` | 2 | Epoch site registry and U.S. IT-power path; MLPerf measured-goodput productivity observations; H100e audit cross-check; population, workload, and allocation assumptions; supported-user path; projection policy; and supporting supply evidence | Yes; physical IT power, independently measured productivity, allocation, workload, and population target |
 
 The capability dataset distinguishes the forecast-driving benchmark basket from the supporting registry. Supporting observations remain visible for provenance and future revisions, but only records explicitly labeled as forecast inputs affect the gate.
 
@@ -154,7 +154,7 @@ The capability dataset distinguishes the forecast-driving benchmark basket from 
 - Add a new source file when the URL is new to that gate.
 - Preserve benchmark version, metric, release date, system/harness label, normalization basis, and comparability note for model–harness results.
 - Preserve availability, authority, computer use, authenticated integration, memory, verification, and rollback separately for agent products.
-- Refresh Epoch's registry and timeline together, reconstruct IT-power and productivity cutoffs under one coverage rule, retain H100e as an audit bridge, and keep observations separate from expected or projected pipeline rows.
+- Refresh Epoch's registry and timeline together to reconstruct IT-power cutoffs. Refresh MLPerf or another comparable measured-goodput-per-power series separately, retain H100e as an audit-only cross-check, and keep observations separate from expected or projected pipeline rows.
 - Update the manifest's record counts and logical dataset descriptors.
 - Run the consolidator before validation, workbook builds, or the website build.
 

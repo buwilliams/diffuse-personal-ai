@@ -29,15 +29,15 @@ Supply is not merely chips or nameplate facility power. It is the daily volume o
 where:
 
 - `P_IT(t)` is operational U.S. AI IT power in GW, excluding facility overhead;
-- `η_ref(t)` is reference token-equivalents served per IT GW-day under the disclosed model-size, utilization, overhead, latency, and goodput envelope;
+- `η_ref(t)` is reference token-equivalents served per IT GW-day from measured latency-constrained goodput and full-system power, normalized to a disclosed reference model size;
 - `s_inference(t)` is the share of total AI service capacity allocated to inference rather than training, research, or development; and
 - `s_PAI(t)` is the share of inference allocated to the modeled Personal-AI cohort.
 
-The current source data also report H100-equivalents. The model retains them only as a transparent calibration bridge:
+The current source data also report H100-equivalents. The model retains them only as a transparent audit cross-check:
 
-> `η_ref(t) = [H100e(t) ÷ P_IT(t)] × reference tokens/H100e-day`
+> `η_ref(t) = [measured tokens/second ÷ measured system watts] × [tested active parameters ÷ reference active parameters] × watts/GW × seconds/day`
 
-This lets the model separate physical buildout from inference productivity. H100e is not the headline gate unit and facility MW is never substituted for IT MW.
+This makes physical buildout and inference productivity independent evidence series. The H100e/IT-GW bridge is still calculated beside the model as a discrepancy check, but it cannot change supported-user capacity. Facility MW is never substituted for IT MW.
 
 This makes four distinctions essential:
 
@@ -223,7 +223,7 @@ A new release should not require a new framework:
 
 - **New model or harness:** add the system configuration and its stewardship episodes, component benchmarks, costs, tokens, human attention, and failures.
 - **New agent product:** add shipped permissions, tools, persistence, memory, scheduling, availability, and approval policy; do not infer performance from the feature list.
-- **New chip or serving method:** add workload-specific throughput, latency, power, service level, deployment date, and deployed share; update reference-token productivity only when the evidence is commensurable.
+- **New chip or serving method:** add workload-specific throughput, full-system power, latency, service level, model size, deployment date, and deployed share; update reference-token productivity only when the evidence is commensurable.
 - **New data-center evidence:** add the dated IT-power milestone; move capacity into observed operational supply only after commissioning evidence.
 - **New usage evidence:** update archetype counts and realized token intensity without overwriting prior observations.
 

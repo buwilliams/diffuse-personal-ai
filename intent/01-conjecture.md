@@ -135,7 +135,7 @@ The forecast has two causal gates:
 
 Current METR TH1.1 estimates put the P50 system-horizon doubling time at **196.5 days all-time**, **130.8 days for releases since 2023**, and **88.6 days since 2024**. The shortening is suggestive, not conclusive, because task composition and evaluation infrastructure changed and the recent window is short. ARC-AGI-3 supplies the central harness warning: verified model results and near-saturating community systems use different tracks, so their gap demonstrates system-envelope sensitivity but is not a causal harness multiplier.
 
-Epoch AI's maintained tracker covered **83 sites, 14.4 million H100-equivalents, and 13 GW of IT power** in August 2026. The forecast joins its registry to its timeline and reconstructs **11.879 GW of operational U.S. IT power** at the 26 August cutoff. The same states contain **13.524 million H100e**, retained only as a transparent productivity bridge. This is public-tracker capacity, not a complete census, and source revisions can change the historical series.
+Epoch AI's maintained tracker covered **83 sites, 14.4 million H100-equivalents, and 13 GW of IT power** in August 2026. The forecast joins its registry to its timeline and reconstructs **11.879 GW of operational U.S. IT power** at the 26 August cutoff. The same states contain **13.524 million H100e**, retained only as a transparent audit cross-check. Inference productivity comes from an independent MLPerf goodput-per-power series. This is public-tracker capacity, not a complete census, and source revisions can change the historical series.
 
 The bridge between supply and adoption is **compute-equivalent tokens per user per day**. Estimate uncached input, visible output, internal reasoning, and cached context separately for each user archetype. Supported users equal available daily token supply divided by archetype demand. This exposes a rebound risk: faster inference may be consumed by deeper reasoning, verification, parallel branches, and memory rather than yielding proportionally more users.
 
@@ -261,7 +261,7 @@ Reforecast monthly, but move probabilities only for prespecified evidence.
 - **−4 points:** OSWorld 2.0 binary completion and ALE remain below 30% through February 2027.
 - **−3 points:** costs per successfully completed ordinary task stop falling or persistent-memory features materially increase critical privacy failures.
 
-Do not update from a new model announcement, planned gigawatts, a nominal API price, a cherry-picked demo, GitHub stars, aggregate tokens generated, or a benchmark maximum alone. Apply at most one overlapping adjustment from each SCM per review. Do not double-count newer chips: the dated H100e/IT-GW ratio already captures their peak-compute contribution, while a separate productivity change should capture only comparable deployed serving gains not already present in that ratio.
+Do not update from a new model announcement, planned gigawatts, a nominal API price, a cherry-picked demo, GitHub stars, aggregate tokens generated, or a benchmark maximum alone. Apply at most one overlapping adjustment from each SCM per review. Do not turn a chip claim or H100e count into productivity: require comparable measured goodput, full-system power, model normalization, and service-level constraints.
 
 ## Bottom line
 

@@ -31,12 +31,12 @@
     "results": {
       "status": "forecast-assumptions",
       "countdownRole": "forecast-method",
-      "summary": "Forecast-authored method with 5 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
+      "summary": "Forecast-authored method with 6 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
       "counts": {
         "scores": 0,
         "measurements": 0,
-        "assumptions": 5,
-        "directInputs": 5
+        "assumptions": 6,
+        "directInputs": 6
       },
       "measurements": [
         {
@@ -108,6 +108,23 @@
           "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
         },
         {
+          "id": "capability-benchmarks.model.partialPoolingPriorCredits",
+          "metric": "partial Pooling Prior Credits",
+          "value": 3,
+          "unit": "value",
+          "displayValue": "3 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.partialPoolingPriorCredits",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
           "id": "capability-benchmarks.model.exactOneDepth",
           "metric": "exact One Depth",
           "value": 30,
@@ -159,6 +176,7 @@
           "firstForecastQuarterIndex": 12,
           "reportEndQuarterIndex": 20,
           "maximumEvidenceCreditsPerBenchmark": 3,
+          "partialPoolingPriorCredits": 3,
           "transform": "failureGapHalvings",
           "exactOneDepth": 30
         }

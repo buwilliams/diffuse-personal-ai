@@ -31,12 +31,12 @@
     "results": {
       "status": "reported-measurements",
       "countdownRole": "direct-input",
-      "summary": "40 explicit numeric measurement(s); 40 item(s) affect the countdown.",
+      "summary": "40 explicit numeric measurement(s); 20 item(s) affect the countdown.",
       "counts": {
         "scores": 0,
         "measurements": 40,
         "assumptions": 0,
-        "directInputs": 40
+        "directInputs": 20
       },
       "measurements": [
         {
@@ -66,12 +66,12 @@
           "observationDate": "2024-03-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2024-Q1.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2024-Q2.usItPowerMw",
@@ -100,12 +100,12 @@
           "observationDate": "2024-06-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2024-Q2.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2024-Q3.usItPowerMw",
@@ -134,12 +134,12 @@
           "observationDate": "2024-09-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2024-Q3.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2024-Q4.usItPowerMw",
@@ -168,12 +168,12 @@
           "observationDate": "2024-12-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2024-Q4.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2025-Q1.usItPowerMw",
@@ -202,12 +202,12 @@
           "observationDate": "2025-03-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2025-Q1.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2025-Q2.usItPowerMw",
@@ -236,12 +236,12 @@
           "observationDate": "2025-06-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2025-Q2.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2025-Q3.usItPowerMw",
@@ -270,12 +270,12 @@
           "observationDate": "2025-09-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2025-Q3.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2025-Q4.usItPowerMw",
@@ -304,12 +304,12 @@
           "observationDate": "2025-12-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2025-Q4.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2026-Q1.usItPowerMw",
@@ -338,12 +338,12 @@
           "observationDate": "2026-03-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2026-Q1.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2026-Q2.usItPowerMw",
@@ -372,12 +372,12 @@
           "observationDate": "2026-06-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2026-Q2.usH100e",
-          "caveat": "observed_quarter_end: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_quarter_end: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2026-Q3.usItPowerMw",
@@ -406,12 +406,12 @@
           "observationDate": "2026-08-26",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2026-Q3.usH100e",
-          "caveat": "observed_qtd: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "observed_qtd: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2026-Q4.usItPowerMw",
@@ -440,12 +440,12 @@
           "observationDate": "2026-12-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2026-Q4.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2027-Q1.usItPowerMw",
@@ -474,12 +474,12 @@
           "observationDate": "2027-03-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2027-Q1.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2027-Q2.usItPowerMw",
@@ -508,12 +508,12 @@
           "observationDate": "2027-06-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2027-Q2.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2027-Q3.usItPowerMw",
@@ -542,12 +542,12 @@
           "observationDate": "2027-09-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2027-Q3.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2027-Q4.usItPowerMw",
@@ -576,12 +576,12 @@
           "observationDate": "2027-12-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2027-Q4.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2028-Q1.usItPowerMw",
@@ -610,12 +610,12 @@
           "observationDate": "2028-03-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2028-Q1.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2028-Q2.usItPowerMw",
@@ -644,12 +644,12 @@
           "observationDate": "2028-06-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2028-Q2.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2028-Q3.usItPowerMw",
@@ -678,12 +678,12 @@
           "observationDate": "2028-09-30",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2028-Q3.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         },
         {
           "id": "compute-capacity.quarters.2028-Q4.usItPowerMw",
@@ -712,12 +712,12 @@
           "observationDate": "2028-12-31",
           "measurementType": "measurement",
           "origin": "derived-from-source",
-          "usedInCountdown": true,
+          "usedInCountdown": false,
           "normalizedScore": null,
           "normalization": null,
           "sourceLocation": null,
           "sourceRecord": "compute-capacity.quarters.2028-Q4.usH100e",
-          "caveat": "epoch_projected_pipeline: Secondary calibration used to infer reference-token productivity per IT GW-day; it is not the headline supply metric."
+          "caveat": "epoch_projected_pipeline: Audit cross-check only. It does not set physical IT power, inference productivity, or supported-user capacity."
         }
       ]
     },

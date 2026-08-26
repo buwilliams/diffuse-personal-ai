@@ -180,10 +180,19 @@ assert(new Set(capability.benchmarks.map((row) => row.id)).size === capability.b
 assert(capability.observations.every((row) => capability.benchmarks.some((benchmark) => benchmark.id === row.benchmarkId)), 'Capability observation has an unknown benchmark');
 assert(model.capability.currentScore >= 0 && model.capability.currentScore <= 1, 'Current capability score is outside 0–1');
 assert(model.capability.overallSeries.length === model.capability.quarters.length, 'Capability quarterly aggregate is incomplete');
+assert(model.capability.categories.every((category) => Number.isFinite(category.pooledGapVelocity) && category.pooledGapVelocity >= 0), 'Capability family has an invalid pooled velocity');
+assert(new Set(model.capability.categories.map((category) => category.pooledGapVelocity.toFixed(12))).size > 1, 'Capability families still share one absolute projection velocity');
+assert(model.capability.categories.filter((category) => category.rawGapVelocity === null)
+  .every((category) => Math.abs(category.pooledGapVelocity - model.capability.globalGapVelocityPrior) < 1e-12), 'Sparse capability family does not use the cross-family prior');
 assert(model.compute.quarterRows.length === model.capability.quarters.length, 'Capability and compute windows are misaligned');
 assert(model.compute.targetUsers === compute.population.usResidents * compute.population.targetShare, 'Compute target users are inconsistent');
 assert(model.defaults.supplyGateShareOfTarget === 1, 'Supply gate must require 100% of the already-selected population target');
 assert(model.compute.currentScore === model.compute.currentSupportedUsers / model.compute.targetUsers, 'Current compute score is inconsistent');
+const referenceObservation = model.compute.referenceProductivityObservation;
+const reconstructedProductivity = referenceObservation.performanceTokensPerSecond / referenceObservation.systemPowerWatts *
+  (referenceObservation.activeModelParameters / compute.serving.referenceActiveModelParameters) * 1e9 * compute.serving.secondsPerDay;
+assert(Math.abs(reconstructedProductivity - model.compute.currentReferenceProductivity) / model.compute.currentReferenceProductivity < 1e-12,
+  'Current inference productivity is not reconstructed from measured goodput and system power');
 assert(model.compute.quarterRows.every((row, index, rows) => index === 0 || row.quarterIndex > rows[index - 1].quarterIndex), 'Compute quarters are not strictly ordered');
 assert(model.compute.quarterRows.every((row) => row.usItPowerMw > 0 && row.usH100e > 0), 'Compute quarter is missing positive IT power or H100e audit data');
 assert(compute.siteRegistry.some((site) => site.country === 'United States'), 'Compute site registry does not identify U.S. sites');
@@ -191,6 +200,13 @@ assert(model.compute.quarterRows.every((row) => {
   const reconstructed = row.itPowerGw * row.referenceTokensPerItGwDay * compute.serving.fleetShareAllocatedToInference * compute.serving.personalAiInferenceShare;
   return Math.abs(reconstructed - row.personalAiTokensPerDay) / row.personalAiTokensPerDay < 1e-12;
 }), 'Compute service-capacity decomposition is inconsistent');
+const h100PerturbedSnapshot = structuredClone(latest);
+h100PerturbedSnapshot.datasets['compute-capacity'].data.quarters.forEach((row) => { row.usH100e *= 10; });
+const h100PerturbedModel = buildForecastModel(h100PerturbedSnapshot);
+assert(Math.abs(h100PerturbedModel.compute.currentReferenceProductivity - model.compute.currentReferenceProductivity) < 1e-6,
+  'H100e still changes the independent inference-productivity baseline');
+assert(Math.abs(h100PerturbedModel.compute.currentSupportedUsers - model.compute.currentSupportedUsers) < 1e-6,
+  'H100e still changes supported-user capacity');
 
 const snapshotTime = Date.parse(`${model.snapshotDate}T00:00:00Z`);
 const maximumDays = Math.round(365.2425 * model.defaults.maximumForecastYears);

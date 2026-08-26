@@ -37,6 +37,10 @@ type CapabilityCategory = {
   total: number;
   confidence: string;
   confidenceWeight: number;
+  rawGapVelocity: number | null;
+  historyCredits: number;
+  poolingWeight: number;
+  pooledGapVelocity: number;
   economicGapVelocity: number;
 };
 
@@ -108,6 +112,7 @@ type ComputeQuarter = {
   usH100e: number;
   itPowerGw: number;
   h100ePerItGw: number;
+  h100eAuditReferenceProductivity: number;
   referenceTokensPerItGwDay: number;
   log2H100e: number;
   logGrowthItPower: number | null;
@@ -120,6 +125,28 @@ type ComputeQuarter = {
   gpa: number;
   sourceId: string;
   methodNote: string;
+};
+
+type InferenceProductivityObservation = {
+  id: string;
+  release: string;
+  observationDate: string;
+  model: string;
+  scenario: string;
+  submitter: string;
+  system: string;
+  accelerator: string;
+  acceleratorCount: number;
+  activeModelParameters: number;
+  performanceTokensPerSecond: number;
+  systemPowerWatts: number;
+  tokensPerJoule: number;
+  referenceTokenEquivalentsPerItGwDay: number;
+  roles: string[];
+  rawResultId: string;
+  sourceId: string;
+  sourceLocation: string;
+  comparabilityNote: string;
 };
 
 type ComputeSite = {
@@ -212,12 +239,14 @@ const capabilitySummaryRows: ReportCell[][] = [
   ['Current letter grade', forecastModel.capability.currentGrade, 'A ≥90%, B ≥80%, C ≥70%, D ≥60%, F <60%'],
   ['Current GPA', forecastModel.capability.currentGpa, '0–4'],
   ['Evidence confidence', forecastModel.capability.confidence, `${forecastModel.capability.confidenceWeight.toFixed(3)} evidence weight`],
-  ['Economic failure-gap velocity', forecastModel.capability.economicGapVelocity, 'gap halvings / quarter'],
+  ['Pooled economic failure-gap velocity', forecastModel.capability.economicGapVelocity, 'confidence-weighted family gap halvings / quarter'],
+  ['Cross-family velocity prior', forecastModel.capability.globalGapVelocityPrior, 'evidence-weighted prior for sparse benchmark families'],
+  ['Partial-pooling prior strength', forecastModel.capability.partialPoolingPriorCredits, 'history credits'],
   ['METR H50 acceleration', forecastModel.capability.h50Acceleration, 'task-horizon doublings / quarter²'],
   ['METR H80 guardrail', forecastModel.capability.h80Acceleration, 'task-horizon doublings / quarter²'],
   ['Economic transfer coefficient', forecastModel.capability.transferCoefficient, 'economic gap velocity / H50 velocity'],
   [],
-  ['Category', 'Current score', 'GPA', 'Graded benchmarks', 'Total benchmarks', 'Confidence', 'Confidence weight', 'Gap velocity'],
+  ['Benchmark family', 'Current score', 'GPA', 'Graded benchmarks', 'Total benchmarks', 'Confidence', 'Confidence weight', 'Raw gap velocity', 'History credits', 'Pooling weight', 'Pooled gap velocity'],
   ...forecastModel.capability.categories.map((category: CapabilityCategory) => [
     category.category,
     category.currentScore,
@@ -226,7 +255,10 @@ const capabilitySummaryRows: ReportCell[][] = [
     category.total,
     category.confidence,
     category.confidenceWeight,
-    category.economicGapVelocity,
+    category.rawGapVelocity,
+    category.historyCredits,
+    category.poolingWeight,
+    category.pooledGapVelocity,
   ]),
   [],
   ['Quarter', 'Date', 'Confidence-weighted aggregate'],
@@ -306,25 +338,28 @@ const computeSummaryRows: ReportCell[][] = [
   ['Snapshot', forecastModel.snapshotDate, 'Latest dated snapshot selected at build'],
   ['Current operational U.S. IT power', forecastModel.compute.currentItPowerGw, 'IT GW'],
   ['Current reference inference productivity', forecastModel.compute.currentReferenceProductivityT, 'trillion reference token-equivalents / IT GW-day'],
-  ['Current H100e audit bridge', forecastModel.compute.currentRow.usH100e, 'H100-equivalents; secondary productivity calibration'],
+  ['Current H100e audit cross-check', forecastModel.compute.currentRow.usH100e, 'H100-equivalents; does not enter supported-user capacity'],
+  ['H100e-derived audit productivity', forecastModel.compute.currentRow.h100eAuditReferenceProductivity / 1e12, 'trillion reference token-equivalents / IT GW-day; audit only'],
   ['Current supported Personal-AI users', forecastModel.compute.currentSupportedUsers, 'user-equivalents'],
   ['Target users', forecastModel.compute.targetUsers, `${(computeDataset.data.population.targetShare * 100).toFixed(0)}% of modeled U.S. population`],
   ['Current supply score', forecastModel.compute.currentScore, 'supported users / target users'],
-  ['Reference tokens per H100e per day', forecastModel.compute.referenceTokensPerH100eDay, 'reference token-equivalents; excludes allocation shares'],
+  ['Productivity baseline result', forecastModel.compute.referenceProductivityObservation.id, `${forecastModel.compute.referenceProductivityObservation.model} ${forecastModel.compute.referenceProductivityObservation.scenario}`],
+  ['Measured baseline goodput', forecastModel.compute.referenceProductivityObservation.performanceTokensPerSecond, 'tokens / second'],
+  ['Measured baseline system power', forecastModel.compute.referenceProductivityObservation.systemPowerWatts, 'watts'],
   ['Agent workload per user per day', forecastModel.compute.workloadTokens, 'compute-equivalent tokens'],
   ['Fleet inference allocation', computeDataset.data.serving.fleetShareAllocatedToInference, 'share of total AI service capacity'],
   ['Personal-AI inference share', computeDataset.data.serving.personalAiInferenceShare, 'share of inference allocated to Personal AI'],
   ['IT-power mean projected log velocity', forecastModel.compute.powerVelocity, 'log₂ IT GW / quarter'],
   ['IT-power projected log acceleration', forecastModel.compute.powerAcceleration, 'log₂ IT GW / quarter²'],
-  ['Productivity mean projected log velocity', forecastModel.compute.productivityVelocity, 'log₂ reference-token productivity / quarter'],
-  ['Productivity projected log acceleration', forecastModel.compute.productivityAcceleration, 'log₂ reference-token productivity / quarter²'],
+  ['Productivity measured log velocity', forecastModel.compute.productivityVelocity, 'log₂ reference-token productivity / quarter; matched MLPerf series'],
+  ['Productivity measured log acceleration', forecastModel.compute.productivityAcceleration, 'log₂ reference-token productivity / quarter²; zero with only two comparable points'],
   ['Continuous base-case crossing', forecastModel.compute.continuousCrossing === null
     ? 'No crossing within horizon'
     : new Date(forecastModel.compute.continuousCrossing).toISOString(), 'UTC'],
 ];
 
 const computeQuarterRows: ReportCell[][] = [
-  ['Quarter index', 'Quarter', 'Cutoff', 'Phase', 'U.S. IT power MW', 'U.S. IT power GW', 'U.S. facility power MW', 'H100e audit bridge', 'H100e / IT GW', 'Reference token-equivalents / IT GW-day', 'IT-power log growth / quarter', 'Productivity log growth / quarter', 'H100e log growth / quarter', 'Personal-AI token-equivalents/day', 'Supported users', 'Score vs target', 'Letter', 'GPA', 'Source ID', 'Method note'],
+  ['Quarter index', 'Quarter', 'Cutoff', 'Phase', 'U.S. IT power MW', 'U.S. IT power GW', 'U.S. facility power MW', 'H100e audit bridge', 'H100e / IT GW', 'H100e-derived audit productivity / IT GW-day', 'Independent reference token-equivalents / IT GW-day', 'IT-power log growth / quarter', 'Productivity log growth / quarter', 'H100e log growth / quarter', 'Personal-AI token-equivalents/day', 'Supported users', 'Score vs target', 'Letter', 'GPA', 'Source ID', 'Method note'],
   ...forecastModel.compute.quarterRows.map((quarter: ComputeQuarter) => [
     quarter.quarterIndex,
     quarter.quarter,
@@ -335,6 +370,7 @@ const computeQuarterRows: ReportCell[][] = [
     quarter.usFacilityPowerMw,
     quarter.usH100e,
     quarter.h100ePerItGw,
+    quarter.h100eAuditReferenceProductivity,
     quarter.referenceTokensPerItGwDay,
     quarter.logGrowthItPower,
     quarter.logGrowthProductivity,
@@ -356,15 +392,41 @@ const computeAssumptionRows: ReportCell[][] = [
   ['Population', 'Supply gate share of selected target', forecastModel.defaults.supplyGateShareOfTarget, 'must remain 100% in the default'],
   ['Serving', 'Fleet inference allocation', computeDataset.data.serving.fleetShareAllocatedToInference, 'share of total AI service capacity'],
   ['Serving', 'Personal-AI inference share', computeDataset.data.serving.personalAiInferenceShare, 'share of modeled inference supply'],
-  ['Serving', 'Serving goodput', computeDataset.data.serving.servingGoodputMultiplier, 'multiplier'],
-  ['Serving', 'H100e dense 8-bit operations', computeDataset.data.serving.dense8BitOpsPerH100eSecond, 'operations / second'],
+  ['Serving', 'Reference active model size', computeDataset.data.serving.referenceActiveModelParameters, 'parameters used to normalize measured tokens'],
   ['Serving', 'Seconds per day', computeDataset.data.serving.secondsPerDay, 'seconds'],
+  ['Audit only', 'H100e dense 8-bit operations', computeDataset.data.serving.h100eAudit.dense8BitOpsPerH100eSecond, 'operations / second; excluded from capacity'],
+  ['Audit only', 'H100e sustained utilization', computeDataset.data.serving.h100eAudit.sustainedServingUtilization, 'share; excluded from capacity'],
   ['Workload', 'Compute-equivalent tokens per user/day', forecastModel.compute.workloadTokens, 'tokens'],
   ...forecastModel.compute.components.map((component: WorkloadComponent) => [
     'Workload component',
     component.label,
     component.tokensPerUserDay,
     `${component.computeWeight}× compute weight; ${component.computeEquivalentTokens.toLocaleString('en-US')} compute-equivalent tokens`,
+  ]),
+];
+
+const inferenceProductivityRows: ReportCell[][] = [
+  ['Observation ID', 'Release', 'Date', 'Model', 'Scenario', 'Submitter', 'System', 'Accelerator', 'Count', 'Active parameters', 'Measured tokens/s', 'Measured system W', 'Tokens/J', 'Reference token-eq / IT GW-day', 'Role', 'Raw result ID', 'Source ID', 'Source location', 'Comparability note'],
+  ...(computeDataset.data.inferenceProductivityObservations as InferenceProductivityObservation[]).map((record) => [
+    record.id,
+    record.release,
+    record.observationDate,
+    record.model,
+    record.scenario,
+    record.submitter,
+    record.system,
+    record.accelerator,
+    record.acceleratorCount,
+    record.activeModelParameters,
+    record.performanceTokensPerSecond,
+    record.systemPowerWatts,
+    record.tokensPerJoule,
+    record.referenceTokenEquivalentsPerItGwDay,
+    record.roles.join(', '),
+    record.rawResultId,
+    record.sourceId,
+    record.sourceLocation,
+    record.comparabilityNote,
   ]),
 ];
 
@@ -421,6 +483,7 @@ export const workbooks: Record<'capability' | 'compute', ReportWorkbook> = {
     sheets: [
       sheet('Summary', 'Current physical supply, inference productivity, allocations, and the base-case crossing.', computeSummaryRows),
       sheet('Quarterly Model', 'Observed and expected U.S. IT power, inference productivity, and supported-user equivalents by quarter.', computeQuarterRows),
+      sheet('Inference Productivity', 'Measured MLPerf goodput and full-system power rows used for the absolute productivity baseline and matched trend.', inferenceProductivityRows),
       sheet('Assumptions', 'Population, workload, allocation, and serving assumptions.', computeAssumptionRows),
       sheet('Site Registry', 'Epoch data-center registry used to select U.S. sites and audit the facility join.', computeSiteRows),
       sheet('Supporting Evidence', 'Independent quantitative supply diagnostics retained in their reported units; these rows do not directly enter the countdown.', computeSupportingEvidenceRows),

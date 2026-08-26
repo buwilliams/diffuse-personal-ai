@@ -113,6 +113,13 @@ export function recursiveProgressGain(horizon, velocity, acceleration) {
   return Math.max(0, velocity * Math.expm1(feedbackCoefficient * horizon) / feedbackCoefficient);
 }
 
+function recursiveProgressChange(horizon, velocity, acceleration) {
+  if (velocity <= 0 || horizon === 0) return 0;
+  const feedbackCoefficient = acceleration / velocity;
+  if (Math.abs(feedbackCoefficient) < 1e-9) return velocity * horizon;
+  return velocity * Math.expm1(feedbackCoefficient * horizon) / feedbackCoefficient;
+}
+
 function quarterEnd(label, snapshotDate, currentQuarterIndex, quarterIndex) {
   if (quarterIndex === currentQuarterIndex) return snapshotDate;
   const [yearText, quarterText] = label.split('-Q');
@@ -229,9 +236,14 @@ function capabilityModel(snapshot, defaults) {
   const h80Velocity = QUARTER_DAYS / h80Trend.value;
   const effectiveRelativeAcceleration = Math.max(0, Math.min(h50Fit.relativeAcceleration, h80Fit.relativeAcceleration));
 
-  const emptyCategories = capability.categories.map((category) => {
+  const partialPoolingPriorCredits = capability.model.partialPoolingPriorCredits;
+  const categoryDrafts = capability.categories.map((category) => {
     const rows = benchmarkRows.filter((benchmark) => benchmark.category === category);
     const contributors = rows.filter((benchmark) => benchmark.observationCount >= 2);
+    const historyCredits = rows.reduce(
+      (sum, benchmark) => sum + Math.min(Math.max(benchmark.observationCount - 1, 0), maxCredits - 1),
+      0,
+    );
     const confidenceWeight = rows.length
       ? rows.reduce((sum, benchmark) => sum + benchmark.evidenceCredits, 0) / (maxCredits * rows.length)
       : 0;
@@ -241,29 +253,51 @@ function capabilityModel(snapshot, defaults) {
       total: rows.length,
       currentScore: average(rows.map((row) => row.currentScore)),
       currentGpa: average(rows.map((row) => row.gpa)),
-      economicGapVelocity: average(contributors.map((row) => row.recentVelocity)),
+      rawGapVelocity: average(contributors.map((row) => row.recentVelocity)),
+      historyCredits,
       confidenceWeight,
       confidence: confidenceLabel(confidenceWeight),
     };
   });
+  const velocityCategories = categoryDrafts.filter((category) => category.rawGapVelocity !== null);
+  const totalVelocityWeight = velocityCategories.reduce((sum, category) => sum + category.confidenceWeight, 0);
+  const globalGapVelocityPrior = totalVelocityWeight
+    ? velocityCategories.reduce((sum, category) => sum + category.rawGapVelocity * category.confidenceWeight, 0) / totalVelocityWeight
+    : 0;
+  const emptyCategories = categoryDrafts.map((category) => {
+    const poolingWeight = category.historyCredits / (category.historyCredits + partialPoolingPriorCredits);
+    const pooledGapVelocity = category.rawGapVelocity === null
+      ? globalGapVelocityPrior
+      : poolingWeight * category.rawGapVelocity + (1 - poolingWeight) * globalGapVelocityPrior;
+    return {
+      ...category,
+      poolingWeight,
+      pooledGapVelocity,
+      economicGapVelocity: pooledGapVelocity,
+    };
+  });
   const totalCategoryWeight = emptyCategories.reduce((sum, category) => sum + category.confidenceWeight, 0);
   const economicGapVelocity = totalCategoryWeight
-    ? emptyCategories.reduce((sum, category) => sum + (category.economicGapVelocity ?? 0) * category.confidenceWeight, 0) / totalCategoryWeight
+    ? emptyCategories.reduce((sum, category) => sum + category.pooledGapVelocity * category.confidenceWeight, 0) / totalCategoryWeight
     : 0;
   const h50Acceleration = h50Velocity * effectiveRelativeAcceleration;
   const h80Acceleration = h80Velocity * h80Fit.relativeAcceleration;
   const transferCoefficient = economicGapVelocity / h50Velocity;
   const economicAcceleration = economicGapVelocity * effectiveRelativeAcceleration;
 
-  const depthGain = (horizon, acceleration = h50Acceleration) => {
+  const depthGain = (horizon, familyVelocity, acceleration = h50Acceleration) => {
     const relative = h50Velocity > 0 ? acceleration / h50Velocity : 0;
-    if (Math.abs(relative) < 1e-9) return economicGapVelocity * horizon;
-    return Math.max(0, economicGapVelocity * Math.expm1(relative * horizon) / relative);
+    if (Math.abs(relative) < 1e-9) return familyVelocity * horizon;
+    return Math.max(0, familyVelocity * Math.expm1(relative * horizon) / relative);
   };
   const compositeAtHorizon = (horizon, acceleration = h50Acceleration) => {
     const projectedBenchmarks = benchmarkRows.filter((row) => row.currentDepth !== null).map((row) => ({
       ...row,
-      projectedScore: scoreFromDepth(row.currentDepth + depthGain(horizon, acceleration)),
+      projectedScore: scoreFromDepth(row.currentDepth + depthGain(
+        horizon,
+        emptyCategories.find((category) => category.category === row.category).pooledGapVelocity,
+        acceleration,
+      )),
     }));
     const categoryRows = emptyCategories.map((category) => ({
       ...category,
@@ -273,12 +307,15 @@ function capabilityModel(snapshot, defaults) {
   };
 
   for (const benchmark of benchmarkRows) {
+    const family = emptyCategories.find((category) => category.category === benchmark.category);
     benchmark.series = quarters.map((quarter) => {
       const exact = benchmark.observations.find((observation) => observation.quarterIndex === quarter.index);
       const carried = benchmark.observations.filter((observation) => observation.quarterIndex <= quarter.index).at(-1);
       const score = quarter.index <= currentQuarterIndex
         ? carried?.score ?? null
-        : benchmark.currentDepth === null ? null : scoreFromDepth(benchmark.currentDepth + depthGain(quarter.index - currentQuarterIndex));
+        : benchmark.currentDepth === null ? null : scoreFromDepth(
+          benchmark.currentDepth + depthGain(quarter.index - currentQuarterIndex, family.pooledGapVelocity),
+        );
       return { quarter: quarter.label, quarterIndex: quarter.index, score, phase: exact ? 'observed' : quarter.index <= currentQuarterIndex ? 'carried' : 'projected' };
     });
   }
@@ -321,6 +358,8 @@ function capabilityModel(snapshot, defaults) {
     confidenceWeight: overallConfidenceWeight,
     confidence: confidenceLabel(overallConfidenceWeight),
     economicGapVelocity,
+    globalGapVelocityPrior,
+    partialPoolingPriorCredits,
     h50Velocity,
     h80Velocity,
     h50Fit,
@@ -344,21 +383,77 @@ function computeModel(snapshot, defaults) {
   }));
   const workloadTokens = components.reduce((sum, component) => sum + component.computeEquivalentTokens, 0);
   const serving = compute.serving;
-  const referenceTokensPerH100eDay = serving.dense8BitOpsPerH100eSecond * serving.secondsPerDay *
-    serving.sustainedServingUtilization * serving.servingGoodputMultiplier /
-    (serving.activeModelParameters * serving.forwardPassOpsPerParameterToken * serving.systemOverheadMultiplier);
+  const forecastPolicy = compute.forecastPolicy;
+  const productivityObservations = [...compute.inferenceProductivityObservations]
+    .sort((a, b) => a.observationDate.localeCompare(b.observationDate));
+  const productivityFor = (observation) => {
+    const tokensPerJoule = observation.performanceTokensPerSecond / observation.systemPowerWatts;
+    const referenceParameterRatio = observation.activeModelParameters / serving.referenceActiveModelParameters;
+    return {
+      ...observation,
+      tokensPerJoule,
+      referenceParameterRatio,
+      referenceTokenEquivalentsPerJoule: tokensPerJoule * referenceParameterRatio,
+      referenceTokensPerItGwDay: tokensPerJoule * referenceParameterRatio * 1e9 * serving.secondsPerDay,
+    };
+  };
+  const productivityMeasurements = productivityObservations.map(productivityFor);
+  const referenceProductivityObservation = productivityMeasurements.find(
+    (observation) => observation.id === forecastPolicy.referenceProductivityObservationId,
+  );
+  if (!referenceProductivityObservation) throw new Error('Missing reference inference-productivity observation');
+  const trendObservations = forecastPolicy.productivityTrendObservationIds.map((id) => {
+    const observation = productivityMeasurements.find((candidate) => candidate.id === id);
+    if (!observation) throw new Error(`Missing productivity-trend observation: ${id}`);
+    return observation;
+  }).sort((a, b) => a.observationDate.localeCompare(b.observationDate));
+  const trendOrigin = Date.parse(`${trendObservations[0].observationDate}T00:00:00Z`);
+  const productivityTrendPoints = trendObservations.map((observation) => ({
+    x: (Date.parse(`${observation.observationDate}T00:00:00Z`) - trendOrigin) / QUARTER_MS,
+    y: Math.log2(observation.referenceTokensPerItGwDay),
+  }));
+  const productivityVelocity = linearSlope(productivityTrendPoints);
+  const productivityGrowthPoints = trendObservations.slice(1).map((observation, index) => {
+    const prior = trendObservations[index];
+    const elapsedQuarters = (Date.parse(`${observation.observationDate}T00:00:00Z`) -
+      Date.parse(`${prior.observationDate}T00:00:00Z`)) / QUARTER_MS;
+    return {
+      x: (Date.parse(`${observation.observationDate}T00:00:00Z`) - trendOrigin) / QUARTER_MS,
+      y: (Math.log2(observation.referenceTokensPerItGwDay) - Math.log2(prior.referenceTokensPerItGwDay)) / elapsedQuarters,
+    };
+  });
+  const productivityAcceleration = productivityGrowthPoints.length >= 2
+    ? linearSlope(productivityGrowthPoints)
+    : 0;
+  const currentReferenceProductivity = referenceProductivityObservation.referenceTokensPerItGwDay;
+  const audit = serving.h100eAudit;
+  const auditReferenceTokensPerH100eDay = audit.dense8BitOpsPerH100eSecond * serving.secondsPerDay *
+    audit.sustainedServingUtilization * audit.servingGoodputMultiplier /
+    (serving.referenceActiveModelParameters * audit.forwardPassOpsPerParameterToken * audit.systemOverheadMultiplier);
   const targetUsers = compute.population.usResidents * compute.population.targetShare;
-  const quarterRows = [...compute.quarters].sort((a, b) => a.quarterIndex - b.quarterIndex).map((quarter, index, rows) => {
+  const physicalRows = [...compute.quarters].sort((a, b) => a.quarterIndex - b.quarterIndex);
+  const currentPhysicalRow = physicalRows.filter((row) => row.evidenceClass.startsWith('observed')).at(-1);
+  const currentPhysicalIndex = physicalRows.findIndex((row) => row.quarterIndex === currentPhysicalRow.quarterIndex);
+  const quarterRows = physicalRows.map((quarter, index, rows) => {
     const itPowerGw = quarter.usItPowerMw / 1_000;
     const h100ePerItGw = quarter.usH100e / itPowerGw;
-    const referenceTokensPerItGwDay = h100ePerItGw * referenceTokensPerH100eDay;
+    const productivityHorizon = index - currentPhysicalIndex;
+    const referenceTokensPerItGwDay = currentReferenceProductivity * 2 ** recursiveProgressChange(
+      productivityHorizon,
+      productivityVelocity,
+      productivityAcceleration,
+    );
+    const h100eAuditReferenceProductivity = h100ePerItGw * auditReferenceTokensPerH100eDay;
     const log2H100e = Math.log2(quarter.usH100e);
     const log2ItPowerGw = Math.log2(itPowerGw);
     const log2ReferenceProductivity = Math.log2(referenceTokensPerItGwDay);
     const priorH100eLog = index ? Math.log2(rows[index - 1].usH100e) : null;
     const priorPowerLog = index ? Math.log2(rows[index - 1].usItPowerMw / 1_000) : null;
-    const priorH100ePerGw = index ? rows[index - 1].usH100e / (rows[index - 1].usItPowerMw / 1_000) : null;
-    const priorProductivityLog = priorH100ePerGw === null ? null : Math.log2(priorH100ePerGw * referenceTokensPerH100eDay);
+    const priorProductivityLog = index === 0 ? null : Math.log2(currentReferenceProductivity * 2 ** recursiveProgressChange(
+      productivityHorizon - 1,
+      productivityVelocity,
+      productivityAcceleration,
+    ));
     const personalAiTokensPerDay = itPowerGw * referenceTokensPerItGwDay *
       serving.fleetShareAllocatedToInference * serving.personalAiInferenceShare;
     const supportedUsers = personalAiTokensPerDay / workloadTokens;
@@ -368,6 +463,7 @@ function computeModel(snapshot, defaults) {
       phase: quarter.evidenceClass.startsWith('observed') ? quarter.evidenceClass : 'projected',
       itPowerGw,
       h100ePerItGw,
+      h100eAuditReferenceProductivity,
       referenceTokensPerItGwDay,
       log2H100e,
       log2ItPowerGw,
@@ -384,11 +480,8 @@ function computeModel(snapshot, defaults) {
   const currentRow = quarterRows.filter((row) => row.evidenceClass.startsWith('observed')).at(-1);
   const projectedRows = quarterRows.filter((row) => row.quarterIndex > currentRow.quarterIndex);
   const powerGrowthPoints = projectedRows.map((row) => ({ x: row.quarterIndex, y: row.logGrowthItPower }));
-  const productivityGrowthPoints = projectedRows.map((row) => ({ x: row.quarterIndex, y: row.logGrowthProductivity }));
   const powerAcceleration = linearSlope(powerGrowthPoints);
-  const productivityAcceleration = linearSlope(productivityGrowthPoints);
   const powerVelocity = average(powerGrowthPoints.map((point) => point.y));
-  const productivityVelocity = average(productivityGrowthPoints.map((point) => point.y));
   const powerCurve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex)
     .map((row) => ({ date: row.cutoffDate, value: row.itPowerGw }));
   const productivityCurve = quarterRows.filter((row) => row.quarterIndex >= currentRow.quarterIndex)
@@ -451,7 +544,10 @@ function computeModel(snapshot, defaults) {
   return {
     components,
     workloadTokens,
-    referenceTokensPerH100eDay,
+    productivityMeasurements,
+    referenceProductivityObservation,
+    trendObservations,
+    auditReferenceTokensPerH100eDay,
     serving,
     targetUsers,
     quarterRows,
@@ -460,8 +556,8 @@ function computeModel(snapshot, defaults) {
     serviceCurve,
     currentRow,
     currentItPowerGw: currentRow.itPowerGw,
-    currentReferenceProductivity: currentRow.referenceTokensPerItGwDay,
-    currentReferenceProductivityT: currentRow.referenceTokensPerItGwDay / 1e12,
+    currentReferenceProductivity,
+    currentReferenceProductivityT: currentReferenceProductivity / 1e12,
     currentSupportedUsers: currentRow.supportedUsers,
     currentScore: currentRow.score,
     powerAcceleration,
