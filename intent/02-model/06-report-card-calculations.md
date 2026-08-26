@@ -66,7 +66,7 @@ Average the graded normalized benchmark scores within each category. Each benchm
 
 > `confidence weight = total evidence credits ÷ (3 × cataloged benchmarks in category)`
 
-Confidence labels are High at 80% or above, Medium at 50% or above, and Low below 50%. The overall capability score, trajectory, acceleration, and GPA use the continuous category confidence weights, so sparse evidence contributes less than mature longitudinal evidence.
+Confidence labels are High at 80% or above, Medium at 50% or above, and Low below 50%. This quantity is an **evidence-coverage weight**, not a statistical confidence interval or probability that a score is correct. The overall capability score, trajectory, acceleration, and GPA use the continuous category evidence weights, so sparse evidence contributes less than mature longitudinal evidence.
 
 Letter grades are A ≥90%, B ≥80%, C ≥70%, D ≥60%, and F <60%.
 
@@ -80,9 +80,11 @@ For each observed quarter:
 >
 > `supply score = min(100%, supported users ÷ target users)`
 
-The forecast models `log2(H100e)`. Quarterly log growth is the first difference; the slope of observed quarterly log-growth rates is acceleration; and the fitted current rate is velocity. Later quarters extend that velocity and acceleration.
+The base forecast uses dated expected or projected site states in the same Epoch data-center timeline used for the historical reconstruction. At each future quarter cutoff, take the latest published state for every covered U.S. site and sum its H100-equivalents. This makes the default a **published buildout-pipeline scenario**, not a regression extrapolation of recent fleet growth. A trend extrapolation may be shown as a separate sensitivity case, but it must not silently replace known project dates.
 
-Only operational U.S. capacity belongs in the observed series. Announced or under-construction projects may inform future evidence or scenarios but cannot enter operational supply before a supported commissioning date.
+Quarterly log growth is still the first difference of `log2(H100e)`. The reported forward-path acceleration is the slope of those projected quarterly log-growth rates; it describes the source pipeline and is not a fitted causal law.
+
+Only operational U.S. capacity belongs in the observed series. Announced or under-construction projects enter the forward path only on a supported expected or projected commissioning date and must remain visibly labeled as projections.
 
 ### Default workload
 
@@ -107,6 +109,9 @@ The current serving envelope produces 79.79328 million compute-equivalent tokens
 - two forward-pass operations per parameter-token;
 - 1.5× system overhead; and
 - 1.0× additional serving-goodput multiplier.
+- 100% of modeled inference supply allocated to the target personal-AI cohort.
+
+The 100% personal-AI allocation is an explicit, editable scenario assumption—not an observed fleet share. The same inference capacity also serves enterprise applications, research, and other users, so reducing this input can materially delay or remove the supply crossing. Epoch's public tracker also covers large disclosed sites rather than a complete U.S. census, which creates uncertainty in the opposite direction. Neither effect is resolved by the H100e conversion itself.
 
 H100e already normalizes hardware peak compute. A Cerebras, Jalapeño, Rubin, or other chip multiplier is added only when it represents measured deployed serving goodput not already captured by H100e. Hardware gains must not be counted twice.
 

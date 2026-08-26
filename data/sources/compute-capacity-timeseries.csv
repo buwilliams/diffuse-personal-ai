@@ -1,0 +1,21 @@
+quarter_index,quarter,cutoff_date,us_h100e,included_sites,evidence_class,source,method_note
+1,2024-Q1,2024-03-31,245664,8,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+2,2024-Q2,2024-06-30,475238,13,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+3,2024-Q3,2024-09-30,722180,16,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+4,2024-Q4,2024-12-31,1012483,18,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+5,2025-Q1,2025-03-31,1351240,20,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+6,2025-Q2,2025-06-30,2386876,23,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+7,2025-Q3,2025-09-30,3139660,28,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+8,2025-Q4,2025-12-31,5291375,34,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+9,2026-Q1,2026-03-31,6301294,40,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+10,2026-Q2,2026-06-30,11223855,54,observed_quarter_end,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before cutoff for each Epoch-covered U.S. site
+11,2026-Q3,2026-08-26,13524006,58,observed_qtd,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest published state on or before evidence cutoff for each Epoch-covered U.S. site
+12,2026-Q4,2026-12-31,17399770,64,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+13,2027-Q1,2027-03-31,20368064,65,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+14,2027-Q2,2027-06-30,21439292,65,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+15,2027-Q3,2027-09-30,23242366,67,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+16,2027-Q4,2027-12-31,30057691,67,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+17,2028-Q1,2028-03-31,37048243,68,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+18,2028-Q2,2028-06-30,46037632,68,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+19,2028-Q3,2028-09-30,47106859,68,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site
+20,2028-Q4,2028-12-31,61887051,72,epoch_projected_pipeline,https://epoch.ai/data/data_centers/data_center_timelines.csv,Latest expected or projected state on or before cutoff for each Epoch-covered U.S. site

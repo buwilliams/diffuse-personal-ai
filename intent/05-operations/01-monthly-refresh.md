@@ -17,7 +17,7 @@ The repository separates meaning, evidence, implementation, and output:
 | Model meaning and rules | `intent/` | **Normative source of truth** |
 | Evidence ledger | `data/sources/*.csv` | **Canonical evidence record** |
 | Capability implementation | `surfaces/report-cards/capability/build_report_card.mjs` | Executable implementation of intent; its embedded arrays remain a tracked migration debt |
-| Compute implementation | `surfaces/report-cards/compute/build_compute_report_card.mjs` | Executable implementation of intent; its embedded arrays remain a tracked migration debt |
+| Compute implementation | `surfaces/report-cards/compute/build_compute_report_card.mjs` | Executable implementation of intent; reads `data/sources/compute-capacity-timeseries.csv` |
 | HTML-data generator | `surfaces/report-cards/shared/generate_report_data.mjs` | Generated-surface transformation |
 | Live countdown and controls | `surfaces/website/app/page.tsx` | Website implementation of the model and current scenario |
 | Generated HTML report data | `surfaces/website/app/report-data.ts` | Generated artifact; never edit by hand |
@@ -64,14 +64,15 @@ Follow the normalization and forecasting rules in [the calculation contract](../
 
 ### 3. Update compute evidence and implementation
 
-Update the relevant rows in `data/sources/`, then mirror the operative values in `surfaces/report-cards/compute/build_compute_report_card.mjs` until the builder reads the normalized registries directly.
+Update `data/sources/compute-capacity-timeseries.csv`; the compute builder reads this canonical series directly.
 
 1. Update `asOf` and the quarter-to-date cutoff.
-2. Reconstruct every quarter's operational U.S. H100e total under one coverage rule: at each cutoff, sum the latest operational state for each covered U.S. data center.
-3. Append or revise observations only when a source supports the change; preserve source-access dates and explain historical revisions.
-4. Update operational-site count and evidence class.
-5. Refresh the population estimate when appropriate.
-6. Change workload or serving assumptions only with new evidence or an explicit scenario decision, and document the change in both report and site audit text.
+2. Reconstruct every historical quarter's operational U.S. H100e total under one coverage rule: at each cutoff, sum the latest operational state for each covered U.S. data center.
+3. Build the default forward path from the same source's dated expected or projected site states. Keep those rows visibly separate from observations; do not substitute a recent-growth regression for known buildout dates.
+4. Append or revise observations and projections only when a source supports the change; preserve source-access dates and explain historical revisions.
+5. Update included-site count and evidence class.
+6. Refresh the population estimate when appropriate.
+7. Change workload or serving assumptions only with new evidence or an explicit scenario decision, and document the change in both report and site audit text.
 
 Follow the supply, workload, and serving rules in [the calculation contract](../02-model/06-report-card-calculations.md#compute-calculation).
 
@@ -79,7 +80,7 @@ Follow the supply, workload, and serving rules in [the calculation contract](../
 
 The compute builder currently embeds capability values in its two-key gate, assumptions, source note, and explanatory copy. Before every compute build, replace every embedded capability-current and capability-crossing value with the newly generated capability result. Search for the previous score and date instead of assuming a fixed number of occurrences.
 
-For the current release, the synchronized literals are `0.475454716275` and `2027-10-08`. Change them together when the capability report changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
+For the current release, the synchronized literals are `0.45660533834944794` and `2028-06-20`. Change them together when the capability report changes. Also refresh prose containing calculated supported users, threshold users, score percentages, and dates. Prefer formulas where the workbook library permits them.
 
 ### 5. Rebuild and inspect both workbooks
 
@@ -120,6 +121,7 @@ After the workbooks are final, update these values together in `surfaces/website
 - `DEFAULTS.currentComputeM`
 - `DEFAULTS.workloadM`
 - `DEFAULTS.servingEfficiency`
+- `DEFAULTS.personalAiInferenceShare`
 - report prose or workbook-default dates containing calculated results
 - `REPORT_QUARTERS` and `OBSERVED_END_INDEX` if the window changes
 
@@ -162,7 +164,7 @@ Then verify the default scenario end to end:
 6. Capability crossing matches the site calculation.
 7. Compute crossing matches the site calculation.
 8. The headline is the later crossing.
-9. Population share, tokens per user per day, serving efficiency, capability threshold, and both acceleration controls affect the correct gate.
+9. Population share, tokens per user per day, serving efficiency, personal-AI inference allocation, capability threshold, and both acceleration controls affect the correct gate.
 10. Both report modals show current data and both downloads open the current workbooks.
 11. Built and production HTML contain no `C:\`, `file://`, WSL, or other local filesystem references.
 
@@ -200,7 +202,7 @@ A refresh is complete only when:
 
 1. **Automate site-curve extraction.** `CAPABILITY_CURVE` and `COMPUTE_CURVE` are copied manually into `page.tsx`, creating the largest silent-drift risk.
 2. **Remove capability literals from the compute builder.** Generate or pass a shared capability result.
-3. **Read normalized registries directly.** The builders still embed operative arrays even though `data/sources/` defines the intended append-only evidence structure.
+3. **Read capability registries directly.** The compute builder now reads its canonical capacity series, but the capability builder still embeds operative arrays even though `data/sources/` defines the intended append-only evidence structure.
 4. **Set a rolling-window policy.** The current publication is fixed at `2024-Q1` through `2028-Q4`; do not change it silently at a quarter rollover.
 
 ## Refresh record template
@@ -229,16 +231,16 @@ Notes or comparability breaks:
 
 | Regression check | Published value |
 |---|---:|
-| Current capability composite | 47.545% |
-| Capability confidence | Medium, about 50.7% |
+| Current capability composite | 45.661% |
+| Capability confidence | Low, about 47.8% evidence coverage |
 | Capability threshold | 60% |
-| Capability crossing | 8 October 2027 |
+| Capability crossing | 20 June 2028 |
 | Current U.S. compute | 13.524006M H100e |
 | Population target | 171.4M users |
 | Current supported users | about 64.4M |
 | Required compute | about 35.98M H100e |
 | Compute progress | about 37.6% |
-| Compute crossing | 2 September 2027 |
-| Headline date | 8 October 2027 |
+| Compute crossing | 17 March 2028 (continuous interpolation; 18 March at daily site resolution) |
+| Headline date | 20 June 2028 |
 
 These are regression anchors for the current production release, not permanent assumptions. Replace this table after every published refresh.

@@ -19,7 +19,7 @@ const descriptions = {
     'Compute Report Card': 'The four-year quarterly supply score, velocity, and acceleration.',
     'Quarterly Model': 'Observed and projected U.S. H100-equivalents, serving capacity, users, and grades.',
     Assumptions: 'Population threshold, workload, serving envelope, grade scale, and growth model.',
-    Observations: 'Quarterly operational U.S. compute reconstructed from the source timeline.',
+    Observations: 'Observed U.S. operational compute and the source-published forward buildout pipeline.',
     Sources: 'Primary datasets, access dates, uses, and limitations.',
   },
 };

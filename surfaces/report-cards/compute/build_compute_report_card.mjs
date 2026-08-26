@@ -20,19 +20,16 @@ const colors = {
   yellowFill: "#FFF7CC", grayFill: "#EDF2F5",
 };
 
-const observed = [
-  [1, "2024-Q1", "2024-03-31", 245664, 8],
-  [2, "2024-Q2", "2024-06-30", 475238, 13],
-  [3, "2024-Q3", "2024-09-30", 722180, 16],
-  [4, "2024-Q4", "2024-12-31", 1012483, 18],
-  [5, "2025-Q1", "2025-03-31", 1351240, 20],
-  [6, "2025-Q2", "2025-06-30", 2386876, 23],
-  [7, "2025-Q3", "2025-09-30", 3139660, 28],
-  [8, "2025-Q4", "2025-12-31", 5291375, 34],
-  [9, "2026-Q1", "2026-03-31", 6301294, 40],
-  [10, "2026-Q2", "2026-06-30", 11223855, 54],
-  [11, "2026-Q3", "2026-08-26", 13524006, 58],
-];
+const capacityCsvPath = path.join(projectRoot, "data", "sources", "compute-capacity-timeseries.csv");
+const capacityInputs = (await fs.readFile(capacityCsvPath, "utf8"))
+  .trim()
+  .split(/\r?\n/)
+  .slice(1)
+  .map((line) => {
+    const [quarterIndex, quarter, cutoffDate, h100e, includedSites, evidenceClass] = line.split(",");
+    return [Number(quarterIndex), quarter, cutoffDate, Number(h100e), Number(includedSites), evidenceClass];
+  });
+const observed = capacityInputs.filter((row) => String(row[5]).startsWith("observed"));
 
 const quarters = [];
 for (let year = 2024; year <= 2028; year++) {
@@ -89,7 +86,7 @@ header(assumptions.getRange("A6:D6")); body(assumptions.getRange("A7:D12"));
 assumptions.getRange("B7").format.numberFormat = "#,##0"; assumptions.getRange("B8").format.numberFormat = "0%"; assumptions.getRange("B9").format.numberFormat = "#,##0"; assumptions.getRange("B11").format.numberFormat = "yyyy-mm-dd"; assumptions.getRange("B12").format.numberFormat = "#,##0";
 
 sectionBand(assumptions, "A14:D14", "SERVING ENVELOPE");
-assumptions.getRange("A15:D24").values = [
+assumptions.getRange("A15:D25").values = [
   ["Input", "Value", "Unit", "Meaning"],
   ["Dense 8-bit ops per H100e-second", 1.979e15, "ops/s", "Epoch H100-equivalent convention"],
   ["Seconds per day", 86400, "seconds", "Calendar conversion"],
@@ -99,11 +96,12 @@ assumptions.getRange("A15:D24").values = [
   ["Forward-pass ops per parameter-token", 2, "ops", "Transformer rule of thumb"],
   ["System overhead multiplier", 1.5, "x", "Attention, routing, communication, and non-model overhead"],
   ["Serving-goodput multiplier", 1.0, "x", "No extra chip multiplier beyond H100e in the base case"],
-  ["Compute-equivalent tokens / H100e / day", null, "tokens/day", "Derived serving supply per H100-equivalent"],
+  ["Personal-AI share of modeled inference", 1.0, "%", "Scenario allocation to the target cohort; not an observed fleet share"],
+  ["Personal-AI compute-equivalent tokens / H100e / day", null, "tokens/day", "Derived serving supply available to the target cohort"],
 ];
-assumptions.getRange("B24").formulas = [["=B16*B17*B18*B19*B23/(B20*B21*B22)"]];
-header(assumptions.getRange("A15:D15")); body(assumptions.getRange("A16:D24"));
-assumptions.getRange("B16").format.numberFormat = "0.000E+00"; assumptions.getRange("B17").format.numberFormat = "#,##0"; assumptions.getRange("B18:B19").format.numberFormat = "0%"; assumptions.getRange("B20").format.numberFormat = "0.000E+00"; assumptions.getRange("B21:B23").format.numberFormat = "0.0"; assumptions.getRange("B24").format.numberFormat = "#,##0";
+assumptions.getRange("B25").formulas = [["=B16*B17*B18*B19*B23*B24/(B20*B21*B22)"]];
+header(assumptions.getRange("A15:D15")); body(assumptions.getRange("A16:D25"));
+assumptions.getRange("B16").format.numberFormat = "0.000E+00"; assumptions.getRange("B17").format.numberFormat = "#,##0"; assumptions.getRange("B18:B19").format.numberFormat = "0%"; assumptions.getRange("B20").format.numberFormat = "0.000E+00"; assumptions.getRange("B21:B23").format.numberFormat = "0.0"; assumptions.getRange("B24").format.numberFormat = "0%"; assumptions.getRange("B25").format.numberFormat = "#,##0";
 
 sectionBand(assumptions, "F5:I5", "HIGH-AUTONOMY WORKLOAD");
 assumptions.getRange("F6:I11").values = [
@@ -118,27 +116,27 @@ for (let r = 7; r <= 10; r++) assumptions.getRange(`I${r}`).formulas = [[`=G${r}
 assumptions.getRange("I11").formulas = [["=SUM(I7:I10)"]];
 header(assumptions.getRange("F6:I6")); body(assumptions.getRange("F7:I11")); assumptions.getRange("F11:I11").format.fill = colors.lightGold; assumptions.getRange("F11:I11").format.font = { bold: true, color: colors.ink };
 assumptions.getRange("G7:G10").format.numberFormat = "#,##0"; assumptions.getRange("H7:H10").format.numberFormat = "0.00x"; assumptions.getRange("I7:I11").format.numberFormat = "#,##0";
-assumptions.getRange("B12").formulas = [["=B9*I11/B24"]];
+assumptions.getRange("B12").formulas = [["=B9*I11/B25"]];
 
 sectionBand(assumptions, "F14:H14", "LETTER-GRADE SCALE");
 assumptions.getRange("F15:H20").values = [["Letter", "Minimum score", "GPA"], ["A", 0.90, 4], ["B", 0.80, 3], ["C", 0.70, 2], ["D", 0.60, 1], ["F", 0.00, 0]];
 header(assumptions.getRange("F15:H15")); body(assumptions.getRange("F16:H20")); assumptions.getRange("G16:G20").format.numberFormat = "0%";
 
-sectionBand(assumptions, "A26:D26", "QUARTERLY GROWTH MODEL");
+sectionBand(assumptions, "A26:D26", "FORWARD CAPACITY PATH");
 assumptions.getRange("A27:D35").values = [
   ["Parameter", "Value", "Unit", "Rule"],
-  ["Log-capacity acceleration", null, "log2 H100e / quarter²", "Slope of observed quarterly log-growth rates"],
-  ["Growth-rate intercept", null, "log2 H100e / quarter", "OLS intercept for observed quarterly growth"],
-  ["Current smoothed velocity", null, "log2 H100e / quarter", "Intercept + acceleration × current quarter"],
+  ["Pipeline log-capacity acceleration", null, "log2 H100e / quarter²", "OLS slope of the published forward-path quarterly log-growth rates"],
+  ["Mean pipeline log growth", null, "log2 H100e / quarter", "Mean quarterly log growth across the published forward path"],
+  ["First projected log growth", null, "log2 H100e / quarter", "Growth from the current snapshot to 2026-Q4"],
   ["First model row at full supply threshold", null, "position", "First score that reaches 100%"],
   ["Projected supply crossing", null, "date", "Linear interpolation between surrounding capacity points"],
   ["Capability threshold", 0.60, "%", "First grade above F"],
-  ["Projected capability crossing", d("2027-10-08"), "date", "Interpolated from the capability report card"],
+  ["Projected capability crossing", d("2028-06-20"), "date", "First UTC day on which the capability report-card path reaches 60%"],
   ["Countdown target", null, "date", "Later of supply and capability crossings"],
 ];
-assumptions.getRange("B28").formulas = [["=SLOPE('Quarterly Model'!$G$7:$G$16,'Quarterly Model'!$A$7:$A$16)"]];
-assumptions.getRange("B29").formulas = [["=AVERAGE('Quarterly Model'!$G$7:$G$16)-B28*AVERAGE('Quarterly Model'!$A$7:$A$16)"]];
-assumptions.getRange("B30").formulas = [["=B29+B28*B10"]];
+assumptions.getRange("B28").formulas = [["=SLOPE('Quarterly Model'!$G$17:$G$25,'Quarterly Model'!$A$17:$A$25)"]];
+assumptions.getRange("B29").formulas = [["=AVERAGE('Quarterly Model'!$G$17:$G$25)"]];
+assumptions.getRange("B30").formulas = [["='Quarterly Model'!G17"]];
 assumptions.getRange("B31").formulas = [["=MATCH(1,'Quarterly Model'!$J$6:$J$25,0)"]];
 assumptions.getRange("B32").formulas = [["=INDEX('Quarterly Model'!$C$6:$C$25,B31-1)+(B12-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))/(INDEX('Quarterly Model'!$E$6:$E$25,B31)-INDEX('Quarterly Model'!$E$6:$E$25,B31-1))*(INDEX('Quarterly Model'!$C$6:$C$25,B31)-INDEX('Quarterly Model'!$C$6:$C$25,B31-1))"]];
 assumptions.getRange("B35").formulas = [["=MAX(B32,B34)"]];
@@ -146,24 +144,24 @@ header(assumptions.getRange("A27:D27")); body(assumptions.getRange("A28:D35")); 
 assumptions.freezePanes.freezeRows(3);
 
 // Observed U.S. operational capacity.
-titleBand(observations, "A1:G2", "U.S. Operational AI-Compute Observations", "A3:G3", "For each quarter cutoff, sum the latest H100-equivalent state for every Epoch-covered U.S. data center. 2026-Q3 is quarter-to-date through 2026-08-26.");
-observations.getRange("A5:G5").values = [["Quarter index", "Quarter", "Cutoff date", "U.S. operational H100e", "Operational sites", "Evidence class", "Source URL"]];
-observations.getRange("A6:G16").values = observed.map((r) => [r[0], r[1], d(r[2]), r[3], r[4], r[0] === 11 ? "Observed QTD" : "Observed quarter-end", "https://epoch.ai/data/data_centers/data_center_timelines.csv"]);
-header(observations.getRange("A5:G5")); body(observations.getRange("A6:G16")); observations.getRange("C6:C16").format.numberFormat = "yyyy-mm-dd"; observations.getRange("D6:E16").format.numberFormat = "#,##0";
-observations.tables.add("A5:G16", true, "USComputeObservationsTable"); observations.freezePanes.freezeRows(5);
+titleBand(observations, "A1:G2", "U.S. AI-Compute Capacity Inputs", "A3:G3", "Observed operational capacity through 2026-08-26; later rows use the expected/projected site states and dates in the same Epoch timeline snapshot.");
+observations.getRange("A5:G5").values = [["Quarter index", "Quarter", "Cutoff date", "U.S. operational H100e", "Included sites", "Evidence class", "Source URL"]];
+observations.getRange("A6:G25").values = capacityInputs.map((r) => [r[0], r[1], d(r[2]), r[3], r[4], r[5] === "observed_quarter_end" ? "Observed quarter-end" : r[5] === "observed_qtd" ? "Observed QTD" : "Epoch projected pipeline", "https://epoch.ai/data/data_centers/data_center_timelines.csv"]);
+header(observations.getRange("A5:G5")); body(observations.getRange("A6:G25")); observations.getRange("C6:C25").format.numberFormat = "yyyy-mm-dd"; observations.getRange("D6:E25").format.numberFormat = "#,##0";
+observations.getRange("A17:G25").format.fill = colors.lightGold;
+observations.tables.add("A5:G25", true, "USComputeCapacityInputsTable"); observations.freezePanes.freezeRows(5);
 
 // Quarterly model.
-titleBand(model, "A1:M2", "U.S. Compute Capacity — Observed and Projected", "A3:M3", "Observed capacity through 2026-Q3; later quarters extrapolate the smoothed quarterly log-growth velocity and acceleration. Score is supported users ÷ 50% U.S. population, capped at 100%.");
+titleBand(model, "A1:M2", "U.S. Compute Capacity — Observed and Projected", "A3:M3", "Observed capacity through 2026-Q3; later quarters aggregate the expected/projected site states in Epoch's dated buildout pipeline. Score is supported users ÷ 50% U.S. population, capped at 100%.");
 model.getRange("A5:M5").values = [["Quarter index", "Quarter", "Cutoff", "Phase", "U.S. H100e", "log2 H100e", "Log growth / qtr", "Compute-eq tokens/day", "Supported users", "Score vs threshold", "Rate", "Letter", "GPA"]];
 header(model.getRange("A5:M5"));
 for (let i = 0; i < quarters.length; i++) {
   const row = 6 + i; const q = quarters[i];
   model.getRange(`A${row}:D${row}`).values = [[q.index, q.label, q.date, q.index <= 11 ? (q.index === 11 ? "Observed QTD" : "Observed") : "Projected"]];
-  if (q.index <= 11) model.getRange(`E${row}`).formulas = [[`=SUMIFS('Observations'!$D$6:$D$16,'Observations'!$A$6:$A$16,A${row})`]];
-  else model.getRange(`E${row}`).formulas = [[`=POWER(2,MAX($F$16,$F$16+'Assumptions'!$B$30*(A${row}-'Assumptions'!$B$10)+0.5*'Assumptions'!$B$28*POWER(A${row}-'Assumptions'!$B$10,2)))`]];
+  model.getRange(`E${row}`).formulas = [[`=SUMIFS('Observations'!$D$6:$D$25,'Observations'!$A$6:$A$25,A${row})`]];
   model.getRange(`F${row}`).formulas = [[`=LN(E${row})/LN(2)`]];
   model.getRange(`G${row}`).formulas = [[i === 0 ? `=""` : `=F${row}-F${row-1}`]];
-  model.getRange(`H${row}`).formulas = [[`=E${row}*'Assumptions'!$B$24`]];
+  model.getRange(`H${row}`).formulas = [[`=E${row}*'Assumptions'!$B$25`]];
   model.getRange(`I${row}`).formulas = [[`=H${row}/'Assumptions'!$I$11`]];
   model.getRange(`J${row}`).formulas = [[`=MIN(1,I${row}/'Assumptions'!$B$9)`]];
   model.getRange(`K${row}`).formulas = [[i === 0 ? `=""` : `=J${row}-J${row-1}`]];
@@ -182,7 +180,7 @@ for (let i = 0; i < quarters.length; i++) {
   report.getRange(`${colName(start)}5:${colName(start + 1)}5`).values = [["Score", "Rate"]];
 }
 report.getRange("AQ4:AV4").merge(); report.getRange("AQ4:AV4").values = [["CURRENT STATUS & CROSSING"]];
-report.getRange("AQ5:AV5").values = [["Current score", "Letter", "GPA", "Supply crossing", "Velocity", "Acceleration"]];
+report.getRange("AQ5:AV5").values = [["Current score", "Letter", "GPA", "Supply crossing", "First projected growth", "Pipeline acceleration"]];
 header(report.getRange("A4:AV5"));
 for (let i = 0; i < quarters.length; i++) { const start = 3 + i * 2; report.getRange(`${colName(start)}4:${colName(start + 1)}5`).format.fill = i < 11 ? colors.teal : colors.gold; }
 report.getRange("A6:B6").values = [["U.S. high-autonomy population coverage", "Supported high-autonomy users ÷ 50% of U.S. resident population; capped at 100%"]];
@@ -201,7 +199,7 @@ for (const cell of ["A6", "D6", "G6", "J6", "M6"]) summary.getRange(cell).format
 summary.getRange("A6").format.numberFormat = "0.0%"; summary.getRange("D6:G6").format.numberFormat = "#,##0"; summary.getRange("J6").format.numberFormat = "yyyy-mm-dd";
 
 sectionBand(summary, "A11:F11", "TWO-KEY DIFFUSION GATE");
-summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥60%", 0.475454716275, d("2027-10-08"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
+summary.getRange("A12:F15").values = [["Gate", "Threshold", "Current", "Projected crossing", "Status", "Source"], ["Demand / capability", "Capability report ≥60%", 0.45660533834944794, d("2028-06-20"), "Waiting", "Model-harness report card"], ["Supply / compute", "Serve 50% of U.S. population", null, null, "Waiting", "This workbook"], ["Countdown target", "Both gates passed", null, null, "Later crossing", "MAX(capability, supply)"]];
 summary.getRange("C14").formulas = [["='Quarterly Model'!J16"]]; summary.getRange("D14").formulas = [["='Assumptions'!B32"]]; summary.getRange("D15").formulas = [["='Assumptions'!B35"]];
 header(summary.getRange("A12:F12")); body(summary.getRange("A13:F15")); summary.getRange("C13:C14").format.numberFormat = "0.0%"; summary.getRange("D13:D15").format.numberFormat = "yyyy-mm-dd"; summary.getRange("A15:F15").format.fill = colors.lightGold; summary.getRange("A15:F15").format.font = { bold: true, color: colors.ink };
 
@@ -209,13 +207,13 @@ sectionBand(summary, "A18:C18", "QUARTERLY SUPPLY SCORE");
 summary.getRange("A19:C19").values = [["Quarter", "Supply score", "Full threshold"]];
 for (let i = 0; i < quarters.length; i++) { const row = 20 + i; const mrow = 6 + i; summary.getRange(`A${row}:C${row}`).formulas = [[`='Quarterly Model'!B${mrow}`, `='Quarterly Model'!J${mrow}`, "=1"]]; }
 header(summary.getRange("A19:C19")); body(summary.getRange("A20:C39")); summary.getRange("B20:C39").format.numberFormat = "0%";
-const chart = summary.charts.add("line", summary.getRange("A19:C39")); chart.title = "U.S. serving capacity reaches the threshold in 2027"; chart.hasLegend = true; chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } }; chart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 }; chart.setPosition("E18", "N36");
+const chart = summary.charts.add("line", summary.getRange("A19:C39")); chart.title = "Published U.S. buildout pipeline reaches the threshold in 2028"; chart.hasLegend = true; chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } }; chart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 }; chart.setPosition("E18", "N36");
 
 summary.getRange("A41:N44").values = [
   ["Interpretation", "Current U.S. operational capacity supports about 64 million high-autonomy users under the base serving envelope—37.6% of the 171.4 million-user threshold.", null, null, null, null, null, null, null, null, null, null, null, null],
-  ["Projection", "Quarterly log-capacity growth is smoothed with a rate trend: the slope of observed growth rates supplies acceleration; the fitted current rate supplies velocity.", null, null, null, null, null, null, null, null, null, null, null, null],
+  ["Projection", "The base path sums dated expected or projected operating states in Epoch's current U.S. buildout timeline. The displayed acceleration is descriptive of that source path, not a fitted causal law.", null, null, null, null, null, null, null, null, null, null, null, null],
   ["Boundary", "H100e already normalizes chip peak compute. No separate Jalapeño, Cerebras, or Rubin multiplier is added unless it represents deployed serving goodput beyond the H100e convention.", null, null, null, null, null, null, null, null, null, null, null, null],
-  ["Caution", "Epoch estimates carry quantity and timing uncertainty; workload tokens, inference allocation, utilization, active parameters, and overhead are editable assumptions rather than observations.", null, null, null, null, null, null, null, null, null, null, null, null],
+  ["Caution", "Epoch covers publicly tracked large sites rather than the full U.S. fleet. Project timing and quantity are uncertain. The editable base case allocates 100% of modeled inference supply to this personal-AI cohort.", null, null, null, null, null, null, null, null, null, null, null, null],
 ];
 for (let r = 41; r <= 44; r++) { summary.getRange(`B${r}:N${r}`).merge(); body(summary.getRange(`A${r}:N${r}`)); summary.getRange(`A${r}`).format = { fill: colors.lightGold, font: { bold: true, color: colors.ink }, borders: { preset: "all", style: "thin", color: colors.line } }; }
 summary.freezePanes.freezeRows(3);
@@ -225,11 +223,11 @@ titleBand(sources, "A1:F2", "Source Registry", "A3:F3", "Primary inputs and the 
 sources.getRange("A5:F5").values = [["Source ID", "Publisher", "Title / dataset", "Updated / accessed", "Public URL", "Use and limitation"]];
 sources.getRange("A6:F11").values = [
   ["SRC-001", "Epoch AI", "AI Data Centers", asOf, "https://epoch.ai/data/ai-data-centers", "Dataset scope, H100e convention, coverage, and uncertainty"],
-  ["SRC-002", "Epoch AI", "AI Data Center Timelines CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_center_timelines.csv", "Quarterly U.S. operational H100e reconstructed from latest site state at each cutoff"],
+  ["SRC-002", "Epoch AI", "AI Data Center Timelines CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_center_timelines.csv", "Observed quarters use latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff"],
   ["SRC-003", "Epoch AI", "AI Data Centers CSV", d("2026-08-25"), "https://epoch.ai/data/data_centers/data_centers.csv", "Country filter and current site registry"],
   ["SRC-004", "U.S. Census Bureau", "Population on a Date", d("2026-07-26"), "https://www.census.gov/popclock/", "Model uses the user-specified rounded estimate of 342.8M residents; the selected target is 50%, or 171.4M users"],
   ["SRC-005", "Personal AI forecast", "Report-card calculation contract", asOf, "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md", "Serving envelope and high-autonomy token mix; assumptions remain editable"],
-  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability crosses 60% by interpolation around 2027-10-08"],
+  ["SRC-006", "Personal AI forecast", "Model-harness capability report card — HTML", asOf, "https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/?report=capability", "Capability first reaches 60% on the daily site path on 2028-06-20"],
 ];
 header(sources.getRange("A5:F5")); body(sources.getRange("A6:F11")); sources.getRange("D6:D11").format.numberFormat = "yyyy-mm-dd"; sources.tables.add("A5:F11", true, "ComputeSourcesTable"); sources.freezePanes.freezeRows(5);
 
@@ -250,7 +248,7 @@ report.getRange("4:5").format.rowHeight = 34; report.getRange("6:6").format.rowH
 
 // Render, inspect, and export.
 await fs.mkdir(previewDir, { recursive: true });
-const previews = [["Summary", "A1:N44", "summary.png", 0.9], ["Compute Report Card", "A1:P6", "report-left.png", 0.9], ["Compute Report Card", "AO1:AV6", "report-current.png", 1], ["Quarterly Model", "A1:M25", "quarterly-model.png", 0.85], ["Assumptions", "A1:I35", "assumptions.png", 0.9], ["Observations", "A1:G16", "observations.png", 1], ["Sources", "A1:F11", "sources.png", 1]];
+const previews = [["Summary", "A1:N44", "summary.png", 0.9], ["Compute Report Card", "A1:P6", "report-left.png", 0.9], ["Compute Report Card", "AO1:AV6", "report-current.png", 1], ["Quarterly Model", "A1:M25", "quarterly-model.png", 0.85], ["Assumptions", "A1:I35", "assumptions.png", 0.9], ["Observations", "A1:G25", "observations.png", 0.9], ["Sources", "A1:F11", "sources.png", 1]];
 for (const [sheetName, range, name, scale] of previews) { const image = await workbook.render({ sheetName, range, autoCrop: "all", scale, format: "png" }); await fs.writeFile(`${previewDir}/${name}`, new Uint8Array(await image.arrayBuffer())); }
 const key = await workbook.inspect({ kind: "table", sheetId: "Summary", range: "A5:N15", include: "values,formulas", tableMaxRows: 20, tableMaxCols: 16, maxChars: 12000 }); console.log(key.ndjson ?? key);
 const errors = await workbook.inspect({ kind: "match", searchTerm: "#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A", options: { useRegex: true, maxResults: 200 }, maxChars: 8000 }); console.log(errors.ndjson ?? errors);
@@ -259,7 +257,7 @@ const inspectTargets = [
   ["Compute Report Card", "A1:AV6"],
   ["Quarterly Model", "A1:M25"],
   ["Assumptions", "A1:I35"],
-  ["Observations", "A1:G16"],
+  ["Observations", "A1:G25"],
   ["Sources", "A1:F11"],
 ];
 const inspectChunks = [];

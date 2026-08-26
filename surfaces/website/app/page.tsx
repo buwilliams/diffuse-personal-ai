@@ -9,22 +9,22 @@ const SNAPSHOT = new Date('2026-08-26T00:00:00Z').getTime();
 const PUBLICATION_DATE = '26 Aug 2026';
 const MAX_HORIZON_DAYS = Math.round(365.2425 * 15);
 const TOKENS_PER_H100E_DAY_M = 79.79328;
-const BASE_COMPUTE_ACCELERATION = -0.0311262;
-const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(18.127258 / 13.524006);
+const BASE_COMPUTE_ACCELERATION = 0.003372653;
+const BASE_NEXT_COMPUTE_VELOCITY = Math.log2(17.39977 / 13.524006);
 const SUPPLY_GATE_SHARE_OF_TARGET = 1;
 const SUPPLY_THRESHOLD = SUPPLY_GATE_SHARE_OF_TARGET * 100;
 
 const CAPABILITY_CURVE = [
-  ['2026-08-26', 47.5454716275],
-  ['2026-12-31', 50.7851145675],
-  ['2027-03-31', 54.2562821969],
-  ['2027-06-30', 57.3887651932],
-  ['2027-09-30', 59.8582614229],
-  ['2027-12-31', 61.5651828102],
-  ['2028-03-31', 62.6586700318],
-  ['2028-06-30', 63.3482574274],
-  ['2028-09-30', 63.8087383788],
-  ['2028-12-31', 64.1512305404],
+  ['2026-08-26', 45.6605338349],
+  ['2026-12-31', 48.6645999787],
+  ['2027-03-31', 51.9462756313],
+  ['2027-06-30', 54.9025505410],
+  ['2027-09-30', 57.1877199175],
+  ['2027-12-31', 58.6955518339],
+  ['2028-03-31', 59.5793794544],
+  ['2028-06-30', 60.0567089955],
+  ['2028-09-30', 60.3092346948],
+  ['2028-12-31', 60.4522275615],
 ] as const;
 
 const BASE_CAPABILITY_ACCELERATION_PP = (() => {
@@ -41,15 +41,15 @@ const COMPUTE_ACCELERATION_RESPONSE_LOG2 = Math.abs(BASE_COMPUTE_ACCELERATION);
 
 const COMPUTE_CURVE = [
   ['2026-08-26', 13.524006],
-  ['2026-12-31', 18.127258],
-  ['2027-03-31', 23.778747],
-  ['2027-06-30', 30.52642],
-  ['2027-09-30', 38.352428],
-  ['2027-12-31', 47.156323],
-  ['2028-03-31', 56.743625],
-  ['2028-06-30', 66.822743],
-  ['2028-09-30', 77.012566],
-  ['2028-12-31', 86.861828],
+  ['2026-12-31', 17.39977],
+  ['2027-03-31', 20.368064],
+  ['2027-06-30', 21.439292],
+  ['2027-09-30', 23.242366],
+  ['2027-12-31', 30.057691],
+  ['2028-03-31', 37.048243],
+  ['2028-06-30', 46.037632],
+  ['2028-09-30', 47.106859],
+  ['2028-12-31', 61.887051],
 ] as const;
 
 const REPORT_QUARTERS = [
@@ -134,6 +134,7 @@ type ModelInputs = {
   computeAcceleration: number;
   workloadM: number;
   servingEfficiency: number;
+  personalAiInferenceShare: number;
 };
 
 const DEFAULTS: ModelInputs = {
@@ -146,6 +147,7 @@ const DEFAULTS: ModelInputs = {
   computeAcceleration: 1,
   workloadM: 16.75,
   servingEfficiency: 1,
+  personalAiInferenceShare: 100,
 };
 
 function clamp(value: number, minimum: number, maximum: number) {
@@ -223,7 +225,7 @@ function computeCapacityAt(timestamp: number, inputs: ModelInputs) {
 
 function supportedUsersAt(timestamp: number, inputs: ModelInputs) {
   return computeCapacityAt(timestamp, inputs) * TOKENS_PER_H100E_DAY_M *
-    inputs.servingEfficiency / inputs.workloadM;
+    inputs.servingEfficiency * (inputs.personalAiInferenceShare / 100) / inputs.workloadM;
 }
 
 function findCrossing(test: (timestamp: number) => boolean) {
@@ -326,7 +328,7 @@ function reportContext(sheet: ReportSheet, rowIndex: number, columnIndex: number
   const row = sheet.rows[rowIndex] || [];
   const rowLabel = row.find((value) => typeof value === 'string');
   if (typeof rowLabel === 'string') labels.push(rowLabel);
-  for (let index = Math.max(0, rowIndex - 5); index <= rowIndex; index += 1) {
+  for (let index = rowIndex; index >= 0 && labels.length < 6; index -= 1) {
     const value = sheet.rows[index]?.[columnIndex];
     if (typeof value === 'string') labels.push(value);
   }
@@ -828,7 +830,7 @@ export default function Home() {
   const projection = useMemo(() => {
     const targetUsersM = inputs.populationM * inputs.coverageThreshold / 100;
     const requiredComputeM = targetUsersM * SUPPLY_GATE_SHARE_OF_TARGET * inputs.workloadM /
-      (TOKENS_PER_H100E_DAY_M * inputs.servingEfficiency);
+      (TOKENS_PER_H100E_DAY_M * inputs.servingEfficiency * (inputs.personalAiInferenceShare / 100));
     const currentSupportedM = supportedUsersAt(SNAPSHOT, inputs);
     const capabilityCrossing = findCrossing((timestamp) =>
       capabilityAt(timestamp, inputs) >= inputs.capabilityThreshold);
@@ -903,7 +905,7 @@ export default function Home() {
         ['Acceleration setting', `${inputs.capabilityAcceleration.toFixed(2)}× · higher increases quarterly gains`],
         ['Projected crossing', capabilityDate],
         ['Evidence confidence', `${CAPABILITY_CONFIDENCE.label} · ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%`],
-        ['Workbook default', '8 Oct 2027'],
+        ['Workbook default', '20 Jun 2028'],
       ],
     },
     compute: {
@@ -921,6 +923,7 @@ export default function Home() {
         ['Current U.S. H100e', `${inputs.currentComputeM.toFixed(2)}M`],
         ['Required U.S. H100e', `${projection.requiredComputeM.toFixed(2)}M`],
         ['Supported users', `${projection.currentSupportedM.toFixed(1)}M`],
+        ['Personal-AI inference share', `${inputs.personalAiInferenceShare.toFixed(0)}% of modeled inference supply`],
         ['Compute acceleration', `${inputs.computeAcceleration.toFixed(2)}× · higher increases quarterly gains`],
         ['Projected crossing', computeDate],
       ],
@@ -940,6 +943,7 @@ export default function Home() {
     { label: 'Current compute', value: `${inputs.currentComputeM.toFixed(2)}M H100e` },
     { label: 'Required compute', value: `${projection.requiredComputeM.toFixed(2)}M H100e` },
     { label: 'Supported / target users', value: `${projection.currentSupportedM.toFixed(1)}M / ${projection.targetUsersM.toFixed(1)}M` },
+    { label: 'Personal-AI inference share', value: `${inputs.personalAiInferenceShare.toFixed(0)}%` },
     { label: 'Crossing', value: reports.compute.crossing },
   ];
   const activeCalculation = modal === 'capability' ? {
@@ -957,8 +961,8 @@ export default function Home() {
     title: 'How compute becomes a supported-user score and gate',
     steps: [
       { title: 'Gather compute-supply sources.', explanation: 'Collect U.S. data-center projects, accelerator capacity, expected operational dates, and other evidence needed to reconstruct available inference supply over time.' },
-      { title: 'Forecast U.S. compute.', explanation: `Estimate operational H100-equivalent accelerators by quarter. At 1× the workbook path is unchanged; above 1×, each quarter adds more compute than the baseline path. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
-      { title: 'Convert hardware to daily tokens.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day and the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption.` },
+      { title: 'Build the forward U.S. compute path.', explanation: `Sum the dated expected or projected operating states in Epoch's current data-center timeline. At 1× the workbook path is unchanged; above 1×, each quarter adds more compute than that published pipeline. The chart’s ${horizonComputeM.toFixed(2)}M in 2028-Q4 is hardware-equivalent capacity—not users.` },
+      { title: 'Allocate inference to personal AI.', explanation: `Multiply H100-equivalents by ${TOKENS_PER_H100E_DAY_M.toFixed(2)}M tokens per H100e per day, the ${inputs.servingEfficiency.toFixed(2)}× serving-efficiency assumption, and the explicit ${inputs.personalAiInferenceShare.toFixed(0)}% personal-AI share. This allocation is a scenario choice, not an observed fact.` },
       { title: 'Set demand per person.', explanation: `Divide total daily tokens by ${inputs.workloadM.toFixed(2)}M compute-equivalent tokens per user per day. This workload assumption is one of the largest date-moving decisions.` },
       { title: 'Select the population target once.', explanation: `${inputs.coverageThreshold.toFixed(0)}% of ${inputs.populationM.toFixed(1)}M Americans equals ${projection.targetUsersM.toFixed(1)}M target users. This is the only population-share multiplication.` },
       { title: 'Require 100% of that target.', explanation: `The supply gate is fixed at ${SUPPLY_THRESHOLD}% of the selected ${projection.targetUsersM.toFixed(1)}M-user target—not ${inputs.coverageThreshold.toFixed(0)}% of it. That requires ${projection.requiredComputeM.toFixed(2)}M H100e.` },
@@ -986,14 +990,14 @@ export default function Home() {
       <section className="hero" aria-labelledby="countdown-title">
         <p className="kicker" id="countdown-title">Countdown to diffuse Personal AI</p>
         {time ? (
-          <div className="countdown" aria-live="polite" aria-label={`${time.years} years, ${time.months} months, ${time.days} days, ${time.hours} hours`}>
-            <span><strong>{time.years}</strong><small>years</small></span>
+          <div className="countdown" aria-live="polite" aria-label={`${time.years} ${time.years === 1 ? 'year' : 'years'}, ${time.months} ${time.months === 1 ? 'month' : 'months'}, ${time.days} ${time.days === 1 ? 'day' : 'days'}, ${time.hours} ${time.hours === 1 ? 'hour' : 'hours'}`}>
+            <span><strong>{time.years}</strong><small>{time.years === 1 ? 'year' : 'years'}</small></span>
             <b>:</b>
-            <span><strong>{String(time.months).padStart(2, '0')}</strong><small>months</small></span>
+            <span><strong>{String(time.months).padStart(2, '0')}</strong><small>{time.months === 1 ? 'month' : 'months'}</small></span>
             <b>:</b>
-            <span><strong>{String(time.days).padStart(2, '0')}</strong><small>days</small></span>
+            <span><strong>{String(time.days).padStart(2, '0')}</strong><small>{time.days === 1 ? 'day' : 'days'}</small></span>
             <b>:</b>
-            <span><strong>{String(time.hours).padStart(2, '0')}</strong><small>hours</small></span>
+            <span><strong>{String(time.hours).padStart(2, '0')}</strong><small>{time.hours === 1 ? 'hour' : 'hours'}</small></span>
           </div>
         ) : <div className="no-date">No crossing</div>}
         <p className="target-date">{projection.target ? `Projected joint clearance · ${targetLabel} · ${controllingGateLabel} is the later gate` : 'One or more gates do not cross within 15 years'}</p>
@@ -1001,7 +1005,7 @@ export default function Home() {
 
       <section className="conjecture">
         <p><span>Conjecture.</span> Delegating economically valuable work to personal AI is imminent because compute supply and model–harness systems demand are nearing a practical threshold: performing profitable work well enough, and cheaply enough, that people prefer delegation to doing it themselves. People will delegate work because they value the time it returns: time to pursue internalized wants rather than imposed demands—chosen contribution, relationships, play, and pleasure.</p>
-        <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. Instant distribution and universal value-add remain explicit assumptions.</p>
+        <p><span>Refutation.</span> Treat the claim as a two-gate forecast. Demand is proxied by evidence that model–harness systems can perform economic work above the selected quality threshold; supply is the U.S. compute required to serve the selected population. The timetable fails if either gate does not clear. The explanation fails if both clear and delegation still does not diffuse. The date is a base-case scenario crossing, not a calibrated probability; instant distribution and universal value-add remain explicit assumptions.</p>
       </section>
 
       <p className="gate-label"><span>Gates.</span> Both conditions must clear; the later crossing controls the countdown.</p>
@@ -1063,6 +1067,7 @@ export default function Home() {
                 <ControlField label="Compute acceleration" note="1× = report path; higher = faster quarterly gains" value={inputs.computeAcceleration} min={0} max={2} step={0.05} suffix="×" decimals={2} onChange={(value) => update('computeAcceleration', value)} />
                 <ControlField label="Agent workload" note="Compute-equivalent tokens/user/day" value={inputs.workloadM} min={5} max={50} step={0.25} suffix="M" decimals={2} onChange={(value) => update('workloadM', value)} />
                 <ControlField label="Serving efficiency" note="Inference hardware / goodput uplift" value={inputs.servingEfficiency} min={0.5} max={10} step={0.1} suffix="×" onChange={(value) => update('servingEfficiency', value)} />
+                <ControlField label="Personal-AI inference share" note="Modeled inference supply allocated to the target cohort" value={inputs.personalAiInferenceShare} min={10} max={100} step={5} suffix="%" decimals={0} onChange={(value) => update('personalAiInferenceShare', value)} />
               </fieldset>
             </div>
             <div className="tuner-foot">
