@@ -57,7 +57,7 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
               </li>
               <li>
                 <h4>A new role: agent managers</h4>
-                <p>These companies will want people to manage the agents. This management role collapses what are currently multiple roles into one. These people will need business skills (what and why) and technical skills (architecture, performance, monitoring). Examples include Jason Pamplin, Jeremy Pamplin, and Chris Binkard.</p>
+                <p>These companies will want people to manage the agents. This management role collapses what are currently multiple roles into one. These people will need business skills (what and why) and technical skills (architecture, performance, monitoring). They need to be entrepreneurially minded, with a holistic, end-to-end perspective that connects dollars and opportunity to technology.</p>
                 <p>These managers could command very high salaries and still be profitable for the business.</p>
               </li>
             </ol>
