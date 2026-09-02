@@ -6,7 +6,7 @@ This document is the authoritative mathematical contract for the capability and 
 
 The countdown has two independent gates:
 
-1. **Demand proxy — model–harness capability.** The confidence-weighted capability composite must reach the selected delegation threshold. The default is 75%, a practical delegation-quality scenario gate within the C band.
+1. **Demand proxy — model–harness capability.** The confidence-weighted capability composite must reach the selected delegation threshold. The default is 80%, a practical delegation-quality scenario gate at the start of the B band.
 2. **Supply — U.S. compute.** Operational U.S. compute must support the selected share of the U.S. population at the assumed workload.
 
 The headline date is the later crossing:
@@ -21,7 +21,7 @@ The population share is applied once:
 >
 > `supported users = IT GW × reference token-equivalents/IT GW-day × inference allocation × Personal-AI allocation ÷ compute-equivalent tokens/user/day`
 
-The supply gate is 100% of that selected target. With the current defaults, `342.8M × 25% = 85.7M` users. A result near 21.4M would indicate that the population share was applied twice.
+The supply gate is 100% of that selected target. With the current defaults, `342.8M × 50% = 171.4M` users. A result near 85.7M would indicate that the population share was applied twice.
 
 These are scenario extrapolations, not calibrated probabilities. The date must not be described as a probability forecast unless a probability layer is added explicitly.
 
@@ -196,7 +196,7 @@ The explicit allocations then apply:
 - 40% of total AI service capacity allocated to inference;
 - 60% of inference allocated to the modeled Personal-AI cohort.
 
-With the 16.75M-token-equivalent workload, the independent baseline supports **7.776691M users**, or **9.0743%** of the 85.7M-user target at the snapshot. Under the measured two-point productivity velocity and the dated power path, the continuous compute crossing is **4 August 2027**; the website's daily-resolution crossing is **5 August 2027**.
+With the 16.75M-token-equivalent workload, the independent baseline supports **7.776691M users**, or **4.5372%** of the 171.4M-user target at the snapshot. Under the measured two-point productivity velocity and the dated power path, the continuous compute crossing is **7 November 2027**; the website's daily-resolution crossing is **8 November 2027**.
 
 The 40% inference allocation and 60% Personal-AI allocation are distinct, editable scenario assumptions. The former has an external expert cross-check; the latter is a forecast choice. The same fleet also serves training, research, development, enterprise applications, and other users, so changing either can materially move or remove the crossing. Epoch's tracker covers disclosed sites rather than a complete U.S. census, creating uncertainty in the opposite direction.
 

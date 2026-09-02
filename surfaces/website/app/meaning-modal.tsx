@@ -57,8 +57,8 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
               </li>
               <li>
                 <h4>A new role: agent managers</h4>
-                <p>These companies will need people with architectural judgment to direct the agents: set objectives, design systems, oversee operations, and intervene when needed. I have people such as Jason Pamplin, Jeremy Pamplin, and Chris Binkard in mind.</p>
-                <p>A small team could command very high salaries and still be profitable if the value created by its agents exceeds the cost of management and compute.</p>
+                <p>These companies will want people to manage the agents. This management role collapses what are currently multiple roles into one. These people will need business skills (what and why) and technical skills (architecture, performance, monitoring). Examples include Jason Pamplin, Jeremy Pamplin, and Chris Binkard.</p>
+                <p>These managers could command very high salaries and still be profitable for the business.</p>
               </li>
             </ol>
 
@@ -80,6 +80,15 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
               <li><strong>Catastrophe.</strong> A major disruption breaks the conditions needed for this transition.</li>
             </ul>
             <p className="meaning-test"><strong>The near-term test:</strong> by September 2027, can agents build and operate usable insurance-business software at a lower total cost than comparable third-party systems?</p>
+          </section>
+
+          <section className="meaning-section" aria-labelledby="meaning-actions">
+            <h3 id="meaning-actions">Take Action.</h3>
+            <ol className="meaning-actions">
+              <li>Fund and isolate <a href="https://insurity-growth-lab.fly.dev/" target="_blank" rel="noopener noreferrer">Insurity Growth Lab</a> as an independent division of Insurity reporting directly to the CEO.</li>
+              <li>Train and mentor MaaS talent.</li>
+              <li>Pilot bespoke software for partner carriers.</li>
+            </ol>
           </section>
 
           <p className="meaning-footnote">These are implications proposed from the scenario, not additional outputs of its two-gate calculation.</p>

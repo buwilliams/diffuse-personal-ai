@@ -263,7 +263,7 @@
       }
     ],
     "defaults": {
-      "capabilityThreshold": 0.75,
+      "capabilityThreshold": 0.8,
       "maximumForecastYears": 15,
       "supplyGateShareOfTarget": 1,
       "reportStartQuarter": "2024-Q1",

@@ -57,9 +57,9 @@
         {
           "id": "compute-capacity.population.targetShare",
           "metric": "target Share",
-          "value": 0.25,
+          "value": 0.5,
           "unit": "proportion",
-          "displayValue": "25%",
+          "displayValue": "50%",
           "subject": null,
           "observationDate": null,
           "measurementType": "assumption",
@@ -80,7 +80,7 @@
         "kind": "value",
         "value": {
           "usResidents": 342800000,
-          "targetShare": 0.25,
+          "targetShare": 0.5,
           "sourceId": "gate2-us-census-bureau-population-on-a-date"
         }
       }

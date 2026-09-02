@@ -1876,7 +1876,7 @@
           ],
           "population": {
             "usResidents": 342800000,
-            "targetShare": 0.25,
+            "targetShare": 0.5,
             "sourceId": "gate2-us-census-bureau-population-on-a-date"
           },
           "workload": {
