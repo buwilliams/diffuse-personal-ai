@@ -73,6 +73,7 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
             <h3 id="meaning-refutations">Refutations.</h3>
             <p>What could prevent this scenario—or make its proposed path obsolete?</p>
             <ul className="meaning-risks">
+              <li><strong>In-house talent.</strong> Prospects may prefer to develop agent-management talent internally rather than outsource it, limiting demand for MaaS.</li>
               <li><strong>Capability lags.</strong> Progress falls short, or regulation and pause efforts delay deployment.</li>
               <li><strong>AI takeoff.</strong> Rapid acceleration bypasses the transition described here, including the need for human agent managers.</li>
               <li><strong>Loss of control.</strong> Agents cannot be kept within their objectives and acceptable operating risks.</li>
