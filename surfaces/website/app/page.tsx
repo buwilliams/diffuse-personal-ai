@@ -1307,7 +1307,7 @@ export default function Home() {
             <span><strong>{String(time.hours).padStart(2, '0')}</strong><small>{time.hours === 1 ? 'hour' : 'hours'}</small></span>
           </div>
         ) : <div className="no-date">No crossing</div>}
-        <p className="target-date">{projection.target ? `Personal AI Date · ${targetLabel} · ${controllingGateLabel} is the limiter` : 'One or more gates do not cross within 15 years'}</p>
+        <p className="target-date">{projection.target ? `Diffuse AI Date · ${targetLabel} · ${controllingGateLabel} is the limiter` : 'One or more gates do not cross within 15 years'}</p>
       </section>
 
       <section className="conjecture">
