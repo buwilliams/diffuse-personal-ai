@@ -22,6 +22,7 @@ import {
 } from './compute-projection';
 import { forecastModel, snapshotDatasets, snapshotGates, snapshotManifest } from './snapshot-model';
 import { gateReports, type GateReport, type ReportCell, type ReportDataView } from './snapshot-report-data';
+import { MeaningModal } from './meaning-modal';
 
 const DAY = 86_400_000;
 const SNAPSHOT = new Date(`${forecastModel.snapshotDate}T00:00:00Z`).getTime();
@@ -1089,6 +1090,7 @@ export default function Home() {
   const [inputs, setInputs] = useState<ModelInputs>(DEFAULTS);
   const [modal, setModal] = useState<ModalName>(null);
   const [tunerOpen, setTunerOpen] = useState(false);
+  const [meaningOpen, setMeaningOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [sourceDataOpen, setSourceDataOpen] = useState(false);
   const [sourceDataSelection, setSourceDataSelection] = useState<string | null>(null);
@@ -1288,6 +1290,7 @@ export default function Home() {
         <span className="mast-actions">
           <span className="signal"><i /> {isDefault ? 'Default projection' : 'Adjusted scenario'}</span>
           <button className="tune-button" onClick={() => setTunerOpen(true)}>Tune model <b>↗</b></button>
+          <button className="tune-button" aria-haspopup="dialog" aria-expanded={meaningOpen} aria-controls="meaning-dialog" onClick={() => setMeaningOpen(true)}>Meaning <b aria-hidden="true">↗</b></button>
         </span>
       </header>
 
@@ -1334,6 +1337,8 @@ export default function Home() {
         <span>Two gates. One date. <button onClick={() => setTunerOpen(true)}>Adjust assumptions</button></span>
         <span><button onClick={() => setSourcesOpen(true)}>Sources</button> · <button onClick={() => { setSourceDataSelection(null); setSourceDataOpen(true); }}>Source data</button> · Snapshot {forecastModel.snapshotId}</span>
       </footer>
+
+      {meaningOpen && <MeaningModal onClose={() => setMeaningOpen(false)} />}
 
       {sourcesOpen && (
         <DataSourcesModal

@@ -18,6 +18,8 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 
 - The hero shows years, months, days, and hours until the joint crossing.
 - The publication date comes from the selected snapshot.
+- **Meaning** sits beside **Tune model** and opens the implications argument: on-demand insurance-business software, agent managers, Management as a Service, and possible refutations. Its single content source is `app/meaning-modal.tsx`; it is editorial conjecture, not snapshot evidence or an additional calculation gate. The argument is dated independently of the evidence snapshot, and its September 2027 test date stays fixed until deliberately revised.
+- The Meaning modal uses a native modal dialog with keyboard focus containment, Escape and backdrop dismissal, focus restoration, and one full-height reading scroll surface.
 - Conjecture and Refutation remain terse and explicitly distinguish a scenario crossing from a calibrated probability.
 - Both gate cards show current state, threshold, crossing, and which gate controls the clock.
 - The model tuner exposes the major decisions: capability threshold, H50 acceleration, U.S. population, population target, current IT power, IT-power acceleration, current inference productivity, productivity acceleration, tokens per user/day, fleet inference allocation, and Personal-AI inference allocation.
