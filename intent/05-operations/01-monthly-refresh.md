@@ -148,6 +148,8 @@ Reconcile the default scenario:
 
 ### 7. Commit and publish
 
+**Standing owner authorization (2 September 2026):** commit, push, and publish requested updates to this existing public site after validation without asking again. This does not authorize unrelated changes, new sites, or changes to who can access the site.
+
 1. Review `git diff` and confirm that `data/` contains only the source-first JSON snapshot(s).
 2. Commit the exact source and artifacts being published.
 3. Push to the public GitHub repository.

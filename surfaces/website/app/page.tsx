@@ -1290,7 +1290,7 @@ export default function Home() {
         <span className="mast-actions">
           <span className="signal"><i /> {isDefault ? 'Default projection' : 'Adjusted scenario'}</span>
           <button className="tune-button" onClick={() => setTunerOpen(true)}>Tune model <b>↗</b></button>
-          <button className="tune-button" aria-haspopup="dialog" aria-expanded={meaningOpen} aria-controls="meaning-dialog" onClick={() => setMeaningOpen(true)}>Meaning <b aria-hidden="true">↗</b></button>
+          <button className="tune-button" aria-haspopup="dialog" aria-expanded={meaningOpen} aria-controls="meaning-dialog" onClick={() => setMeaningOpen(true)}>What does this mean? <b aria-hidden="true">↗</b></button>
         </span>
       </header>
 

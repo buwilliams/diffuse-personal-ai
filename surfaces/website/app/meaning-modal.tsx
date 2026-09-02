@@ -85,6 +85,7 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
           <section className="meaning-section" aria-labelledby="meaning-actions">
             <h3 id="meaning-actions">Take Action.</h3>
             <ol className="meaning-actions">
+              <li>Stop thinking in terms of customizable and centralized software. Start thinking in terms of bespoke on-demand software.</li>
               <li>Fund and isolate <a href="https://insurity-growth-lab.fly.dev/" target="_blank" rel="noopener noreferrer">Insurity Growth Lab</a> as an independent division of Insurity reporting directly to the CEO.</li>
               <li>Train and mentor MaaS talent.</li>
               <li>Pilot bespoke software for partner carriers.</li>
