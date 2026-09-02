@@ -56,16 +56,17 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
                 </ul>
               </li>
               <li>
-                <h4>A new role: agent managers</h4>
-                <p>These companies will want people to manage the agents. This management role collapses what are currently multiple roles into one. These people will need business skills (what and why) and technical skills (architecture, performance, monitoring). They need to be entrepreneurially minded, with a holistic, end-to-end perspective that connects dollars and opportunity to technology.</p>
-                <p>These managers could command very high salaries and still be profitable for the business.</p>
+                <h4>A new role: Growth Leaders</h4>
+                <p>These companies will want Growth Leaders who own economic outcomes end to end—finding opportunities, increasing revenue, reducing costs, and directing agents to build and operate what the business needs. This role collapses what are currently multiple roles into one.</p>
+                <p>Growth Leaders will need business skills (what and why) and technical skills (architecture, performance, monitoring). They need to be entrepreneurially minded, with a holistic, end-to-end perspective that connects dollars and opportunity to technology.</p>
+                <p>These Growth Leaders could command very high salaries and still be profitable for the business.</p>
               </li>
             </ol>
 
             <aside className="meaning-maas" aria-labelledby="meaning-maas-title">
               <p className="modal-eyebrow">A new service offering</p>
               <h4 id="meaning-maas-title">MaaS <span>Management as a Service</span></h4>
-              <p>Individuals or small teams of 2–5 people, paid to design, direct, and oversee a company’s agents and the software they operate.</p>
+              <p>Growth Leaders working individually or in small teams of 2–5, paid to design, direct, and oversee a company’s agents and the software they operate.</p>
             </aside>
           </section>
 
@@ -73,9 +74,9 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
             <h3 id="meaning-refutations">Refutations.</h3>
             <p>What could prevent this scenario—or make its proposed path obsolete?</p>
             <ul className="meaning-risks">
-              <li><strong>In-house talent.</strong> Prospects may prefer to develop agent-management talent internally rather than outsource it, limiting demand for MaaS.</li>
+              <li><strong>In-house talent.</strong> Prospects may prefer to develop Growth Leaders internally rather than outsource the role, limiting demand for MaaS.</li>
               <li><strong>Capability lags.</strong> Progress falls short, or regulation and pause efforts delay deployment.</li>
-              <li><strong>AI takeoff.</strong> Rapid acceleration bypasses the transition described here, including the need for human agent managers.</li>
+              <li><strong>AI takeoff.</strong> Rapid acceleration bypasses the transition described here, including the need for human Growth Leaders.</li>
               <li><strong>Loss of control.</strong> Agents cannot be kept within their objectives and acceptable operating risks.</li>
               <li><strong>Compute scarcity.</strong> Chip or power constraints prevent affordable deployment at scale.</li>
               <li><strong>Catastrophe.</strong> A major disruption breaks the conditions needed for this transition.</li>
@@ -91,7 +92,7 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
                 <p className="meaning-example"><strong>Example: Blitzy.</strong> Its <a href="https://blitzy.com/" target="_blank" rel="noopener noreferrer">enterprise offering pairs a paid platform with forward-deployed engineers (FDEs)</a>. My conjecture: agents will soon do what Blitzy’s software does. The lasting value may be the FDE role—understanding the business, directing agents, and owning delivery—rather than the software license.</p>
               </li>
               <li>Fund and isolate <a href="https://insurity-growth-lab.fly.dev/" target="_blank" rel="noopener noreferrer">Insurity Growth Lab</a> as an independent division of Insurity reporting directly to the CEO.</li>
-              <li>Train and mentor MaaS talent.</li>
+              <li>Train and mentor Growth Leaders.</li>
               <li>Pilot bespoke software for partner carriers.</li>
             </ol>
           </section>

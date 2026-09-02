@@ -18,7 +18,7 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 
 - The hero shows years, months, days, and hours until the joint crossing.
 - The publication date comes from the selected snapshot.
-- **What does this mean?** sits beside **Tune model** and opens the Meaning modal: on-demand insurance-business software, agent managers, Management as a Service, possible refutations, and a numbered **Take Action** section with a direct Insurity Growth Lab link. Its single content source is `app/meaning-modal.tsx`; it is editorial conjecture and proposed action, not snapshot evidence or an additional calculation gate. The argument is dated independently of the evidence snapshot, and its September 2027 test date stays fixed until deliberately revised.
+- **What does this mean?** sits beside **Tune model** and opens the Meaning modal: on-demand insurance-business software, Growth Leaders, Management as a Service, possible refutations, and a numbered **Take Action** section with a direct Insurity Growth Lab link. Its single content source is `app/meaning-modal.tsx`; it is editorial conjecture and proposed action, not snapshot evidence or an additional calculation gate. The argument is dated independently of the evidence snapshot, and its September 2027 test date stays fixed until deliberately revised.
 - The Meaning modal uses a native modal dialog with keyboard focus containment, Escape and backdrop dismissal, focus restoration, and one full-height reading scroll surface.
 - Conjecture and Refutation remain terse and explicitly distinguish a scenario crossing from a calibrated probability.
 - Both gate cards show current state, threshold, crossing, and which gate controls the clock.
