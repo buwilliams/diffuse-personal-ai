@@ -65,7 +65,7 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
             <aside className="meaning-maas" aria-labelledby="meaning-maas-title">
               <p className="modal-eyebrow">A new service offering</p>
               <h4 id="meaning-maas-title">MaaS <span>Management as a Service</span></h4>
-              <p>Teams paid to design, direct, and oversee a company’s agents and the software they operate.</p>
+              <p>Individuals or small teams of 2–5 people, paid to design, direct, and oversee a company’s agents and the software they operate.</p>
             </aside>
           </section>
 
