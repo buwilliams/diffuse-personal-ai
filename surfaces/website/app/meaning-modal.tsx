@@ -85,7 +85,10 @@ export function MeaningModal({ onClose }: { onClose: () => void }) {
           <section className="meaning-section" aria-labelledby="meaning-actions">
             <h3 id="meaning-actions">Take Action.</h3>
             <ol className="meaning-actions">
-              <li>Stop thinking in terms of customizable and centralized software. Start thinking in terms of bespoke on-demand software.</li>
+              <li>
+                Stop thinking in terms of customizable and centralized software. Start thinking in terms of bespoke on-demand software.
+                <p className="meaning-example"><strong>Example: Blitzy.</strong> Its <a href="https://blitzy.com/" target="_blank" rel="noopener noreferrer">enterprise offering pairs a paid platform with forward-deployed engineers (FDEs)</a>. My conjecture: agents will soon do what Blitzy’s software does. The lasting value may be the FDE role—understanding the business, directing agents, and owning delivery—rather than the software license.</p>
+              </li>
               <li>Fund and isolate <a href="https://insurity-growth-lab.fly.dev/" target="_blank" rel="noopener noreferrer">Insurity Growth Lab</a> as an independent division of Insurity reporting directly to the CEO.</li>
               <li>Train and mentor MaaS talent.</li>
               <li>Pilot bespoke software for partner carriers.</li>

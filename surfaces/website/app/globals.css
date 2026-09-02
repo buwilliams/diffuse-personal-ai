@@ -111,6 +111,7 @@ footer button:hover { color:var(--mint); border-color:var(--mint); }
 .meaning-actions { margin:0; padding-left:20px; list-style:decimal; }
 .meaning-actions li { padding-left:4px; margin-bottom:10px; }
 .meaning-actions li::marker { color:var(--mint); }
+.meaning-actions .meaning-example { margin:12px 0 16px; font-size:14px; }
 .meaning-actions a { color:var(--mint); text-decoration:underline; text-underline-offset:3px; }
 .meaning-actions a:hover { color:var(--ink); }
 .meaning-actions a:focus-visible { outline:2px solid var(--mint); outline-offset:4px; }
