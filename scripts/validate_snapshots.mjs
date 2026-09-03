@@ -63,7 +63,7 @@ for (const file of trackedData.split(/\r?\n/).filter(Boolean)) {
     continue;
   }
   assert(
-    /^data\/snapshot-\d{8}\/(?:database\.json|gate[12]-consolidated\.json|gate[12]-sources\/[a-z0-9-]+-data\.json)$/.test(file),
+    /^data\/snapshot-\d{8}(?:-\d+)?\/(?:database\.json|gate[12]-consolidated\.json|gate[12]-sources\/[a-z0-9-]+-data\.json)$/.test(file),
     `${file} violates the source-first snapshot contract`,
   );
 }
@@ -175,10 +175,20 @@ for (const directory of directories) {
 const latest = await loadLatestSnapshot(dataRoot);
 const model = buildForecastModel(latest);
 const capability = latest.datasets['capability-benchmarks'].data;
+const frontier = latest.datasets['frontier-capability-signals']?.data;
 const compute = latest.datasets['compute-capacity'].data;
 assert(new Set(capability.benchmarks.map((row) => row.id)).size === capability.benchmarks.length, 'Capability benchmark IDs are not unique');
 assert(capability.observations.every((row) => capability.benchmarks.some((benchmark) => benchmark.id === row.benchmarkId)), 'Capability observation has an unknown benchmark');
 assert(model.capability.currentScore >= 0 && model.capability.currentScore <= 1, 'Current capability score is outside 0–1');
+assert(Boolean(frontier), 'Latest snapshot is missing frontier-capability-signals');
+assert(model.capability.frontierShock.qualified, 'Selected frontier capability shock does not meet the published qualification rule');
+assert(model.capability.frontierShock.independentPublisherCount >= frontier.forecastPolicy.minimumIndependentPublishers,
+  'Frontier shock lacks the required independent publishers');
+assert(model.capability.frontierShock.capabilityDomainCount >= frontier.forecastPolicy.minimumCapabilityDomains,
+  'Frontier shock lacks the required capability-domain breadth');
+assert(model.capability.frontierShock.economicFrontierLeadQuarters > 0, 'Qualified frontier shock did not produce a positive trajectory lead');
+assert(model.capability.currentScore > model.capability.observedCurrentScore,
+  'Qualified frontier shock did not raise the live capability state above the direct observed basket');
 assert(model.capability.overallSeries.length === model.capability.quarters.length, 'Capability quarterly aggregate is incomplete');
 assert(model.capability.categories.every((category) => Number.isFinite(category.pooledGapVelocity) && category.pooledGapVelocity >= 0), 'Capability family has an invalid pooled velocity');
 assert(new Set(model.capability.categories.map((category) => category.pooledGapVelocity.toFixed(12))).size > 1, 'Capability families still share one absolute projection velocity');
@@ -212,6 +222,14 @@ const snapshotTime = Date.parse(`${model.snapshotDate}T00:00:00Z`);
 const maximumDays = Math.round(365.2425 * model.defaults.maximumForecastYears);
 const capabilityThreshold = model.defaults.capabilityThreshold;
 const capabilityBase = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.capability.capabilityAt(timestamp, model.capability.currentScore, model.capability.h50Acceleration) >= capabilityThreshold);
+const noShockSnapshot = structuredClone(latest);
+noShockSnapshot.datasets['frontier-capability-signals'].data.observations
+  .find((row) => row.id === frontier.forecastPolicy.selectedObservationId).pointGain = 0;
+const noShockModel = buildForecastModel(noShockSnapshot);
+const capabilityWithoutShock = firstCrossing(snapshotTime, maximumDays, (timestamp) =>
+  noShockModel.capability.capabilityAt(timestamp, noShockModel.capability.currentScore, noShockModel.capability.h50Acceleration) >= capabilityThreshold);
+assert(capabilityBase !== null && capabilityWithoutShock !== null && capabilityBase < capabilityWithoutShock,
+  'Qualified frontier shock does not move the capability crossing earlier');
 const capabilityFaster = firstCrossing(snapshotTime, maximumDays, (timestamp) => model.capability.capabilityAt(timestamp, model.capability.currentScore, model.capability.h50Acceleration + 0.1) >= capabilityThreshold);
 assert(capabilityBase !== null && capabilityFaster !== null && capabilityFaster <= capabilityBase, 'Increasing capability acceleration does not shorten or preserve the gate date');
 

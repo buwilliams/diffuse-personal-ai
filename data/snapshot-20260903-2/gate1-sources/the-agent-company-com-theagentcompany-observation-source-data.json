@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "id": "gate1-the-agent-company-com-theagentcompany-observation-source",
+    "title": "TheAgentCompany observation source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-the-agent-company-com-theagentcompany-observation-source",
+        "publisher": "the-agent-company.com",
+        "title": "TheAgentCompany observation source",
+        "url": "https://the-agent-company.com/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "2 explicit benchmark score(s) and 0 other numeric measurement(s); 2 item(s) affect the countdown.",
+      "counts": {
+        "scores": 2,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 2
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-022",
+          "metric": "Fraction of tasks completed",
+          "value": 0.303,
+          "unit": "proportion",
+          "displayValue": "30.3%",
+          "subject": "Gemini 2.5 Pro",
+          "observationDate": "2025-06-17",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.303,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-022",
+          "caveat": "Later leaderboard configuration; comparability caveat."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-023",
+          "metric": "Fraction of tasks completed",
+          "value": 0.429,
+          "unit": "proportion",
+          "displayValue": "42.9%",
+          "subject": "DeepSeek V3.2 + specialized harness",
+          "observationDate": "2025-09-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.429,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-023",
+          "caveat": "Community/specialized harness; system-level frontier."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 21,
+            "record": {
+              "id": "forecast-observation-022",
+              "benchmarkId": "OPS-05",
+              "releaseDate": "2025-06-17",
+              "quarter": "2025-Q2",
+              "quarterIndex": 6,
+              "score": 0.303,
+              "systemHarness": "Gemini 2.5 Pro",
+              "scoreBasis": "Fraction of tasks completed",
+              "sourceId": "gate1-the-agent-company-com-theagentcompany-observation-source",
+              "notes": "Later leaderboard configuration; comparability caveat."
+            }
+          },
+          {
+            "order": 22,
+            "record": {
+              "id": "forecast-observation-023",
+              "benchmarkId": "OPS-05",
+              "releaseDate": "2025-09-01",
+              "quarter": "2025-Q3",
+              "quarterIndex": 7,
+              "score": 0.429,
+              "systemHarness": "DeepSeek V3.2 + specialized harness",
+              "scoreBasis": "Fraction of tasks completed",
+              "sourceId": "gate1-the-agent-company-com-theagentcompany-observation-source",
+              "notes": "Community/specialized harness; system-level frontier."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

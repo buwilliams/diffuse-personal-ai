@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
+    "title": "AssistantBench (HAL) benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
+        "publisher": "hal.cs.princeton.edu",
+        "title": "AssistantBench (HAL) benchmark",
+        "url": "https://hal.cs.princeton.edu/assistantbench",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-033",
+          "metric": "Assistant task accuracy on current HAL 33-task configuration",
+          "value": 0.3881,
+          "unit": "proportion",
+          "displayValue": "38.81%",
+          "subject": "Browser-Use + o3 Medium",
+          "observationDate": "2025-04-16",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.3881,
+          "normalization": "Already a 0–100% score; do not splice the 33-task HAL configuration to the 2024 full benchmark",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-033",
+          "caveat": "Verified HAL leaderboard result. Kept separate from the 2024 full-benchmark configuration and projected flat."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 18,
+            "record": {
+              "id": "PER-04",
+              "category": "Personal stewardship transfer",
+              "name": "AssistantBench (HAL)",
+              "metric": "Assistant task accuracy on the current HAL configuration",
+              "normalization": "Already a 0–100% score; do not splice the 33-task HAL configuration to the 2024 full benchmark",
+              "status": "Graded",
+              "firstReleaseQuarter": "2025-Q2",
+              "sourceId": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
+              "notes": "Current HAL result covers 33 tasks and is treated as a one-point series, so it projects flat."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 32,
+            "record": {
+              "id": "forecast-observation-033",
+              "benchmarkId": "PER-04",
+              "releaseDate": "2025-04-16",
+              "quarter": "2025-Q2",
+              "quarterIndex": 6,
+              "score": 0.3881,
+              "systemHarness": "Browser-Use + o3 Medium",
+              "scoreBasis": "Assistant task accuracy on current HAL 33-task configuration",
+              "sourceId": "gate1-hal-cs-princeton-edu-assistantbench-hal-benchmark",
+              "notes": "Verified HAL leaderboard result. Kept separate from the 2024 full-benchmark configuration and projected flat."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

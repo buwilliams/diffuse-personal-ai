@@ -220,6 +220,37 @@ type CapabilityQuarter = {
   score: number | null;
 };
 
+type FrontierObservation = {
+  id: string;
+  model: string;
+  releaseDate: string;
+  metric: string;
+  eciScore: number;
+  confidenceInterval90: number[];
+  independentPublisher: string;
+  sourceId: string;
+};
+
+type FrontierTrend = {
+  id: string;
+  series: string;
+  metricDate: string;
+  method: string;
+  annualPointsPerYear: number;
+  unit: string;
+  sourceId: string;
+};
+
+type FrontierCorroboration = {
+  id: string;
+  model: string;
+  summary: string;
+  capabilityDomains: string[];
+  publisher: string;
+  publisherClass: string;
+  sourceId: string;
+};
+
 function dataView(name: string, description: string, datasetIds: string[], rows: ReportCell[][]): ReportDataView {
   const fieldCount = rows.reduce((maximum, row) => Math.max(maximum, row.length), 0);
   return {
@@ -274,6 +305,7 @@ function datasetCatalogRows(datasets: ManifestDataset[]) {
 }
 
 const capabilityDataset = snapshotDatasets['capability-benchmarks'];
+const frontierDataset = snapshotDatasets['frontier-capability-signals'];
 const metrDataset = snapshotDatasets['metr-task-horizon'];
 const computeDataset = snapshotDatasets['compute-capacity'];
 const manifestDatasets = snapshotManifest.data.datasets as ManifestDataset[];
@@ -285,7 +317,8 @@ const gate2SourceFiles = snapshotGates.gate2.data.sourceFiles as SourceFile[];
 const capabilitySummaryRows: ReportCell[][] = [
   ['Metric', 'Value', 'Unit / interpretation'],
   ['Snapshot', forecastModel.snapshotDate, 'Latest dated snapshot selected at build'],
-  ['Current confidence-weighted capability', forecastModel.capability.currentScore, '0–1 score'],
+  ['Observed direct-basket capability', forecastModel.capability.observedCurrentScore, '0–1 score; direct delegation benchmarks only'],
+  ['Frontier-adjusted live capability', forecastModel.capability.currentScore, '0–1 score; includes the qualified Astra trajectory lead'],
   ['Current letter grade', forecastModel.capability.currentGrade, 'A ≥90%, B ≥80%, C ≥70%, D ≥60%, F <60%'],
   ['Current GPA', forecastModel.capability.currentGpa, '0–4'],
   ['Evidence confidence', forecastModel.capability.confidence, `${forecastModel.capability.confidenceWeight.toFixed(3)} evidence weight`],
@@ -295,6 +328,10 @@ const capabilitySummaryRows: ReportCell[][] = [
   ['METR H50 acceleration', forecastModel.capability.h50Acceleration, 'task-horizon doublings / quarter²'],
   ['METR H80 guardrail', forecastModel.capability.h80Acceleration, 'task-horizon doublings / quarter²'],
   ['Economic transfer coefficient', forecastModel.capability.transferCoefficient, 'economic gap velocity / H50 velocity'],
+  ['Astra broad frontier lead', forecastModel.capability.frontierShock.broadFrontierLeadQuarters, 'quarters from 6 ECI points ÷ 14 points/year'],
+  ['Astra economic-equivalent lead', forecastModel.capability.frontierShock.economicFrontierLeadQuarters, 'quarters after the economic transfer coefficient'],
+  ['Independent corroborating publishers', forecastModel.capability.frontierShock.independentPublisherCount, 'minimum 2'],
+  ['Corroborated capability domains', forecastModel.capability.frontierShock.capabilityDomainCount, 'minimum 3'],
   [],
   ['Benchmark family', 'Current score', 'GPA', 'Graded benchmarks', 'Total benchmarks', 'Confidence', 'Confidence weight', 'Raw gap velocity', 'History credits', 'Pooling weight', 'Pooled gap velocity'],
   ...forecastModel.capability.categories.map((category: CapabilityCategory) => [
@@ -381,6 +418,30 @@ const metrRows: ReportCell[][] = [
     trend.sourceId,
     trend.comparabilityNote,
   ]),
+];
+
+const frontierRows: ReportCell[][] = [
+  ['Record type', 'ID', 'Model / series', 'Date', 'Metric / summary', 'Value', 'Interval / domains', 'Publisher', 'Source ID', 'Countdown treatment'],
+  ...frontierDataset.data.observations.map((record: FrontierObservation) => [
+    'Aggregate observation', record.id, record.model, record.releaseDate, record.metric,
+    record.eciScore, record.confidenceInterval90.join('–'), record.independentPublisher,
+    record.sourceId, 'Sets the qualified shock magnitude; not a delegation percentage',
+  ]),
+  ...frontierDataset.data.trend.map((record: FrontierTrend) => [
+    'Trend', record.id, record.series, record.metricDate, record.method,
+    record.annualPointsPerYear, record.unit, 'Epoch AI', record.sourceId,
+    'Converts the ECI gain to broad frontier-progress time',
+  ]),
+  ...frontierDataset.data.corroboratingSignals.map((record: FrontierCorroboration) => [
+    'Corroboration', record.id, record.model, forecastModel.snapshotDate, record.summary,
+    null, record.capabilityDomains.join(', '), record.publisher, record.sourceId,
+    record.publisherClass === 'model provider' ? 'Portfolio evidence; does not count as an independent publisher' : 'Independent qualification evidence',
+  ]),
+  [],
+  ['Forecast policy', 'Selected observation', 'Selected trend', 'Minimum independent publishers', 'Minimum domains', 'Application rule'],
+  ['Policy', frontierDataset.data.forecastPolicy.selectedObservationId, frontierDataset.data.forecastPolicy.selectedTrendId,
+    frontierDataset.data.forecastPolicy.minimumIndependentPublishers, frontierDataset.data.forecastPolicy.minimumCapabilityDomains,
+    frontierDataset.data.forecastPolicy.applicationRule],
 ];
 
 const computeSummaryRows: ReportCell[][] = [
@@ -524,10 +585,11 @@ export const gateReports: Record<'capability' | 'compute', GateReport> = {
     recordCount: gate1Datasets.reduce((sum, dataset) => sum + dataset.recordCount, 0),
     sourceCount: gate1SourceFiles.length,
     views: [
-      dataView('Overview', 'Current score, evidence weight, acceleration, and the quarterly aggregate path calculated from the snapshot.', ['capability-benchmarks', 'metr-task-horizon'], capabilitySummaryRows),
+      dataView('Overview', 'Observed direct score, Astra-adjusted live score, evidence weight, acceleration, and the quarterly aggregate path calculated from the snapshot.', ['capability-benchmarks', 'frontier-capability-signals', 'metr-task-horizon'], capabilitySummaryRows),
       dataView('Dataset Catalog', 'Every Gate 1 logical dataset, including contextual and falsification evidence that does not directly move the countdown.', gate1Datasets.map((dataset) => dataset.id), datasetCatalogRows(gate1Datasets)),
       dataView('Benchmarks', 'The normalized benchmark basket that drives the capability forecast.', ['capability-benchmarks'], capabilityBenchmarkRows),
       dataView('Observations', 'Every model–harness observation compiled for the forecast basket.', ['capability-benchmarks'], capabilityObservationRows),
+      dataView('Frontier Signals', 'The independent aggregate, cross-domain corroboration, trend bridge, and policy that qualify Astra as a model-level capability shock.', ['frontier-capability-signals'], frontierRows),
       dataView('METR Horizon', 'Task-horizon observations and recent-fit acceleration estimates used for capability feedback.', ['metr-task-horizon'], metrRows),
       dataView('Source Files', 'Every source-normalized JSON file consolidated into Gate 1, with result counts and countdown role.', gate1Datasets.map((dataset) => dataset.id), sourceFileRows(gate1SourceFiles, 'gate1')),
     ],

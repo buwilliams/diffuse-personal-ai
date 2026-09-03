@@ -9,7 +9,7 @@ The repository follows an **intent → data snapshot → shared model → surfac
 ```text
 intent/                         Normative conjecture, model, schema, and operating procedure
 data/
-  snapshot-YYYYMMDD/            Immutable normalized JSON snapshot
+  snapshot-YYYYMMDD[-N]/       Immutable normalized JSON snapshot; optional same-day sequence
     database.json               Gate manifest, defaults, and ETL instructions
     gate1-sources/              One normalized JSON file per capability source
     gate2-sources/              One normalized JSON file per compute source

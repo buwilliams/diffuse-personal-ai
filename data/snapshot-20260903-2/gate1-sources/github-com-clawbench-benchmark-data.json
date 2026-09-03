@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-github-com-clawbench-benchmark",
+    "title": "ClawBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-github-com-clawbench-benchmark",
+        "publisher": "github.com",
+        "title": "ClawBench benchmark",
+        "url": "https://github.com/TIGER-AI-Lab/ClawBench",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-032",
+          "metric": "ClawBench V1 six-model comparison score",
+          "value": 0.333,
+          "unit": "proportion",
+          "displayValue": "33.3%",
+          "subject": "Claude Sonnet 4.6",
+          "observationDate": "2026-06-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.333,
+          "normalization": "Already a 0–100% score; pin benchmark repo/version and scoring table",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-032",
+          "caveat": "Repository headline/comparison score. Do not mix with its separate original-rubric pass-rate table."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 17,
+            "record": {
+              "id": "PER-03",
+              "category": "Personal stewardship transfer",
+              "name": "ClawBench",
+              "metric": "V1 six-model comparison score",
+              "normalization": "Already a 0–100% score; pin benchmark repo/version and scoring table",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-github-com-clawbench-benchmark",
+              "notes": "Uses the repository's 33.3 headline/comparison score, not the separately reported 61.4% original-rubric pass rate."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 31,
+            "record": {
+              "id": "forecast-observation-032",
+              "benchmarkId": "PER-03",
+              "releaseDate": "2026-06-01",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.333,
+              "systemHarness": "Claude Sonnet 4.6",
+              "scoreBasis": "ClawBench V1 six-model comparison score",
+              "sourceId": "gate1-github-com-clawbench-benchmark",
+              "notes": "Repository headline/comparison score. Do not mix with its separate original-rubric pass-rate table."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

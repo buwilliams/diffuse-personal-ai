@@ -83,7 +83,7 @@ Keep three transmission checks outside the headline metric:
 2. **Intensive use:** are people repeatedly delegating tasks rather than using chat?
 3. **Behavioral transmission:** after capability rises, does the share of completed consumer task episodes actually delegated rise within the forecast lag?
 
-The normalized comparable observations are stored in the supporting registry and observations of the `capability-benchmarks` logical dataset inside the current snapshot's [`gate1-consolidated.json`](../../data/snapshot-20260903/gate1-consolidated.json). A new model or harness result enters a new snapshot only when it uses the canonical protocol. A changed persona, task set, rubric, judge, environment, or step budget begins a new benchmark ID; self-reported 200-step results must not be spliced into the 100-step series.
+The normalized comparable observations are stored in the supporting registry and observations of the `capability-benchmarks` logical dataset inside the current snapshot's [`gate1-consolidated.json`](../../data/snapshot-20260903-2/gate1-consolidated.json). A new model or harness result enters a new snapshot only when it uses the canonical protocol. A changed persona, task set, rubric, judge, environment, or step budget begins a new benchmark ID; self-reported 200-step results must not be spliced into the 100-step series.
 
 ## Shelf life and Goodhart risks
 

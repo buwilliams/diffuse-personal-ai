@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "id": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+    "title": "EnterpriseOps-Gym-AA benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+        "publisher": "artificialanalysis.ai",
+        "title": "EnterpriseOps-Gym-AA benchmark",
+        "url": "https://artificialanalysis.ai/evaluations/enterprise-ops-gym-aa",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "5 explicit benchmark score(s) and 0 other numeric measurement(s); 5 item(s) affect the countdown.",
+      "counts": {
+        "scores": 5,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 5
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-012",
+          "metric": "Strict task success in oracle tool mode",
+          "value": 0.2,
+          "unit": "proportion",
+          "displayValue": "20%",
+          "subject": "Gemini 2.5 Pro + Stirrup",
+          "observationDate": "2025-06-17",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.2,
+          "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-012",
+          "caveat": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-013",
+          "metric": "Strict task success in oracle tool mode",
+          "value": 0.341,
+          "unit": "proportion",
+          "displayValue": "34.1%",
+          "subject": "Claude Sonnet 4.5 + Stirrup",
+          "observationDate": "2025-09-29",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.341,
+          "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-013",
+          "caveat": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-014",
+          "metric": "Strict task success in oracle tool mode",
+          "value": 0.394,
+          "unit": "proportion",
+          "displayValue": "39.4%",
+          "subject": "Claude Opus 4.5 + Stirrup",
+          "observationDate": "2025-11-24",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.394,
+          "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-014",
+          "caveat": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-015",
+          "metric": "Strict task success in oracle tool mode",
+          "value": 0.459,
+          "unit": "proportion",
+          "displayValue": "45.9%",
+          "subject": "Claude Opus 4.6 + Stirrup",
+          "observationDate": "2026-02-05",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.459,
+          "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-015",
+          "caveat": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-016",
+          "metric": "Strict task success in oracle tool mode",
+          "value": 0.511,
+          "unit": "proportion",
+          "displayValue": "51.1%",
+          "subject": "Claude Fable 5 + Stirrup + Opus 4.8 fallback",
+          "observationDate": "2026-07-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.511,
+          "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-016",
+          "caveat": "Current 51.1% frontier; adaptive max-effort configuration includes an Opus 4.8 fallback."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "OPS-02",
+              "category": "Operational execution",
+              "name": "EnterpriseOps-Gym-AA",
+              "metric": "Strict task success across enterprise workflows",
+              "normalization": "Already a 0–100% success rate; all verifier conditions must pass",
+              "status": "Graded",
+              "firstReleaseQuarter": "2025-Q2",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Artificial Analysis implementation using the Stirrup harness, ServiceNow dataset, oracle tool mode, and three repeats per task."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 11,
+            "record": {
+              "id": "forecast-observation-012",
+              "benchmarkId": "OPS-02",
+              "releaseDate": "2025-06-17",
+              "quarter": "2025-Q2",
+              "quarterIndex": 6,
+              "score": 0.2,
+              "systemHarness": "Gemini 2.5 Pro + Stirrup",
+              "scoreBasis": "Strict task success in oracle tool mode",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "id": "forecast-observation-013",
+              "benchmarkId": "OPS-02",
+              "releaseDate": "2025-09-29",
+              "quarter": "2025-Q3",
+              "quarterIndex": 7,
+              "score": 0.341,
+              "systemHarness": "Claude Sonnet 4.5 + Stirrup",
+              "scoreBasis": "Strict task success in oracle tool mode",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "id": "forecast-observation-014",
+              "benchmarkId": "OPS-02",
+              "releaseDate": "2025-11-24",
+              "quarter": "2025-Q4",
+              "quarterIndex": 8,
+              "score": 0.394,
+              "systemHarness": "Claude Opus 4.5 + Stirrup",
+              "scoreBasis": "Strict task success in oracle tool mode",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "id": "forecast-observation-015",
+              "benchmarkId": "OPS-02",
+              "releaseDate": "2026-02-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.459,
+              "systemHarness": "Claude Opus 4.6 + Stirrup",
+              "scoreBasis": "Strict task success in oracle tool mode",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Retrospective release-date point from the EnterpriseOps-Gym-AA table."
+            }
+          },
+          {
+            "order": 15,
+            "record": {
+              "id": "forecast-observation-016",
+              "benchmarkId": "OPS-02",
+              "releaseDate": "2026-07-01",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.511,
+              "systemHarness": "Claude Fable 5 + Stirrup + Opus 4.8 fallback",
+              "scoreBasis": "Strict task success in oracle tool mode",
+              "sourceId": "gate1-artificialanalysis-ai-enterpriseops-gym-aa-benchmark",
+              "notes": "Current 51.1% frontier; adaptive max-effort configuration includes an Opus 4.8 fallback."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

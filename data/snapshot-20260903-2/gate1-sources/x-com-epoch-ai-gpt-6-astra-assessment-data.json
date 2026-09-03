@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "id": "gate1-x-com-epoch-ai-gpt-6-astra-assessment",
+    "title": "Epoch AI GPT-6 Astra release assessment",
+    "description": "Epoch AI's independent cross-benchmark summary of its pre-release Astra evaluation.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-x-com-epoch-ai-gpt-6-astra-assessment",
+        "publisher": "Epoch AI",
+        "title": "GPT-6 Astra ECI and benchmark assessment",
+        "url": "https://x.com/EpochAIResearch/status/2095602754282783108",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "independent benchmark summary",
+          "cross-domain corroboration"
+        ],
+        "notes": "Epoch says Astra set ECI and domain-benchmark records after OpenAI supplied pre-release access."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Retain the distinction between numeric ECI evidence, domain-record claims, and MirrorCode's ordinal comparison."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "supporting-input",
+      "summary": "2 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 2,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-055",
+          "metric": "Epoch benchmark suites with new records",
+          "value": 3,
+          "unit": "benchmark suites",
+          "displayValue": "3 benchmark suites",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-055",
+          "caveat": "Epoch identifies math, continual learning, and game puzzles. This is an independent cross-domain release signal, not a normalized delegation score."
+        },
+        {
+          "id": "research-evidence.observations.evidence-056",
+          "metric": "MirrorCode ordinal position",
+          "value": 1,
+          "unit": "reported comparison",
+          "displayValue": "1 reported comparison",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-056",
+          "caveat": "Epoch places Astra between Opus 4.7 and Fable 5. The value marks one reported ordinal comparison and is not a benchmark score used in the equation."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "corroboratingSignals",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "corroboration_epoch_domain_records_astra",
+              "model": "GPT-6 Astra",
+              "publisher": "Epoch AI",
+              "publisherClass": "independent evaluator",
+              "capabilityDomains": [
+                "mathematics",
+                "continual learning",
+                "game puzzles",
+                "long-horizon coding"
+              ],
+              "summary": "Epoch reports records on its math, continual-learning, and game-puzzle benchmarks; Astra's MirrorCode result lies between Opus 4.7 and Fable 5.",
+              "sourceId": "gate1-x-com-epoch-ai-gpt-6-astra-assessment"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 54,
+            "record": {
+              "id": "evidence-055",
+              "category": "Cross-domain model capability",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "Epoch benchmark suites with new records",
+              "value": 3,
+              "unit": "benchmark suites",
+              "caveat": "Epoch identifies math, continual learning, and game puzzles. This is an independent cross-domain release signal, not a normalized delegation score.",
+              "sourceId": "gate1-x-com-epoch-ai-gpt-6-astra-assessment"
+            }
+          },
+          {
+            "order": 55,
+            "record": {
+              "id": "evidence-056",
+              "category": "Long-horizon coding",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "MirrorCode ordinal position",
+              "value": 1,
+              "unit": "reported comparison",
+              "caveat": "Epoch places Astra between Opus 4.7 and Fable 5. The value marks one reported ordinal comparison and is not a benchmark score used in the equation.",
+              "sourceId": "gate1-x-com-epoch-ai-gpt-6-astra-assessment"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

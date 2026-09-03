@@ -10,6 +10,7 @@ const projectRoot = path.resolve(scriptDir, "../../..");
 const snapshot = await loadLatestSnapshot(path.join(projectRoot, "data"));
 const forecast = buildForecastModel(snapshot);
 const capability = snapshot.datasets["capability-benchmarks"];
+const frontier = snapshot.datasets["frontier-capability-signals"];
 const metr = snapshot.datasets["metr-task-horizon"];
 const research = snapshot.datasets["research-evidence"];
 const adoption = snapshot.datasets.adoption;
@@ -73,7 +74,8 @@ function makeSheet(name, title, subtitle, headers, rows, tableName) {
 
 const summaryRows = [
   ["Snapshot", forecast.snapshotDate, "Latest immutable snapshot selected automatically", null, null, null, null, null, null, null, null],
-  ["Current capability", forecast.capability.currentScore, "Confidence-weighted score", null, null, null, null, null, null, null, null],
+  ["Observed direct-basket capability", forecast.capability.observedCurrentScore, "Direct delegation benchmarks only", null, null, null, null, null, null, null, null],
+  ["Frontier-adjusted live capability", forecast.capability.currentScore, "Includes Astra's qualified one-time trajectory lead", null, null, null, null, null, null, null, null],
   ["Letter grade", forecast.capability.currentGrade, "A ≥90%, B ≥80%, C ≥70%, D ≥60%, F <60%", null, null, null, null, null, null, null, null],
   ["GPA", forecast.capability.currentGpa, "0–4", null, null, null, null, null, null, null, null],
   ["Evidence confidence", forecast.capability.confidence, forecast.capability.confidenceWeight, null, null, null, null, null, null, null, null],
@@ -82,6 +84,10 @@ const summaryRows = [
   ["Partial-pooling prior strength", forecast.capability.partialPoolingPriorCredits, "history credits", null, null, null, null, null, null, null, null],
   ["METR H50 acceleration", forecast.capability.h50Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null, null, null, null],
   ["METR H80 guardrail", forecast.capability.h80Acceleration, "task-horizon doublings / quarter²", null, null, null, null, null, null, null, null],
+  ["Astra broad frontier lead", forecast.capability.frontierShock.broadFrontierLeadQuarters, "quarters: 6 ECI points ÷ 14 points/year", null, null, null, null, null, null, null, null],
+  ["Astra economic-equivalent lead", forecast.capability.frontierShock.economicFrontierLeadQuarters, "quarters after economic transfer coefficient", null, null, null, null, null, null, null, null],
+  ["Independent corroborating publishers", forecast.capability.frontierShock.independentPublisherCount, "minimum 2", null, null, null, null, null, null, null, null],
+  ["Corroborated capability domains", forecast.capability.frontierShock.capabilityDomainCount, "minimum 3", null, null, null, null, null, null, null, null],
   ...forecast.capability.categories.map((row) => [
     row.category, row.currentScore, row.confidence, row.confidenceWeight,
     row.currentGpa, row.graded, row.total, row.rawGapVelocity, row.historyCredits,
@@ -96,14 +102,16 @@ const summary = makeSheet(
   summaryRows,
   "CapabilitySummaryTable",
 );
-summary.getRange("B7:B7").format.numberFormat = "0.0%";
-summary.getRange("B9:B15").format.numberFormat = "0.000";
-summary.getRange("B16:B19").format.numberFormat = "0.0%";
-summary.getRange("D16:D19").format.numberFormat = "0%";
-summary.getRange("H16:H19").format.numberFormat = "0.0000";
-summary.getRange("J16:J19").format.numberFormat = "0%";
-summary.getRange("K16:K19").format.numberFormat = "0.0000";
-summary.getRange("A16:K19").format.fill = colors.lightGold;
+summary.getRange("B7:B8").format.numberFormat = "0.0%";
+summary.getRange("B10:B18").format.numberFormat = "0.0000";
+summary.getRange("C11:C11").format.numberFormat = "0.000";
+summary.getRange("B19:B20").format.numberFormat = "0";
+summary.getRange("B21:B24").format.numberFormat = "0.0%";
+summary.getRange("D21:D24").format.numberFormat = "0%";
+summary.getRange("H21:H24").format.numberFormat = "0.0000";
+summary.getRange("J21:J24").format.numberFormat = "0%";
+summary.getRange("K21:K24").format.numberFormat = "0.0000";
+summary.getRange("A21:K24").format.fill = colors.lightGold;
 
 const benchmarkRows = forecast.capability.benchmarkRows.map((row) => [
   row.category, row.id, row.name, row.metric, row.normalization, row.status,
@@ -186,6 +194,41 @@ const metrSheet = makeSheet(
 );
 metrSheet.getRange(`E6:E${metrRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
 
+const frontierRows = [
+  ...frontier.data.observations.map((row) => [
+    "Aggregate observation", row.id, row.model, row.releaseDate, row.metric, row.eciScore,
+    row.confidenceInterval90.join("–"), row.independentPublisher, row.sourceId,
+    "Sets shock magnitude; not a delegation percentage",
+  ]),
+  ...frontier.data.trend.map((row) => [
+    "Trend", row.id, row.series, row.metricDate, row.method, row.annualPointsPerYear,
+    row.unit, "Epoch AI", row.sourceId, "Converts ECI gain to broad frontier-progress time",
+  ]),
+  ...frontier.data.corroboratingSignals.map((row) => [
+    "Corroboration", row.id, row.model, forecast.snapshotDate, row.summary, null,
+    row.capabilityDomains.join(", "), row.publisher, row.sourceId,
+    row.publisherClass === "model provider" ? "Portfolio evidence; not an independent publisher" : "Independent qualification evidence",
+  ]),
+  [
+    "Forecast policy", frontier.data.forecastPolicy.selectedObservationId,
+    frontier.data.forecastPolicy.selectedTrendId, forecast.snapshotDate,
+    frontier.data.forecastPolicy.applicationRule,
+    forecast.capability.frontierShock.economicFrontierLeadQuarters,
+    `${frontier.data.forecastPolicy.minimumIndependentPublishers} independent publishers; ${frontier.data.forecastPolicy.minimumCapabilityDomains} domains`,
+    "Diffuse Personal AI", "gate1-diffuse-personal-ai-gate-1-model-harness-capability-calculation-contract",
+    "One-time economic-equivalent lead; direct benchmark observations unchanged",
+  ],
+];
+const frontierSheet = makeSheet(
+  "Frontier Signals",
+  "Independently Corroborated Frontier-Capability Shock",
+  "Astra's overall capability portfolio changes the trajectory through an explicit trend-and-transfer bridge; ARC-AGI-3 and ECI are not treated as delegation percentages.",
+  ["Record type", "ID", "Model / series", "Date", "Metric / summary", "Value", "Interval / domains", "Publisher", "Source ID", "Countdown treatment"],
+  frontierRows,
+  "CapabilityFrontierSignalsTable",
+);
+frontierSheet.getRange(`D6:D${frontierRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
+
 const researchRows = research.data.observations.map((row) => [
   row.id, row.category, row.metricDate, row.entity, row.metric, row.value,
   row.unit, row.sourceId, row.caveat,
@@ -216,6 +259,7 @@ releases.getRange(`D6:D${releaseRows.length + 5}`).format.numberFormat = "yyyy-m
 
 const sources = [
   ...capability.metadata.sources,
+  ...frontier.metadata.sources,
   ...metr.metadata.sources,
   ...research.metadata.sources,
   ...adoption.metadata.sources,
@@ -240,6 +284,7 @@ const widths = {
   Observations: [20, 14, 14, 12, 12, 14, 32, 48, 13, 52],
   "Quarterly Path": [13, 14, 15, 21, 21, 21, 21, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
   "METR Horizon": [14, 18, 18, 28, 14, 14, 55, 13, 55],
+  "Frontier Signals": [20, 38, 24, 14, 74, 14, 60, 26, 28, 56],
   "Research Evidence": [16, 24, 14, 34, 42, 14, 18, 20, 72],
   "Model Releases": [28, 18, 28, 14, 22, 60, 28, 20, 58],
   Sources: [13, 24, 40, 14, 24, 58, 55],
@@ -253,11 +298,12 @@ for (const sheet of workbook.worksheets.items) {
 
 await fs.mkdir(previewDir, { recursive: true });
 for (const [sheetName, range, filename] of [
-  ["Summary", "A1:K19", "summary.png"],
+  ["Summary", "A1:K24", "summary.png"],
   ["Benchmarks", `A1:P${benchmarkRows.length + 5}`, "benchmarks.png"],
   ["Observations", `A1:J${observationRows.length + 5}`, "observations.png"],
   ["Quarterly Path", `A1:Q${pathRows.length + 5}`, "quarterly-path.png"],
   ["METR Horizon", `A1:I${metrRows.length + 5}`, "metr.png"],
+  ["Frontier Signals", `A1:J${frontierRows.length + 5}`, "frontier-signals.png"],
   ["Research Evidence", `A1:I${researchRows.length + 5}`, "research-evidence.png"],
   ["Model Releases", `A1:I${releaseRows.length + 5}`, "model-releases.png"],
   ["Sources", `A1:G${sources.length + 5}`, "sources.png"],
@@ -272,7 +318,7 @@ const errors = await workbook.inspect({
 });
 if (!(errors.ndjson ?? "").includes("matched 0 entries")) throw new Error(errors.ndjson);
 const inspection = await workbook.inspect({
-  kind: "table", sheetId: "Summary", range: "A1:K19",
+  kind: "table", sheetId: "Summary", range: "A1:K24",
   include: "values,formulas", tableMaxRows: 40, tableMaxCols: 10, maxChars: 30_000,
 });
 await fs.mkdir(outputDir, { recursive: true });

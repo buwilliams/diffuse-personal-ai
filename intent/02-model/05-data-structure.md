@@ -2,14 +2,14 @@
 
 **Design:** immutable, source-first dated JSON snapshots
 
-**Current snapshot:** `data/snapshot-20260903/`
+**Current snapshot:** `data/snapshot-20260903-2/`
 
 ## Contract
 
 The repository keeps forecast evidence only in this shape:
 
 ```text
-data/snapshot-YYYYMMDD/
+data/snapshot-YYYYMMDD[-N]/
   database.json
   gate1-sources/
     [source]-data.json
@@ -29,7 +29,7 @@ Every JSON file has exactly two root fields:
     "id": "stable-id",
     "title": "Human-readable title",
     "description": "Contents and forecast role",
-    "schemaVersion": "1.2.0",
+    "schemaVersion": "1.3.0",
     "snapshotDate": "YYYY-MM-DD",
     "asOfDate": "YYYY-MM-DD",
     "sources": [],
@@ -41,7 +41,7 @@ Every JSON file has exactly two root fields:
 
 All sources use the same schema: `id`, `publisher`, `title`, public HTTPS `url`, `accessedAt`, `roles`, and nullable `notes`. Local filesystem paths are forbidden.
 
-Snapshots are immutable. A refresh creates a new dated directory, updates sources there, rebuilds the consolidated gates, validates the release, and publishes it. Earlier directories remain unchanged so every published result is reproducible.
+Snapshots are immutable. A refresh creates a new dated directory, updates sources there, rebuilds the consolidated gates, validates the release, and publishes it. If material evidence or a methodology correction arrives after a same-day publication, append a numeric sequence such as `snapshot-20260903-2`; never rewrite the earlier same-day directory. Earlier directories remain unchanged so every published result is reproducible.
 
 ## Source files
 
@@ -103,7 +103,7 @@ Run:
 
 The consolidator reads `database.json`, loads every source file, orders and merges its fragments, and writes:
 
-- `gate1-consolidated.json`, containing the capability, METR, adoption, research-evidence, and user-capability logical datasets;
+- `gate1-consolidated.json`, containing the capability, frontier-capability, METR, adoption, research-evidence, and user-capability logical datasets;
 - `gate2-consolidated.json`, containing the compute-capacity logical dataset.
 
 Each consolidated file also includes a `sourceFiles` index with repository path, publisher, original URL, access date, roles, affected logical datasets, record count, result status, result counts, and countdown role. The website uses this index for its provenance modal. Consolidated files must never be hand-edited.
@@ -119,13 +119,14 @@ Every logical dataset descriptor in `database.json` also includes a plain-langua
 - `defaults`: threshold, forecast horizon, report window, and the rule that supply must serve 100% of the already-selected population target;
 - `etl`: directory patterns, source-first workflow, immutable-snapshot rule, latest-snapshot rule, and the declaration that calculations use consolidated gates only.
 
-The loader in `scripts/lib/snapshots.mjs` selects the lexicographically greatest valid `snapshot-YYYYMMDD` directory and loads its two consolidated files. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No calculation surface chooses its own cutoff or reads individual source fragments independently. The website build also copies the selected snapshot to a generated same-origin `/data/snapshot-YYYYMMDD/` path so readers can view and copy every source file without downloading the repository.
+The loader in `scripts/lib/snapshots.mjs` selects the latest date and then the greatest numeric same-day sequence among valid `snapshot-YYYYMMDD[-N]` directories. It loads both consolidated files. The site bundler, validator, shared forecast model, and workbook builders all call this loader. No calculation surface chooses its own cutoff or reads individual source fragments independently. The website build also copies the selected snapshot to a generated same-origin `/data/snapshot-YYYYMMDD[-N]/` path so readers can view and copy every source file without downloading the repository.
 
 ## Logical datasets
 
 | Logical dataset | Gate | Purpose | Countdown input |
 |---|---|---|---:|
 | `capability-benchmarks` | 1 | Four-family economic benchmark basket, normalized observations, family-specific partially pooled trajectories, and supporting registry | Yes |
+| `frontier-capability-signals` | 1 | Independently measured, cross-domain frontier shocks translated into a one-time economic-equivalent trajectory lead | Yes |
 | `metr-task-horizon` | 1 | H50 capability velocity, H80 reliability guardrail, trend estimates, and forecast policy | Yes |
 | `adoption` | 1 | Adoption definitions, observations, and agent-product events | No; triangulation |
 | `research-evidence` | 1 | Evidence ledger supporting the conjecture and assumptions | No; triangulation |

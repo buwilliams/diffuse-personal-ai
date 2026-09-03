@@ -1,0 +1,435 @@
+{
+  "metadata": {
+    "id": "gate1-github-com-mypcbench-source",
+    "title": "MyPCBench source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-github-com-mypcbench-source",
+        "publisher": "github.com",
+        "title": "MyPCBench source",
+        "url": "https://github.com/ljang0/MyPCBench/blob/main/README.md",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "Consumer benchmark",
+          "supporting evaluation",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "7 explicit benchmark score(s) and 2 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 7,
+        "measurements": 2,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0021",
+          "metric": "Perfect task rate",
+          "value": 58.2,
+          "unit": "percent",
+          "displayValue": "58.2%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0021",
+          "caveat": "One current joint evaluation rather than historical snapshots"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0022",
+          "metric": "Perfect task rate",
+          "value": 23.9,
+          "unit": "percent",
+          "displayValue": "23.9%",
+          "subject": "GPT-5.4 mini",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0022",
+          "caveat": "Mini-to-frontier comparisons confound model size and generation"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0023",
+          "metric": "Perfect task rate",
+          "value": 45.1,
+          "unit": "percent",
+          "displayValue": "45.1%",
+          "subject": "GPT-5.5",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0023",
+          "caveat": "Same current benchmark run family as GPT-5.6"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0024",
+          "metric": "Perfect task rate",
+          "value": 55.4,
+          "unit": "percent",
+          "displayValue": "55.4%",
+          "subject": "GPT-5.6 Sol",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0024",
+          "caveat": "Improves on GPT-5.5 but does not beat the older Opus 4.6 system"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0025",
+          "metric": "Mean rubric pass rate",
+          "value": 85.1,
+          "unit": "percent",
+          "displayValue": "85.1%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0025",
+          "caveat": "Partial credit can conceal failure to finish the user's whole goal"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0026",
+          "metric": "Mean rubric pass rate",
+          "value": 83.6,
+          "unit": "percent",
+          "displayValue": "83.6%",
+          "subject": "GPT-5.5",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0026",
+          "caveat": "Partial credit can conceal failure to finish the user's whole goal"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0027",
+          "metric": "Mean rubric pass rate",
+          "value": 85.3,
+          "unit": "percent",
+          "displayValue": "85.3%",
+          "subject": "GPT-5.6 Sol",
+          "observationDate": "2026-07-15",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0027",
+          "caveat": "Perfect rate is the stricter reference measure"
+        },
+        {
+          "id": "research-evidence.observations.evidence-034",
+          "metric": "MyPCBench perfect completion",
+          "value": 58.2,
+          "unit": "percent",
+          "displayValue": "58.2%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-07-15",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-034",
+          "caveat": "Closest canonical consumer reference; not a current frontier because newer agents are unevaluated"
+        },
+        {
+          "id": "research-evidence.observations.evidence-035",
+          "metric": "MyPCBench perfect completion",
+          "value": 55.4,
+          "unit": "percent",
+          "displayValue": "55.4%",
+          "subject": "GPT-5.6 Sol",
+          "observationDate": "2026-07-15",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-035",
+          "caveat": "Up 10.3pp from GPT-5.5 in canonical 100-step evaluation; Opus 5 and Fable 5 unevaluated"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 5,
+            "record": {
+              "id": "mypc01_perfect",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "metric": "Perfect task rate",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "retrospective_release_curve",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "notes": "Closest frozen consumer reference; not a live SCM because latest agents are missing; canonical 100-step protocol only"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "mypc01_rubric",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "metric": "Mean rubric pass rate",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "retrospective_release_curve",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "notes": "Partial credit"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 20,
+            "record": {
+              "id": "benchobs_0021",
+              "releaseId": "anthropic_opus46_20260205",
+              "benchmarkId": "mypc01_perfect",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Perfect task rate",
+              "modelSystem": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "observationDate": "2026-07-15",
+              "score": 58.2,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native Claude CUA plus bash and editor",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "One current joint evaluation rather than historical snapshots"
+            }
+          },
+          {
+            "order": 21,
+            "record": {
+              "id": "benchobs_0022",
+              "releaseId": "openai_gpt54mini_20260317",
+              "benchmarkId": "mypc01_perfect",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Perfect task rate",
+              "modelSystem": "GPT-5.4 mini",
+              "modelReleaseDate": "2026-03-17",
+              "observationDate": "2026-07-15",
+              "score": 23.9,
+              "unit": "percent",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native OpenAI CUA plus built-in shell",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Mini-to-frontier comparisons confound model size and generation"
+            }
+          },
+          {
+            "order": 22,
+            "record": {
+              "id": "benchobs_0023",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "mypc01_perfect",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Perfect task rate",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-15",
+              "score": 45.1,
+              "unit": "percent",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native OpenAI CUA plus built-in shell",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Same current benchmark run family as GPT-5.6"
+            }
+          },
+          {
+            "order": 23,
+            "record": {
+              "id": "benchobs_0024",
+              "releaseId": "openai_gpt56sol_20260709",
+              "benchmarkId": "mypc01_perfect",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Perfect task rate",
+              "modelSystem": "GPT-5.6 Sol",
+              "modelReleaseDate": "2026-07-09",
+              "observationDate": "2026-07-15",
+              "score": 55.4,
+              "unit": "percent",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native OpenAI CUA plus built-in shell",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Improves on GPT-5.5 but does not beat the older Opus 4.6 system"
+            }
+          },
+          {
+            "order": 24,
+            "record": {
+              "id": "benchobs_0025",
+              "releaseId": "anthropic_opus46_20260205",
+              "benchmarkId": "mypc01_rubric",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Mean rubric pass rate",
+              "modelSystem": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "observationDate": "2026-07-15",
+              "score": 85.1,
+              "unit": "percent",
+              "seriesRole": "baseline",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native Claude CUA plus bash and editor",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Partial credit can conceal failure to finish the user's whole goal"
+            }
+          },
+          {
+            "order": 25,
+            "record": {
+              "id": "benchobs_0026",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "mypc01_rubric",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Mean rubric pass rate",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-15",
+              "score": 83.6,
+              "unit": "percent",
+              "seriesRole": "baseline",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native OpenAI CUA plus built-in shell",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Partial credit can conceal failure to finish the user's whole goal"
+            }
+          },
+          {
+            "order": 26,
+            "record": {
+              "id": "benchobs_0027",
+              "releaseId": "openai_gpt56sol_20260709",
+              "benchmarkId": "mypc01_rubric",
+              "family": "MyPCBench",
+              "version": "0.1",
+              "capabilityDimension": "Personal authenticated multi-app computer use",
+              "metric": "Mean rubric pass rate",
+              "modelSystem": "GPT-5.6 Sol",
+              "modelReleaseDate": "2026-07-09",
+              "observationDate": "2026-07-15",
+              "score": 85.3,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_release_date_curve",
+              "harnessScope": "Native OpenAI CUA plus built-in shell",
+              "sourceId": "gate1-github-com-mypcbench-source",
+              "comparabilityNote": "Perfect rate is the stricter reference measure"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 33,
+            "record": {
+              "id": "evidence-034",
+              "category": "Consumer benchmark",
+              "metricDate": "2026-07-15",
+              "entity": "Claude Opus 4.6",
+              "metric": "MyPCBench perfect completion",
+              "value": 58.2,
+              "unit": "percent",
+              "caveat": "Closest canonical consumer reference; not a current frontier because newer agents are unevaluated",
+              "sourceId": "gate1-github-com-mypcbench-source"
+            }
+          },
+          {
+            "order": 34,
+            "record": {
+              "id": "evidence-035",
+              "category": "Consumer benchmark",
+              "metricDate": "2026-07-15",
+              "entity": "GPT-5.6 Sol",
+              "metric": "MyPCBench perfect completion",
+              "value": 55.4,
+              "unit": "percent",
+              "caveat": "Up 10.3pp from GPT-5.5 in canonical 100-step evaluation; Opus 5 and Fable 5 unevaluated",
+              "sourceId": "gate1-github-com-mypcbench-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

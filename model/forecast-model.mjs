@@ -191,6 +191,7 @@ function linearSlope(points) {
 
 function capabilityModel(snapshot, defaults) {
   const capability = snapshot.datasets['capability-benchmarks'].data;
+  const frontier = snapshot.datasets['frontier-capability-signals']?.data ?? null;
   const metr = snapshot.datasets['metr-task-horizon'].data;
   const currentQuarterIndex = capability.model.currentQuarterIndex;
   const maxCredits = capability.model.maximumEvidenceCreditsPerBenchmark;
@@ -284,6 +285,38 @@ function capabilityModel(snapshot, defaults) {
   const h80Acceleration = h80Velocity * h80Fit.relativeAcceleration;
   const transferCoefficient = economicGapVelocity / h50Velocity;
   const economicAcceleration = economicGapVelocity * effectiveRelativeAcceleration;
+  const frontierPolicy = frontier?.forecastPolicy ?? null;
+  const selectedFrontierObservation = frontier?.observations.find((row) => row.id === frontierPolicy?.selectedObservationId) ?? null;
+  const selectedFrontierTrend = frontier?.trend.find((row) => row.id === frontierPolicy?.selectedTrendId) ?? null;
+  const relevantCorroboration = frontier?.corroboratingSignals.filter((row) => row.model === selectedFrontierObservation?.model) ?? [];
+  const independentPublisherCount = new Set(relevantCorroboration
+    .filter((row) => row.publisherClass !== 'model provider')
+    .map((row) => row.publisher)).size;
+  const capabilityDomainCount = new Set(relevantCorroboration.flatMap((row) => row.capabilityDomains ?? [])).size;
+  const frontierShockQualified = Boolean(
+    selectedFrontierObservation &&
+    selectedFrontierTrend &&
+    selectedFrontierObservation.pointGain > 0 &&
+    selectedFrontierTrend.annualPointsPerYear > 0 &&
+    independentPublisherCount >= frontierPolicy.minimumIndependentPublishers &&
+    capabilityDomainCount >= frontierPolicy.minimumCapabilityDomains
+  );
+  const broadFrontierLeadQuarters = frontierShockQualified
+    ? selectedFrontierObservation.pointGain / selectedFrontierTrend.annualPointsPerYear * frontierPolicy.quartersPerYear
+    : 0;
+  const economicFrontierLeadQuarters = broadFrontierLeadQuarters * transferCoefficient;
+  const frontierShock = {
+    qualified: frontierShockQualified,
+    observation: selectedFrontierObservation,
+    trend: selectedFrontierTrend,
+    independentPublisherCount,
+    capabilityDomainCount,
+    broadFrontierLeadQuarters,
+    transferCoefficient,
+    economicFrontierLeadQuarters,
+    applicationRule: frontierPolicy?.applicationRule ?? null,
+    levelTreatment: frontierPolicy?.levelTreatment ?? null,
+  };
 
   const depthGain = (horizon, familyVelocity, acceleration = h50Acceleration) => {
     const relative = h50Velocity > 0 ? acceleration / h50Velocity : 0;
@@ -311,27 +344,46 @@ function capabilityModel(snapshot, defaults) {
     benchmark.series = quarters.map((quarter) => {
       const exact = benchmark.observations.find((observation) => observation.quarterIndex === quarter.index);
       const carried = benchmark.observations.filter((observation) => observation.quarterIndex <= quarter.index).at(-1);
-      const score = quarter.index <= currentQuarterIndex
+      const score = quarter.index < currentQuarterIndex
         ? carried?.score ?? null
         : benchmark.currentDepth === null ? null : scoreFromDepth(
-          benchmark.currentDepth + depthGain(quarter.index - currentQuarterIndex, family.pooledGapVelocity),
+          benchmark.currentDepth + depthGain(
+            quarter.index - currentQuarterIndex + economicFrontierLeadQuarters,
+            family.pooledGapVelocity,
+          ),
         );
-      return { quarter: quarter.label, quarterIndex: quarter.index, score, phase: exact ? 'observed' : quarter.index <= currentQuarterIndex ? 'carried' : 'projected' };
+      return {
+        quarter: quarter.label,
+        quarterIndex: quarter.index,
+        score,
+        phase: quarter.index === currentQuarterIndex && economicFrontierLeadQuarters > 0
+          ? 'frontier-adjusted'
+          : exact ? 'observed' : quarter.index <= currentQuarterIndex ? 'carried' : 'projected',
+      };
     });
   }
 
-  const categories = emptyCategories.map((category) => ({
-    ...category,
-    series: quarters.map((quarter) => ({
+  const categories = emptyCategories.map((category) => {
+    const series = quarters.map((quarter) => ({
       quarter: quarter.label,
       score: average(benchmarkRows.filter((benchmark) => benchmark.category === category.category).map((benchmark) => benchmark.series[quarter.index - 1].score)),
-    })),
-  }));
+    }));
+    return {
+      ...category,
+      observedCurrentScore: category.currentScore,
+      currentScore: series[currentQuarterIndex - 1].score,
+      series,
+    };
+  });
   const overallSeries = quarters.map((quarter) => ({
     quarter: quarter.label,
     date: quarter.date,
     score: weightedAverage(categories.map((category) => ({ value: category.series[quarter.index - 1].score, weight: category.confidenceWeight })), 'value', 'weight'),
   }));
+  const observedCurrentScore = weightedAverage(emptyCategories.map((category) => ({
+    value: category.currentScore,
+    weight: category.confidenceWeight,
+  })), 'value', 'weight');
   const currentScore = overallSeries[currentQuarterIndex - 1].score;
   const overallConfidenceWeight = categories.reduce((sum, category) => sum + category.confidenceWeight * category.total, 0) /
     categories.reduce((sum, category) => sum + category.total, 0);
@@ -341,8 +393,9 @@ function capabilityModel(snapshot, defaults) {
   const reportEnd = Date.parse(`${curve.at(-1).date}T00:00:00Z`);
   const capabilityAt = (timestamp, scenarioCurrent = currentScore, scenarioH50Acceleration = h50Acceleration) => {
     const horizon = modelHorizonAt(timestamp, curve);
-    const baseline = timestamp <= reportEnd ? interpolateCurve(timestamp, curve, 'score') : compositeAtHorizon(horizon, h50Acceleration);
-    const accelerationAdjustment = compositeAtHorizon(horizon, scenarioH50Acceleration) - compositeAtHorizon(horizon, h50Acceleration);
+    const adjustedHorizon = horizon + economicFrontierLeadQuarters;
+    const baseline = timestamp <= reportEnd ? interpolateCurve(timestamp, curve, 'score') : compositeAtHorizon(adjustedHorizon, h50Acceleration);
+    const accelerationAdjustment = compositeAtHorizon(adjustedHorizon, scenarioH50Acceleration) - compositeAtHorizon(adjustedHorizon, h50Acceleration);
     return clamp(baseline + accelerationAdjustment + scenarioCurrent - currentScore, 0, 0.99);
   };
 
@@ -352,6 +405,7 @@ function capabilityModel(snapshot, defaults) {
     categories,
     overallSeries,
     curve,
+    observedCurrentScore,
     currentScore,
     currentGpa,
     currentGrade: grade(currentScore).letter,
@@ -369,6 +423,7 @@ function capabilityModel(snapshot, defaults) {
     h80Acceleration,
     transferCoefficient,
     economicAcceleration,
+    frontierShock,
     capabilityAt,
     compositeAtHorizon,
     reportEnd,

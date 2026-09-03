@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const SNAPSHOT_PATTERN = /^snapshot-(\d{8})$/;
+const SNAPSHOT_PATTERN = /^snapshot-(\d{8})(?:-(\d+))?$/;
 
 async function readJson(file) {
   return JSON.parse(await fs.readFile(file, 'utf8'));
@@ -11,12 +11,17 @@ export async function listSnapshotDirectories(dataRoot) {
   const entries = await fs.readdir(dataRoot, { withFileTypes: true });
   return entries
     .filter((entry) => entry.isDirectory() && SNAPSHOT_PATTERN.test(entry.name))
-    .map((entry) => ({
-      name: entry.name,
-      id: entry.name.match(SNAPSHOT_PATTERN)[1],
-      path: path.join(dataRoot, entry.name),
-    }))
-    .sort((a, b) => a.id.localeCompare(b.id));
+    .map((entry) => {
+      const match = entry.name.match(SNAPSHOT_PATTERN);
+      return {
+        name: entry.name,
+        id: entry.name.slice('snapshot-'.length),
+        dateId: match[1],
+        sequence: Number(match[2] ?? 1),
+        path: path.join(dataRoot, entry.name),
+      };
+    })
+    .sort((a, b) => a.dateId.localeCompare(b.dateId) || a.sequence - b.sequence);
 }
 
 export async function loadSnapshot(snapshotDirectory) {
@@ -45,7 +50,7 @@ export async function loadSnapshot(snapshotDirectory) {
   }
 
   return {
-    id: path.basename(snapshotDirectory).match(SNAPSHOT_PATTERN)?.[1] ?? null,
+    id: path.basename(snapshotDirectory).replace(/^snapshot-/, ''),
     directory: snapshotDirectory,
     manifest,
     gates,
@@ -55,7 +60,7 @@ export async function loadSnapshot(snapshotDirectory) {
 
 export async function loadLatestSnapshot(dataRoot) {
   const snapshots = await listSnapshotDirectories(dataRoot);
-  if (!snapshots.length) throw new Error(`No snapshot-YYYYMMDD directories found under ${dataRoot}`);
+  if (!snapshots.length) throw new Error(`No snapshot-YYYYMMDD[-N] directories found under ${dataRoot}`);
   return loadSnapshot(snapshots.at(-1).path);
 }
 

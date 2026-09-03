@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-codex-reach-observation-2",
+    "title": "Codex reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-codex-reach-observation-2",
+        "publisher": "openai.com",
+        "title": "Codex reach observation",
+        "url": "https://openai.com/index/the-next-phase-of-education-for-countries/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0008",
+          "metric": "Source observation",
+          "value": 4000000,
+          "unit": "weekly users",
+          "displayValue": "4,000,000 weekly users",
+          "subject": "global",
+          "observationDate": "2026-05-20",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0008",
+          "caveat": "Selected early agent population"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "adoptobs_0008",
+              "seriesId": "adopt_codex_reach",
+              "observationDate": "2026-05-20",
+              "value": 4000000,
+              "unit": "weekly users",
+              "scope": "global",
+              "comparabilityNote": "Selected early agent population",
+              "sourceId": "gate1-openai-com-codex-reach-observation-2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

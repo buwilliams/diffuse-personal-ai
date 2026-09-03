@@ -67,9 +67,9 @@ a { color: inherit; }
 .gate-name { font-size:clamp(18px,2vw,25px); letter-spacing:-.03em; }
 .gate-meter { display:block; height:2px; background:rgba(134,255,209,.13); }
 .gate-meter i { display:block; height:100%; background:var(--mint); box-shadow:0 0 10px var(--mint); }
-.gate-stats { display:flex; align-items:baseline; gap:10px; }
+.gate-stats { display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; }
 .gate-stats b { font:500 18px/1 var(--font-geist-mono),monospace; }
-.gate-stats em { color:var(--muted); font:normal 10px/1 var(--font-geist-mono),monospace; }
+.gate-stats em { color:var(--muted); font:normal 10px/1.4 var(--font-geist-mono),monospace; }
 .open-label { position:absolute; right:28px; top:28px; color:var(--mint); opacity:0; translate:0 5px; transition:.25s; }
 .gate-card:hover .open-label,.gate-card:focus-visible .open-label { opacity:1; translate:0 0; }
 footer { display:flex; justify-content:space-between; margin-top:25px; color:#537068; text-transform:uppercase; letter-spacing:.15em; font:500 8px/1.4 var(--font-geist-mono),monospace; }

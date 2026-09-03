@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-gpt-5-release",
+    "title": "GPT-5 release",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-gpt-5-release",
+        "publisher": "openai.com",
+        "title": "GPT-5 release",
+        "url": "https://openai.com/index/introducing-gpt-5/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "release metadata"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "openai_gpt5_20250807",
+              "entityType": "model",
+              "provider": "OpenAI",
+              "name": "GPT-5",
+              "releaseDate": "2025-08-07",
+              "parentReleaseId": null,
+              "availabilityStage": "general_availability",
+              "availabilityScope": "ChatGPT API and agent products",
+              "sourceId": "gate1-openai-com-gpt-5-release",
+              "notes": "First GPT-5 release represented in the benchmark data"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

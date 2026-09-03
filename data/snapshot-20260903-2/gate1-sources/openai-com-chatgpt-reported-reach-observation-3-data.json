@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-chatgpt-reported-reach-observation-3",
+    "title": "ChatGPT reported reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-chatgpt-reported-reach-observation-3",
+        "publisher": "openai.com",
+        "title": "ChatGPT reported reach observation",
+        "url": "https://openai.com/index/grupo-folha-grupo-uol-partnership/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0003",
+          "metric": "Source observation",
+          "value": 900000000,
+          "unit": "weekly active users",
+          "displayValue": "900,000,000 weekly active users",
+          "subject": "global",
+          "observationDate": "2026-05-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0003",
+          "caveat": "Lower bound; product reporting"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "adoptobs_0003",
+              "seriesId": "adopt_chatgpt_reach",
+              "observationDate": "2026-05-25",
+              "value": 900000000,
+              "unit": "weekly active users",
+              "scope": "global",
+              "comparabilityNote": "Lower bound; product reporting",
+              "sourceId": "gate1-openai-com-chatgpt-reported-reach-observation-3"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

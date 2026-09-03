@@ -3,7 +3,7 @@
 **Measurement window:** 3 September 2025–3 September 2026
 
 **Evidence cutoff:** 3 September 2026
-**Companion data:** the `capability-benchmarks` and `metr-task-horizon` logical datasets in [`gate1-consolidated.json`](../../data/snapshot-20260903/gate1-consolidated.json)
+**Companion data:** the `capability-benchmarks`, `frontier-capability-signals`, and `metr-task-horizon` logical datasets in [`gate1-consolidated.json`](../../data/snapshot-20260903-2/gate1-consolidated.json)
 
 ## Bottom line
 
@@ -20,7 +20,7 @@ For the question “how quickly is model capability advancing?”, **METR's stan
 | Personal authenticated multi-app work, MyPCBench | Apr. 2026 → Jul. 2026 model generations | 45.1% → 55.4% perfect | **+10.3 pp** | GPT-5.6 improves markedly on GPT-5.5, but the comparable canonical 100-step frontier is the older Opus 4.6 system at 58.2%; newer agents are missing. |
 | Broad professional workflows, Agents' Last Exam | Jul. 2026 → Sep. 2026 | GPT-5.6 Sol 53.6% → GPT-6 Astra 59.3% | **+5.7 pp** | Broad work improved, though much more slowly than abstract reasoning. The provider table is supporting evidence, not the original ALE-CLI launch series. |
 | Cross-application automation, AutomationBench public 600-task table | May 2026 → Jul. 2026 releases, observed Sep. 2026 | Claude Opus 4.8 41.0% → Claude Opus 5 50.3% | **+9.3 pp** | Direct forecast input. The live repository rescored Opus 4.8 upward from the 30.33% preserved in the August snapshot, so the new snapshot uses the current coherent table while retaining the old publication as an immutable audit record. |
-| Abstract interactive reasoning, ARC-AGI-3 | Jul. 2026 → Sep. 2026 | GPT-5.6 Sol 7.8% → GPT-6 Astra 99.9% | **+92.1 pp** | A near-saturating vendor result with a general Responses API harness. It is important evidence of a capability shock, but it is not an economic delegation task and is therefore supporting rather than forecast-driving evidence. |
+| Abstract interactive reasoning, ARC-AGI-3 | Jul. 2026 → Sep. 2026 | GPT-5.6 Sol 7.8% → GPT-6 Astra 62.7% on ARC Prize's standard harness / 99.9% with OpenAI's provider adapter | **Large harness-sensitive leap** | ARC Prize independently confirms a major jump and unusually high action efficiency. It helps qualify Astra's overall frontier shock but is not itself converted into a delegation percentage. |
 | Frontier mathematical reasoning, FrontierMath Tier 4 | Sep. 2026 | GPT-6 Astra 98.0% | **Near saturation** | Vendor-reported maximum-at-any-effort result; strong capability evidence, but not a direct economic-delegation outcome. |
 | Offensive cyber capability, ExploitBench | Sep. 2026 | GPT-6 Astra 100.0% | **Saturated** | Capability and safety signal accompanying OpenAI's Critical cyber designation; excluded from the Personal-AI delegation fit. |
 | Economically valuable remote work, RLI Automation Rate | Aug. 2025 → June 2026 | 1.67% → 15.80% | **9.46×; +14.13 pp** | Strong system progress under a fixed task budget, but the projects represent professional freelancers rather than consumer personal tasks. |
@@ -35,7 +35,7 @@ The forecast resolves against **Consumer Delegation Success Rate**: the frequenc
 
 MyPCBench shows what the task environment should resemble: its 184 tasks are adapted from real OpenClaw personal-assistant requests inside one coherent pre-authenticated digital life containing banking, travel, food, email, calendar, messaging, tax, orders, rides, browsing, and files. [MyPCBench](https://github.com/ljang0/MyPCBench)
 
-But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5, Fable 5.1, and GPT-6 Astra are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable history remains in the supporting observations within [`gate1-consolidated.json`](../../data/snapshot-20260903/gate1-consolidated.json).
+But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5, Fable 5.1, and GPT-6 Astra are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable history remains in the supporting observations within [`gate1-consolidated.json`](../../data/snapshot-20260903-2/gate1-consolidated.json).
 
 ## 1. What counts as a time series
 
@@ -137,7 +137,7 @@ An absence of history is itself informative. The evaluation ecosystem is repeate
 
 ## 6. How this enters the adoption forecast
 
-The forecast's causal assumption is that adoption rises with **effective end-to-end capability**, after a lag. Consumer Delegation Success Rate is the resolution outcome, but it is not currently observed. Interpret the proxy evidence through the following latent construct:
+The forecast's causal assumption is that adoption rises with **effective end-to-end capability**, after a lag. Consumer Delegation Success Rate is the resolution outcome, but it is not currently observed. Astra requires the model to distinguish two questions: the direct economic basket estimates the delegation level, while independently corroborated, cross-domain frontier jumps can advance the trajectory. Epoch's record ECI result, its domain-suite records, ARC Prize's standard/provider and action-efficiency results, and OpenAI's broader release portfolio jointly qualify Astra; ARC-AGI-3 alone does not. Interpret the proxy evidence through the following latent construct:
 
 > effective capability = coverage × full completion × affordability × recoverability × personal fit
 
@@ -165,7 +165,7 @@ Maintain four outputs:
 
 Re-estimate a slope only after at least three comparable release points or two independent repeats. Do not change the delegation forecast from a single benchmark maximum, partial score, model announcement, or community result on a different evaluation track.
 
-Operationally, new results are added to the relevant source file under a new snapshot's `gate1-sources/` directory. Source fragments target the `capability-benchmarks`, `metr-task-horizon`, or `adoption` logical dataset, and the consolidator preserves those distinctions inside `gate1-consolidated.json`. This prevents a product rollout from being mistaken for a benchmark gain. The complete relationships and update rules are in the [forecast data structure](05-data-structure.md).
+Operationally, new results are added to the relevant source file under a new snapshot's `gate1-sources/` directory. Source fragments target the `capability-benchmarks`, `frontier-capability-signals`, `metr-task-horizon`, or `adoption` logical dataset, and the consolidator preserves those distinctions inside `gate1-consolidated.json`. This prevents a product rollout from being mistaken for a benchmark gain while allowing a qualified broad capability shock to influence the trajectory. The complete relationships and update rules are in the [forecast data structure](05-data-structure.md).
 
 ## 7. Forecast-relevant interpretation
 

@@ -90,6 +90,26 @@ The aggregate bridge from task horizon to economically valuable work is explicit
 
 This preserves the economic benchmark suite's observed current velocity while importing METR's evidence about whether capability progress itself is speeding up. The transfer is a causal conjecture and a direct refutation target; it is not identified by the current benchmark sample.
 
+### Independently corroborated frontier-capability shocks
+
+The direct economic benchmark basket remains the authority for the observed delegation level. It is no longer the only way that a major model release can affect the trajectory. A broad frontier signal qualifies when all of the following are present:
+
+- an independent aggregate capability measurement with an explicit previous-frontier comparison;
+- results from at least two independent publishers; and
+- corroboration spanning at least three capability domains.
+
+For GPT-6 Astra, Epoch reports an ECI point estimate of **169** (90% interval **165–174**), up **6 points** from the rounded prior best of **163**. Epoch's reasoning-model frontier trend is **14 ECI points/year**. ARC Prize independently reports **62.7%** on its standard ARC-AGI-3 harness, **99.9%** through OpenAI's provider adapter, fewer actions than the median human on **96.0%** of levels, and **51.7% fewer actions on average**. Epoch also reports new records across its math, continual-learning, and game-puzzle suites. Together with OpenAI's cross-domain release portfolio, this qualifies Astra as a model-level capability shock; ARC-AGI-3 is corroboration, not the definition of the shock.
+
+The model converts the independent aggregate gain into a broad time lead, then applies the already-visible economic transfer coefficient:
+
+> `broad frontier lead = (ECI gain ÷ reasoning-frontier ECI points/year) × 4 quarters/year`
+>
+> `economic frontier lead = broad frontier lead × τ`
+
+For Astra, the broad lead is **1.7143 quarters**. With `τ = 0.221460`, the one-time economic-equivalent lead is **0.379646 quarters**. Each economic benchmark retains its observed score and family velocity; the live capability state projects that benchmark forward by the economic-equivalent lead. Thus the model takes the overall capability advance seriously without treating ECI, ARC-AGI-3, math, cyber, or any other general benchmark as if it were a Personal-AI delegation percentage.
+
+The unadjusted direct-basket composite remains **46.1414%**. The frontier-adjusted live composite is **48.3651%**. The daily capability crossing moves from **4 December 2027** to **30 October 2027**. Gate 2 then becomes limiting on **2 November 2027**, which moves the joint countdown from **4 December 2027** to **2 November 2027**.
+
 ### Capability projection
 
 The forecast makes recursive progress explicit:
@@ -100,7 +120,9 @@ The forecast makes recursive progress explicit:
 >
 > `Δd_f(h) = v_f × (exp(k_eff h) − 1) / k_eff`
 >
-> `d_b(h) = d_b,now + max(0, Δd_f(h))`, for benchmark `b` in family `f`
+> `d_b(h) = d_b,observed + max(0, Δd_f(h + L_econ))`, for benchmark `b` in family `f`
+
+Here `L_econ` is zero unless a frontier shock qualifies under the rule above. It is a one-time lead, not a permanent increase in the growth rate.
 
 When `k_eff = 0`, use the limit `Δd_f(h) = v_f × h`. Positive `k_eff` means progress increases the rate of future progress. This produces super-exponential failure-gap closure after converting depth back to a score while preserving differences among benchmark families.
 

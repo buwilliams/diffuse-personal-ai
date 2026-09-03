@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-privacy-anthropic-com-anthropic-computer-use-privacy-and-openai-controls",
+    "title": "Anthropic computer-use privacy and OpenAI controls",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-privacy-anthropic-com-anthropic-computer-use-privacy-and-openai-controls",
+        "publisher": "privacy.anthropic.com",
+        "title": "Anthropic computer-use privacy and OpenAI controls",
+        "url": "https://privacy.anthropic.com/en/articles/10030352-what-personal-data-will-be-processed-by-computer-use",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 31,
+            "record": {
+              "id": "C32",
+              "layer": "Control",
+              "capability": "Privacy and data boundaries",
+              "userValue": "Allows personalization without uncontrolled exposure",
+              "computerUseRole": "Separates trusted context apps users and retention scopes",
+              "operationalMetric": "Unauthorized access disclosure and retention violations",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "Anthropic computer-use privacy and OpenAI controls",
+              "sourceId": "gate1-privacy-anthropic-com-anthropic-computer-use-privacy-and-openai-controls"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

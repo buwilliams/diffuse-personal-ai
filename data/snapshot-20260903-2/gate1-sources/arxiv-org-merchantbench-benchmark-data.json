@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-merchantbench-benchmark",
+    "title": "MerchantBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-merchantbench-benchmark",
+        "publisher": "arxiv.org",
+        "title": "MerchantBench benchmark",
+        "url": "https://arxiv.org/abs/2607.28956",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-010",
+          "metric": "Best LLM mean final net assets / human mean",
+          "value": 0.273,
+          "unit": "proportion",
+          "displayValue": "27.3%",
+          "subject": "Qwen3.7-Max + Hermes",
+          "observationDate": "2026-08-04",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.273,
+          "normalization": "Use the authors' reported 27.3% human-relative ratio",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-010",
+          "caveat": "Authors' reported ratio; three LLM runs per configuration and three non-expert human participants."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "DES-07",
+              "category": "Direct economic stewardship",
+              "name": "MerchantBench",
+              "metric": "Best LLM mean final net assets / human-participant mean",
+              "normalization": "Use the authors' reported 27.3% human-relative ratio",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q3",
+              "sourceId": "gate1-arxiv-org-merchantbench-benchmark",
+              "notes": "Three runs per model-framework pairing; human reference is three non-expert participants."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 9,
+            "record": {
+              "id": "forecast-observation-010",
+              "benchmarkId": "DES-07",
+              "releaseDate": "2026-08-04",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.273,
+              "systemHarness": "Qwen3.7-Max + Hermes",
+              "scoreBasis": "Best LLM mean final net assets / human mean",
+              "sourceId": "gate1-arxiv-org-merchantbench-benchmark",
+              "notes": "Authors' reported ratio; three LLM runs per configuration and three non-expert human participants."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

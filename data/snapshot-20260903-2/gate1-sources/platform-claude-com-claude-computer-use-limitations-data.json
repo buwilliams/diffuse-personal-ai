@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-platform-claude-com-claude-computer-use-limitations",
+    "title": "Claude computer-use limitations",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-platform-claude-com-claude-computer-use-limitations",
+        "publisher": "platform.claude.com",
+        "title": "Claude computer-use limitations",
+        "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 13,
+            "record": {
+              "id": "C14",
+              "layer": "Execute",
+              "capability": "Scrolling windows and navigation",
+              "userValue": "Finds content outside the current view",
+              "computerUseRole": "Manages focus tabs windows menus and scroll state",
+              "operationalMetric": "Navigation success under long pages and multiple windows",
+              "currentState": "Uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "Claude computer-use limitations",
+              "sourceId": "gate1-platform-claude-com-claude-computer-use-limitations"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

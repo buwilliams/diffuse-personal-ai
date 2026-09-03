@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "id": "gate1-arcprize-org-gpt-6-astra",
+    "title": "ARC Prize GPT-6 Astra evaluation",
+    "description": "Independent ARC-AGI-3 standard-harness, provider-adapter, and action-efficiency evaluation of GPT-6 Astra.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arcprize-org-gpt-6-astra",
+        "publisher": "ARC Prize Foundation",
+        "title": "GPT-6 Astra on ARC-AGI-3",
+        "url": "https://arcprize.org/blog/astra",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "independent benchmark evaluation",
+          "agentic reasoning evidence",
+          "cross-domain corroboration"
+        ],
+        "notes": "ARC Prize separately reports a standard harness and OpenAI's provider adapter, plus human-normalized action efficiency."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Keep standard and provider-adapter harnesses separate; do not treat either percentage as a Personal-AI delegation rate."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "supporting-input",
+      "summary": "4 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 4,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-057",
+          "metric": "ARC-AGI-3 score",
+          "value": 62.7,
+          "unit": "percent",
+          "displayValue": "62.7%",
+          "subject": "GPT-6 Astra · ARC Prize standard harness",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-057",
+          "caveat": "Independent standard-harness result at maximum effort; reported evaluation cost was $26,098. Kept separate from the provider-adapter result."
+        },
+        {
+          "id": "research-evidence.observations.evidence-058",
+          "metric": "ARC-AGI-3 score",
+          "value": 99.9,
+          "unit": "percent",
+          "displayValue": "99.9%",
+          "subject": "GPT-6 Astra · OpenAI provider adapter",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-058",
+          "caveat": "Independent benchmark-operator result using OpenAI's provider adapter with persisted opaque reasoning and compaction; reported evaluation cost was $18,817. Not a direct delegation percentage."
+        },
+        {
+          "id": "research-evidence.observations.evidence-059",
+          "metric": "ARC-AGI-3 levels using fewer actions than median human",
+          "value": 96,
+          "unit": "percent",
+          "displayValue": "96%",
+          "subject": "GPT-6 Astra · OpenAI provider adapter",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-059",
+          "caveat": "ARC Prize's action-efficiency comparison across evaluated levels; it supports model-level planning efficiency but does not measure household delegation directly."
+        },
+        {
+          "id": "research-evidence.observations.evidence-060",
+          "metric": "Mean action reduction versus median human",
+          "value": 51.7,
+          "unit": "percent",
+          "displayValue": "51.7%",
+          "subject": "GPT-6 Astra · OpenAI provider adapter",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-060",
+          "caveat": "Average action reduction reported by ARC Prize. It is a mechanistic efficiency signal, not a direct economic completion score."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "corroboratingSignals",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "corroboration_arcprize_astra",
+              "model": "GPT-6 Astra",
+              "publisher": "ARC Prize Foundation",
+              "publisherClass": "independent benchmark operator",
+              "capabilityDomains": [
+                "interactive abstract reasoning",
+                "exploration",
+                "world-model formation",
+                "planning",
+                "action efficiency"
+              ],
+              "summary": "Astra scored 62.7% on ARC Prize's standard harness and 99.9% with the provider adapter, while using fewer actions than the median human on 96.0% of levels.",
+              "sourceId": "gate1-arcprize-org-gpt-6-astra"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 56,
+            "record": {
+              "id": "evidence-057",
+              "category": "Interactive abstract reasoning",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra · ARC Prize standard harness",
+              "metric": "ARC-AGI-3 score",
+              "value": 62.7,
+              "unit": "percent",
+              "caveat": "Independent standard-harness result at maximum effort; reported evaluation cost was $26,098. Kept separate from the provider-adapter result.",
+              "sourceId": "gate1-arcprize-org-gpt-6-astra"
+            }
+          },
+          {
+            "order": 57,
+            "record": {
+              "id": "evidence-058",
+              "category": "Interactive abstract reasoning",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra · OpenAI provider adapter",
+              "metric": "ARC-AGI-3 score",
+              "value": 99.9,
+              "unit": "percent",
+              "caveat": "Independent benchmark-operator result using OpenAI's provider adapter with persisted opaque reasoning and compaction; reported evaluation cost was $18,817. Not a direct delegation percentage.",
+              "sourceId": "gate1-arcprize-org-gpt-6-astra"
+            }
+          },
+          {
+            "order": 58,
+            "record": {
+              "id": "evidence-059",
+              "category": "Agentic efficiency",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra · OpenAI provider adapter",
+              "metric": "ARC-AGI-3 levels using fewer actions than median human",
+              "value": 96,
+              "unit": "percent",
+              "caveat": "ARC Prize's action-efficiency comparison across evaluated levels; it supports model-level planning efficiency but does not measure household delegation directly.",
+              "sourceId": "gate1-arcprize-org-gpt-6-astra"
+            }
+          },
+          {
+            "order": 59,
+            "record": {
+              "id": "evidence-060",
+              "category": "Agentic efficiency",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra · OpenAI provider adapter",
+              "metric": "Mean action reduction versus median human",
+              "value": 51.7,
+              "unit": "percent",
+              "caveat": "Average action reduction reported by ARC Prize. It is a mechanistic efficiency signal, not a direct economic completion score.",
+              "sourceId": "gate1-arcprize-org-gpt-6-astra"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

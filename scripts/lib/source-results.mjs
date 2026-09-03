@@ -171,6 +171,46 @@ export function buildSourceResults(envelope, manifest) {
           sourceRecord: path,
           caveat: record.comparabilityNote ?? null,
         }));
+      } else if (collectionId === 'frontier-capability-signals.observations' && typeof record.eciScore === 'number') {
+        measurements.push(measurement({
+          id: `${path}.eciScore`,
+          metric: record.metric ?? 'Independent frontier capability index',
+          value: record.eciScore,
+          unit: 'index points',
+          subject: record.model ?? null,
+          observationDate: record.releaseDate ?? null,
+          origin: 'source-reported',
+          usedInCountdown: true,
+          sourceRecord: `${path}.eciScore`,
+          caveat: record.notes ?? null,
+        }));
+        if (typeof record.pointGain === 'number') {
+          measurements.push(measurement({
+            id: `${path}.pointGain`,
+            metric: 'Frontier capability index gain',
+            value: record.pointGain,
+            unit: 'index points',
+            subject: record.model ?? null,
+            observationDate: record.releaseDate ?? null,
+            origin: 'derived-from-source',
+            usedInCountdown: true,
+            sourceRecord: `${path}.pointGain`,
+            caveat: `Difference between ${record.eciScore} and the ${record.priorFrontierScore} comparison anchor.`,
+          }));
+        }
+      } else if (collectionId === 'frontier-capability-signals.trend' && typeof record.annualPointsPerYear === 'number') {
+        measurements.push(measurement({
+          id: `${path}.annualPointsPerYear`,
+          metric: 'Reasoning-model frontier ECI trend',
+          value: record.annualPointsPerYear,
+          unit: record.unit ?? 'index points per year',
+          subject: record.series ?? null,
+          observationDate: record.metricDate ?? null,
+          origin: 'source-reported',
+          usedInCountdown: true,
+          sourceRecord: `${path}.annualPointsPerYear`,
+          caveat: record.notes ?? null,
+        }));
       } else if (collectionId === 'compute-capacity.inferenceProductivityObservations' &&
         typeof record.performanceTokensPerSecond === 'number' && typeof record.systemPowerWatts === 'number') {
         measurements.push(measurement({

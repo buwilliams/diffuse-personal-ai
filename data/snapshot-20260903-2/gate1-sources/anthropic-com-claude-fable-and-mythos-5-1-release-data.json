@@ -1,0 +1,216 @@
+{
+  "metadata": {
+    "id": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release",
+    "title": "Claude Fable 5.1 and Mythos 5.1 release",
+    "description": "Anthropic release metadata and supporting work, computer-use, and professional benchmark results for Claude Fable 5.1 and Mythos 5.1.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release",
+        "publisher": "Anthropic",
+        "title": "Claude Fable 5.1 and Mythos 5.1",
+        "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "release metadata",
+          "supporting benchmark evidence",
+          "computer-use evidence",
+          "professional-work evidence"
+        ],
+        "notes": "Anthropic describes Fable 5.1 and Mythos 5.1 as the same underlying model with different safeguards. Fable 5.1 was evaluated with production safeguards enabled."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Added for the 2026-09-03 immutable snapshot. Vendor tables remain supporting evidence unless they match a pinned forecast series."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "4 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 4,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-047",
+          "metric": "AutomationBench vendor evaluation",
+          "value": 31.4,
+          "unit": "percent",
+          "displayValue": "31.4%",
+          "subject": "Claude Fable 5.1",
+          "observationDate": "2026-09-01",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-047",
+          "caveat": "Anthropic vendor result with production safeguards enabled. Retained as supporting evidence because the forecast pins AutomationBench's public 600-task table, which is distinct from the held-out official leaderboard."
+        },
+        {
+          "id": "research-evidence.observations.evidence-048",
+          "metric": "OSWorld 2.0 partial score",
+          "value": 77.9,
+          "unit": "percent",
+          "displayValue": "77.9%",
+          "subject": "Claude Fable 5.1",
+          "observationDate": "2026-09-01",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-048",
+          "caveat": "Anthropic vendor result with production safeguards enabled. Partial scoring is not comparable with strict full completion or the older OSWorld-Verified series."
+        },
+        {
+          "id": "research-evidence.observations.evidence-049",
+          "metric": "OSWorld 2.0 strict completion",
+          "value": 41.7,
+          "unit": "percent",
+          "displayValue": "41.7%",
+          "subject": "Claude Fable 5.1",
+          "observationDate": "2026-09-01",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-049",
+          "caveat": "Anthropic vendor result with production safeguards enabled. Keep separate from the 77.9% partial score and from differently budgeted OSWorld configurations."
+        },
+        {
+          "id": "research-evidence.observations.evidence-050",
+          "metric": "GDPval-AA v2 Elo",
+          "value": 1853,
+          "unit": "Elo",
+          "displayValue": "1,853 Elo",
+          "subject": "Claude Fable 5.1",
+          "observationDate": "2026-09-01",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-050",
+          "caveat": "Vendor-reported Elo. It remains ungraded because the forecast contract forbids rescaling a leaderboard without a fixed reference opponent or stable win-rate transformation."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 16,
+            "record": {
+              "id": "anthropic_fable51_20260901",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Fable 5.1",
+              "releaseDate": "2026-09-01",
+              "parentReleaseId": "anthropic_fable5_20260609",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Claude products and API",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release",
+              "notes": "Generally available configuration with production safeguards enabled."
+            }
+          },
+          {
+            "order": 17,
+            "record": {
+              "id": "anthropic_mythos51_20260901",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Mythos 5.1",
+              "releaseDate": "2026-09-01",
+              "parentReleaseId": "anthropic_fable51_20260901",
+              "availabilityStage": "trusted_access",
+              "availabilityScope": "Anthropic cybersecurity and life-sciences trusted access programs",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release",
+              "notes": "Same underlying model as Fable 5.1 with more permissive domain safeguards for vetted users."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 46,
+            "record": {
+              "id": "evidence-047",
+              "category": "Business workflows",
+              "metricDate": "2026-09-01",
+              "entity": "Claude Fable 5.1",
+              "metric": "AutomationBench vendor evaluation",
+              "value": 31.4,
+              "unit": "percent",
+              "caveat": "Anthropic vendor result with production safeguards enabled. Retained as supporting evidence because the forecast pins AutomationBench's public 600-task table, which is distinct from the held-out official leaderboard.",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release"
+            }
+          },
+          {
+            "order": 47,
+            "record": {
+              "id": "evidence-048",
+              "category": "Computer use",
+              "metricDate": "2026-09-01",
+              "entity": "Claude Fable 5.1",
+              "metric": "OSWorld 2.0 partial score",
+              "value": 77.9,
+              "unit": "percent",
+              "caveat": "Anthropic vendor result with production safeguards enabled. Partial scoring is not comparable with strict full completion or the older OSWorld-Verified series.",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release"
+            }
+          },
+          {
+            "order": 48,
+            "record": {
+              "id": "evidence-049",
+              "category": "Computer use",
+              "metricDate": "2026-09-01",
+              "entity": "Claude Fable 5.1",
+              "metric": "OSWorld 2.0 strict completion",
+              "value": 41.7,
+              "unit": "percent",
+              "caveat": "Anthropic vendor result with production safeguards enabled. Keep separate from the 77.9% partial score and from differently budgeted OSWorld configurations.",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release"
+            }
+          },
+          {
+            "order": 49,
+            "record": {
+              "id": "evidence-050",
+              "category": "Professional capability",
+              "metricDate": "2026-09-01",
+              "entity": "Claude Fable 5.1",
+              "metric": "GDPval-AA v2 Elo",
+              "value": 1853,
+              "unit": "Elo",
+              "caveat": "Vendor-reported Elo. It remains ungraded because the forecast contract forbids rescaling a leaderboard without a fixed reference opponent or stable win-rate transformation.",
+              "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

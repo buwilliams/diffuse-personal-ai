@@ -1,0 +1,565 @@
+{
+  "metadata": {
+    "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+    "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+    "description": "Quantitative global build-rate, geography, performance-per-watt, and frontier-lab allocation estimates retained as Gate 2 supporting evidence.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+        "publisher": "Dwarkesh Podcast",
+        "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+        "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capacity outlook",
+          "allocation cross-check",
+          "supply constraint context"
+        ],
+        "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted transcript extraction and normalization with human review",
+      "notes": "Refresh from the official transcript in a new dated snapshot. Preserve ranges as separate lower and upper records and do not convert watts to H100e without a documented hardware and geography bridge."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "supporting-input",
+      "summary": "15 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 15,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2026",
+          "metric": "Global incremental AI-compute capacity",
+          "value": 30,
+          "unit": "GW",
+          "displayValue": "30 GW",
+          "subject": "Global additions in 2026",
+          "observationDate": "2026-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "05:54",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2026",
+          "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2027",
+          "metric": "Global incremental AI-compute capacity",
+          "value": 50,
+          "unit": "GW",
+          "displayValue": "50 GW",
+          "subject": "Global additions in 2027",
+          "observationDate": "2027-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "05:54",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2027",
+          "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2028",
+          "metric": "Global incremental AI-compute capacity",
+          "value": 70,
+          "unit": "GW",
+          "displayValue": "70 GW",
+          "subject": "Global additions in 2028",
+          "observationDate": "2028-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "05:54",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2028",
+          "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2029-lower",
+          "metric": "Global incremental AI-compute capacity",
+          "value": 90,
+          "unit": "GW",
+          "displayValue": "90 GW",
+          "subject": "Global additions in 2029",
+          "observationDate": "2029-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "33:45",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2029-lower",
+          "caveat": "Lower bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2029-upper",
+          "metric": "Global incremental AI-compute capacity",
+          "value": 100,
+          "unit": "GW",
+          "displayValue": "100 GW",
+          "subject": "Global additions in 2029",
+          "observationDate": "2029-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "33:45",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-incremental-ai-compute-2029-upper",
+          "caveat": "Upper bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.global-ai-compute-stock-2028-lower",
+          "metric": "Global AI-compute capacity stock",
+          "value": 200,
+          "unit": "GW",
+          "displayValue": "200 GW",
+          "subject": "Global stock by end of 2028",
+          "observationDate": "2028-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "33:32",
+          "sourceRecord": "compute-capacity.supportingEvidence.global-ai-compute-stock-2028-lower",
+          "caveat": "Interview cross-check derived from the preceding annual additions; hardware generations and usable performance are heterogeneous."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.us-share-new-ai-compute-watts-2026",
+          "metric": "U.S. share of new AI-compute watts",
+          "value": 0.7,
+          "unit": "proportion",
+          "displayValue": "70%",
+          "subject": "Current new deployments",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "34:58",
+          "sourceRecord": "compute-capacity.supportingEvidence.us-share-new-ai-compute-watts-2026",
+          "caveat": "Share of new watts, not share of installed H100-equivalent capacity; the denominator and site-coverage rule differ from Epoch."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2026",
+          "metric": "OpenAI and Anthropic share of incremental compute",
+          "value": 0.3,
+          "unit": "proportion",
+          "displayValue": "30%",
+          "subject": "Global additions in 2026",
+          "observationDate": "2026-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "04:06",
+          "sourceRecord": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2026",
+          "caveat": "Frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2027-lower",
+          "metric": "OpenAI and Anthropic share of incremental compute",
+          "value": 0.4,
+          "unit": "proportion",
+          "displayValue": "40%",
+          "subject": "Global additions in 2027",
+          "observationDate": "2027-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "04:15",
+          "sourceRecord": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2027-lower",
+          "caveat": "Lower bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2027-upper",
+          "metric": "OpenAI and Anthropic share of incremental compute",
+          "value": 0.5,
+          "unit": "proportion",
+          "displayValue": "50%",
+          "subject": "Global additions in 2027",
+          "observationDate": "2027-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "04:15",
+          "sourceRecord": "compute-capacity.supportingEvidence.openai-anthropic-share-incremental-compute-2027-upper",
+          "caveat": "Upper bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.frontier-lab-inference-allocation-2026",
+          "metric": "Frontier-lab compute allocated to inference",
+          "value": 0.4,
+          "unit": "proportion",
+          "displayValue": "40%",
+          "subject": "Current OpenAI and Anthropic compute budget",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "40:58",
+          "sourceRecord": "compute-capacity.supportingEvidence.frontier-lab-inference-allocation-2026",
+          "caveat": "Lab-budget estimate, not a U.S.-fleet measurement and not the model's editable share of inference capacity allocated to personal AI."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.frontier-lab-research-allocation-2026",
+          "metric": "Frontier-lab compute allocated to research",
+          "value": 0.5,
+          "unit": "proportion",
+          "displayValue": "50%",
+          "subject": "Current OpenAI and Anthropic compute budget",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "40:58",
+          "sourceRecord": "compute-capacity.supportingEvidence.frontier-lab-research-allocation-2026",
+          "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.frontier-lab-development-allocation-2026",
+          "metric": "Frontier-lab compute allocated to development",
+          "value": 0.1,
+          "unit": "proportion",
+          "displayValue": "10%",
+          "subject": "Current OpenAI and Anthropic compute budget",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "40:58",
+          "sourceRecord": "compute-capacity.supportingEvidence.frontier-lab-development-allocation-2026",
+          "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.new-chip-performance-per-watt-uplift-lower",
+          "metric": "New-chip performance-per-watt uplift",
+          "value": 3,
+          "unit": "multiplier",
+          "displayValue": "3 multiplier",
+          "subject": "New chips versus chips deployed two years earlier",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "06:20",
+          "sourceRecord": "compute-capacity.supportingEvidence.new-chip-performance-per-watt-uplift-lower",
+          "caveat": "Lower bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+        },
+        {
+          "id": "compute-capacity.supportingEvidence.new-chip-performance-per-watt-uplift-upper",
+          "metric": "New-chip performance-per-watt uplift",
+          "value": 5,
+          "unit": "multiplier",
+          "displayValue": "5 multiplier",
+          "subject": "New chips versus chips deployed two years earlier",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "06:20",
+          "sourceRecord": "compute-capacity.supportingEvidence.new-chip-performance-per-watt-uplift-upper",
+          "caveat": "Upper bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "supportingEvidence",
+        "kind": "records",
+        "order": 20,
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "global-incremental-ai-compute-2026",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 30,
+              "unit": "GW",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 30 GW in 2026.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "global-incremental-ai-compute-2027",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 50,
+              "unit": "GW",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 50 GW in 2027.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "global-incremental-ai-compute-2028",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 70,
+              "unit": "GW",
+              "scope": "Global additions in 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds roughly 70 GW in 2028.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "global-incremental-ai-compute-2029-lower",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 90,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Lower bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "global-incremental-ai-compute-2029-upper",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 100,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Upper bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            }
+          },
+          {
+            "order": 6,
+            "record": {
+              "id": "global-ai-compute-stock-2028-lower",
+              "metric": "Global AI-compute capacity stock",
+              "value": 200,
+              "unit": "GW",
+              "scope": "Global stock by end of 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:32",
+              "claim": "Global AI-compute capacity would exceed 200 GW by the end of 2028.",
+              "caveat": "Interview cross-check derived from the preceding annual additions; hardware generations and usable performance are heterogeneous."
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "us-share-new-ai-compute-watts-2026",
+              "metric": "U.S. share of new AI-compute watts",
+              "value": 0.7,
+              "unit": "proportion",
+              "scope": "Current new deployments",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "34:58",
+              "claim": "About 70% of watts currently being deployed for AI compute are in the United States.",
+              "caveat": "Share of new watts, not share of installed H100-equivalent capacity; the denominator and site-coverage rule differ from Epoch."
+            }
+          },
+          {
+            "order": 8,
+            "record": {
+              "id": "openai-anthropic-share-incremental-compute-2026",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.3,
+              "unit": "proportion",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:06",
+              "claim": "OpenAI and Anthropic account for about 30% of incremental compute added in 2026.",
+              "caveat": "Frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "id": "openai-anthropic-share-incremental-compute-2027-lower",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Lower bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            }
+          },
+          {
+            "order": 10,
+            "record": {
+              "id": "openai-anthropic-share-incremental-compute-2027-upper",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Upper bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "id": "frontier-lab-inference-allocation-2026",
+              "metric": "Frontier-lab compute allocated to inference",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 40% of compute to inference.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement and not the model's editable share of inference capacity allocated to personal AI."
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "id": "frontier-lab-research-allocation-2026",
+              "metric": "Frontier-lab compute allocated to research",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 50% of compute to research.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "id": "frontier-lab-development-allocation-2026",
+              "metric": "Frontier-lab compute allocated to development",
+              "value": 0.1,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 10% of compute to development.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "id": "new-chip-performance-per-watt-uplift-lower",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 3,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Lower bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+            }
+          },
+          {
+            "order": 15,
+            "record": {
+              "id": "new-chip-performance-per-watt-uplift-upper",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 5,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Upper bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

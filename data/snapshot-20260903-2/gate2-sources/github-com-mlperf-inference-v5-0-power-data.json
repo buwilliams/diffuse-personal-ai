@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "id": "gate2-github-com-mlperf-inference-v5-0-power",
+    "title": "MLPerf Inference v5.0 power results",
+    "description": "Comparable latency-constrained LLM goodput and full-system power result used as the first point in the Gate 2 inference-productivity trend.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-0-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.0 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted extraction of a prespecified comparable MLPerf power row with human review",
+      "notes": "In a new snapshot, preserve this result and append later matched Llama 2 70B 99.9 Server power results. Do not mix Offline, Interactive, different accuracy targets, or results without measured power into this trend."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "direct-input",
+      "summary": "3 explicit numeric measurement(s); 3 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 3,
+        "assumptions": 0,
+        "directInputs": 3
+      },
+      "measurements": [
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.performanceTokensPerSecond",
+          "metric": "Latency-constrained inference goodput",
+          "value": 16848.6,
+          "unit": "tokens/s",
+          "displayValue": "16,848.6 tokens/s",
+          "subject": "llama2-70b-99.9 · PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+          "observationDate": "2025-04-02",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.performanceTokensPerSecond",
+          "caveat": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.systemPowerWatts",
+          "metric": "Measured system power",
+          "value": 4994.2610980392,
+          "unit": "W",
+          "displayValue": "4,994.261098 W",
+          "subject": "llama2-70b-99.9 · PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+          "observationDate": "2025-04-02",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.systemPowerWatts",
+          "caveat": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.referenceTokenEquivalentsPerItGwDay",
+          "metric": "Reference inference productivity",
+          "value": 204034852803364.94,
+          "unit": "reference token-eq/IT GW-day",
+          "displayValue": "204,034,852,803,364.94 reference token-eq/IT GW-day",
+          "subject": "llama2-70b-99.9 · PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+          "observationDate": "2025-04-02",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-0-llama2-70b-99-9-server-h100.referenceTokenEquivalentsPerItGwDay",
+          "caveat": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "inferenceProductivityObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "mlperf-v5-0-llama2-70b-99-9-server-h100",
+              "release": "MLPerf Inference v5.0",
+              "observationDate": "2025-04-02",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Fujitsu",
+              "system": "PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+              "accelerator": "NVIDIA H100-NVL-94GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 16848.6,
+              "systemPowerWatts": 4994.2610980392,
+              "tokensPerJoule": 3.37359214291278,
+              "referenceTokenEquivalentsPerItGwDay": 204034852803364.94,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.0-0023",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-0-power",
+              "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

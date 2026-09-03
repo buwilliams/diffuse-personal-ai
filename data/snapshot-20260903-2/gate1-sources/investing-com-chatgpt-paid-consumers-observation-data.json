@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-investing-com-chatgpt-paid-consumers-observation",
+    "title": "ChatGPT paid consumers observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-investing-com-chatgpt-paid-consumers-observation",
+        "publisher": "investing.com",
+        "title": "ChatGPT paid consumers observation",
+        "url": "https://www.investing.com/news/stock-market-news/openai-projected-at-least-220-million-people-will-pay-for-chatgpt-by-2030-the-information-reports-4378677",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0005",
+          "metric": "Source observation",
+          "value": 35000000,
+          "unit": "paid users",
+          "displayValue": "35,000,000 paid users",
+          "subject": "global",
+          "observationDate": "2025-07-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0005",
+          "caveat": "Secondary report of internal data; Plus and Pro"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 4,
+            "record": {
+              "id": "adoptobs_0005",
+              "seriesId": "adopt_chatgpt_paid",
+              "observationDate": "2025-07-31",
+              "value": 35000000,
+              "unit": "paid users",
+              "scope": "global",
+              "comparabilityNote": "Secondary report of internal data; Plus and Pro",
+              "sourceId": "gate1-investing-com-chatgpt-paid-consumers-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

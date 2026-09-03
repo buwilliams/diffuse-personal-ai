@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-theagentcompany-benchmark",
+    "title": "TheAgentCompany benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-theagentcompany-benchmark",
+        "publisher": "arxiv.org",
+        "title": "TheAgentCompany benchmark",
+        "url": "https://arxiv.org/abs/2412.14161",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-021",
+          "metric": "Fraction of tasks completed",
+          "value": 0.24,
+          "unit": "proportion",
+          "displayValue": "24%",
+          "subject": "Launch-paper best system",
+          "observationDate": "2024-12-19",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.24,
+          "normalization": "Already a 0–100% completion rate; community harness rows flagged",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-021",
+          "caveat": "Primary-paper baseline."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 11,
+            "record": {
+              "id": "OPS-05",
+              "category": "Operational execution",
+              "name": "TheAgentCompany",
+              "metric": "Fraction of workplace tasks completed",
+              "normalization": "Already a 0–100% completion rate; community harness rows flagged",
+              "status": "Graded",
+              "firstReleaseQuarter": "2024-Q4",
+              "sourceId": "gate1-arxiv-org-theagentcompany-benchmark",
+              "notes": "Later points may include harness changes and should not be read as model-only uplift."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 20,
+            "record": {
+              "id": "forecast-observation-021",
+              "benchmarkId": "OPS-05",
+              "releaseDate": "2024-12-19",
+              "quarter": "2024-Q4",
+              "quarterIndex": 4,
+              "score": 0.24,
+              "systemHarness": "Launch-paper best system",
+              "scoreBasis": "Fraction of tasks completed",
+              "sourceId": "gate1-arxiv-org-theagentcompany-benchmark",
+              "notes": "Primary-paper baseline."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

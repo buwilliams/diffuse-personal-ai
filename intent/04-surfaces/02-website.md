@@ -7,7 +7,7 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 ## Data and calculation contract
 
 - `predev` and `prebuild` deterministically consolidate both gates, then run `scripts/generate_site_snapshot.mjs`.
-- The generator selects the newest valid `data/snapshot-YYYYMMDD/` directory, writes one ignored model bundle, and copies that snapshot to an ignored public `/data/` path for read-only inspection.
+- The generator selects the newest valid `data/snapshot-YYYYMMDD[-N]/` directory by date and same-day sequence, writes one ignored model bundle, and copies that snapshot to an ignored public `/data/` path for read-only inspection.
 - The loader reads only `gate1-consolidated.json` and `gate2-consolidated.json`; individual source files are consolidated before the build.
 - `app/snapshot-model.ts` evaluates that bundle through `model/forecast-model.mjs` once at module load.
 - The countdown, controls, charts, report tables, publication stamp, defaults, and source modal all read that same model or snapshot.
@@ -30,7 +30,7 @@ The site makes one falsifiable forecast legible: the countdown ends when both th
 - The full report modal is the vertical reading surface: headers, assumptions, charts, calculation audit, data-view navigation, and tables scroll together. Data tables use their own overflow only for wide horizontal content, never as a short nested vertical viewport.
 - The footer has separate **Sources** and **Source data** controls.
 - **Sources** opens a provenance modal grouped by gate. It lists every public source, access date, role, affected logical datasets, whether it directly affects the countdown, and a direct link to the original source.
-- **Source data** opens a searchable JSON catalog containing the six logical datasets, manifest, two consolidated gate files, and every source-normalized file, including the Epoch site registry and dated timeline. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
+- **Source data** opens a searchable JSON catalog containing the seven logical datasets, manifest, two consolidated gate files, and every source-normalized file, including the frontier-capability bridge, Epoch site registry, and dated timeline. Selecting an item shows its preparation, transformation pipeline, countdown effect, adjustable assumptions, site-hosted JSON, copy action, and raw-file link.
 - Source URLs are clickable HTTPS links. No `C:\`, `file://`, WSL, or other local path may appear in public output.
 - The site-hosted Geist and Geist Mono web fonts remain the production fonts so numeral metrics are stable across systems.
 

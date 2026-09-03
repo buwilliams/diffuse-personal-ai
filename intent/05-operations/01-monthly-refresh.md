@@ -11,9 +11,9 @@ This is the authoritative operating procedure for updating the Diffuse Personal 
 | Layer | Path | Role |
 |---|---|---|
 | Meaning and rules | `intent/` | Normative source of truth |
-| Source evidence | `data/snapshot-YYYYMMDD/gate[1|2]-sources/[source]-data.json` | One immutable normalized file per public source |
-| Consolidated inputs | `data/snapshot-YYYYMMDD/gate[1|2]-consolidated.json` | Deterministic calculation inputs generated from source files |
-| ETL manifest | `data/snapshot-YYYYMMDD/database.json` | Agent-readable gate, source, dataset, and refresh contract |
+| Source evidence | `data/snapshot-YYYYMMDD[-N]/gate[1|2]-sources/[source]-data.json` | One immutable normalized file per public source |
+| Consolidated inputs | `data/snapshot-YYYYMMDD[-N]/gate[1|2]-consolidated.json` | Deterministic calculation inputs generated from source files |
+| ETL manifest | `data/snapshot-YYYYMMDD[-N]/database.json` | Agent-readable gate, source, dataset, and refresh contract |
 | Consolidator | `scripts/consolidate_snapshot.mjs` | Rebuilds both gate inputs from source fragments |
 | Epoch compute refresh | `scripts/refresh_epoch_compute.mjs` | Fetches the registry and timeline together, reconstructs U.S. quarterly IT power, and writes the source-normalized audit rows |
 | Shared calculations | `model/forecast-model.mjs` | One implementation for capability and compute |
@@ -30,7 +30,7 @@ The repository root owns Git history. The existing Sites project is configured b
 
 ### 1. Set the cutoff and create a snapshot
 
-Choose one evidence cutoff for capability, METR, compute, adoption, and publication. Copy the latest `data/snapshot-YYYYMMDD/` directory to the new date and immediately update:
+Choose one evidence cutoff for capability, METR, compute, adoption, and publication. Copy the latest `data/snapshot-YYYYMMDD[-N]/` directory to the new date and immediately update. Use `-2`, `-3`, and so on when a same-day successor is required; same-day evidence must never overwrite an already published directory.
 
 - every source file's `metadata.snapshotDate`, `metadata.asOfDate`, source access date, and update note;
 - `database.json` description, gate inventory, logical dataset inventory, and record counts;
@@ -50,6 +50,8 @@ For capability, gather benchmarks, leaderboards, and evaluations of model–harn
 4. economic value and governance.
 
 Refresh METR H50 and H80 task-horizon observations and official trend estimates. H50 is the capability-velocity signal; H80 is the reliability guardrail. Preserve release date, model, scaffold, metric, source, confidence interval when available, and measurement-ceiling warnings.
+
+Also test major frontier releases against the frontier-shock contract. Require an independent aggregate comparison, at least two independent publishers, and at least three capability domains. Translate a qualifying aggregate gain through its published frontier trend and the existing economic transfer coefficient. Do not promote any single general benchmark score into the direct delegation basket.
 
 For Gate 2, gather U.S. data-center registries, IT power, facility power, accelerator capacity, operational or expected operating dates, independently measured latency-constrained goodput and full-system power, and allocation evidence. Refresh Epoch's registry and timeline together, then reconstruct quarter cutoffs under a stable U.S. coverage rule. Refresh the matched MLPerf productivity series separately, preserving model, accuracy target, scenario, system power, and service-level constraints. Preserve H100e as an audit-only cross-check. Keep global build-rate, allocation, and financing outlooks as separately labeled supporting evidence when they cannot be reconciled to the U.S. IT-power, productivity, or allocation series without additional assumptions. Prefer primary sources and preserve uncertainty.
 
@@ -88,7 +90,7 @@ Run from the repository root with the bundled Node runtime:
 
 Validation must confirm:
 
-- `data/` tracks only the manifest, two consolidated gate files, and source JSON files under `snapshot-YYYYMMDD/`;
+- `data/` tracks only the manifest, two consolidated gate files, and source JSON files under `snapshot-YYYYMMDD[-N]/`;
 - every file has exactly `metadata` and `data` at its root;
 - every source file represents exactly one source and uses the common fragment schema;
 - every source file has a current `data.results` inventory, and every missing numerical result is labeled rather than guessed;

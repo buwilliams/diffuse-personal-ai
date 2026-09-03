@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-windowsworld-and-saas-bench",
+    "title": "WindowsWorld and SaaS-Bench",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-windowsworld-and-saas-bench",
+        "publisher": "arxiv.org",
+        "title": "WindowsWorld and SaaS-Bench",
+        "url": "https://arxiv.org/abs/2604.27776",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 15,
+            "record": {
+              "id": "C16",
+              "layer": "Execute",
+              "capability": "Cross-application orchestration",
+              "userValue": "Finishes outcomes spread across the user's digital world",
+              "computerUseRole": "Moves information and artifacts through multiple apps",
+              "operationalMetric": "Binary completion by number of applications",
+              "currentState": "Major gap",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "WindowsWorld and SaaS-Bench",
+              "sourceId": "gate1-arxiv-org-windowsworld-and-saas-bench"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

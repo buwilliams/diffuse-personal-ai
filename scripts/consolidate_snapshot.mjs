@@ -15,7 +15,7 @@ async function selectedSnapshotDirectory() {
   const requested = process.argv[2];
   if (requested) return path.resolve(projectRoot, requested);
   const snapshots = await listSnapshotDirectories(dataRoot);
-  if (!snapshots.length) throw new Error('No snapshot-YYYYMMDD directories found');
+  if (!snapshots.length) throw new Error('No snapshot-YYYYMMDD[-N] directories found');
   return snapshots.at(-1).path;
 }
 

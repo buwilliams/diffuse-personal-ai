@@ -1,0 +1,466 @@
+{
+  "metadata": {
+    "id": "gate1-diffuse-personal-ai-gate-1-model-harness-capability-calculation-contract",
+    "title": "Gate 1 · Model–harness capability calculation contract",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-diffuse-personal-ai-gate-1-model-harness-capability-calculation-contract",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 1 · Model–harness capability calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "forecast-assumptions",
+      "countdownRole": "forecast-method",
+      "summary": "Forecast-authored method with 9 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 9,
+        "directInputs": 9
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.model.currentQuarterIndex",
+          "metric": "current Quarter Index",
+          "value": 11,
+          "unit": "value",
+          "displayValue": "11 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.currentQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.firstForecastQuarterIndex",
+          "metric": "first Forecast Quarter Index",
+          "value": 12,
+          "unit": "value",
+          "displayValue": "12 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.firstForecastQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.reportEndQuarterIndex",
+          "metric": "report End Quarter Index",
+          "value": 20,
+          "unit": "value",
+          "displayValue": "20 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.reportEndQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.maximumEvidenceCreditsPerBenchmark",
+          "metric": "maximum Evidence Credits Per Benchmark",
+          "value": 3,
+          "unit": "value",
+          "displayValue": "3 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.maximumEvidenceCreditsPerBenchmark",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.partialPoolingPriorCredits",
+          "metric": "partial Pooling Prior Credits",
+          "value": 3,
+          "unit": "value",
+          "displayValue": "3 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.partialPoolingPriorCredits",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "capability-benchmarks.model.exactOneDepth",
+          "metric": "exact One Depth",
+          "value": 30,
+          "unit": "value",
+          "displayValue": "30 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.model.exactOneDepth",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "frontier-capability-signals.forecastPolicy.minimumIndependentPublishers",
+          "metric": "minimum Independent Publishers",
+          "value": 2,
+          "unit": "value",
+          "displayValue": "2 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.forecastPolicy.minimumIndependentPublishers",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "frontier-capability-signals.forecastPolicy.minimumCapabilityDomains",
+          "metric": "minimum Capability Domains",
+          "value": 3,
+          "unit": "value",
+          "displayValue": "3 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.forecastPolicy.minimumCapabilityDomains",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "frontier-capability-signals.forecastPolicy.quartersPerYear",
+          "metric": "quarters Per Year",
+          "value": 4,
+          "unit": "value",
+          "displayValue": "4 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.forecastPolicy.quartersPerYear",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "categories",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": "Direct economic stewardship"
+          },
+          {
+            "order": 1,
+            "record": "Operational execution"
+          },
+          {
+            "order": 2,
+            "record": "Personal stewardship transfer"
+          },
+          {
+            "order": 3,
+            "record": "Economic value & governance"
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "model",
+        "kind": "value",
+        "value": {
+          "currentQuarterIndex": 11,
+          "firstForecastQuarterIndex": 12,
+          "reportEndQuarterIndex": 20,
+          "maximumEvidenceCreditsPerBenchmark": 3,
+          "partialPoolingPriorCredits": 3,
+          "transform": "failureGapHalvings",
+          "exactOneDepth": 30
+        }
+      },
+      {
+        "datasetId": "metr-task-horizon",
+        "collection": "forecastPolicy",
+        "kind": "value",
+        "value": {
+          "primaryMetric": "H50",
+          "primaryVelocityEstimateRole": "primary_recent_fit",
+          "reliabilityMetric": "H80",
+          "reliabilityVelocityEstimateRole": "reliability_guardrail",
+          "relativeAccelerationRule": "minimumPositiveH50H80"
+        }
+      },
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "forecastPolicy",
+        "kind": "value",
+        "value": {
+          "selectedObservationId": "frontier_astra_eci_20260903",
+          "selectedTrendId": "eci_reasoning_frontier_trend_20260901",
+          "minimumIndependentPublishers": 2,
+          "minimumCapabilityDomains": 3,
+          "quartersPerYear": 4,
+          "applicationRule": "eciTimeLeadTimesEconomicToH50TransferCoefficient",
+          "levelTreatment": "oneTimeEconomicEquivalentLead",
+          "directBenchmarkTreatment": "unchanged"
+        }
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "series",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "adopt_chatgpt_paid",
+              "name": "ChatGPT paid consumers",
+              "entity": "ChatGPT",
+              "metric": "Paid consumer reach",
+              "preferredUnit": "subscriptions",
+              "populationScope": "global consumer",
+              "comparabilityPolicy": "Compare like-for-like paid consumer disclosures",
+              "notes": "Do not combine with Work seats"
+            }
+          },
+          {
+            "order": 1,
+            "record": {
+              "id": "adopt_chatgpt_reach",
+              "name": "ChatGPT reported reach",
+              "entity": "ChatGPT",
+              "metric": "Reported active reach",
+              "preferredUnit": "weekly active users",
+              "populationScope": "global consumer",
+              "comparabilityPolicy": "Do not treat unspecified people as weekly active users",
+              "notes": "Keep cadence changes explicit"
+            }
+          },
+          {
+            "order": 2,
+            "record": {
+              "id": "adopt_claude_delegation",
+              "name": "Claude directive delegation",
+              "entity": "Claude",
+              "metric": "Directive-task share",
+              "preferredUnit": "percent",
+              "populationScope": "Claude sampled conversations",
+              "comparabilityPolicy": "Use the same conversation classifier",
+              "notes": "Closest behavioral delegation proxy"
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "adopt_codex_reach",
+              "name": "Codex reach",
+              "entity": "Codex",
+              "metric": "Weekly active reach",
+              "preferredUnit": "weekly active users",
+              "populationScope": "global selected agent users",
+              "comparabilityPolicy": "Compare disclosed weekly users",
+              "notes": "Technically selected population"
+            }
+          },
+          {
+            "order": 4,
+            "record": {
+              "id": "adopt_grok_paid",
+              "name": "Grok active paid subscriptions",
+              "entity": "Grok",
+              "metric": "Active paid subscriptions",
+              "preferredUnit": "subscriptions",
+              "populationScope": "global paid plans",
+              "comparabilityPolicy": "Keep X-bundled and direct plans identified",
+              "notes": "Access is not demonstrated delegation"
+            }
+          },
+          {
+            "order": 5,
+            "record": {
+              "id": "adopt_grok_features",
+              "name": "Grok feature users",
+              "entity": "Grok",
+              "metric": "Monthly feature users",
+              "preferredUnit": "monthly users",
+              "populationScope": "global product users",
+              "comparabilityPolicy": "Keep feature definition and cadence fixed",
+              "notes": "Includes non-agent features"
+            }
+          },
+          {
+            "order": 6,
+            "record": {
+              "id": "adopt_ms365_agents",
+              "name": "Microsoft 365 active agents index",
+              "entity": "Microsoft 365 agents",
+              "metric": "Active-agent index",
+              "preferredUnit": "index",
+              "populationScope": "Microsoft 365 organizations",
+              "comparabilityPolicy": "Index only unless absolute denominator is disclosed",
+              "notes": "One use in 28 days may qualify"
+            }
+          },
+          {
+            "order": 7,
+            "record": {
+              "id": "adopt_openclaw_stars",
+              "name": "OpenClaw GitHub stars",
+              "entity": "OpenClaw",
+              "metric": "GitHub stars",
+              "preferredUnit": "stars",
+              "populationScope": "developer ecosystem",
+              "comparabilityPolicy": "Developer-interest proxy only",
+              "notes": "Not active users"
+            }
+          },
+          {
+            "order": 8,
+            "record": {
+              "id": "adopt_openclaw_npm",
+              "name": "OpenClaw npm monthly downloads",
+              "entity": "OpenClaw",
+              "metric": "npm downloads",
+              "preferredUnit": "monthly downloads",
+              "populationScope": "developer ecosystem",
+              "comparabilityPolicy": "Downloads may repeat per user",
+              "notes": "Not active users"
+            }
+          },
+          {
+            "order": 9,
+            "record": {
+              "id": "adopt_us_business_paid",
+              "name": "US businesses paying for AI",
+              "entity": "Ramp AI Index",
+              "metric": "Business paid-AI adoption",
+              "preferredUnit": "percent",
+              "populationScope": "Ramp customer sample",
+              "comparabilityPolicy": "Keep sample frame fixed",
+              "notes": "Not representative of every US business"
+            }
+          },
+          {
+            "order": 10,
+            "record": {
+              "id": "adopt_us_employee_any",
+              "name": "US employee AI use",
+              "entity": "US employees",
+              "metric": "Any AI use at work",
+              "preferredUnit": "percent",
+              "populationScope": "US employees",
+              "comparabilityPolicy": "Keep question wording and survey frame fixed",
+              "notes": "Assistance and delegation combined"
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "id": "adopt_us_employee_frequent",
+              "name": "US employee frequent AI use",
+              "entity": "US employees",
+              "metric": "Frequent AI use at work",
+              "preferredUnit": "percent",
+              "populationScope": "US employees",
+              "comparabilityPolicy": "Keep frequency definition fixed",
+              "notes": "More intensive than any use"
+            }
+          },
+          {
+            "order": 12,
+            "record": {
+              "id": "adopt_us_nonwork",
+              "name": "US non-work GenAI use",
+              "entity": "US population",
+              "metric": "Non-work GenAI use",
+              "preferredUnit": "percent",
+              "populationScope": "US population",
+              "comparabilityPolicy": "Keep survey instrument fixed",
+              "notes": "Consumer familiarity proxy"
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "id": "adopt_us_work_any",
+              "name": "US work GenAI any use",
+              "entity": "US workers",
+              "metric": "Any work-related GenAI use",
+              "preferredUnit": "percent",
+              "populationScope": "US workers",
+              "comparabilityPolicy": "Keep survey instrument fixed",
+              "notes": "Assistance and delegation combined"
+            }
+          },
+          {
+            "order": 14,
+            "record": {
+              "id": "adopt_us_work_weekly",
+              "name": "US work GenAI weekly use",
+              "entity": "US workers",
+              "metric": "Weekly work-related GenAI use",
+              "preferredUnit": "percent",
+              "populationScope": "US workers",
+              "comparabilityPolicy": "Keep survey instrument fixed",
+              "notes": "Preferred broad intensive-use measure"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,813 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-weavebench",
+    "title": "WeaveBench",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-weavebench",
+        "publisher": "arxiv.org",
+        "title": "WeaveBench",
+        "url": "https://arxiv.org/abs/2606.09426",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "17 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 17,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-039",
+          "metric": "WeaveBench trajectory-audited PassRate; 41.2% reported in Table 3",
+          "value": 0.412,
+          "unit": "proportion",
+          "displayValue": "41.2%",
+          "subject": "Claude Opus 4.7 + Claude Code",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.412,
+          "normalization": "The source reports PassRate as a percentage; divide by 100 to obtain the bounded 0–1 score",
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-039",
+          "caveat": "Claude Opus 4.7's release date assigns the frontier point to 2026-Q2; the paper's 6 July revision is the observation date. The paired harness is part of the measured system."
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0053",
+          "metric": "Trajectory-audited PassRate",
+          "value": 35.1,
+          "unit": "percent",
+          "displayValue": "35.1%",
+          "subject": "GPT-5.5 + Codex CLI",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0053",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0054",
+          "metric": "Mean partial-credit score",
+          "value": 0.499,
+          "unit": "proportion",
+          "displayValue": "49.9%",
+          "subject": "GPT-5.5 + Codex CLI",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0054",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0055",
+          "metric": "Trajectory-audited PassRate",
+          "value": 33.3,
+          "unit": "percent",
+          "displayValue": "33.3%",
+          "subject": "GPT-5.5 + OpenClaw",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0055",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0056",
+          "metric": "Mean partial-credit score",
+          "value": 0.466,
+          "unit": "proportion",
+          "displayValue": "46.6%",
+          "subject": "GPT-5.5 + OpenClaw",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0056",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0057",
+          "metric": "Trajectory-audited PassRate",
+          "value": 31.6,
+          "unit": "percent",
+          "displayValue": "31.6%",
+          "subject": "GPT-5.5 + Hermes Agent",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0057",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0058",
+          "metric": "Mean partial-credit score",
+          "value": 0.466,
+          "unit": "proportion",
+          "displayValue": "46.6%",
+          "subject": "GPT-5.5 + Hermes Agent",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0058",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0059",
+          "metric": "Trajectory-audited PassRate",
+          "value": 14.9,
+          "unit": "percent",
+          "displayValue": "14.9%",
+          "subject": "GPT-5.5 + Claude Code",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0059",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0060",
+          "metric": "Mean partial-credit score",
+          "value": 0.299,
+          "unit": "proportion",
+          "displayValue": "29.9%",
+          "subject": "GPT-5.5 + Claude Code",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0060",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0061",
+          "metric": "Trajectory-audited PassRate",
+          "value": 13.2,
+          "unit": "percent",
+          "displayValue": "13.2%",
+          "subject": "Claude Opus 4.7 + Codex CLI",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0061",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0062",
+          "metric": "Mean partial-credit score",
+          "value": 0.378,
+          "unit": "proportion",
+          "displayValue": "37.8%",
+          "subject": "Claude Opus 4.7 + Codex CLI",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0062",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0063",
+          "metric": "Trajectory-audited PassRate",
+          "value": 35.1,
+          "unit": "percent",
+          "displayValue": "35.1%",
+          "subject": "Claude Opus 4.7 + OpenClaw",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0063",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0064",
+          "metric": "Mean partial-credit score",
+          "value": 0.482,
+          "unit": "proportion",
+          "displayValue": "48.2%",
+          "subject": "Claude Opus 4.7 + OpenClaw",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0064",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0065",
+          "metric": "Trajectory-audited PassRate",
+          "value": 28.1,
+          "unit": "percent",
+          "displayValue": "28.1%",
+          "subject": "Claude Opus 4.7 + Hermes Agent",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0065",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0066",
+          "metric": "Mean partial-credit score",
+          "value": 0.516,
+          "unit": "proportion",
+          "displayValue": "51.6%",
+          "subject": "Claude Opus 4.7 + Hermes Agent",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0066",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0067",
+          "metric": "Trajectory-audited PassRate",
+          "value": 41.2,
+          "unit": "percent",
+          "displayValue": "41.2%",
+          "subject": "Claude Opus 4.7 + Claude Code",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0067",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge; selected forecast frontier"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0068",
+          "metric": "Mean partial-credit score",
+          "value": 0.532,
+          "unit": "proportion",
+          "displayValue": "53.2%",
+          "subject": "Claude Opus 4.7 + Claude Code",
+          "observationDate": "2026-07-06",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "Table 3",
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0068",
+          "caveat": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 23,
+            "record": {
+              "id": "OPS-09",
+              "category": "Operational execution",
+              "name": "WeaveBench",
+              "metric": "Trajectory-audited pass rate on long-horizon hybrid-interface tasks",
+              "normalization": "The source reports PassRate as a percentage; divide by 100 to obtain the bounded 0–1 score",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "114 tasks across eight real-world work domains; the selected frontier result is the best published model–runtime pairing in Table 3."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 38,
+            "record": {
+              "id": "forecast-observation-039",
+              "benchmarkId": "OPS-09",
+              "releaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.412,
+              "systemHarness": "Claude Opus 4.7 + Claude Code",
+              "scoreBasis": "WeaveBench trajectory-audited PassRate; 41.2% reported in Table 3",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "Claude Opus 4.7's release date assigns the frontier point to 2026-Q2; the paper's 6 July revision is the observation date. The paired harness is part of the measured system."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 14,
+            "record": {
+              "id": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "metric": "Trajectory-audited PassRate",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "unit": "percent",
+              "higherIsBetter": true,
+              "preferredForForecast": true,
+              "curvePolicy": "paper_observation_date",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "PassRate is the share of 114 tasks with a per-task score of at least 0.8."
+            }
+          },
+          {
+            "order": 15,
+            "record": {
+              "id": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "metric": "Mean partial-credit score",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "unit": "proportion",
+              "higherIsBetter": true,
+              "preferredForForecast": false,
+              "curvePolicy": "paper_observation_date",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "notes": "Overall is the mean audited per-task partial-credit score; it is shown for transparency but is not substituted for PassRate."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 52,
+            "record": {
+              "id": "benchobs_0053",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Codex CLI",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 35.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 53,
+            "record": {
+              "id": "benchobs_0054",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Codex CLI",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.499,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 54,
+            "record": {
+              "id": "benchobs_0055",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + OpenClaw",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 33.3,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 55,
+            "record": {
+              "id": "benchobs_0056",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + OpenClaw",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.466,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 56,
+            "record": {
+              "id": "benchobs_0057",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Hermes Agent",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 31.6,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 57,
+            "record": {
+              "id": "benchobs_0058",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Hermes Agent",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.466,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 58,
+            "record": {
+              "id": "benchobs_0059",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "GPT-5.5 + Claude Code",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 14.9,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 59,
+            "record": {
+              "id": "benchobs_0060",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "GPT-5.5 + Claude Code",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-07-06",
+              "score": 0.299,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 60,
+            "record": {
+              "id": "benchobs_0061",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Codex CLI",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 13.2,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 61,
+            "record": {
+              "id": "benchobs_0062",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Codex CLI",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.378,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Codex CLI with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 62,
+            "record": {
+              "id": "benchobs_0063",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + OpenClaw",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 35.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 63,
+            "record": {
+              "id": "benchobs_0064",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + OpenClaw",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.482,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "OpenClaw with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 64,
+            "record": {
+              "id": "benchobs_0065",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Hermes Agent",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 28.1,
+              "unit": "percent",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 65,
+            "record": {
+              "id": "benchobs_0066",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Hermes Agent",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.516,
+              "unit": "proportion",
+              "seriesRole": "cross_harness",
+              "curveType": "paper_table",
+              "harnessScope": "Hermes Agent with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          },
+          {
+            "order": 66,
+            "record": {
+              "id": "benchobs_0067",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_pass_rate",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Trajectory-audited PassRate",
+              "modelSystem": "Claude Opus 4.7 + Claude Code",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 41.2,
+              "unit": "percent",
+              "seriesRole": "cross_harness_frontier",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge; selected forecast frontier"
+            }
+          },
+          {
+            "order": 67,
+            "record": {
+              "id": "benchobs_0068",
+              "releaseId": "anthropic_opus47_20260416",
+              "benchmarkId": "weavebench_overall",
+              "family": "WeaveBench",
+              "version": "v3",
+              "capabilityDimension": "Long-horizon GUI, CLI, and code orchestration",
+              "metric": "Mean partial-credit score",
+              "modelSystem": "Claude Opus 4.7 + Claude Code",
+              "modelReleaseDate": "2026-04-16",
+              "observationDate": "2026-07-06",
+              "score": 0.532,
+              "unit": "proportion",
+              "seriesRole": "cross_harness_frontier",
+              "curveType": "paper_table",
+              "harnessScope": "Claude Code with the WeaveBench desktop-control plugin",
+              "sourceId": "gate1-arxiv-org-weavebench",
+              "comparabilityNote": "Table 3; high thinking; 114 tasks; trajectory-aware judge"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 16,
+            "record": {
+              "id": "C17",
+              "layer": "Execute",
+              "capability": "Hybrid GUI API terminal and code routing",
+              "userValue": "Uses the best interface for each subtask",
+              "computerUseRole": "Switches among visual control structured tools and code",
+              "operationalMetric": "Pass rate cost and safety versus single-interface harness",
+              "currentState": "Uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "WeaveBench",
+              "sourceId": "gate1-arxiv-org-weavebench"
+            }
+          },
+          {
+            "order": 19,
+            "record": {
+              "id": "C20",
+              "layer": "Execute",
+              "capability": "Artifact creation and placement",
+              "userValue": "Produces work in the correct format and location",
+              "computerUseRole": "Edits documents sheets media code and files in place",
+              "operationalMetric": "Artifact correctness plus location format and metadata checks",
+              "currentState": "Uneven",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "WeaveBench and Agents' Last Exam",
+              "sourceId": "gate1-arxiv-org-weavebench"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

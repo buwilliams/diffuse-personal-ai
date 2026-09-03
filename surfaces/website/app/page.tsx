@@ -36,11 +36,16 @@ const DEFAULT_PERSONAL_AI_SHARE = computeInputs.serving.personalAiInferenceShare
 const DEFAULT_FLEET_INFERENCE_SHARE = computeInputs.serving.fleetShareAllocatedToInference;
 const SUPPLY_GATE_SHARE_OF_TARGET = forecastModel.defaults.supplyGateShareOfTarget;
 const SUPPLY_THRESHOLD = SUPPLY_GATE_SHARE_OF_TARGET * 100;
+const observedDirectCapability = forecastModel.capability.observedCurrentScore;
+if (observedDirectCapability === null) throw new Error('Latest snapshot has no observed direct-basket capability score');
+const OBSERVED_DIRECT_CAPABILITY = observedDirectCapability * 100;
+const FRONTIER_BROAD_LEAD_QUARTERS = forecastModel.capability.frontierShock.broadFrontierLeadQuarters;
+const FRONTIER_ECONOMIC_LEAD_QUARTERS = forecastModel.capability.frontierShock.economicFrontierLeadQuarters;
 
 const REPORT_QUARTERS = forecastModel.capability.quarters.map((quarter: { label: string }) => quarter.label);
 const OBSERVED_END_INDEX = forecastModel.capability.benchmarkRows.reduce(
   (maximum: number, benchmark: { series: Array<{ phase: string }> }) =>
-    Math.max(maximum, benchmark.series.findLastIndex((point) => point.phase === 'observed')),
+    Math.max(maximum, benchmark.series.findLastIndex((point) => point.phase !== 'projected')),
   0,
 );
 
@@ -795,7 +800,7 @@ function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpen
         <header className="sources-head">
           <p className="modal-eyebrow">Data provenance</p>
           <h2 id="sources-title">Sources behind the forecast</h2>
-          <p>These are the {sourceUrlCount} public pages, papers, datasets, and methodology records used in <b>snapshot-{forecastModel.snapshotId}</b>, represented by {sourceFileCount} gate-specific source files. Open any source directly, or inspect the normalized JSON that entered the forecast.</p>
+          <p>These are the {sourceUrlCount} public pages, papers, datasets, and methodology records used in <b>snapshot-{forecastModel.snapshotId}</b>, represented by {sourceFileCount} gate-specific source files. This same-day immutable successor adds Astra’s independently corroborated frontier-capability signal without rewriting snapshot-20260903.</p>
           <div className="sources-meta">
             <span><small>Snapshot</small><strong>{forecastModel.snapshotDate}</strong></span>
             <span><small>Schema</small><strong>{snapshotManifest.metadata.schemaVersion}</strong></span>
@@ -826,7 +831,7 @@ function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpen
                         <span>{source.publisher}</span>
                         <b>{source.title}</b>
                         <small>Accessed {source.accessedAt}{source.roles?.length ? ` · ${source.roles.join(', ')}` : ''}</small>
-                        <small>Feeds {source.datasetIds.map((id) => datasets.find((dataset) => dataset.id === id)?.title ?? id).join(', ')} · {source.datasetIds.some((id) => datasets.find((dataset) => dataset.id === id)?.requiredForCountdown) ? 'direct countdown input' : 'context only'}</small>
+                        <small>Feeds {source.datasetIds.map((id) => datasets.find((dataset) => dataset.id === id)?.title ?? id).join(', ')} · {source.countdownRole === 'direct-input' ? 'direct countdown input' : source.countdownRole === 'forecast-method' ? 'forecast method' : source.countdownRole === 'supporting-input' ? 'qualification / supporting input' : 'context only'}</small>
                       </a>
                       <button className="source-json" onClick={() => onOpenData(`source:${source.file}`)}>View {sourceResultLabel(source)} · {source.countdownRole.replaceAll('-', ' ')} ↗</button>
                     </div>
@@ -838,7 +843,7 @@ function DataSourcesModal({ onClose, onOpenData }: { onClose: () => void; onOpen
         </div>
 
         <footer className="sources-foot">
-          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory, update each source file through <code>database.json</code>, consolidate both gates, validate, and rebuild. The site and optional spreadsheet exports read only the consolidated files.</p>
+          <p>Snapshots are immutable. To refresh the forecast, create a new dated directory—or a numbered same-day successor—update each source file through <code>database.json</code>, consolidate both gates, validate, and rebuild. The site and optional spreadsheet exports read only the consolidated files.</p>
           <a href="https://github.com/buwilliams/diffuse-personal-ai/tree/main/data" target="_blank" rel="noreferrer">Browse snapshot JSON ↗</a>
         </footer>
       </section>
@@ -1231,7 +1236,8 @@ export default function Home() {
     ? activeReport.views.find((view) => view.name === activeViewName) || activeReport.views[0]
     : null;
   const activeScenario = modal === 'capability' ? [
-    { label: 'Current score', value: reports.capability.current },
+    { label: 'Observed direct basket', value: `${OBSERVED_DIRECT_CAPABILITY.toFixed(1)}%` },
+    { label: 'Frontier-adjusted score', value: reports.capability.current },
     { label: 'Threshold', value: reports.capability.threshold },
     { label: 'H50 acceleration', value: `${signed(inputs.capabilityAcceleration)} doublings/q²` },
     { label: 'Crossing', value: reports.capability.crossing },
@@ -1246,13 +1252,14 @@ export default function Home() {
     steps: [
       { title: 'Gather real-world benchmarks.', explanation: 'Collect published benchmarks, leaderboards, and evaluations that track model–harness systems doing economically useful work—not model knowledge in isolation.' },
       { title: 'Store each source separately.', explanation: 'Normalize every public source into its own dated JSON file, preserving its URL, access date, original meaning, and the logical datasets it feeds.' },
-      { title: 'Consolidate Gate 1 deterministically.', explanation: 'Combine source fragments into the capability, METR, adoption, research, and user-capability datasets. Only the consolidated Gate 1 file enters the shared model; the footer exposes every input and join.' },
+      { title: 'Consolidate Gate 1 deterministically.', explanation: 'Combine source fragments into the direct capability, frontier-capability, METR, adoption, research, and user-capability datasets. Only the consolidated Gate 1 file enters the shared model; the footer exposes every input and join.' },
       { title: 'Normalize the benchmarks.', explanation: 'Convert each result to a 0–100% completion score against a fixed pass rate, human result, expert strategy, oracle, or published target.' },
       { title: 'Build four benchmark-family scores.', explanation: 'Average the graded benchmarks within direct stewardship, operational execution, personal transfer, and economic value/governance.' },
       { title: 'Discount weak evidence.', explanation: `Give each benchmark up to three evidence credits, then confidence-weight the categories. The current evidence base is ${CAPABILITY_CONFIDENCE.label.toLowerCase()} confidence at ${CAPABILITY_CONFIDENCE.weight.toFixed(0)}%.` },
       { title: 'Estimate each family’s own trajectory.', explanation: `Measure failure-gap velocity separately inside each benchmark family. Where a family has little or no history, partially pool its rate toward the evidence-weighted cross-family prior of ${forecastModel.capability.globalGapVelocityPrior.toFixed(4)} gap halvings per quarter, using ${forecastModel.capability.partialPoolingPriorCredits} prior history credits. This prevents one fast family from becoming every benchmark’s curve.` },
       { title: 'Measure capability acceleration with METR.', explanation: `Use H50 task horizon as the primary velocity signal and H80 as the reliability guardrail. The default H50 acceleration is ${signed(CAPABILITY_H50_ACCELERATION)} task-horizon doublings per quarter²; the H80 check is ${signed(CAPABILITY_H80_ACCELERATION)}. Both come from the same recent five-release window and remain low-confidence.` },
       { title: 'Transfer acceleration to economic work.', explanation: `The confidence-weighted pooled velocity is ${CAPABILITY_GAP_VELOCITY.toFixed(4)} halvings per quarter. The transfer coefficient is ${CAPABILITY_TRANSFER_COEFFICIENT.toFixed(3)}, so the current scenario starts at ${signed(capabilityEconomicAcceleration)} economic gap halvings per quarter² and implies ${signed(capabilityFeedbackRate, 1)}% quarterly growth in each family’s own progress rate.` },
+      { title: 'Apply a qualified frontier shock.', explanation: `Astra's overall model-level jump qualifies through Epoch's record 169 ECI result, independent ARC Prize evaluation, and corroboration across ${forecastModel.capability.frontierShock.capabilityDomainCount} capability domains. Six ECI points equal ${FRONTIER_BROAD_LEAD_QUARTERS.toFixed(3)} quarters at Epoch's reasoning-frontier trend; the existing ${CAPABILITY_TRANSFER_COEFFICIENT.toFixed(3)} economic transfer coefficient conservatively reduces that to a one-time ${FRONTIER_ECONOMIC_LEAD_QUARTERS.toFixed(3)}-quarter economic lead. No ARC-AGI-3 or ECI score is treated as a delegation percentage.` },
       { title: 'Project the remaining failure gap.', explanation: 'Apply recursive acceleration to each family’s partially pooled velocity, project every benchmark from its own family curve, back-transform to bounded 0–100% scores, then rebuild and confidence-weight the four families.' },
       { title: 'Continue the same method when needed.', explanation: `The visible report ends at 2028-Q4, but the countdown evaluates the benchmark-level equations for the full 15-year search horizon. A crossing after the report window is explicitly marked as an extended extrapolation. At ${projection.nextCapabilityThreshold.toFixed(0)}%, the current scenario crosses on ${nextCapabilityDate}.` },
       { title: 'Set the capability gate.', explanation: `The major judgment call is the delegation threshold: ${inputs.capabilityThreshold.toFixed(0)}%. The live composite is ${inputs.currentCapability.toFixed(1)}%, producing a ${capabilityDate} crossing.` },
@@ -1295,7 +1302,7 @@ export default function Home() {
       </header>
 
       <section className="hero" aria-labelledby="countdown-title">
-        <p className="kicker" id="countdown-title">Countdown to diffuse Personal AI</p>
+        <p className="kicker" id="countdown-title">Countdown to diffuse Personal AI · evidence through {PUBLICATION_DATE}</p>
         {time ? (
           <div className="countdown" aria-live="polite" aria-label={`${time.years} ${time.years === 1 ? 'year' : 'years'}, ${time.months} ${time.months === 1 ? 'month' : 'months'}, ${time.days} ${time.days === 1 ? 'day' : 'days'}, ${time.hours} ${time.hours === 1 ? 'hour' : 'hours'}`}>
             <span><strong>{time.years}</strong><small>{time.years === 1 ? 'year' : 'years'}</small></span>
@@ -1321,7 +1328,7 @@ export default function Home() {
           <span className="gate-index">01 / demand proxy{projection.controllingGate === 'capability' ? ' · controls clock' : ''}</span>
           <span className="gate-name">Model–harness</span>
           <span className="gate-meter"><i style={{ width: `${projection.capabilityProgress}%` }} /></span>
-          <span className="gate-stats"><b>{inputs.currentCapability.toFixed(1)}%</b><em>of {inputs.capabilityThreshold.toFixed(0)}% · {capabilityDate}</em></span>
+          <span className="gate-stats"><b>{inputs.currentCapability.toFixed(1)}%</b><em>of {inputs.capabilityThreshold.toFixed(0)}% · {capabilityDate} · Astra-adjusted from {OBSERVED_DIRECT_CAPABILITY.toFixed(1)}% direct</em></span>
           <span className="open-label">Open report ↗</span>
         </button>
         <button onClick={() => openReport('compute')} className="gate-card">
@@ -1360,7 +1367,7 @@ export default function Home() {
               <div>
                 <p className="modal-eyebrow">Live scenario</p>
                 <h2 id="tuner-title">Tune the projection</h2>
-                <p>Every change recomputes both gates and the headline clock. Defaults reproduce the report-card scenario.</p>
+                <p>Every change recomputes both gates and the headline clock. The default capability level includes Astra’s qualified one-time frontier lead; the direct observed basket remains separately visible.</p>
               </div>
               <button className="reset-button" onClick={() => setInputs(DEFAULTS)} disabled={isDefault}>Reset defaults</button>
             </div>

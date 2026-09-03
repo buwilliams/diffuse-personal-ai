@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "id": "gate1-epoch-ai-gpt-6-astra-model",
+    "title": "Epoch AI GPT-6 Astra model evaluation",
+    "description": "Independent aggregate capability measurement for GPT-6 Astra.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-epoch-ai-gpt-6-astra-model",
+        "publisher": "Epoch AI",
+        "title": "GPT-6 Astra",
+        "url": "https://epoch.ai/models/gpt-6-astra",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "independent model evaluation",
+          "frontier capability signal"
+        ],
+        "notes": "Epoch reports an ECI point estimate of 169 with a 90% interval of 165–174 and rank 1 of 267 evaluated models. OpenAI provided Epoch pre-release access."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Preserve the point estimate, interval, rank, comparison anchor, and release date."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "direct-input",
+      "summary": "4 explicit numeric measurement(s); 2 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 4,
+        "assumptions": 0,
+        "directInputs": 2
+      },
+      "measurements": [
+        {
+          "id": "frontier-capability-signals.observations.frontier_astra_eci_20260903.eciScore",
+          "metric": "Epoch Capabilities Index",
+          "value": 169,
+          "unit": "index points",
+          "displayValue": "169 index points",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.observations.frontier_astra_eci_20260903.eciScore",
+          "caveat": "Independent pre-release evaluation. The prior frontier is the rounded 163 comparison reported by Epoch for the previous best."
+        },
+        {
+          "id": "frontier-capability-signals.observations.frontier_astra_eci_20260903.pointGain",
+          "metric": "Frontier capability index gain",
+          "value": 6,
+          "unit": "index points",
+          "displayValue": "6 index points",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.observations.frontier_astra_eci_20260903.pointGain",
+          "caveat": "Difference between 169 and the 163 comparison anchor."
+        },
+        {
+          "id": "research-evidence.observations.evidence-053",
+          "metric": "Epoch Capabilities Index",
+          "value": 169,
+          "unit": "index points",
+          "displayValue": "169 index points",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-053",
+          "caveat": "Independent point estimate; Epoch reports a 90% interval of 165–174. ECI is a broad capability aggregate, not a direct delegation task."
+        },
+        {
+          "id": "research-evidence.observations.evidence-054",
+          "metric": "ECI point gain",
+          "value": 6,
+          "unit": "index points",
+          "displayValue": "6 index points",
+          "subject": "GPT-6 Astra versus prior ECI frontier",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-054",
+          "caveat": "Uses Epoch's rounded comparison of 169 versus the prior best of 163. The live model translates the gain through a trend and transfer bridge rather than treating 169 as a delegation percentage."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "frontier_astra_eci_20260903",
+              "model": "GPT-6 Astra",
+              "provider": "OpenAI",
+              "releaseDate": "2026-09-03",
+              "metric": "Epoch Capabilities Index",
+              "eciScore": 169,
+              "confidenceInterval90": [
+                165,
+                174
+              ],
+              "rank": 1,
+              "modelsEvaluated": 267,
+              "priorFrontierScore": 163,
+              "pointGain": 6,
+              "independentPublisher": "Epoch AI",
+              "sourceId": "gate1-epoch-ai-gpt-6-astra-model",
+              "notes": "Independent pre-release evaluation. The prior frontier is the rounded 163 comparison reported by Epoch for the previous best."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "corroboratingSignals",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "corroboration_epoch_eci_astra",
+              "model": "GPT-6 Astra",
+              "publisher": "Epoch AI",
+              "publisherClass": "independent evaluator",
+              "capabilityDomains": [
+                "broad aggregate capability"
+              ],
+              "summary": "Astra set a new ECI record at 169, six points above the rounded prior best.",
+              "sourceId": "gate1-epoch-ai-gpt-6-astra-model"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 52,
+            "record": {
+              "id": "evidence-053",
+              "category": "Broad model capability",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "Epoch Capabilities Index",
+              "value": 169,
+              "unit": "index points",
+              "caveat": "Independent point estimate; Epoch reports a 90% interval of 165–174. ECI is a broad capability aggregate, not a direct delegation task.",
+              "sourceId": "gate1-epoch-ai-gpt-6-astra-model"
+            }
+          },
+          {
+            "order": 53,
+            "record": {
+              "id": "evidence-054",
+              "category": "Broad model capability",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra versus prior ECI frontier",
+              "metric": "ECI point gain",
+              "value": 6,
+              "unit": "index points",
+              "caveat": "Uses Epoch's rounded comparison of 169 versus the prior best of 163. The live model translates the gain through a trend and transfer bridge rather than treating 169 as a delegation percentage.",
+              "sourceId": "gate1-epoch-ai-gpt-6-astra-model"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "id": "gate1-epoch-ai-eci-frontier-trend",
+    "title": "Epoch Capabilities Index frontier trend",
+    "description": "Independent reasoning-model ECI frontier trend used to translate a point gain into elapsed frontier-progress time.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-epoch-ai-eci-frontier-trend",
+        "publisher": "Epoch AI",
+        "title": "The ECI frontier has advanced by 14 points per year since the introduction of reasoning models",
+        "url": "https://epoch.ai/data-insights/eci-frontier-trend",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "frontier trend estimate",
+          "capability shock normalization"
+        ],
+        "notes": "Epoch estimates a linear 14 ECI-point annual frontier trend after reasoning models appeared in September 2024."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Refresh the published trend estimate in a new immutable snapshot if Epoch revises it."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "forecast-assumptions",
+      "countdownRole": "forecast-method",
+      "summary": "Forecast-authored method with 1 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "frontier-capability-signals.trend.eci_reasoning_frontier_trend_20260901.annualPointsPerYear",
+          "metric": "Reasoning-model frontier ECI trend",
+          "value": 14,
+          "unit": "ECI points per year",
+          "displayValue": "14 ECI points per year",
+          "subject": "Reasoning SOTA",
+          "observationDate": "2026-09-01",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "frontier-capability-signals.trend.eci_reasoning_frontier_trend_20260901.annualPointsPerYear",
+          "caveat": "Used only to convert the selected model's ECI gain into a time-equivalent broad frontier lead."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "frontier-capability-signals",
+        "collection": "trend",
+        "kind": "records",
+        "items": [
+          {
+            "order": 0,
+            "record": {
+              "id": "eci_reasoning_frontier_trend_20260901",
+              "metricDate": "2026-09-01",
+              "series": "Reasoning SOTA",
+              "windowStart": "2024-09-12",
+              "annualPointsPerYear": 14,
+              "unit": "ECI points per year",
+              "method": "linear frontier trend",
+              "sourceId": "gate1-epoch-ai-eci-frontier-trend",
+              "notes": "Used only to convert the selected model's ECI gain into a time-equivalent broad frontier lead."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

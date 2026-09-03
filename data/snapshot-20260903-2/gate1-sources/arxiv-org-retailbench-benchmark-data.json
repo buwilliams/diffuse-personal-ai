@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-retailbench-benchmark",
+    "title": "RetailBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-retailbench-benchmark",
+        "publisher": "arxiv.org",
+        "title": "RetailBench benchmark",
+        "url": "https://arxiv.org/abs/2603.16453",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-009",
+          "metric": "Best LLM final net worth / oracle final net worth",
+          "value": 0.18516388283148968,
+          "unit": "proportion",
+          "displayValue": "18.5164%",
+          "subject": "GPT-5.5 + ReAct",
+          "observationDate": "2026-07-08",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.18516388283148968,
+          "normalization": "Cap at 100%; privileged oracle is a ceiling-like reference, not a human-equivalent baseline",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-009",
+          "caveat": "Selected-run protocol; oracle has privileged simulator access and is a ceiling-like reference."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 5,
+            "record": {
+              "id": "DES-06",
+              "category": "Direct economic stewardship",
+              "name": "RetailBench",
+              "metric": "Best LLM final net worth / $131,510.42 oracle final net worth",
+              "normalization": "Cap at 100%; privileged oracle is a ceiling-like reference, not a human-equivalent baseline",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q1",
+              "sourceId": "gate1-arxiv-org-retailbench-benchmark",
+              "notes": "Uses the v3 selected-run table; result is framework-selected and not a repeated-run mean."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "forecast-observation-009",
+              "benchmarkId": "DES-06",
+              "releaseDate": "2026-07-08",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.18516388283148968,
+              "systemHarness": "GPT-5.5 + ReAct",
+              "scoreBasis": "Best LLM final net worth / oracle final net worth",
+              "sourceId": "gate1-arxiv-org-retailbench-benchmark",
+              "notes": "Selected-run protocol; oracle has privileged simulator access and is a ceiling-like reference."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-techradar-com-openclaw-github-stars-observation",
+    "title": "OpenClaw GitHub stars observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-techradar-com-openclaw-github-stars-observation",
+        "publisher": "techradar.com",
+        "title": "OpenClaw GitHub stars observation",
+        "url": "https://www.techradar.com/pro/wild-things-people-are-building-with-openclaw",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0032",
+          "metric": "Source observation",
+          "value": 247000,
+          "unit": "stars",
+          "displayValue": "247,000 stars",
+          "subject": "global developer ecosystem",
+          "observationDate": "2026-03-02",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0032",
+          "caveat": "Secondary dated snapshot; not users"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 31,
+            "record": {
+              "id": "adoptobs_0032",
+              "seriesId": "adopt_openclaw_stars",
+              "observationDate": "2026-03-02",
+              "value": 247000,
+              "unit": "stars",
+              "scope": "global developer ecosystem",
+              "comparabilityNote": "Secondary dated snapshot; not users",
+              "sourceId": "gate1-techradar-com-openclaw-github-stars-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

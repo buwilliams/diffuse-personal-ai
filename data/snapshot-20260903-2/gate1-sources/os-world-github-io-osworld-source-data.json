@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "id": "gate1-os-world-github-io-osworld-source",
+    "title": "OSWorld source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-os-world-github-io-osworld-source",
+        "publisher": "os-world.github.io",
+        "title": "OSWorld source",
+        "url": "https://os-world.github.io/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "supporting evaluation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "supporting-input",
+      "summary": "No numeric result is recorded from this source. It catalogs or supports a countdown dataset but does not contribute a scored observation.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "osworld_verified_success",
+              "family": "OSWorld",
+              "version": "Verified",
+              "metric": "OSWorld-Verified success",
+              "capabilityDimension": "Desktop computer use",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "fixed_version_release_frontier",
+              "sourceId": "gate1-os-world-github-io-osworld-source",
+              "notes": "Vendor labels First-attempt success and Success rate map to this benchmark_id"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

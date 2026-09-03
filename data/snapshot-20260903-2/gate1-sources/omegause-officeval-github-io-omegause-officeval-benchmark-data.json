@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "id": "gate1-omegause-officeval-github-io-omegause-officeval-benchmark",
+    "title": "OmegaUse-OfficeVal benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.3.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-omegause-officeval-github-io-omegause-officeval-benchmark",
+        "publisher": "omegause-officeval.github.io",
+        "title": "OmegaUse-OfficeVal benchmark",
+        "url": "https://omegause-officeval.github.io/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "supporting-input",
+      "summary": "No numeric result is recorded from this source. It catalogs or supports a countdown dataset but does not contribute a scored observation.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 21,
+            "record": {
+              "id": "VAL-03",
+              "category": "Economic value & governance",
+              "name": "OmegaUse-OfficeVal",
+              "metric": "Economic value of office-computer work",
+              "normalization": "Ungraded until a stable percentage-completion frontier series is entered",
+              "status": "Ungraded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-omegause-officeval-github-io-omegause-officeval-benchmark",
+              "notes": "Economic value and computer-use signal."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

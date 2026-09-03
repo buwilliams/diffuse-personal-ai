@@ -1,6 +1,6 @@
 # Report cards
 
-The capability and compute builders select the latest `data/snapshot-YYYYMMDD/` directory, load its two consolidated gates, and use `model/forecast-model.mjs`, the same calculation layer as the website.
+The capability and compute builders select the latest `data/snapshot-YYYYMMDD[-N]/` directory by date and same-day sequence, load its two consolidated gates, and use `model/forecast-model.mjs`, the same calculation layer as the website.
 
 ```text
 capability/build_report_card.mjs   Capability workbook
