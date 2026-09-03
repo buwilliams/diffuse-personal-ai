@@ -164,7 +164,7 @@
         "description": "Source-backed facts used in the conjecture, capability catalog, and contextual discussion but not necessarily in the live forecast equations.",
         "asOfDate": "2026-09-03",
         "requiredForCountdown": false,
-        "recordCount": 50,
+        "recordCount": 52,
         "calculation": {
           "role": "Context and assumption evidence",
           "preparation": "Source-backed claims are preserved with caveats and comparability notes instead of being converted into synthetic scores.",

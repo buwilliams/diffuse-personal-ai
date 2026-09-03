@@ -2785,12 +2785,12 @@
           "adoption",
           "research-evidence"
         ],
-        "recordCount": 6,
+        "recordCount": 8,
         "resultStatus": "reported-measurements",
         "countdownRole": "context-only",
         "resultCounts": {
           "scores": 0,
-          "measurements": 5,
+          "measurements": 7,
           "assumptions": 0,
           "directInputs": 0
         }
@@ -8376,6 +8376,28 @@
               "unit": "Elo",
               "caveat": "Vendor-reported Elo. It remains ungraded because the forecast contract forbids rescaling a leaderboard without a fixed reference opponent or stable win-rate transformation.",
               "sourceId": "gate1-anthropic-com-claude-fable-and-mythos-5-1-release"
+            },
+            {
+              "id": "evidence-051",
+              "category": "Abstract reasoning",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "FrontierMath Tier 4 score",
+              "value": 98,
+              "unit": "percent",
+              "caveat": "Vendor-reported maximum-at-any-effort result on a frontier mathematical-reasoning benchmark. It is important capability evidence but not a direct economic-delegation outcome.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            },
+            {
+              "id": "evidence-052",
+              "category": "Cybersecurity",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "ExploitBench score",
+              "value": 100,
+              "unit": "percent",
+              "caveat": "Vendor-reported maximum-at-any-effort result. OpenAI designates Astra Critical capability in cyber; this is a capability and safety signal, not a Personal-AI delegation measure.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
             }
           ]
         }

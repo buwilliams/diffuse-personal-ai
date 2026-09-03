@@ -2,7 +2,7 @@
   "metadata": {
     "id": "gate1-openai-com-gpt-6-astra-release",
     "title": "GPT-6 Astra release",
-    "description": "OpenAI release metadata and supporting capability, computer-use, and alignment results for GPT-6 Astra.",
+    "description": "OpenAI release metadata and supporting reasoning, mathematical, cyber, computer-use, workflow, broad-work, and alignment results for GPT-6 Astra.",
     "schemaVersion": "1.2.0",
     "snapshotDate": "2026-09-03",
     "asOfDate": "2026-09-03",
@@ -32,10 +32,10 @@
     "results": {
       "status": "reported-measurements",
       "countdownRole": "context-only",
-      "summary": "5 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "summary": "7 explicit numeric measurement(s); 0 item(s) affect the countdown.",
       "counts": {
         "scores": 0,
-        "measurements": 5,
+        "measurements": 7,
         "assumptions": 0,
         "directInputs": 0
       },
@@ -124,6 +124,40 @@
           "sourceLocation": null,
           "sourceRecord": "research-evidence.observations.evidence-046",
           "caveat": "OpenAI internal evaluation informed by the Hugging Face incident; the comparison condition reports 48% for GPT-5.6 Sol. This is vendor evidence about scope respect, not a calibrated deployment failure rate."
+        },
+        {
+          "id": "research-evidence.observations.evidence-051",
+          "metric": "FrontierMath Tier 4 score",
+          "value": 98,
+          "unit": "percent",
+          "displayValue": "98%",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-051",
+          "caveat": "Vendor-reported maximum-at-any-effort result on a frontier mathematical-reasoning benchmark. It is important capability evidence but not a direct economic-delegation outcome."
+        },
+        {
+          "id": "research-evidence.observations.evidence-052",
+          "metric": "ExploitBench score",
+          "value": 100,
+          "unit": "percent",
+          "displayValue": "100%",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-052",
+          "caveat": "Vendor-reported maximum-at-any-effort result. OpenAI designates Astra Critical capability in cyber; this is a capability and safety signal, not a Personal-AI delegation measure."
         }
       ]
     },
@@ -222,6 +256,34 @@
               "value": 0,
               "unit": "percent",
               "caveat": "OpenAI internal evaluation informed by the Hugging Face incident; the comparison condition reports 48% for GPT-5.6 Sol. This is vendor evidence about scope respect, not a calibrated deployment failure rate.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 50,
+            "record": {
+              "id": "evidence-051",
+              "category": "Abstract reasoning",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "FrontierMath Tier 4 score",
+              "value": 98,
+              "unit": "percent",
+              "caveat": "Vendor-reported maximum-at-any-effort result on a frontier mathematical-reasoning benchmark. It is important capability evidence but not a direct economic-delegation outcome.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 51,
+            "record": {
+              "id": "evidence-052",
+              "category": "Cybersecurity",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "ExploitBench score",
+              "value": 100,
+              "unit": "percent",
+              "caveat": "Vendor-reported maximum-at-any-effort result. OpenAI designates Astra Critical capability in cyber; this is a capability and safety signal, not a Personal-AI delegation measure.",
               "sourceId": "gate1-openai-com-gpt-6-astra-release"
             }
           }
