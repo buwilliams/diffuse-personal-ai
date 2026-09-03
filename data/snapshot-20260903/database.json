@@ -1,0 +1,295 @@
+{
+  "metadata": {
+    "id": "database",
+    "title": "Diffuse Personal AI snapshot manifest",
+    "description": "Source-first ETL manifest, default scenario, and consolidation contract for the immutable 3 September 2026 snapshot.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "source-001",
+        "publisher": "Diffuse Personal AI",
+        "title": "Forecast methodology and update contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/tree/main/intent",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "methodology"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source-first ETL with deterministic consolidation and human review",
+      "notes": "This file is the updating agent entry point. Create a new immutable snapshot, refresh one JSON file per source, consolidate both gates, validate, and publish."
+    }
+  },
+  "data": {
+    "gates": [
+      {
+        "id": "gate1",
+        "label": "Gate 1 · Model–harness capability",
+        "title": "Gate 1 consolidated model–harness evidence",
+        "description": "Source-normalized evidence and model inputs for the model–harness capability gate and its supporting context.",
+        "sourceDirectory": "gate1-sources",
+        "consolidatedFile": "gate1-consolidated.json",
+        "datasetIds": [
+          "capability-benchmarks",
+          "metr-task-horizon",
+          "adoption",
+          "research-evidence",
+          "user-capabilities"
+        ]
+      },
+      {
+        "id": "gate2",
+        "label": "Gate 2 · Compute supply",
+        "title": "Gate 2 consolidated compute evidence",
+        "description": "Source-normalized evidence and model inputs for the U.S. inference-compute supply gate.",
+        "sourceDirectory": "gate2-sources",
+        "consolidatedFile": "gate2-consolidated.json",
+        "datasetIds": [
+          "compute-capacity"
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "id": "capability-benchmarks",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
+        "title": "Model–harness economic capability benchmarks",
+        "description": "Normalized benchmark catalog and release-quarter frontier observations used to estimate current economic capability and its failure-gap velocity.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": true,
+        "recordCount": 152,
+        "calculation": {
+          "role": "Direct Gate 1 input",
+          "preparation": "Comparable model–harness results are normalized to bounded 0–1 completion scores, assigned to four economic-work benchmark families, and confidence weighted. Each family gets its own observed failure-gap velocity, partially pooled toward the evidence-weighted cross-family velocity when history is sparse.",
+          "countdownEffect": "Sets the current capability composite and the family-specific benchmark failure gaps projected forward. Stronger scores or faster family velocities move the capability crossing earlier.",
+          "pipeline": [
+            "Source benchmark result",
+            "Normalized benchmark observation",
+            "Partially pooled benchmark-family trajectory",
+            "Confidence-weighted family composite",
+            "Capability gate crossing"
+          ],
+          "adjustableAssumptions": [
+            "Current capability score",
+            "Passing threshold"
+          ]
+        },
+        "collections": [
+          "categories",
+          "benchmarks",
+          "observations",
+          "supportingRegistry",
+          "supportingObservations",
+          "model"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Append comparable release-quarter frontier observations. Preserve benchmark versions, normalization anchors, harness scope, and comparability notes."
+        }
+      },
+      {
+        "id": "metr-task-horizon",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
+        "title": "METR task-completion horizons",
+        "description": "H50 capability-velocity signal and H80 reliability guardrail used to estimate relative acceleration.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": true,
+        "recordCount": 14,
+        "calculation": {
+          "role": "Direct Gate 1 velocity input",
+          "preparation": "Published H50 and H80 task-completion horizons are aligned by model release and converted to task-horizon velocity and acceleration.",
+          "countdownEffect": "H50 acceleration changes how quickly benchmark failure gaps close; H80 acts as a reliability guardrail. Higher positive acceleration moves the capability crossing earlier.",
+          "pipeline": [
+            "METR release horizons",
+            "H50/H80 velocity and acceleration",
+            "Economic-work transfer coefficient",
+            "Capability gate crossing"
+          ],
+          "adjustableAssumptions": [
+            "METR H50 acceleration"
+          ]
+        },
+        "collections": [
+          "series",
+          "trendEstimates",
+          "forecastPolicy"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Fetch the current METR benchmark-results artifact, append comparable H50 and H80 release observations, and refresh published velocity estimates without erasing prior snapshots."
+        }
+      },
+      {
+        "id": "adoption",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
+        "title": "AI adoption and product-release evidence",
+        "description": "Comparable adoption series and release events retained as context and forecast diagnostics; these do not directly set the two-gate countdown.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": false,
+        "recordCount": 67,
+        "calculation": {
+          "role": "Context and falsification evidence",
+          "preparation": "Adoption observations retain their original population, cadence, and units; users, seats, downloads, subscriptions, and stars are never merged into one curve.",
+          "countdownEffect": "Does not directly change either gate. It tests the conjecture that usable capability transmits into delegation and can weaken the forecast if adoption fails to follow.",
+          "pipeline": [
+            "Product or adoption observation",
+            "Comparable series",
+            "Transmission check",
+            "Conjecture support or refutation"
+          ],
+          "adjustableAssumptions": []
+        },
+        "collections": [
+          "series",
+          "observations",
+          "releases"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Append observations only when their population, cadence, and unit remain comparable. Do not convert downloads, revenue, seats, or subscriptions into active delegated users."
+        }
+      },
+      {
+        "id": "research-evidence",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
+        "title": "Research evidence ledger",
+        "description": "Source-backed facts used in the conjecture, capability catalog, and contextual discussion but not necessarily in the live forecast equations.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": false,
+        "recordCount": 50,
+        "calculation": {
+          "role": "Context and assumption evidence",
+          "preparation": "Source-backed claims are preserved with caveats and comparability notes instead of being converted into synthetic scores.",
+          "countdownEffect": "Does not directly move the date. It supports or challenges the assumptions, benchmark choices, and interpretation surrounding both gates.",
+          "pipeline": [
+            "Primary-source claim",
+            "Evidence ledger",
+            "Assumption review",
+            "Model revision when warranted"
+          ],
+          "adjustableAssumptions": []
+        },
+        "collections": [
+          "observations"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Refresh claims from primary sources, preserve caveats, and leave incomparable observations as separate records."
+        }
+      },
+      {
+        "id": "user-capabilities",
+        "gateId": "gate1",
+        "consolidatedFile": "gate1-consolidated.json",
+        "title": "Personal-agent capability catalog",
+        "description": "User-relevant capability stack, operational measures, maturity, and benchmark evidence for computer-use delegation.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": false,
+        "recordCount": 34,
+        "calculation": {
+          "role": "Coverage ontology",
+          "preparation": "User-relevant capabilities are mapped to observable measures, maturity judgments, and applicable benchmark families.",
+          "countdownEffect": "Does not directly move the date. It reveals missing coverage and determines whether the benchmark basket represents real personal delegation well enough.",
+          "pipeline": [
+            "User outcome",
+            "Required agent capability",
+            "Observable measure",
+            "Benchmark coverage review"
+          ],
+          "adjustableAssumptions": []
+        },
+        "collections": [
+          "capabilities"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Add capabilities only when they map to a user outcome and an observable operational measure. Refresh current-state assessments from benchmark evidence."
+        }
+      },
+      {
+        "id": "compute-capacity",
+        "gateId": "gate2",
+        "consolidatedFile": "gate2-consolidated.json",
+        "title": "U.S. operational AI service capacity",
+        "description": "Observed and dated projected U.S. AI IT power, inference productivity per IT GW-day, the resulting supported Personal-AI users, and independently sourced build-rate and allocation diagnostics.",
+        "asOfDate": "2026-09-03",
+        "requiredForCountdown": true,
+        "recordCount": 128,
+        "calculation": {
+          "role": "Direct Gate 2 input",
+          "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. Independently measured MLPerf server goodput and full-system power set reference token-equivalents per IT GW-day, while a matched MLPerf series sets productivity velocity. H100-equivalents remain an audit cross-check only. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+          "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
+          "pipeline": [
+            "U.S. operational IT power",
+            "Reference token-equivalents per IT GW-day",
+            "Inference and Personal-AI allocation",
+            "Supported user-equivalents",
+            "Service-capacity gate crossing"
+          ],
+          "adjustableAssumptions": [
+            "U.S. population",
+            "Population target",
+            "Current U.S. IT power",
+            "IT-power acceleration",
+            "Current inference productivity",
+            "Inference-productivity acceleration",
+            "Tokens per user per day",
+            "Fleet inference allocation",
+            "Personal-AI inference share"
+          ]
+        },
+        "collections": [
+          "quarters",
+          "inferenceProductivityObservations",
+          "siteRegistry",
+          "supportingEvidence",
+          "population",
+          "workload",
+          "serving",
+          "forecastPolicy"
+        ],
+        "update": {
+          "method": "agent-assisted ETL with human review",
+          "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and refresh comparable MLPerf power submissions separately. Select an absolute latency-constrained reference result and a matched workload series for productivity velocity; do not derive productivity from H100e. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
+        }
+      }
+    ],
+    "defaults": {
+      "capabilityThreshold": 0.8,
+      "maximumForecastYears": 15,
+      "supplyGateShareOfTarget": 1,
+      "reportStartQuarter": "2024-Q1",
+      "reportEndQuarter": "2028-Q4"
+    },
+    "etl": {
+      "snapshotDirectoryPattern": "snapshot-YYYYMMDD",
+      "sourceDirectoryPattern": "gate[1|2]-sources",
+      "sourceFilePattern": "[source]-data.json",
+      "consolidatedFilePattern": "gate[1|2]-consolidated.json",
+      "immutableSnapshots": true,
+      "selectionRule": "lexicographically greatest valid snapshot directory",
+      "calculationInputs": "consolidated gate files only",
+      "sourceResultContract": "Every source file materializes an explicit results summary with status, countdown role, counts, and measurements. Missing numerical results are labeled rather than inferred.",
+      "requiredRootFields": [
+        "metadata",
+        "data"
+      ],
+      "workflow": [
+        "Copy the latest snapshot to a new dated directory.",
+        "Fetch each URL named by every source file and update only that source file.",
+        "Normalize records to the existing fragment schema without rewriting earlier snapshots.",
+        "Run scripts/consolidate_snapshot.mjs to rebuild both gate files deterministically.",
+        "Validate identifiers, dates, units, provenance, record counts, and forecast invariants.",
+        "Rebuild the reports and site; both read only the latest consolidated gate files."
+      ]
+    }
+  }
+}

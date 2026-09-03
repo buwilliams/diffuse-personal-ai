@@ -51,7 +51,7 @@ Sparse family histories are partially pooled rather than held flat or assigned t
 >
 > `v_f = w_f × v_f,raw + (1 - w_f) × v_global`
 
-A family with no longitudinal observation uses `v_global`; a mature family increasingly uses its own rate. The current pooled family velocities are **0.0766** gap halvings/quarter for direct economic stewardship, **0.2121** for operational execution, **0.1466** for personal stewardship transfer, and **0.1626** for economic value and governance. This makes the forecast updateable without pretending that Vending-Bench, computer use, and remote labor share one absolute curve.
+A family with no longitudinal observation uses `v_global`; a mature family increasingly uses its own rate. The current pooled family velocities are **0.0782** gap halvings/quarter for direct economic stewardship, **0.2165** for operational execution, **0.1499** for personal stewardship transfer, and **0.1646** for economic value and governance. This makes the forecast updateable without pretending that Vending-Bench, computer use, and remote labor share one absolute curve.
 
 Benchmark-local second derivatives remain visible as diagnostics, but they do not drive the forecast. The current economic suite is too sparse and benchmark definitions change too often for its local accelerations to be a defensible shared capability law.
 
@@ -189,14 +189,14 @@ The current high-autonomy workload is 16.75 million compute-equivalent tokens pe
 
 ### Default serving envelope
 
-The current absolute baseline is the independently measured **45.688453T reference token-equivalents per IT GW-day** above. The former H100e serving envelope remains reproducible as an audit: 13.524006M H100e divided by 11.879330 IT GW, multiplied by 199.4832M reference token-equivalents/H100e-day, implies **227.101365T/GW-day**. This fivefold difference is an exposed model diagnostic, not an average or an input to capacity.
+The current absolute baseline is the independently measured **45.688453T reference token-equivalents per IT GW-day** above. The former H100e serving envelope remains reproducible as an audit: 13.046294M H100e divided by 12.109330 IT GW, multiplied by 199.4832M reference token-equivalents/H100e-day, implies **214.918293T/GW-day**. This roughly 4.7-fold difference is an exposed model diagnostic, not an average or an input to capacity.
 
 The explicit allocations then apply:
 
 - 40% of total AI service capacity allocated to inference;
 - 60% of inference allocated to the modeled Personal-AI cohort.
 
-With the 16.75M-token-equivalent workload, the independent baseline supports **7.776691M users**, or **4.5372%** of the 171.4M-user target at the snapshot. Under the measured two-point productivity velocity and the dated power path, the continuous compute crossing is **7 November 2027**; the website's daily-resolution crossing is **8 November 2027**.
+With the 16.75M-token-equivalent workload, the independent baseline supports **7.927258M users**, or **4.6250%** of the 171.4M-user target at the snapshot. Under the measured two-point productivity velocity and the dated power path, the continuous compute crossing is **1 November 2027**; the website's daily-resolution crossing is **2 November 2027**.
 
 The 40% inference allocation and 60% Personal-AI allocation are distinct, editable scenario assumptions. The former has an external expert cross-check; the latter is a forecast choice. The same fleet also serves training, research, development, enterprise applications, and other users, so changing either can materially move or remove the crossing. Epoch's tracker covers disclosed sites rather than a complete U.S. census, creating uncertainty in the opposite direction.
 

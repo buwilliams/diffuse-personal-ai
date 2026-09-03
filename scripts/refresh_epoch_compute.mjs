@@ -59,7 +59,7 @@ async function readJson(file) {
 }
 
 async function selectedSnapshotDirectory() {
-  const requested = process.argv[2];
+  const requested = process.argv.slice(2).find((argument) => !argument.startsWith('--'));
   if (requested) return path.resolve(projectRoot, requested);
   const snapshots = await listSnapshotDirectories(dataRoot);
   if (!snapshots.length) throw new Error('No snapshot-YYYYMMDD directories found');
@@ -73,6 +73,7 @@ async function fetchCsv(url) {
 }
 
 const snapshotDirectory = await selectedSnapshotDirectory();
+const acceptSourceRevisions = process.argv.includes('--accept-source-revisions');
 const sourceDirectory = path.join(snapshotDirectory, 'gate2-sources');
 const timelineFile = path.join(sourceDirectory, 'epoch-ai-ai-data-center-timelines-csv-data.json');
 const registryFile = path.join(sourceDirectory, 'epoch-ai-ai-data-centers-csv-data.json');
@@ -97,6 +98,7 @@ const quarterFragment = timelineEnvelope.data.fragments.find(
   (fragment) => fragment.datasetId === 'compute-capacity' && fragment.collection === 'quarters',
 );
 if (!quarterFragment) throw new Error('Missing compute-capacity.quarters fragment');
+const sourceRevisions = [];
 
 for (const item of quarterFragment.items) {
   const record = item.record;
@@ -116,7 +118,11 @@ for (const item of quarterFragment.items) {
     if (h100e > 0 || itPowerMw > 0 || facilityPowerMw > 0) includedSites += 1;
   }
   if (Math.abs(usH100e - record.usH100e) > 0.5) {
-    throw new Error(`${record.quarter}: reconstructed ${usH100e} H100e, expected ${record.usH100e}`);
+    const revision = `${record.quarter}: H100e ${record.usH100e} -> ${Math.round(usH100e)}`;
+    if (!acceptSourceRevisions) {
+      throw new Error(`${revision}. Re-run for a new immutable snapshot with --accept-source-revisions after reviewing the upstream change.`);
+    }
+    sourceRevisions.push(revision);
   }
   Object.assign(record, {
     usItPowerMw: Number(usItPowerMw.toFixed(6)),
@@ -185,3 +191,7 @@ const registryEnvelope = {
 await fs.writeFile(registryFile, `${JSON.stringify(registryEnvelope, null, 2)}\n`, 'utf8');
 
 console.log(`Refreshed ${quarterFragment.items.length} quarterly states and ${registryItems.length} data-center records.`);
+if (sourceRevisions.length) {
+  console.log(`Accepted ${sourceRevisions.length} upstream H100e revision(s):`);
+  for (const revision of sourceRevisions) console.log(`- ${revision}`);
+}

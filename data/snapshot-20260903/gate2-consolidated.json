@@ -1,0 +1,2127 @@
+{
+  "metadata": {
+    "id": "gate2-consolidated",
+    "title": "Gate 2 consolidated compute evidence",
+    "description": "Source-normalized evidence and model inputs for the U.S. inference-compute supply gate.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate2-cipherdigital-com-bring-your-own-generation",
+        "publisher": "Cipher Digital Inc.",
+        "title": "Cipher Digital Begins Development of Lateral Pipelines to Facilitate Data Center Expansion via Bring-Your-Own-Generation",
+        "url": "https://investors.cipherdigital.com/news-releases/news-release-details/cipher-digital-begins-development-lateral-pipelines-facilitate/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "U.S. power pipeline evidence",
+          "HPC data-center supply context"
+        ],
+        "notes": "Company announcement and forward-looking statement. The 2.5 GW is generation capacity, not measured operational IT load."
+      },
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+      },
+      {
+        "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+        "publisher": "Dwarkesh Podcast",
+        "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+        "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capacity outlook",
+          "allocation cross-check",
+          "supply constraint context"
+        ],
+        "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path."
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+        "publisher": "Epoch AI",
+        "title": "AI Data Center Timelines CSV",
+        "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "IT-power observation",
+          "IT-power projection",
+          "H100e productivity audit bridge"
+        ],
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry."
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-csv",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers CSV",
+        "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "site registry",
+          "geography filter",
+          "facility audit"
+        ],
+        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline."
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-updates",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers Updates",
+        "url": "https://epoch.ai/data/ai-data-centers/updates",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "data-center change log",
+          "capacity revision audit",
+          "pipeline context"
+        ],
+        "notes": "The direct gate inputs come from Epoch's September 3 registry and timeline CSVs. This source preserves the publisher's post-August-26 change log as an audit trail."
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-0-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.0 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement."
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-1-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.1 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "absolute productivity baseline",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements."
+      },
+      {
+        "id": "gate2-us-census-bureau-population-on-a-date",
+        "publisher": "U.S. Census Bureau",
+        "title": "Population on a Date",
+        "url": "https://www.census.gov/popclock/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "population"
+        ],
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+      }
+    ],
+    "update": {
+      "method": "deterministic consolidation of source-first JSON files",
+      "notes": "Run scripts/consolidate_snapshot.mjs after changing files in gate2-sources."
+    }
+  },
+  "data": {
+    "gate": {
+      "id": "gate2",
+      "label": "Gate 2 · Compute supply",
+      "sourceDirectory": "gate2-sources"
+    },
+    "sourceFiles": [
+      {
+        "id": "gate2-cipherdigital-com-bring-your-own-generation",
+        "file": "gate2-sources/cipherdigital-com-bring-your-own-generation-data.json",
+        "publisher": "Cipher Digital Inc.",
+        "title": "Cipher Digital Begins Development of Lateral Pipelines to Facilitate Data Center Expansion via Bring-Your-Own-Generation",
+        "url": "https://investors.cipherdigital.com/news-releases/news-release-details/cipher-digital-begins-development-lateral-pipelines-facilitate/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "U.S. power pipeline evidence",
+          "HPC data-center supply context"
+        ],
+        "notes": "Company announcement and forward-looking statement. The 2.5 GW is generation capacity, not measured operational IT load.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 0,
+          "directInputs": 0
+        }
+      },
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "file": "gate2-sources/diffuse-personal-ai-gate-2-compute-supply-calculation-contract-data.json",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 3,
+        "resultStatus": "forecast-assumptions",
+        "countdownRole": "forecast-method",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 0,
+          "assumptions": 18,
+          "directInputs": 18
+        }
+      },
+      {
+        "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+        "file": "gate2-sources/dwarkesh-com-dylan-patel-compute-outlook-data.json",
+        "publisher": "Dwarkesh Podcast",
+        "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+        "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capacity outlook",
+          "allocation cross-check",
+          "supply constraint context"
+        ],
+        "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 15,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 15,
+          "assumptions": 0,
+          "directInputs": 0
+        }
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+        "file": "gate2-sources/epoch-ai-ai-data-center-timelines-csv-data.json",
+        "publisher": "Epoch AI",
+        "title": "AI Data Center Timelines CSV",
+        "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "IT-power observation",
+          "IT-power projection",
+          "H100e productivity audit bridge"
+        ],
+        "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 20,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 40,
+          "assumptions": 0,
+          "directInputs": 20
+        }
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-csv",
+        "file": "gate2-sources/epoch-ai-ai-data-centers-csv-data.json",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers CSV",
+        "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "site registry",
+          "geography filter",
+          "facility audit"
+        ],
+        "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 86,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 172,
+          "assumptions": 0,
+          "directInputs": 0
+        }
+      },
+      {
+        "id": "gate2-epoch-ai-ai-data-centers-updates",
+        "file": "gate2-sources/epoch-ai-ai-data-centers-updates-data.json",
+        "publisher": "Epoch AI",
+        "title": "AI Data Centers Updates",
+        "url": "https://epoch.ai/data/ai-data-centers/updates",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "data-center change log",
+          "capacity revision audit",
+          "pipeline context"
+        ],
+        "notes": "The direct gate inputs come from Epoch's September 3 registry and timeline CSVs. This source preserves the publisher's post-August-26 change log as an audit trail.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 3,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "supporting-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 2,
+          "assumptions": 0,
+          "directInputs": 0
+        }
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-0-power",
+        "file": "gate2-sources/github-com-mlperf-inference-v5-0-power-data.json",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.0 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 3,
+          "assumptions": 0,
+          "directInputs": 3
+        }
+      },
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-1-power",
+        "file": "gate2-sources/github-com-mlperf-inference-v5-1-power-data.json",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.1 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "absolute productivity baseline",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 2,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 6,
+          "assumptions": 0,
+          "directInputs": 6
+        }
+      },
+      {
+        "id": "gate2-us-census-bureau-population-on-a-date",
+        "file": "gate2-sources/us-census-bureau-population-on-a-date-data.json",
+        "publisher": "U.S. Census Bureau",
+        "title": "Population on a Date",
+        "url": "https://www.census.gov/popclock/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "population"
+        ],
+        "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users.",
+        "datasetIds": [
+          "compute-capacity"
+        ],
+        "recordCount": 1,
+        "resultStatus": "reported-measurements",
+        "countdownRole": "direct-input",
+        "resultCounts": {
+          "scores": 0,
+          "measurements": 1,
+          "assumptions": 1,
+          "directInputs": 2
+        }
+      }
+    ],
+    "datasets": {
+      "compute-capacity": {
+        "metadata": {
+          "id": "compute-capacity",
+          "title": "U.S. operational AI service capacity",
+          "description": "Observed and dated projected U.S. AI IT power, inference productivity per IT GW-day, the resulting supported Personal-AI users, and independently sourced build-rate and allocation diagnostics.",
+          "schemaVersion": "1.2.0",
+          "snapshotDate": "2026-09-03",
+          "asOfDate": "2026-09-03",
+          "sources": [
+            {
+              "id": "gate2-cipherdigital-com-bring-your-own-generation",
+              "publisher": "Cipher Digital Inc.",
+              "title": "Cipher Digital Begins Development of Lateral Pipelines to Facilitate Data Center Expansion via Bring-Your-Own-Generation",
+              "url": "https://investors.cipherdigital.com/news-releases/news-release-details/cipher-digital-begins-development-lateral-pipelines-facilitate/",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "U.S. power pipeline evidence",
+                "HPC data-center supply context"
+              ],
+              "notes": "Company announcement and forward-looking statement. The 2.5 GW is generation capacity, not measured operational IT load."
+            },
+            {
+              "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+              "publisher": "Diffuse Personal AI",
+              "title": "Gate 2 · Compute supply calculation contract",
+              "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "methodology",
+                "normalization",
+                "model configuration"
+              ],
+              "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+            },
+            {
+              "id": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "publisher": "Dwarkesh Podcast",
+              "title": "Dylan Patel – Anthropic & OpenAI will have most of the world’s compute by 2028",
+              "url": "https://www.dwarkesh.com/p/dylan-patel-3",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "capacity outlook",
+                "allocation cross-check",
+                "supply constraint context"
+              ],
+              "notes": "Expert-interview estimates from Dylan Patel of SemiAnalysis. The official transcript accompanies the video at https://www.youtube.com/watch?v=aV26V1UvkJw. Global GW flows and frontier-lab allocations are not directly merged with the U.S. H100e countdown path."
+            },
+            {
+              "id": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "publisher": "Epoch AI",
+              "title": "AI Data Center Timelines CSV",
+              "url": "https://epoch.ai/data/data_centers/data_center_timelines.csv",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "IT-power observation",
+                "IT-power projection",
+                "H100e productivity audit bridge"
+              ],
+              "notes": "Observed quarters use the latest operational state at each cutoff; forward quarters use the latest expected/projected state dated by each cutoff. U.S. geography is joined from Epoch’s data-center registry."
+            },
+            {
+              "id": "gate2-epoch-ai-ai-data-centers-csv",
+              "publisher": "Epoch AI",
+              "title": "AI Data Centers CSV",
+              "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "site registry",
+                "geography filter",
+                "facility audit"
+              ],
+              "notes": "Country identifies the U.S. sites included in the quarterly timeline reconstruction. Current power is the registry’s current IT-power estimate and is retained as a facility-level audit field; the quarterly gate path is reconstructed from the dated timeline."
+            },
+            {
+              "id": "gate2-epoch-ai-ai-data-centers-updates",
+              "publisher": "Epoch AI",
+              "title": "AI Data Centers Updates",
+              "url": "https://epoch.ai/data/ai-data-centers/updates",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "data-center change log",
+                "capacity revision audit",
+                "pipeline context"
+              ],
+              "notes": "The direct gate inputs come from Epoch's September 3 registry and timeline CSVs. This source preserves the publisher's post-August-26 change log as an audit trail."
+            },
+            {
+              "id": "gate2-github-com-mlperf-inference-v5-0-power",
+              "publisher": "MLCommons",
+              "title": "MLPerf Inference v5.0 summary results",
+              "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.0/main/summary_results.json",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "measured inference goodput",
+                "measured system power",
+                "productivity trend"
+              ],
+              "notes": "Official MLPerf result data. The selected row is an available, closed, datacenter Server result with a reported power measurement."
+            },
+            {
+              "id": "gate2-github-com-mlperf-inference-v5-1-power",
+              "publisher": "MLCommons",
+              "title": "MLPerf Inference v5.1 summary results",
+              "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "measured inference goodput",
+                "measured system power",
+                "absolute productivity baseline",
+                "productivity trend"
+              ],
+              "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements."
+            },
+            {
+              "id": "gate2-us-census-bureau-population-on-a-date",
+              "publisher": "U.S. Census Bureau",
+              "title": "Population on a Date",
+              "url": "https://www.census.gov/popclock/",
+              "accessedAt": "2026-09-03",
+              "roles": [
+                "population"
+              ],
+              "notes": "The model uses the rounded estimate of 342.8M residents; the selected 50% target is 171.4M users."
+            }
+          ],
+          "calculation": {
+            "role": "Direct Gate 2 input",
+            "preparation": "Epoch's registry identifies U.S. sites; dated site states are summed as operational IT power. Independently measured MLPerf server goodput and full-system power set reference token-equivalents per IT GW-day, while a matched MLPerf series sets productivity velocity. H100-equivalents remain an audit cross-check only. Physical power, productivity, inference allocation, Personal-AI allocation, and workload are then combined into supported-user equivalents.",
+            "countdownEffect": "Converts physical IT power and inference productivity into supported Personal-AI users. The gate passes only when service capacity reaches 100% of the selected population target.",
+            "pipeline": [
+              "U.S. operational IT power",
+              "Reference token-equivalents per IT GW-day",
+              "Inference and Personal-AI allocation",
+              "Supported user-equivalents",
+              "Service-capacity gate crossing"
+            ],
+            "adjustableAssumptions": [
+              "U.S. population",
+              "Population target",
+              "Current U.S. IT power",
+              "IT-power acceleration",
+              "Current inference productivity",
+              "Inference-productivity acceleration",
+              "Tokens per user per day",
+              "Fleet inference allocation",
+              "Personal-AI inference share"
+            ]
+          },
+          "update": {
+            "method": "agent-assisted ETL with human review",
+            "notes": "Refresh Epoch's data-center registry and timeline together, recompute every quarter from the dated U.S. site states, and refresh comparable MLPerf power submissions separately. Select an absolute latency-constrained reference result and a matched workload series for productivity velocity; do not derive productivity from H100e. Refresh independent build-rate and allocation outlooks as supporting evidence without merging global watts into the U.S. series."
+          }
+        },
+        "data": {
+          "quarters": [
+            {
+              "quarterIndex": 1,
+              "quarter": "2024-Q1",
+              "cutoffDate": "2024-03-31",
+              "usH100e": 240662,
+              "includedSites": 8,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 473,
+              "usFacilityPowerMw": 603
+            },
+            {
+              "quarterIndex": 2,
+              "quarter": "2024-Q2",
+              "cutoffDate": "2024-06-30",
+              "usH100e": 465052,
+              "includedSites": 13,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 875,
+              "usFacilityPowerMw": 1106
+            },
+            {
+              "quarterIndex": 3,
+              "quarter": "2024-Q3",
+              "cutoffDate": "2024-09-30",
+              "usH100e": 723011,
+              "includedSites": 16,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1323,
+              "usFacilityPowerMw": 1661
+            },
+            {
+              "quarterIndex": 4,
+              "quarter": "2024-Q4",
+              "cutoffDate": "2024-12-31",
+              "usH100e": 1066724,
+              "includedSites": 19,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 1814,
+              "usFacilityPowerMw": 2286
+            },
+            {
+              "quarterIndex": 5,
+              "quarter": "2025-Q1",
+              "cutoffDate": "2025-03-31",
+              "usH100e": 1357224,
+              "includedSites": 22,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 2368.32971,
+              "usFacilityPowerMw": 2995
+            },
+            {
+              "quarterIndex": 6,
+              "quarter": "2025-Q2",
+              "cutoffDate": "2025-06-30",
+              "usH100e": 2306541,
+              "includedSites": 25,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3431.32971,
+              "usFacilityPowerMw": 4293
+            },
+            {
+              "quarterIndex": 7,
+              "quarter": "2025-Q3",
+              "cutoffDate": "2025-09-30",
+              "usH100e": 3043660,
+              "includedSites": 29,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 3861.32971,
+              "usFacilityPowerMw": 4870
+            },
+            {
+              "quarterIndex": 8,
+              "quarter": "2025-Q4",
+              "cutoffDate": "2025-12-31",
+              "usH100e": 5215133,
+              "includedSites": 36,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 5747.32971,
+              "usFacilityPowerMw": 7336
+            },
+            {
+              "quarterIndex": 9,
+              "quarter": "2026-Q1",
+              "cutoffDate": "2026-03-31",
+              "usH100e": 6385550,
+              "includedSites": 42,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 6867.32971,
+              "usFacilityPowerMw": 8737.2
+            },
+            {
+              "quarterIndex": 10,
+              "quarter": "2026-Q2",
+              "cutoffDate": "2026-06-30",
+              "usH100e": 11015123,
+              "includedSites": 56,
+              "evidenceClass": "observed_quarter_end",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_quarter_end: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 10764.32971,
+              "usFacilityPowerMw": 13823.8
+            },
+            {
+              "quarterIndex": 11,
+              "quarter": "2026-Q3",
+              "cutoffDate": "2026-09-03",
+              "usH100e": 13046294,
+              "includedSites": 60,
+              "evidenceClass": "observed_qtd",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "observed_qtd: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 12109.32971,
+              "usFacilityPowerMw": 15493.8
+            },
+            {
+              "quarterIndex": 12,
+              "quarter": "2026-Q4",
+              "cutoffDate": "2026-12-31",
+              "usH100e": 16993413,
+              "includedSites": 67,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 14424.32971,
+              "usFacilityPowerMw": 18559.3
+            },
+            {
+              "quarterIndex": 13,
+              "quarter": "2027-Q1",
+              "cutoffDate": "2027-03-31",
+              "usH100e": 20356475,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 16615.32971,
+              "usFacilityPowerMw": 21507.8
+            },
+            {
+              "quarterIndex": 14,
+              "quarter": "2027-Q2",
+              "cutoffDate": "2027-06-30",
+              "usH100e": 21333752,
+              "includedSites": 68,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 17243.32971,
+              "usFacilityPowerMw": 22360.8
+            },
+            {
+              "quarterIndex": 15,
+              "quarter": "2027-Q3",
+              "cutoffDate": "2027-09-30",
+              "usH100e": 23808883,
+              "includedSites": 70,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 18358.32971,
+              "usFacilityPowerMw": 23828.2
+            },
+            {
+              "quarterIndex": 16,
+              "quarter": "2027-Q4",
+              "cutoffDate": "2027-12-31",
+              "usH100e": 30517082,
+              "includedSites": 70,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 20684.32971,
+              "usFacilityPowerMw": 26932.3
+            },
+            {
+              "quarterIndex": 17,
+              "quarter": "2028-Q1",
+              "cutoffDate": "2028-03-31",
+              "usH100e": 38104906,
+              "includedSites": 71,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 24705.32971,
+              "usFacilityPowerMw": 32064.3
+            },
+            {
+              "quarterIndex": 18,
+              "quarter": "2028-Q2",
+              "cutoffDate": "2028-06-30",
+              "usH100e": 43728959,
+              "includedSites": 71,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 26684.32971,
+              "usFacilityPowerMw": 34493.3
+            },
+            {
+              "quarterIndex": 19,
+              "quarter": "2028-Q3",
+              "cutoffDate": "2028-09-30",
+              "usH100e": 44704704,
+              "includedSites": 71,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 27319.32971,
+              "usFacilityPowerMw": 35255.3
+            },
+            {
+              "quarterIndex": 20,
+              "quarter": "2028-Q4",
+              "cutoffDate": "2028-12-31",
+              "usH100e": 59484896,
+              "includedSites": 75,
+              "evidenceClass": "epoch_projected_pipeline",
+              "sourceId": "gate2-epoch-ai-ai-data-center-timelines-csv",
+              "methodNote": "epoch_projected_pipeline: Latest published state on or before cutoff for each Epoch-covered U.S. site. U.S. sites are selected through Epoch's data-center registry; IT power is the physical source metric and H100e is retained as a productivity audit bridge.",
+              "usItPowerMw": 32236.32971,
+              "usFacilityPowerMw": 42176.3
+            }
+          ],
+          "inferenceProductivityObservations": [
+            {
+              "id": "mlperf-v5-0-llama2-70b-99-9-server-h100",
+              "release": "MLPerf Inference v5.0",
+              "observationDate": "2025-04-02",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Fujitsu",
+              "system": "PRIMERGY CDI (8x H100-NVL-94GB, TensorRT)",
+              "accelerator": "NVIDIA H100-NVL-94GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 16848.6,
+              "systemPowerWatts": 4994.2610980392,
+              "tokensPerJoule": 3.37359214291278,
+              "referenceTokenEquivalentsPerItGwDay": 204034852803364.94,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.0-0023",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-0-power",
+              "sourceLocation": "ID 5.0-0023; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.1 Llama 2 70B 99.9 Server row. Reference-token equivalence multiplies measured tokens per joule by 70B/100B; the same factor cancels from the two-point growth rate."
+            },
+            {
+              "id": "mlperf-v5-1-llama2-70b-99-9-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 99203.9,
+              "systemPowerWatts": 10434.706455542,
+              "tokensPerJoule": 9.507109799654364,
+              "referenceTokenEquivalentsPerItGwDay": 574990000683095.9,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0061",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+            },
+            {
+              "id": "mlperf-v5-1-llama31-405b-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama3.1-405b",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 405000000000,
+              "performanceTokensPerSecond": 1249.04,
+              "systemPowerWatts": 9566.1823383085,
+              "tokensPerJoule": 0.13056828270961604,
+              "referenceTokenEquivalentsPerItGwDay": 45688453485748.84,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0062",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+              "roles": [
+                "absolute-productivity-baseline"
+              ],
+              "comparabilityNote": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
+            }
+          ],
+          "siteRegistry": [
+            {
+              "id": "Colossus 2",
+              "name": "Colossus 2",
+              "country": "United States",
+              "currentH100e": 1111672.5618999496,
+              "currentItPowerMw": 946,
+              "owner": "SpaceXAI #confident",
+              "users": "Anthropic #confident, Cursor #confident, SpaceXAI #confident",
+              "address": "5420 Tulane Rd, Memphis, TN 38109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Fairwater Atlanta",
+              "name": "Microsoft Fairwater Atlanta",
+              "country": "United States",
+              "currentH100e": 768768.7220818596,
+              "currentItPowerMw": 636,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #likely",
+              "address": "1435 Hwy 54 W, Fayetteville, GA 30214",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Anthropic-Amazon New Carlisle",
+              "name": "Anthropic-Amazon New Carlisle",
+              "country": "United States",
+              "currentH100e": 685912.076806468,
+              "currentItPowerMw": 910,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #confident",
+              "address": "55001 Larrison Blvd, New Carlisle, IN 46552",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Prometheus",
+              "name": "Meta Prometheus",
+              "country": "United States",
+              "currentH100e": 679568.3173319859,
+              "currentItPowerMw": 562,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1 Community Cir, New Albany, OH 43054",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Pryor (North)",
+              "name": "Google Pryor (North)",
+              "country": "United States",
+              "currentH100e": 636685.1945426983,
+              "currentItPowerMw": 368,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "4581 Webb St, Pryor, OK 74361",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google New Albany",
+              "name": "Google New Albany",
+              "country": "United States",
+              "currentH100e": 550783.2238504295,
+              "currentItPowerMw": 453,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "1101 Beech Rd SW, New Albany, OH 43054",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Abilene",
+              "name": "OpenAI Stargate Abilene",
+              "country": "United States",
+              "currentH100e": 509348.15563415864,
+              "currentItPowerMw": 421,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": "5502 Spinks Rd, Abilene, TX 79601",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Fairwater Wisconsin",
+              "name": "Microsoft Fairwater Wisconsin",
+              "country": "United States",
+              "currentH100e": 445679.63617988885,
+              "currentItPowerMw": 369,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #likely",
+              "address": "4800 90th St, Mount Pleasant, WI 53403",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Columbus",
+              "name": "Google Columbus",
+              "country": "United States",
+              "currentH100e": 331985.85144012125,
+              "currentItPowerMw": 303,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "5076 S High St, Columbus, OH 43207",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Mesa",
+              "name": "Google Mesa",
+              "country": "United States",
+              "currentH100e": 289540.17180394137,
+              "currentItPowerMw": 183,
+              "owner": "Google #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "DayOne Nusajaya",
+              "name": "DayOne Nusajaya",
+              "country": "Malaysia",
+              "currentH100e": 281670.4396159676,
+              "currentItPowerMw": 240,
+              "owner": null,
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Colossus 1",
+              "name": "Colossus 1",
+              "country": "United States",
+              "currentH100e": 275795.85649317835,
+              "currentItPowerMw": 340,
+              "owner": "SpaceXAI #confident",
+              "users": "Anthropic #confident",
+              "address": "3231 Riverport Rd, Memphis, TN 38109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Council Bluffs (East)",
+              "name": "Google Council Bluffs (East)",
+              "country": "United States",
+              "currentH100e": 255684.68923698837,
+              "currentItPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "10410 Bunge Ave, Council Bluffs, IA 51503",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Denton TX",
+              "name": "CoreWeave Denton TX",
+              "country": "United States",
+              "currentH100e": 252652.85497726125,
+              "currentItPowerMw": 262,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #likely",
+              "address": "8171 Jim Christal Rd, Denton, TX 76207",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 1",
+              "name": "QTS Richmond 1",
+              "country": "United States",
+              "currentH100e": 242546.7407781708,
+              "currentItPowerMw": 238,
+              "owner": null,
+              "users": null,
+              "address": "6000 Technology Blvd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Rosemount",
+              "name": "Meta Rosemount",
+              "country": "United States",
+              "currentH100e": 215675.08842849924,
+              "currentItPowerMw": 178,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1772-2396 145th St, Rosemount, MN 55068, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Amazon Madison Mega Site",
+              "name": "Amazon Madison Mega Site",
+              "country": "United States",
+              "currentH100e": 214348.14354550533,
+              "currentItPowerMw": 284,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "Amazon Data Services Inc, Madison Mega Site Nissan Parkway and Highway 22 Canton, Mississippi Madison County",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Bristow",
+              "name": "Google Bristow",
+              "country": "United States",
+              "currentH100e": 209860.53562405254,
+              "currentItPowerMw": 238,
+              "owner": "Google",
+              "users": "Google DeepMind",
+              "address": "13001 Rollins Ford Road, Bristow, VA 20136",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Goodyear",
+              "name": "Microsoft Goodyear",
+              "country": "United States",
+              "currentH100e": 205154.11824153614,
+              "currentItPowerMw": 202,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #likely, Microsoft #confident",
+              "address": "14250 W Broadway Rd, Goodyear, AZ 85338",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Jeffersonville",
+              "name": "Meta Jeffersonville",
+              "country": "United States",
+              "currentH100e": 203132.89540171804,
+              "currentItPowerMw": 178,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "500 8th St, Jeffersonville, IN 47130, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Kansas City East",
+              "name": "Google Kansas City East",
+              "country": "United States",
+              "currentH100e": 202627.5896917635,
+              "currentItPowerMw": 105,
+              "owner": "Google #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "AWS New Albany",
+              "name": "AWS New Albany",
+              "country": "United States",
+              "currentH100e": 201111.67256189996,
+              "currentItPowerMw": 213,
+              "owner": "Amazon #confident",
+              "users": null,
+              "address": "13360 Miller Rd NW",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Omaha",
+              "name": "Google Omaha",
+              "country": "United States",
+              "currentH100e": 198585.14401212733,
+              "currentItPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "11110 State St, Omaha, NE 68142",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Lincoln",
+              "name": "Google Lincoln",
+              "country": "United States",
+              "currentH100e": 197574.53259221828,
+              "currentItPowerMw": 141,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "5475 Cloud Ct, Lincoln, NE 68514",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 2",
+              "name": "QTS Richmond 2",
+              "country": "United States",
+              "currentH100e": 182920.66700353715,
+              "currentItPowerMw": 180,
+              "owner": null,
+              "users": null,
+              "address": "6030–6070 Technology Blvd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google The Dalles",
+              "name": "Google The Dalles",
+              "country": "United States",
+              "currentH100e": 175341.0813542193,
+              "currentItPowerMw": 154,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "3500 River Rd, The Dalles, OR",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Richmond 3",
+              "name": "QTS Richmond 3",
+              "country": "United States",
+              "currentH100e": 174835.77564426477,
+              "currentItPowerMw": 144,
+              "owner": null,
+              "users": null,
+              "address": "3525–3543 Portugee Rd, Sandston, VA 23150",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Montgomery",
+              "name": "Meta Montgomery",
+              "country": "United States",
+              "currentH100e": 174517.43304699342,
+              "currentItPowerMw": 153,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Co Rd 42, Montgomery, AL 36105, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Kuna",
+              "name": "Meta Kuna",
+              "country": "United States",
+              "currentH100e": 173319.85851440122,
+              "currentItPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "601 Kuna Mora Rd,  Kuna ID 83634",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Temple",
+              "name": "Meta Temple",
+              "country": "United States",
+              "currentH100e": 173247.6719844078,
+              "currentItPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "2310 Eberhardt Rd, Temple, TX 76504",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Cheyenne",
+              "name": "Meta Cheyenne",
+              "country": "United States",
+              "currentH100e": 172814.5528044467,
+              "currentItPowerMw": 152,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Cheyenne, WY 82007, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Amazon Ridgeland",
+              "name": "Amazon Ridgeland",
+              "country": "United States",
+              "currentH100e": 171298.6356745831,
+              "currentItPowerMw": 228,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "1626 County Line Road Ridgeland, Mississippi",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Huntsville",
+              "name": "Meta Huntsville",
+              "country": "United States",
+              "currentH100e": 166760.9903991915,
+              "currentItPowerMw": 146,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "5400 Prosperity Dr NW, Toney, AL",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Aiken",
+              "name": "Meta Aiken",
+              "country": "United States",
+              "currentH100e": 161697.82718544718,
+              "currentItPowerMw": 142,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "7601 State Hwy 105, Trenton, SC 29847, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Coreweave Helios",
+              "name": "Coreweave Helios",
+              "country": "United States",
+              "currentH100e": 159551.768236855,
+              "currentItPowerMw": 132,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "984 County Road 112, Afton, TX 79220",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Project Osmium",
+              "name": "Microsoft Project Osmium",
+              "country": "United States",
+              "currentH100e": 155634.15866599293,
+              "currentItPowerMw": 190,
+              "owner": "Microsoft #confident",
+              "users": "OpenAI #speculative",
+              "address": "5855 SW Kerry St, Cumming, IA 50061",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Eagle Mountain",
+              "name": "Meta Eagle Mountain",
+              "country": "United States",
+              "currentH100e": 151354.21930267813,
+              "currentItPowerMw": 133,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1275 N Community Cir, Eagle Mountain, UT 84005",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Midlothian",
+              "name": "Google Midlothian",
+              "country": "United States",
+              "currentH100e": 143506.8216270844,
+              "currentItPowerMw": 103,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "3250 Railport Parkway, Midlothian, TX 76065",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Storey County",
+              "name": "Google Storey County",
+              "country": "United States",
+              "currentH100e": 133906.01313794847,
+              "currentItPowerMw": 161,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Lancaster",
+              "name": "Google Lancaster",
+              "country": "United States",
+              "currentH100e": 130368.8731682668,
+              "currentItPowerMw": 137,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "105 Whiley Rd, Lancaster, OH 43130",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta-QTS Hillsboro 2",
+              "name": "Meta-QTS Hillsboro 2",
+              "country": "United States",
+              "currentH100e": 123839,
+              "currentItPowerMw": 180,
+              "owner": "Meta #likely",
+              "users": "Meta #likely",
+              "address": "4755 NE Huffman St, Hillsboro, OR 97124",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Waltham Cross",
+              "name": "Google Waltham Cross",
+              "country": "United Kingdom",
+              "currentH100e": 123799.89893885801,
+              "currentItPowerMw": 88,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "Land at Maxwell's Farm West, Great Cambridge Road, Cheshunt, EN8 8XH",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "VNET Bayin Ulanqab",
+              "name": "VNET Bayin Ulanqab",
+              "country": "China",
+              "currentH100e": 122789.28751894896,
+              "currentItPowerMw": 221,
+              "owner": "VNET #confident",
+              "users": "ByteDance #speculative",
+              "address": "Bayin, Ulanqab, China",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Huawei Horinger",
+              "name": "Huawei Horinger",
+              "country": "China",
+              "currentH100e": 117230.92470944922,
+              "currentItPowerMw": 241.8,
+              "owner": "Huawei #confident",
+              "users": null,
+              "address": "Huawei, Horinger, China",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Arcola",
+              "name": "Google Arcola",
+              "country": "United States",
+              "currentH100e": 108135.42193026781,
+              "currentItPowerMw": 77,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "42575 Arcola Blvd, Sterling, VA 20166",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Red Oak",
+              "name": "Google Red Oak",
+              "country": "United States",
+              "currentH100e": 108135.42193026781,
+              "currentItPowerMw": 77,
+              "owner": "Google #confident",
+              "users": null,
+              "address": "330 Austin Blvd, Red Oak, TX 75154",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Papillion",
+              "name": "Google Papillion",
+              "country": "United States",
+              "currentH100e": 100555.83628094998,
+              "currentItPowerMw": 237,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "14651-15249 Gold Coast Rd 68138 Papillion Nebraska, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Gallatin",
+              "name": "Meta Gallatin",
+              "country": "United States",
+              "currentH100e": 99545.22486104093,
+              "currentItPowerMw": 87,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "1 Meta Lp, Gallatin, TN 37066",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Los Lunas",
+              "name": "Meta Los Lunas",
+              "country": "United States",
+              "currentH100e": 99545.22486104093,
+              "currentItPowerMw": 87,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "4250 Messenger Lp, Los Lunas, NM 87031",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Ellendale ND",
+              "name": "CoreWeave Ellendale ND",
+              "country": "United States",
+              "currentH100e": 93481.55634158666,
+              "currentItPowerMw": 68,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "9685 87th Ave SE, Ellendale, ND 58436",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Sarpy",
+              "name": "Meta Sarpy",
+              "country": "United States",
+              "currentH100e": 91965.63921172309,
+              "currentItPowerMw": 80,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "14436-14998 Fairview Rd, Springfield, NE 68059, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Chester VA",
+              "name": "CoreWeave Chester VA",
+              "country": "United States",
+              "currentH100e": 88428.49924204143,
+              "currentItPowerMw": 82,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "1401 Meadowville Technology Parkway, Chester, VA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Oracle Batam",
+              "name": "Oracle Batam",
+              "country": "Indonesia",
+              "currentH100e": 84386.05356240526,
+              "currentItPowerMw": 72,
+              "owner": "Oracle #likely",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "AWS Berwick",
+              "name": "AWS Berwick",
+              "country": "United States",
+              "currentH100e": 81354.21930267812,
+              "currentItPowerMw": 108,
+              "owner": "Amazon #confident",
+              "users": "Anthropic #speculative",
+              "address": "1125 Electron Ave, Berwick, PA 18603",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Marble NC",
+              "name": "CoreWeave Marble NC",
+              "country": "United States",
+              "currentH100e": 78827.6907529055,
+              "currentItPowerMw": 65,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "155 Palmer Ln, Marble, NC 28905",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Core42 Lake Mariner",
+              "name": "Core42 Lake Mariner",
+              "country": "United States",
+              "currentH100e": 71753.4108135422,
+              "currentItPowerMw": 58,
+              "owner": "Core42 #confident",
+              "users": "G42 #likely",
+              "address": "7725 Lake Rd, Barker, NY 14012",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft SAT40",
+              "name": "Microsoft SAT40",
+              "country": "United States",
+              "currentH100e": 64679.13087417888,
+              "currentItPowerMw": 75,
+              "owner": "Microsoft #confident",
+              "users": null,
+              "address": "15000 Lambda Drive, San Antonio, TX 78245",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "STACK Infrastructure NVA02",
+              "name": "STACK Infrastructure NVA02",
+              "country": "United States",
+              "currentH100e": 61141.99090449722,
+              "currentItPowerMw": 85,
+              "owner": null,
+              "users": null,
+              "address": "9590 Hornbaker Rd, Manassas, VA 20109",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Anthropic Lake Mariner",
+              "name": "Anthropic Lake Mariner",
+              "country": "United States",
+              "currentH100e": 58564.93178372915,
+              "currentItPowerMw": 42,
+              "owner": "AI XPV Platform #confident",
+              "users": "Anthropic #likely",
+              "address": "7725 Lake Rd, Barker, NY 14012",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft-Nebius New Jersey",
+              "name": "Microsoft-Nebius New Jersey",
+              "country": "United States",
+              "currentH100e": 56846.89236988378,
+              "currentItPowerMw": 50,
+              "owner": "Nebius #confident",
+              "users": "Microsoft #likely",
+              "address": "3963 S Lincoln Ave, Vineland, New Jersey",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Norway",
+              "name": "CoreWeave Norway",
+              "country": "Norway",
+              "currentH100e": 50773.11773623042,
+              "currentItPowerMw": 42,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "Stølevegen 39, 4715 Øvrebø, Norway",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Southgate Melbourne",
+              "name": "Southgate Melbourne",
+              "country": "Australia",
+              "currentH100e": 46488.12531581607,
+              "currentItPowerMw": 41,
+              "owner": "Firmus #confident",
+              "users": null,
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Stream Phoenix",
+              "name": "Stream Phoenix",
+              "country": "United States",
+              "currentH100e": 46134.4113188479,
+              "currentItPowerMw": 64,
+              "owner": null,
+              "users": null,
+              "address": "2950 S. Litchfield Road",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft SAT14",
+              "name": "Microsoft SAT14",
+              "country": "United States",
+              "currentH100e": 45174.33046993431,
+              "currentItPowerMw": 47,
+              "owner": "Microsoft #confident",
+              "users": null,
+              "address": "3545 Wiseman Boulevard, San Antonio, TX 78251",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Vantage TX1",
+              "name": "Vantage TX1",
+              "country": "United States",
+              "currentH100e": 38706.417382516425,
+              "currentItPowerMw": 32,
+              "owner": null,
+              "users": null,
+              "address": "14720 Omicron Dr, San Antonio, TX 78245",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Dalton 1 & 2",
+              "name": "CoreWeave Dalton 1 & 2",
+              "country": "United States",
+              "currentH100e": 32238.504295098533,
+              "currentItPowerMw": 28,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "2205 Industrial South Rd, Dalton, GA, 30721",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Alibaba Zhangbei",
+              "name": "Alibaba Zhangbei",
+              "country": "China",
+              "currentH100e": 31884.79029813037,
+              "currentItPowerMw": 169,
+              "owner": "Alibaba #confident",
+              "users": "Alibaba #likely",
+              "address": "Alibaba Zhangbei Yun Calculation Data Center, Zhangbei County, Zhangjiakou, Hebei, China, 076471",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Start Campus Sines Data Campus",
+              "name": "Start Campus Sines Data Campus",
+              "country": "Portugal",
+              "currentH100e": 31834.259727134915,
+              "currentItPowerMw": 33,
+              "owner": "Nscale #confident",
+              "users": "Microsoft #confident",
+              "address": "Start Campus - Sustainable Data Center Services, Sines, Portugal",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "xAI QTS Atlanta",
+              "name": "xAI QTS Atlanta",
+              "country": "United States",
+              "currentH100e": 11470.43961596766,
+              "currentItPowerMw": 17.32971,
+              "owner": "SpaceXAI #confident",
+              "users": "SpaceXAI #confident",
+              "address": "1025 Jefferson Street NW, Atlanta, GA 30318",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Anthropic Barber Lake",
+              "name": "Anthropic Barber Lake",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Cipher Mining #confident",
+              "users": "Anthropic #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "CoreWeave Muskogee OK",
+              "name": "CoreWeave Muskogee OK",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "CoreWeave #confident",
+              "users": "OpenAI #speculative",
+              "address": "1525 W 43rd St S, Muskogee, OK 74401, USA",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Crusoe Abilene Expansion",
+              "name": "Crusoe Abilene Expansion",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Microsoft #confident",
+              "users": "Microsoft #likely",
+              "address": "5502 Spinks Rd, Abilene, TX 79601",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Goodnight",
+              "name": "Goodnight",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Google #speculative",
+              "users": "Google DeepMind #speculative",
+              "address": "10001 Lima Rd, Claude, TX 79019",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Cedar Rapids",
+              "name": "Google Cedar Rapids",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "5800 EDGEWOOD RD SW CEDAR RAPIDS, IA 52404",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Google Fort Wayne",
+              "name": "Google Fort Wayne",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Google #confident",
+              "users": "Google DeepMind #speculative",
+              "address": "6015 Adams Center Road, Fort Wayne, IN 46806",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Meta Hyperion",
+              "name": "Meta Hyperion",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Meta #confident",
+              "users": "Meta #confident",
+              "address": "Holly Ridge, LA 71269",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "Microsoft Narvik Norway",
+              "name": "Microsoft Narvik Norway",
+              "country": "Norway",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Nscale #likely",
+              "users": "Microsoft #likely",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Lordstown",
+              "name": "OpenAI Stargate Lordstown",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Softbank #confident",
+              "users": "OpenAI #confident",
+              "address": "2300 Hallock Young Rd, Warren, OH 44481",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Michigan",
+              "name": "OpenAI Stargate Michigan",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Milam",
+              "name": "OpenAI Stargate Milam",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Softbank #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate New Mexico",
+              "name": "OpenAI Stargate New Mexico",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Shackelford",
+              "name": "OpenAI Stargate Shackelford",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": "175 Private Road 1604, Abilene, TX 79601, Shackelford County",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate UAE",
+              "name": "OpenAI Stargate UAE",
+              "country": "United Arab Emirates",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "G42 #likely",
+              "users": "OpenAI #confident",
+              "address": "Nexus L&T Project Office, Al Bihouth, Al Dhafrah, Abu Dhabi, United Arab Emirates",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "OpenAI Stargate Wisconsin",
+              "name": "OpenAI Stargate Wisconsin",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": "Oracle #confident",
+              "users": "OpenAI #confident",
+              "address": null,
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Cedar Rapids",
+              "name": "QTS Cedar Rapids",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": null,
+              "users": null,
+              "address": "6200 76th Ave SW, Fairfax, IA 52228",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            },
+            {
+              "id": "QTS Eagle Mountain",
+              "name": "QTS Eagle Mountain",
+              "country": "United States",
+              "currentH100e": 0,
+              "currentItPowerMw": 0,
+              "owner": null,
+              "users": "Meta #speculative",
+              "address": "652 E Hyperscale Way, Eagle Mountain, UT 84013",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-csv"
+            }
+          ],
+          "supportingEvidence": [
+            {
+              "id": "global-incremental-ai-compute-2026",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 30,
+              "unit": "GW",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 30 GW in 2026.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2027",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 50,
+              "unit": "GW",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds 50 GW in 2027.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2028",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 70,
+              "unit": "GW",
+              "scope": "Global additions in 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "05:54",
+              "claim": "Incremental global AI compute adds roughly 70 GW in 2028.",
+              "caveat": "Forward expert estimate in watts; not U.S.-specific and not directly comparable with the H100e countdown series."
+            },
+            {
+              "id": "global-incremental-ai-compute-2029-lower",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 90,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Lower bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            },
+            {
+              "id": "global-incremental-ai-compute-2029-upper",
+              "metric": "Global incremental AI-compute capacity",
+              "value": 100,
+              "unit": "GW",
+              "scope": "Global additions in 2029",
+              "metricDate": "2029-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:45",
+              "claim": "Incremental global AI compute in 2029 is estimated at 90–100 GW.",
+              "caveat": "Upper bound of a forward expert range; not U.S.-specific and outside the visible four-year report window."
+            },
+            {
+              "id": "global-ai-compute-stock-2028-lower",
+              "metric": "Global AI-compute capacity stock",
+              "value": 200,
+              "unit": "GW",
+              "scope": "Global stock by end of 2028",
+              "metricDate": "2028-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "33:32",
+              "claim": "Global AI-compute capacity would exceed 200 GW by the end of 2028.",
+              "caveat": "Interview cross-check derived from the preceding annual additions; hardware generations and usable performance are heterogeneous."
+            },
+            {
+              "id": "us-share-new-ai-compute-watts-2026",
+              "metric": "U.S. share of new AI-compute watts",
+              "value": 0.7,
+              "unit": "proportion",
+              "scope": "Current new deployments",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "34:58",
+              "claim": "About 70% of watts currently being deployed for AI compute are in the United States.",
+              "caveat": "Share of new watts, not share of installed H100-equivalent capacity; the denominator and site-coverage rule differ from Epoch."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2026",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.3,
+              "unit": "proportion",
+              "scope": "Global additions in 2026",
+              "metricDate": "2026-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "approximate point estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:06",
+              "claim": "OpenAI and Anthropic account for about 30% of incremental compute added in 2026.",
+              "caveat": "Frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2027-lower",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Lower bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "openai-anthropic-share-incremental-compute-2027-upper",
+              "metric": "OpenAI and Anthropic share of incremental compute",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Global additions in 2027",
+              "metricDate": "2027-12-31",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "04:15",
+              "claim": "OpenAI and Anthropic are estimated to take 40–50% of incremental compute in 2027.",
+              "caveat": "Upper bound of a frontier-lab demand concentration estimate; it does not measure personal-AI inference supply."
+            },
+            {
+              "id": "frontier-lab-inference-allocation-2026",
+              "metric": "Frontier-lab compute allocated to inference",
+              "value": 0.4,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 40% of compute to inference.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement and not the model's editable share of inference capacity allocated to personal AI."
+            },
+            {
+              "id": "frontier-lab-research-allocation-2026",
+              "metric": "Frontier-lab compute allocated to research",
+              "value": 0.5,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 50% of compute to research.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            },
+            {
+              "id": "frontier-lab-development-allocation-2026",
+              "metric": "Frontier-lab compute allocated to development",
+              "value": 0.1,
+              "unit": "proportion",
+              "scope": "Current OpenAI and Anthropic compute budget",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "current allocation estimate",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "40:58",
+              "claim": "Frontier labs have allocated about 10% of compute to development.",
+              "caveat": "Lab-budget estimate, not a U.S.-fleet measurement; categories reflect the interviewee's definitions."
+            },
+            {
+              "id": "new-chip-performance-per-watt-uplift-lower",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 3,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range lower bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Lower bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+            },
+            {
+              "id": "new-chip-performance-per-watt-uplift-upper",
+              "metric": "New-chip performance-per-watt uplift",
+              "value": 5,
+              "unit": "multiplier",
+              "scope": "New chips versus chips deployed two years earlier",
+              "metricDate": "2026-08-25",
+              "evidenceClass": "expert-estimate",
+              "valueQualifier": "range upper bound",
+              "sourceId": "gate2-dwarkesh-com-dylan-patel-compute-outlook",
+              "sourceLocation": "06:20",
+              "claim": "New chips deliver 3–5× more performance per watt than chips deployed two years earlier.",
+              "caveat": "Upper bound across heterogeneous accelerators and workloads; H100e normalization may already capture part of this gain."
+            },
+            {
+              "id": "epoch-aws-new-albany-added-20260828",
+              "metric": "AWS New Albany added to Epoch registry",
+              "value": null,
+              "unit": "site",
+              "scope": "U.S. AI data-center registry",
+              "metricDate": "2026-08-28",
+              "evidenceClass": "publisher-change-log",
+              "valueQualifier": "newly added",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-updates",
+              "sourceLocation": "2026-08-28",
+              "claim": "Epoch added AWS New Albany to its tracked data-center set after the prior cutoff.",
+              "caveat": "Site inclusion can affect the reconstructed U.S. path; the direct value is taken only from Epoch's dated registry and timeline CSVs."
+            },
+            {
+              "id": "epoch-google-bristow-power-revision-20260828",
+              "metric": "Google Bristow revised IT power",
+              "value": 238,
+              "unit": "MW IT",
+              "scope": "Google Bristow",
+              "metricDate": "2026-08-28",
+              "evidenceClass": "publisher-change-log",
+              "valueQualifier": "revised from 279 MW",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-updates",
+              "sourceLocation": "2026-08-28",
+              "claim": "Epoch revised Google Bristow power downward from 279 MW to 238 MW.",
+              "caveat": "Facility revision is contextual here; the gate uses the recomputed latest state at every quarter cutoff from the full timeline."
+            },
+            {
+              "id": "epoch-qts-eagle-mountain-b300-revision-20260901",
+              "metric": "QTS Eagle Mountain projected B300 chips",
+              "value": 137300,
+              "unit": "chips",
+              "scope": "QTS Eagle Mountain",
+              "metricDate": "2026-09-01",
+              "evidenceClass": "publisher-change-log",
+              "valueQualifier": "projected; revised from 91,600",
+              "sourceId": "gate2-epoch-ai-ai-data-centers-updates",
+              "sourceLocation": "2026-09-01",
+              "claim": "Epoch increased projected B300 chips at QTS Eagle Mountain from 91,600 to 137,300.",
+              "caveat": "Chip counts and H100-equivalents are audit context only; they do not substitute for IT power or measured inference productivity."
+            },
+            {
+              "id": "cipher-on-site-generation-pipeline-20260903",
+              "metric": "Prospective on-site generation capacity",
+              "value": 2500,
+              "unit": "MW generation",
+              "scope": "Multiple Cipher U.S. HPC data-center sites",
+              "metricDate": "2026-09-03",
+              "evidenceClass": "company-announcement-forward-looking",
+              "valueQualifier": "up to; targeted before end-2027",
+              "sourceId": "gate2-cipherdigital-com-bring-your-own-generation",
+              "sourceLocation": "Announcement paragraphs 1-4",
+              "claim": "Cipher says lateral pipelines under development could support up to 2.5 GW of on-site natural-gas generation before the end of 2027 for additional leasable HPC capacity.",
+              "caveat": "Generation nameplate is not IT power, the tenant and Personal-AI allocation are unknown, and the timing is forward-looking. Excluded from the direct U.S. operational IT-power path."
+            }
+          ],
+          "population": {
+            "usResidents": 342800000,
+            "targetShare": 0.5,
+            "sourceId": "gate2-us-census-bureau-population-on-a-date"
+          },
+          "workload": {
+            "components": [
+              {
+                "id": "uncached-input",
+                "label": "Uncached input",
+                "tokensPerUserDay": 2000000,
+                "computeWeight": 1
+              },
+              {
+                "id": "visible-output",
+                "label": "Visible output",
+                "tokensPerUserDay": 300000,
+                "computeWeight": 2.5
+              },
+              {
+                "id": "internal-reasoning",
+                "label": "Internal reasoning",
+                "tokensPerUserDay": 5000000,
+                "computeWeight": 2.5
+              },
+              {
+                "id": "cached-context",
+                "label": "Cached/reused context",
+                "tokensPerUserDay": 10000000,
+                "computeWeight": 0.15
+              }
+            ]
+          },
+          "serving": {
+            "secondsPerDay": 86400,
+            "fleetShareAllocatedToInference": 0.4,
+            "referenceActiveModelParameters": 100000000000,
+            "personalAiInferenceShare": 0.6,
+            "h100eAudit": {
+              "dense8BitOpsPerH100eSecond": 1979000000000000,
+              "sustainedServingUtilization": 0.35,
+              "forwardPassOpsPerParameterToken": 2,
+              "systemOverheadMultiplier": 1.5,
+              "servingGoodputMultiplier": 1
+            }
+          },
+          "forecastPolicy": {
+            "reportEndQuarterIndex": 20,
+            "extrapolation": "recursiveLogVelocity",
+            "referenceProductivityObservationId": "mlperf-v5-1-llama31-405b-server-b200",
+            "productivityTrendObservationIds": [
+              "mlperf-v5-0-llama2-70b-99-9-server-h100",
+              "mlperf-v5-1-llama2-70b-99-9-server-b200"
+            ],
+            "productivityAccelerationRule": "zeroUntilThreeComparableObservations"
+          }
+        }
+      }
+    }
+  }
+}

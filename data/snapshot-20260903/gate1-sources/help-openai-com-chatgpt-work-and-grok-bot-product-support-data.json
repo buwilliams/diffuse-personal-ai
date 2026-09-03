@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-help-openai-com-chatgpt-work-and-grok-bot-product-support",
+    "title": "ChatGPT Work and Grok Bot product support",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-help-openai-com-chatgpt-work-and-grok-bot-product-support",
+        "publisher": "help.openai.com",
+        "title": "ChatGPT Work and Grok Bot product support",
+        "url": "https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 11,
+            "record": {
+              "id": "C12",
+              "layer": "Access",
+              "capability": "Cross-device continuity",
+              "userValue": "Lets users delegate from mobile and review elsewhere",
+              "computerUseRole": "Preserves task state across desktop web and phone",
+              "operationalMetric": "Handoff completion and state-loss rate",
+              "currentState": "Shipping but uneven",
+              "adoptionCriticality": "Medium",
+              "evidenceBenchmark": "ChatGPT Work and Grok Bot product support",
+              "sourceId": "gate1-help-openai-com-chatgpt-work-and-grok-bot-product-support"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

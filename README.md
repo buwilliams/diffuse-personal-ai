@@ -53,4 +53,4 @@ The authoritative update procedure is [`intent/05-operations/01-monthly-refresh.
 
 ## Status
 
-Evidence cutoff: **26 August 2026**. The public date is a scenario result, not a calibrated probability forecast. Its sources, confidence, thresholds, acceleration rates, and serving assumptions are visible on the site.
+Evidence cutoff: **3 September 2026**. The public date is a scenario result, not a calibrated probability forecast. Its sources, confidence, thresholds, acceleration rates, and serving assumptions are visible on the site.

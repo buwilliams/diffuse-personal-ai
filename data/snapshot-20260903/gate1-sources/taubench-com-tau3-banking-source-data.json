@@ -1,0 +1,434 @@
+{
+  "metadata": {
+    "id": "gate1-taubench-com-tau3-banking-source",
+    "title": "tau3 Banking source",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-taubench-com-tau3-banking-source",
+        "publisher": "taubench.com",
+        "title": "tau3 Banking source",
+        "url": "https://taubench.com/leaderboard/?benchmark=knowledge",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "Business",
+          "Capability velocity",
+          "release metadata",
+          "supporting evaluation",
+          "supporting evaluation observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "supporting-input",
+      "summary": "6 explicit benchmark score(s) and 2 other numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 6,
+        "measurements": 2,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0028",
+          "metric": "Pass at 1",
+          "value": 25.3,
+          "unit": "percent",
+          "displayValue": "25.3%",
+          "subject": "Claude Sonnet 4.5",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0028",
+          "caveat": "Harness and retrieval method vary across leaderboard submissions"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0029",
+          "metric": "Pass at 1",
+          "value": 32.2,
+          "unit": "percent",
+          "displayValue": "32.2%",
+          "subject": "GPT-5.2",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0029",
+          "caveat": "Measures model-plus-retrieval system rather than naked model"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0030",
+          "metric": "Pass at 1",
+          "value": 39.4,
+          "unit": "percent",
+          "displayValue": "39.4%",
+          "subject": "GPT-5.4",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0030",
+          "caveat": "Comparable as a system frontier"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0031",
+          "metric": "Pass at 1",
+          "value": 44.6,
+          "unit": "percent",
+          "displayValue": "44.6%",
+          "subject": "GPT-5.5",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0031",
+          "caveat": "Comparable as a system frontier"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0032",
+          "metric": "Pass at 1",
+          "value": 46.9,
+          "unit": "percent",
+          "displayValue": "46.9%",
+          "subject": "GPT-5.6 Sol",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0032",
+          "caveat": "Same vendor-family series but not the overall frontier"
+        },
+        {
+          "id": "capability-benchmarks.supportingObservations.benchobs_0033",
+          "metric": "Pass at 1",
+          "value": 55.2,
+          "unit": "percent",
+          "displayValue": "55.2%",
+          "subject": "Qwen 3.8 Max",
+          "observationDate": "2026-08-25",
+          "measurementType": "score",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.supportingObservations.benchobs_0033",
+          "caveat": "Current overall system frontier"
+        },
+        {
+          "id": "research-evidence.observations.evidence-019",
+          "metric": "tau3 Banking pass rate",
+          "value": 55.2,
+          "unit": "percent",
+          "displayValue": "55.2%",
+          "subject": "Qwen 3.8 Max",
+          "observationDate": "2026-08-25",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-019",
+          "caveat": "Current top observed; task/policy benchmark"
+        },
+        {
+          "id": "research-evidence.observations.evidence-036",
+          "metric": "tau3 Banking pass@1",
+          "value": 55.2,
+          "unit": "percent",
+          "displayValue": "55.2%",
+          "subject": "Qwen 3.8 Max",
+          "observationDate": "2026-07-19",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-036",
+          "caveat": "System frontier; retrieval and reasoning configuration are part of the result"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingRegistry",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "metric": "Pass at 1",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "unit": "percent",
+              "higherIsBetter": false,
+              "preferredForForecast": false,
+              "curvePolicy": "system_frontier_with_harness",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "notes": "Retrieval and reasoning configuration are part of the evaluated system"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "supportingObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 27,
+            "record": {
+              "id": "benchobs_0028",
+              "releaseId": "anthropic_sonnet45_20250929",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "Claude Sonnet 4.5",
+              "modelReleaseDate": "2025-09-29",
+              "observationDate": "2026-08-25",
+              "score": 25.3,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "Terminal retrieval; enabled reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Harness and retrieval method vary across leaderboard submissions"
+            }
+          },
+          {
+            "order": 28,
+            "record": {
+              "id": "benchobs_0029",
+              "releaseId": "openai_gpt52_20251211",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "GPT-5.2",
+              "modelReleaseDate": "2025-12-11",
+              "observationDate": "2026-08-25",
+              "score": 32.2,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "All-tools retrieval; high reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Measures model-plus-retrieval system rather than naked model"
+            }
+          },
+          {
+            "order": 29,
+            "record": {
+              "id": "benchobs_0030",
+              "releaseId": "openai_gpt54_20260305",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "GPT-5.4",
+              "modelReleaseDate": "2026-03-05",
+              "observationDate": "2026-08-25",
+              "score": 39.4,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "All-tools retrieval; xhigh reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Comparable as a system frontier"
+            }
+          },
+          {
+            "order": 30,
+            "record": {
+              "id": "benchobs_0031",
+              "releaseId": "openai_gpt55_20260423",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "GPT-5.5",
+              "modelReleaseDate": "2026-04-23",
+              "observationDate": "2026-08-25",
+              "score": 44.6,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "All-tools retrieval; xhigh reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Comparable as a system frontier"
+            }
+          },
+          {
+            "order": 31,
+            "record": {
+              "id": "benchobs_0032",
+              "releaseId": "openai_gpt56sol_20260709",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "GPT-5.6 Sol",
+              "modelReleaseDate": "2026-07-09",
+              "observationDate": "2026-08-25",
+              "score": 46.9,
+              "unit": "percent",
+              "seriesRole": "nonfrontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "All-tools retrieval; xhigh reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Same vendor-family series but not the overall frontier"
+            }
+          },
+          {
+            "order": 32,
+            "record": {
+              "id": "benchobs_0033",
+              "releaseId": "qwen_qwen38max_20260719",
+              "benchmarkId": "tau3_banking_pass1",
+              "family": "tau3 Banking",
+              "version": "Standard",
+              "capabilityDimension": "Knowledge retrieval plus tools plus policy",
+              "metric": "Pass at 1",
+              "modelSystem": "Qwen 3.8 Max",
+              "modelReleaseDate": "2026-07-19",
+              "observationDate": "2026-08-25",
+              "score": 55.2,
+              "unit": "percent",
+              "seriesRole": "frontier",
+              "curveType": "retrospective_system_leaderboard",
+              "harnessScope": "All-tools retrieval; xhigh reasoning; GPT-5.2 user simulator",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "comparabilityNote": "Current overall system frontier"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 8,
+            "record": {
+              "id": "anthropic_opus47_20260416",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Opus 4.7",
+              "releaseDate": "2026-04-16",
+              "parentReleaseId": "anthropic_opus46_20260205",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Claude products and API",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "notes": "Release date verified by benchmark source"
+            }
+          },
+          {
+            "order": 11,
+            "record": {
+              "id": "anthropic_fable5_20260609",
+              "entityType": "model",
+              "provider": "Anthropic",
+              "name": "Claude Fable 5",
+              "releaseDate": "2026-06-09",
+              "parentReleaseId": "anthropic_opus48_20260528",
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Claude products and API",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "notes": "Release date verified by benchmark source"
+            }
+          },
+          {
+            "order": 13,
+            "record": {
+              "id": "qwen_qwen38max_20260719",
+              "entityType": "model",
+              "provider": "Qwen",
+              "name": "Qwen 3.8 Max",
+              "releaseDate": "2026-07-19",
+              "parentReleaseId": null,
+              "availabilityStage": "general_availability",
+              "availabilityScope": "Provider products and API",
+              "sourceId": "gate1-taubench-com-tau3-banking-source",
+              "notes": "Release date verified by benchmark source"
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 18,
+            "record": {
+              "id": "evidence-019",
+              "category": "Business",
+              "metricDate": "2026-08-25",
+              "entity": "Qwen 3.8 Max",
+              "metric": "tau3 Banking pass rate",
+              "value": 55.2,
+              "unit": "percent",
+              "caveat": "Current top observed; task/policy benchmark",
+              "sourceId": "gate1-taubench-com-tau3-banking-source"
+            }
+          },
+          {
+            "order": 35,
+            "record": {
+              "id": "evidence-036",
+              "category": "Capability velocity",
+              "metricDate": "2026-07-19",
+              "entity": "Qwen 3.8 Max",
+              "metric": "tau3 Banking pass@1",
+              "value": 55.2,
+              "unit": "percent",
+              "caveat": "System frontier; retrieval and reasoning configuration are part of the result",
+              "sourceId": "gate1-taubench-com-tau3-banking-source"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

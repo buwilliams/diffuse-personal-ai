@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "id": "gate1-gallup-com-us-employee-ai-use-observation",
+    "title": "US employee AI use observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-gallup-com-us-employee-ai-use-observation",
+        "publisher": "gallup.com",
+        "title": "US employee AI use observation",
+        "url": "https://www.gallup.com/workplace/704225/rising-adoption-spurs-workforce-changes.aspx",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "3 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 3,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0016",
+          "metric": "Source observation",
+          "value": 46,
+          "unit": "percent of employees",
+          "displayValue": "46 percent of employees",
+          "subject": "United States",
+          "observationDate": "2025-12-31",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0016",
+          "caveat": "Gallup: any use at least a few times a year"
+        },
+        {
+          "id": "adoption.observations.adoptobs_0017",
+          "metric": "Source observation",
+          "value": 50,
+          "unit": "percent of employees",
+          "displayValue": "50 percent of employees",
+          "subject": "United States",
+          "observationDate": "2026-02-19",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0017",
+          "caveat": "Gallup: any use at least a few times a year"
+        },
+        {
+          "id": "adoption.observations.adoptobs_0019",
+          "metric": "Source observation",
+          "value": 28,
+          "unit": "percent of employees",
+          "displayValue": "28 percent of employees",
+          "subject": "United States",
+          "observationDate": "2026-02-19",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0019",
+          "caveat": "Gallup: at least a few times a week"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 15,
+            "record": {
+              "id": "adoptobs_0016",
+              "seriesId": "adopt_us_employee_any",
+              "observationDate": "2025-12-31",
+              "value": 46,
+              "unit": "percent of employees",
+              "scope": "United States",
+              "comparabilityNote": "Gallup: any use at least a few times a year",
+              "sourceId": "gate1-gallup-com-us-employee-ai-use-observation"
+            }
+          },
+          {
+            "order": 16,
+            "record": {
+              "id": "adoptobs_0017",
+              "seriesId": "adopt_us_employee_any",
+              "observationDate": "2026-02-19",
+              "value": 50,
+              "unit": "percent of employees",
+              "scope": "United States",
+              "comparabilityNote": "Gallup: any use at least a few times a year",
+              "sourceId": "gate1-gallup-com-us-employee-ai-use-observation"
+            }
+          },
+          {
+            "order": 18,
+            "record": {
+              "id": "adoptobs_0019",
+              "seriesId": "adopt_us_employee_frequent",
+              "observationDate": "2026-02-19",
+              "value": 28,
+              "unit": "percent of employees",
+              "scope": "United States",
+              "comparabilityNote": "Gallup: at least a few times a week",
+              "sourceId": "gate1-gallup-com-us-employee-ai-use-observation"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

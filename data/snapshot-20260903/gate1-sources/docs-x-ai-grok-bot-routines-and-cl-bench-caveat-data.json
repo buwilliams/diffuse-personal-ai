@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "id": "gate1-docs-x-ai-grok-bot-routines-and-cl-bench-caveat",
+    "title": "Grok Bot routines and CL-Bench caveat",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-docs-x-ai-grok-bot-routines-and-cl-bench-caveat",
+        "publisher": "docs.x.ai",
+        "title": "Grok Bot routines and CL-Bench caveat",
+        "url": "https://docs.x.ai/grok-bot/overview",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 25,
+            "record": {
+              "id": "C26",
+              "layer": "Persist",
+              "capability": "Routine learning and reuse",
+              "userValue": "Lets the user teach a workflow once",
+              "computerUseRole": "Generalizes a demonstration to later variants",
+              "operationalMetric": "One-shot routine success and adaptation rate",
+              "currentState": "Early",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "Grok Bot routines and CL-Bench caveat",
+              "sourceId": "gate1-docs-x-ai-grok-bot-routines-and-cl-bench-caveat"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # Two-model forecast framework for personal AI
 
-**Framework date:** 26 August 2026
+**Framework date:** 3 September 2026
 **Forecast outcome:** the share of eligible digital task episodes delegated to personal AI
 
 ## Core claim

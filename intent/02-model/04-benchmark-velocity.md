@@ -1,9 +1,9 @@
 # Agent benchmark velocity: the last twelve months
 
-**Measurement window:** 25 August 2025–25 August 2026
+**Measurement window:** 3 September 2025–3 September 2026
 
-**Evidence cutoff:** 25 August 2026
-**Companion data:** the `capability-benchmarks` and `metr-task-horizon` logical datasets in [`gate1-consolidated.json`](../../data/snapshot-20260826/gate1-consolidated.json)
+**Evidence cutoff:** 3 September 2026
+**Companion data:** the `capability-benchmarks` and `metr-task-horizon` logical datasets in [`gate1-consolidated.json`](../../data/snapshot-20260903/gate1-consolidated.json)
 
 ## Bottom line
 
@@ -16,10 +16,11 @@ For the question “how quickly is model capability advancing?”, **METR's stan
 | Long-horizon technical work, METR 80% horizon | Aug. 2025 → Apr. 2026 | 38.3 → 185.9 minutes | **4.85×** | Higher-reliability capability moved almost as quickly as the 50% horizon; it did not merely trade reliability for length. |
 | Desktop computer use, OSWorld-Verified frontier | Sep. 2025 → Apr. 2026 | 61.4% → 78.7% | **+17.3 pp** | The remaining error fell about **45%** in 206 days. This benchmark is now too easy to stand alone. |
 | Banking knowledge, tools, and policy, τ³ frontier | Sep. 2025 → Jul. 2026 | 25.3% → 55.2% | **+29.9 pp** | The system frontier more than doubled, but leaderboard entries use different retrieval and reasoning configurations. |
-| Long-horizon computer use, OSWorld 2.0 partial score | Apr. 2026 → Jul. 2026 model generations | 47.5% → 62.6% | **+15.1 pp** | Fast recent progress on partial completion. The benchmark authors' stricter binary results remain only about 13–21% for the systems they tested. |
+| Long-horizon computer use, OSWorld 2.0 partial score | Jul. 2026 → Sep. 2026 model generations | GPT-5.6 Sol 65.7% → GPT-6 Astra 72.6%; Fable 5.1 77.9% | **+6.9 pp within OpenAI** | Fast recent progress on partial completion, but vendor configurations differ. Anthropic separately reports 41.7% strict completion for Fable 5.1. |
 | Personal authenticated multi-app work, MyPCBench | Apr. 2026 → Jul. 2026 model generations | 45.1% → 55.4% perfect | **+10.3 pp** | GPT-5.6 improves markedly on GPT-5.5, but the comparable canonical 100-step frontier is the older Opus 4.6 system at 58.2%; newer agents are missing. |
-| Broad professional workflows, Agents' Last Exam | Apr. 2026 → Jul. 2026 | 46.9% → 52.7% | **+5.8 pp** | Broad work improved, though much more slowly than OSWorld 2.0 partial credit. |
-| Cross-application automation, AutomationBench | Apr. 2026 → Jul. 2026 | 12.9% → 18.1% | **+5.2 pp** | A 40% relative gain from a very low base; the absolute completion gap remains the important fact. |
+| Broad professional workflows, Agents' Last Exam | Jul. 2026 → Sep. 2026 | GPT-5.6 Sol 53.6% → GPT-6 Astra 59.3% | **+5.7 pp** | Broad work improved, though much more slowly than abstract reasoning. The provider table is supporting evidence, not the original ALE-CLI launch series. |
+| Cross-application automation, AutomationBench public 600-task table | May 2026 → Jul. 2026 releases, observed Sep. 2026 | Claude Opus 4.8 41.0% → Claude Opus 5 50.3% | **+9.3 pp** | Direct forecast input. The live repository rescored Opus 4.8 upward from the 30.33% preserved in the August snapshot, so the new snapshot uses the current coherent table while retaining the old publication as an immutable audit record. |
+| Abstract interactive reasoning, ARC-AGI-3 | Jul. 2026 → Sep. 2026 | GPT-5.6 Sol 7.8% → GPT-6 Astra 99.9% | **+92.1 pp** | A near-saturating vendor result with a general Responses API harness. It is important evidence of a capability shock, but it is not an economic delegation task and is therefore supporting rather than forecast-driving evidence. |
 | Economically valuable remote work, RLI Automation Rate | Aug. 2025 → June 2026 | 1.67% → 15.80% | **9.46×; +14.13 pp** | Strong system progress under a fixed task budget, but the projects represent professional freelancers rather than consumer personal tasks. |
 | AI-research capability, OpenAI RSI Index | Apr. 2026 → Jul. 2026 | 41.7% → 57.9% | **+16.2 pp** | A large one-generation increase on an internal, non-independent benchmark. |
 | Year-long simulated business, Vending-Bench 2 | Release-date fit through current models | — | **+$734/month**, R²=.96 | Long-horizon business performance has a strong release-date trend, but dollars, run variance, and benchmark-specific strategy make it unsuitable as a general pass rate. |
@@ -32,7 +33,7 @@ The forecast resolves against **Consumer Delegation Success Rate**: the frequenc
 
 MyPCBench shows what the task environment should resemble: its 184 tasks are adapted from real OpenClaw personal-assistant requests inside one coherent pre-authenticated digital life containing banking, travel, food, email, calendar, messaging, tax, orders, rides, browsing, and files. [MyPCBench](https://github.com/ljang0/MyPCBench)
 
-But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5 and Fable 5 are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable history remains in the supporting observations within [`gate1-consolidated.json`](../../data/snapshot-20260826/gate1-consolidated.json).
+But it is not a live outcome measure. The canonical table's newest OpenAI system is GPT-5.6 Sol, while Opus 5, Fable 5.1, and GPT-6 Astra are absent; the dynamic board's newer self-reported Opus 4.8 score uses 200 rather than 100 steps. It also lacks task-frequency weights, multiple personas, cost and attention constraints, and real-world adoption. The full measurement-gap analysis is in [the consumer-metric assessment](03-consumer-delegation-metric.md); comparable history remains in the supporting observations within [`gate1-consolidated.json`](../../data/snapshot-20260903/gate1-consolidated.json).
 
 ## 1. What counts as a time series
 
@@ -72,7 +73,7 @@ This is a **17.3-point gain in 6.8 months**, or a reduction in remaining error f
 
 ### OSWorld 2.0: the harder replacement
 
-OSWorld 2.0 contains 108 workflows with a median human operation time around 1.6 hours and more than 250 average agent steps. In the current OpenAI comparison, partial reward rises from 47.5% for GPT-5.5 to 62.6% for GPT-5.6 Sol. Under the benchmark authors' stricter 500-step binary metric, however, GPT-5.5 plateaus near 13% and Opus 4.8 reaches 20.6%. [OSWorld 2.0](https://osworld-v2.xlang.ai/), [paper record](https://arxiv.org/abs/2606.29537), [OpenAI GPT-5.6](https://openai.com/index/gpt-5-6/)
+OSWorld 2.0 contains 108 workflows with a median human operation time around 1.6 hours and more than 250 average agent steps. OpenAI's current release table reports partial reward rising from 65.7% for GPT-5.6 Sol to 72.6% for GPT-6 Astra, while Anthropic reports 77.9% partial and 41.7% strict completion for Fable 5.1. Under the benchmark authors' earlier strict 500-step binary metric, GPT-5.5 plateaued near 13% and Opus 4.8 reached 20.6%. [OSWorld 2.0](https://osworld-v2.xlang.ai/), [paper record](https://arxiv.org/abs/2606.29537), [GPT-6 Astra](https://openai.com/index/gpt-6-astra/), [Fable 5.1](https://www.anthropic.com/claude-fable-and-mythos-5-1)
 
 These figures answer different questions:
 

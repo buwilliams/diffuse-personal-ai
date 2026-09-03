@@ -1,0 +1,419 @@
+{
+  "metadata": {
+    "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+    "title": "Gate 2 · Compute supply calculation contract",
+    "description": "Normalized gate 2 · compute supply data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate2-diffuse-personal-ai-gate-2-compute-supply-calculation-contract",
+        "publisher": "Diffuse Personal AI",
+        "title": "Gate 2 · Compute supply calculation contract",
+        "url": "https://github.com/buwilliams/diffuse-personal-ai/blob/main/intent/02-model/06-report-card-calculations.md",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "methodology",
+          "normalization",
+          "model configuration"
+        ],
+        "notes": "Holds definitions and assumptions that are authored by the forecast rather than fetched as observations."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "results": {
+      "status": "forecast-assumptions",
+      "countdownRole": "forecast-method",
+      "summary": "Forecast-authored method with 18 explicit numeric input(s); these are labeled as assumptions, not source-reported results.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 18,
+        "directInputs": 18
+      },
+      "measurements": [
+        {
+          "id": "compute-capacity.workload.components[0].tokensPerUserDay",
+          "metric": "components 0 · tokens Per User Day",
+          "value": 2000000,
+          "unit": "value",
+          "displayValue": "2,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[0].tokensPerUserDay",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[0].computeWeight",
+          "metric": "components 0 · compute Weight",
+          "value": 1,
+          "unit": "value",
+          "displayValue": "1 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[0].computeWeight",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[1].tokensPerUserDay",
+          "metric": "components 1 · tokens Per User Day",
+          "value": 300000,
+          "unit": "value",
+          "displayValue": "300,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[1].tokensPerUserDay",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[1].computeWeight",
+          "metric": "components 1 · compute Weight",
+          "value": 2.5,
+          "unit": "value",
+          "displayValue": "2.5 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[1].computeWeight",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[2].tokensPerUserDay",
+          "metric": "components 2 · tokens Per User Day",
+          "value": 5000000,
+          "unit": "value",
+          "displayValue": "5,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[2].tokensPerUserDay",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[2].computeWeight",
+          "metric": "components 2 · compute Weight",
+          "value": 2.5,
+          "unit": "value",
+          "displayValue": "2.5 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[2].computeWeight",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[3].tokensPerUserDay",
+          "metric": "components 3 · tokens Per User Day",
+          "value": 10000000,
+          "unit": "value",
+          "displayValue": "10,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[3].tokensPerUserDay",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.workload.components[3].computeWeight",
+          "metric": "components 3 · compute Weight",
+          "value": 0.15,
+          "unit": "value",
+          "displayValue": "0.15 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.workload.components[3].computeWeight",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.secondsPerDay",
+          "metric": "seconds Per Day",
+          "value": 86400,
+          "unit": "value",
+          "displayValue": "86,400 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.secondsPerDay",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.fleetShareAllocatedToInference",
+          "metric": "fleet Share Allocated To Inference",
+          "value": 0.4,
+          "unit": "proportion",
+          "displayValue": "40%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.fleetShareAllocatedToInference",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.referenceActiveModelParameters",
+          "metric": "reference Active Model Parameters",
+          "value": 100000000000,
+          "unit": "value",
+          "displayValue": "100,000,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.referenceActiveModelParameters",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.personalAiInferenceShare",
+          "metric": "personal Ai Inference Share",
+          "value": 0.6,
+          "unit": "proportion",
+          "displayValue": "60%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.personalAiInferenceShare",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.dense8BitOpsPerH100eSecond",
+          "metric": "h100e Audit · dense8Bit Ops Per H100e Second",
+          "value": 1979000000000000,
+          "unit": "value",
+          "displayValue": "1,979,000,000,000,000 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.dense8BitOpsPerH100eSecond",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.sustainedServingUtilization",
+          "metric": "h100e Audit · sustained Serving Utilization",
+          "value": 0.35,
+          "unit": "proportion",
+          "displayValue": "35%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.sustainedServingUtilization",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.forwardPassOpsPerParameterToken",
+          "metric": "h100e Audit · forward Pass Ops Per Parameter Token",
+          "value": 2,
+          "unit": "value",
+          "displayValue": "2 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.forwardPassOpsPerParameterToken",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.systemOverheadMultiplier",
+          "metric": "h100e Audit · system Overhead Multiplier",
+          "value": 1.5,
+          "unit": "proportion",
+          "displayValue": "150%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.systemOverheadMultiplier",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.serving.h100eAudit.servingGoodputMultiplier",
+          "metric": "h100e Audit · serving Goodput Multiplier",
+          "value": 1,
+          "unit": "proportion",
+          "displayValue": "100%",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.serving.h100eAudit.servingGoodputMultiplier",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        },
+        {
+          "id": "compute-capacity.forecastPolicy.reportEndQuarterIndex",
+          "metric": "report End Quarter Index",
+          "value": 20,
+          "unit": "value",
+          "displayValue": "20 value",
+          "subject": null,
+          "observationDate": null,
+          "measurementType": "assumption",
+          "origin": "forecast-assumption",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "compute-capacity.forecastPolicy.reportEndQuarterIndex",
+          "caveat": "Scenario or calculation input authored by the forecast; not a source-reported benchmark result."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "workload",
+        "kind": "value",
+        "value": {
+          "components": [
+            {
+              "id": "uncached-input",
+              "label": "Uncached input",
+              "tokensPerUserDay": 2000000,
+              "computeWeight": 1
+            },
+            {
+              "id": "visible-output",
+              "label": "Visible output",
+              "tokensPerUserDay": 300000,
+              "computeWeight": 2.5
+            },
+            {
+              "id": "internal-reasoning",
+              "label": "Internal reasoning",
+              "tokensPerUserDay": 5000000,
+              "computeWeight": 2.5
+            },
+            {
+              "id": "cached-context",
+              "label": "Cached/reused context",
+              "tokensPerUserDay": 10000000,
+              "computeWeight": 0.15
+            }
+          ]
+        }
+      },
+      {
+        "datasetId": "compute-capacity",
+        "collection": "serving",
+        "kind": "value",
+        "value": {
+          "secondsPerDay": 86400,
+          "fleetShareAllocatedToInference": 0.4,
+          "referenceActiveModelParameters": 100000000000,
+          "personalAiInferenceShare": 0.6,
+          "h100eAudit": {
+            "dense8BitOpsPerH100eSecond": 1979000000000000,
+            "sustainedServingUtilization": 0.35,
+            "forwardPassOpsPerParameterToken": 2,
+            "systemOverheadMultiplier": 1.5,
+            "servingGoodputMultiplier": 1
+          }
+        }
+      },
+      {
+        "datasetId": "compute-capacity",
+        "collection": "forecastPolicy",
+        "kind": "value",
+        "value": {
+          "reportEndQuarterIndex": 20,
+          "extrapolation": "recursiveLogVelocity",
+          "referenceProductivityObservationId": "mlperf-v5-1-llama31-405b-server-b200",
+          "productivityTrendObservationIds": [
+            "mlperf-v5-0-llama2-70b-99-9-server-h100",
+            "mlperf-v5-1-llama2-70b-99-9-server-b200"
+          ],
+          "productivityAccelerationRule": "zeroUntilThreeComparableObservations"
+        }
+      }
+    ]
+  }
+}

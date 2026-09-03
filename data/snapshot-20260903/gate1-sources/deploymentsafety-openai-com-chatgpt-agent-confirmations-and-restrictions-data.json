@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "id": "gate1-deploymentsafety-openai-com-chatgpt-agent-confirmations-and-restrictions",
+    "title": "ChatGPT Agent confirmations and restrictions",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-deploymentsafety-openai-com-chatgpt-agent-confirmations-and-restrictions",
+        "publisher": "deploymentsafety.openai.com",
+        "title": "ChatGPT Agent confirmations and restrictions",
+        "url": "https://deploymentsafety.openai.com/chatgpt-agent",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 20,
+            "record": {
+              "id": "C21",
+              "layer": "Execute",
+              "capability": "Consequential action execution",
+              "userValue": "Completes sends purchases submissions and changes",
+              "computerUseRole": "Crosses external side-effect boundaries only as authorized",
+              "operationalMetric": "Correct-action rate; unintended-side-effect rate",
+              "currentState": "Constrained",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "ChatGPT Agent confirmations and restrictions",
+              "sourceId": "gate1-deploymentsafety-openai-com-chatgpt-agent-confirmations-and-restrictions"
+            }
+          },
+          {
+            "order": 28,
+            "record": {
+              "id": "C29",
+              "layer": "Control",
+              "capability": "Approval and handoff judgment",
+              "userValue": "Keeps the user involved only at consequential boundaries",
+              "computerUseRole": "Requests confirmation clarification or takeover at the right time",
+              "operationalMetric": "Confirmation recall precision and interventions per task",
+              "currentState": "Improving",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "ChatGPT Agent system card",
+              "sourceId": "gate1-deploymentsafety-openai-com-chatgpt-agent-confirmations-and-restrictions"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

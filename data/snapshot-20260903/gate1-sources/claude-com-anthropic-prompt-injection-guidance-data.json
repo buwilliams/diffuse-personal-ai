@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "id": "gate1-claude-com-anthropic-prompt-injection-guidance",
+    "title": "Anthropic prompt-injection guidance",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-claude-com-anthropic-prompt-injection-guidance",
+        "publisher": "claude.com",
+        "title": "Anthropic prompt-injection guidance",
+        "url": "https://claude.com/blog/best-practices-for-computer-and-browser-use-with-claude",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "context-only",
+      "summary": "No numeric result is recorded from this source. It supplies descriptive, release, or coverage evidence and does not change the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 29,
+            "record": {
+              "id": "C30",
+              "layer": "Control",
+              "capability": "Prompt-injection resistance",
+              "userValue": "Protects data and intent while browsing untrusted content",
+              "computerUseRole": "Distinguishes environmental content from user authority",
+              "operationalMetric": "Attack success and sensitive-data exfiltration rate",
+              "currentState": "Unsolved",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "Anthropic prompt-injection guidance",
+              "sourceId": "gate1-claude-com-anthropic-prompt-injection-guidance"
+            }
+          },
+          {
+            "order": 30,
+            "record": {
+              "id": "C31",
+              "layer": "Control",
+              "capability": "Auditability and user steering",
+              "userValue": "Makes work inspectable correctable and governable",
+              "computerUseRole": "Provides progress action logs evidence and stop controls",
+              "operationalMetric": "Action-log completeness and correction latency",
+              "currentState": "Shipping but uneven",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "Anthropic and OpenAI agent guidance",
+              "sourceId": "gate1-claude-com-anthropic-prompt-injection-guidance"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

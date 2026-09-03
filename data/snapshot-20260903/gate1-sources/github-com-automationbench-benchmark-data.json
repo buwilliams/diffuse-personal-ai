@@ -1,0 +1,138 @@
+{
+  "metadata": {
+    "id": "gate1-github-com-automationbench-benchmark",
+    "title": "AutomationBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-github-com-automationbench-benchmark",
+        "publisher": "github.com",
+        "title": "AutomationBench benchmark",
+        "url": "https://github.com/zapier/AutomationBench",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "2 explicit benchmark score(s) and 0 other numeric measurement(s); 2 item(s) affect the countdown.",
+      "counts": {
+        "scores": 2,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 2
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-011",
+          "metric": "Public 600-task pass rate, max reasoning",
+          "value": 0.41,
+          "unit": "proportion",
+          "displayValue": "41%",
+          "subject": "Claude Opus 4.8",
+          "observationDate": "2026-05-28",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.41,
+          "normalization": "Already a 0–100% pass rate; compare only within the public 600-task version",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-011",
+          "caveat": "The benchmark repository's current public table reports 41.0% for Claude Opus 4.8. This is an upstream historical rescore relative to the 30.33% value preserved in snapshot-20260826; the immutable prior snapshot remains the audit record for that earlier published state."
+        },
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-040",
+          "metric": "Public 600-task pass rate, max reasoning",
+          "value": 0.503,
+          "unit": "proportion",
+          "displayValue": "50.3%",
+          "subject": "Claude Opus 5 · public AutomationBench harness · max reasoning",
+          "observationDate": "2026-07-24",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.503,
+          "normalization": "Already a 0–100% pass rate; compare only within the public 600-task version",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-040",
+          "caveat": "Current public-table frontier observed on 2026-09-03: 50.3%. The repository warns that public and held-out private scores are not interchangeable and that task fixes can trigger rescoring; preserve the 2026-Q2 observation as the prior published snapshot point."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 7,
+            "record": {
+              "id": "OPS-01",
+              "category": "Operational execution",
+              "name": "AutomationBench",
+              "metric": "Public 600-task pass rate, max reasoning",
+              "normalization": "Already a 0–100% pass rate; compare only within the public 600-task version",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-github-com-automationbench-benchmark",
+              "notes": "Pinned to the current public 600-task table after the July 2026 stricter-classifier rescore; the private leaderboard is a different evaluation."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 10,
+            "record": {
+              "id": "forecast-observation-011",
+              "benchmarkId": "OPS-01",
+              "releaseDate": "2026-05-28",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 0.41,
+              "systemHarness": "Claude Opus 4.8",
+              "scoreBasis": "Public 600-task pass rate, max reasoning",
+              "sourceId": "gate1-github-com-automationbench-benchmark",
+              "notes": "The benchmark repository's current public table reports 41.0% for Claude Opus 4.8. This is an upstream historical rescore relative to the 30.33% value preserved in snapshot-20260826; the immutable prior snapshot remains the audit record for that earlier published state."
+            }
+          },
+          {
+            "order": 39,
+            "record": {
+              "id": "forecast-observation-040",
+              "benchmarkId": "OPS-01",
+              "releaseDate": "2026-07-24",
+              "quarter": "2026-Q3",
+              "quarterIndex": 11,
+              "score": 0.503,
+              "systemHarness": "Claude Opus 5 · public AutomationBench harness · max reasoning",
+              "scoreBasis": "Public 600-task pass rate, max reasoning",
+              "sourceId": "gate1-github-com-automationbench-benchmark",
+              "notes": "Current public-table frontier observed on 2026-09-03: 50.3%. The repository warns that public and held-out private scores are not interchangeable and that task fixes can trigger rescoring; preserve the 2026-Q2 observation as the prior published snapshot point."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

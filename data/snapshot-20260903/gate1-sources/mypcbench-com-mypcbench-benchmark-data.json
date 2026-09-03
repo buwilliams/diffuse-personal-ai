@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "id": "gate1-mypcbench-com-mypcbench-benchmark",
+    "title": "MyPCBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-mypcbench-com-mypcbench-benchmark",
+        "publisher": "mypcbench.com",
+        "title": "MyPCBench benchmark",
+        "url": "https://mypcbench.com/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "capability evidence",
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-030",
+          "metric": "Perfect task success rate",
+          "value": 0.582,
+          "unit": "proportion",
+          "displayValue": "58.2%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-02-05",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.582,
+          "normalization": "Already a 0–100% strict rate",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-030",
+          "caveat": "Current published frontier; newer models may be missing."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 15,
+            "record": {
+              "id": "PER-01",
+              "category": "Personal stewardship transfer",
+              "name": "MyPCBench",
+              "metric": "Perfect task success rate",
+              "normalization": "Already a 0–100% strict rate",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q1",
+              "sourceId": "gate1-mypcbench-com-mypcbench-benchmark",
+              "notes": "Direct desktop computer use; current leaderboard may omit newer model generations."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 29,
+            "record": {
+              "id": "forecast-observation-030",
+              "benchmarkId": "PER-01",
+              "releaseDate": "2026-02-05",
+              "quarter": "2026-Q1",
+              "quarterIndex": 9,
+              "score": 0.582,
+              "systemHarness": "Claude Opus 4.6",
+              "scoreBasis": "Perfect task success rate",
+              "sourceId": "gate1-mypcbench-com-mypcbench-benchmark",
+              "notes": "Current published frontier; newer models may be missing."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "user-capabilities",
+        "collection": "capabilities",
+        "kind": "records",
+        "items": [
+          {
+            "order": 6,
+            "record": {
+              "id": "C07",
+              "layer": "Access",
+              "capability": "Identity and authenticated sessions",
+              "userValue": "Lets the agent operate where the user's real work lives",
+              "computerUseRole": "Maintains secure login sessions and handles user takeover",
+              "operationalMetric": "Authentication success; session persistence; credential exposure rate",
+              "currentState": "Shipping but constrained",
+              "adoptionCriticality": "Critical",
+              "evidenceBenchmark": "MyPCBench and current agent products",
+              "sourceId": "gate1-mypcbench-com-mypcbench-benchmark"
+            }
+          },
+          {
+            "order": 24,
+            "record": {
+              "id": "C25",
+              "layer": "Persist",
+              "capability": "Personal memory and preferences",
+              "userValue": "Reduces repeated explanation and improves fit",
+              "computerUseRole": "Retrieves relevant user context without leaking or overgeneralizing",
+              "operationalMetric": "Preference accuracy; irrelevant-memory and leakage rate",
+              "currentState": "Early",
+              "adoptionCriticality": "High",
+              "evidenceBenchmark": "MyPCBench and LongMemEval",
+              "sourceId": "gate1-mypcbench-com-mypcbench-benchmark"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

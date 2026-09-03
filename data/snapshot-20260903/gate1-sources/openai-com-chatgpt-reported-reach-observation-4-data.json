@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-chatgpt-reported-reach-observation-4",
+    "title": "ChatGPT reported reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-chatgpt-reported-reach-observation-4",
+        "publisher": "openai.com",
+        "title": "ChatGPT reported reach observation",
+        "url": "https://openai.com/index/how-the-world-is-putting-chatgpt-to-work/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0004",
+          "metric": "Source observation",
+          "value": 1000000000,
+          "unit": "people",
+          "displayValue": "1,000,000,000 people",
+          "subject": "global",
+          "observationDate": "2026-08-06",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0004",
+          "caveat": "Lower bound; disclosure does not specify weekly or monthly cadence and is not directly comparable to prior WAU figures"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 3,
+            "record": {
+              "id": "adoptobs_0004",
+              "seriesId": "adopt_chatgpt_reach",
+              "observationDate": "2026-08-06",
+              "value": 1000000000,
+              "unit": "people",
+              "scope": "global",
+              "comparabilityNote": "Lower bound; disclosure does not specify weekly or monthly cadence and is not directly comparable to prior WAU figures",
+              "sourceId": "gate1-openai-com-chatgpt-reported-reach-observation-4"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

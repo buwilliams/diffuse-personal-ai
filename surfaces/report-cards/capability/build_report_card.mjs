@@ -11,6 +11,8 @@ const snapshot = await loadLatestSnapshot(path.join(projectRoot, "data"));
 const forecast = buildForecastModel(snapshot);
 const capability = snapshot.datasets["capability-benchmarks"];
 const metr = snapshot.datasets["metr-task-horizon"];
+const research = snapshot.datasets["research-evidence"];
+const adoption = snapshot.datasets.adoption;
 const outputDir = path.join(projectRoot, "artifacts", "report-cards");
 const outputPath = path.join(outputDir, "personal-ai-four-year-capability-report-card.xlsx");
 const inspectPath = `${outputPath}.inspect.ndjson`;
@@ -184,7 +186,40 @@ const metrSheet = makeSheet(
 );
 metrSheet.getRange(`E6:E${metrRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
 
-const sources = [...capability.metadata.sources, ...metr.metadata.sources]
+const researchRows = research.data.observations.map((row) => [
+  row.id, row.category, row.metricDate, row.entity, row.metric, row.value,
+  row.unit, row.sourceId, row.caveat,
+]);
+const researchSheet = makeSheet(
+  "Research Evidence",
+  "Supporting Capability Evidence",
+  "Release-day, vendor, and independent signals that inform interpretation but do not enter the direct economic-delegation basket unless the calculation contract explicitly promotes them.",
+  ["Evidence ID", "Category", "Metric date", "Entity", "Metric", "Value", "Unit", "Source ID", "Caveat / comparability note"],
+  researchRows,
+  "CapabilityResearchEvidenceTable",
+);
+researchSheet.getRange(`C6:C${researchRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
+
+const releaseRows = adoption.data.releases.map((row) => [
+  row.id, row.provider, row.name, row.releaseDate, row.availabilityStage,
+  row.availabilityScope, row.parentReleaseId ?? "", row.sourceId, row.notes ?? "",
+]);
+const releases = makeSheet(
+  "Model Releases",
+  "Model Release and Availability Signals",
+  "Dated release metadata used to align observations and distinguish limited, trusted-access, and generally available deployments.",
+  ["Release ID", "Provider", "Model", "Release date", "Availability stage", "Availability scope", "Parent release", "Source ID", "Notes"],
+  releaseRows,
+  "CapabilityModelReleasesTable",
+);
+releases.getRange(`D6:D${releaseRows.length + 5}`).format.numberFormat = "yyyy-mm-dd";
+
+const sources = [
+  ...capability.metadata.sources,
+  ...metr.metadata.sources,
+  ...research.metadata.sources,
+  ...adoption.metadata.sources,
+]
   .filter((source, index, rows) => rows.findIndex((candidate) => candidate.url === source.url) === index)
   .map((source) => [
     source.id, source.publisher, source.title, source.accessedAt,
@@ -205,6 +240,8 @@ const widths = {
   Observations: [20, 14, 14, 12, 12, 14, 32, 48, 13, 52],
   "Quarterly Path": [13, 14, 15, 21, 21, 21, 21, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
   "METR Horizon": [14, 18, 18, 28, 14, 14, 55, 13, 55],
+  "Research Evidence": [16, 24, 14, 34, 42, 14, 18, 20, 72],
+  "Model Releases": [28, 18, 28, 14, 22, 60, 28, 20, 58],
   Sources: [13, 24, 40, 14, 24, 58, 55],
 };
 for (const sheet of workbook.worksheets.items) {
@@ -221,6 +258,8 @@ for (const [sheetName, range, filename] of [
   ["Observations", `A1:J${observationRows.length + 5}`, "observations.png"],
   ["Quarterly Path", `A1:Q${pathRows.length + 5}`, "quarterly-path.png"],
   ["METR Horizon", `A1:I${metrRows.length + 5}`, "metr.png"],
+  ["Research Evidence", `A1:I${researchRows.length + 5}`, "research-evidence.png"],
+  ["Model Releases", `A1:I${releaseRows.length + 5}`, "model-releases.png"],
   ["Sources", `A1:G${sources.length + 5}`, "sources.png"],
 ]) {
   const image = await workbook.render({ sheetName, range, autoCrop: "all", scale: 0.85, format: "png" });

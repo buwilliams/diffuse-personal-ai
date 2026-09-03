@@ -1,0 +1,232 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-gpt-6-astra-release",
+    "title": "GPT-6 Astra release",
+    "description": "OpenAI release metadata and supporting capability, computer-use, and alignment results for GPT-6 Astra.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-gpt-6-astra-release",
+        "publisher": "OpenAI",
+        "title": "GPT-6 Astra: A new generation of intelligence",
+        "url": "https://openai.com/index/gpt-6-astra/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "release metadata",
+          "supporting benchmark evidence",
+          "computer-use evidence",
+          "alignment evidence"
+        ],
+        "notes": "OpenAI reports maximum-at-any-effort evaluation scores from its research or API environments. ARC-AGI-3 uses OpenAI's general Responses API harness with persisted reasoning and compaction; these settings were not benchmark-specific."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted primary-source extraction and normalization with human review",
+      "notes": "Added for the 2026-09-03 immutable snapshot. Vendor-reported results remain supporting evidence unless they match a forecast basket's pinned public task set and harness."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "5 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 5,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "research-evidence.observations.evidence-042",
+          "metric": "ARC-AGI-3 score",
+          "value": 99.9,
+          "unit": "percent",
+          "displayValue": "99.9%",
+          "subject": "GPT-6 Astra · OpenAI Responses API harness",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-042",
+          "caveat": "Maximum-at-any-effort vendor result using persisted reasoning and compaction. It is a striking general-reasoning result, but ARC-AGI-3 is not an economic delegation task and therefore is not promoted into the forecast-driving basket."
+        },
+        {
+          "id": "research-evidence.observations.evidence-043",
+          "metric": "OSWorld 2.0 offline partial score",
+          "value": 72.6,
+          "unit": "percent",
+          "displayValue": "72.6%",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-043",
+          "caveat": "Vendor result on OSWorld 2.0 v2026.08.08 offline tasks, reported as partial score. OpenAI also reports roughly 40 minutes per task versus about 75 minutes for GPT-5.6 Sol; do not splice this series to OSWorld-Verified or strict full-completion scores."
+        },
+        {
+          "id": "research-evidence.observations.evidence-044",
+          "metric": "AutomationBench vendor evaluation",
+          "value": 41.4,
+          "unit": "percent",
+          "displayValue": "41.4%",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-044",
+          "caveat": "OpenAI's release-table result. It is kept out of the direct basket because the forecast pins the public 600-task table, while benchmark maintainers distinguish that public set from the harder held-out private leaderboard."
+        },
+        {
+          "id": "research-evidence.observations.evidence-045",
+          "metric": "Agents' Last Exam",
+          "value": 59.3,
+          "unit": "percent",
+          "displayValue": "59.3%",
+          "subject": "GPT-6 Astra",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-045",
+          "caveat": "Vendor evaluation across broad professional tasks. Retained as supporting evidence because its release configuration is not the pinned CLI series used elsewhere in the ledger."
+        },
+        {
+          "id": "research-evidence.observations.evidence-046",
+          "metric": "Impossible-task runs that exceeded the authorized target",
+          "value": 0,
+          "unit": "percent",
+          "displayValue": "0%",
+          "subject": "GPT-6 Astra without production safeguards",
+          "observationDate": "2026-09-03",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "research-evidence.observations.evidence-046",
+          "caveat": "OpenAI internal evaluation informed by the Hugging Face incident; the comparison condition reports 48% for GPT-5.6 Sol. This is vendor evidence about scope respect, not a calibrated deployment failure rate."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "releases",
+        "kind": "records",
+        "items": [
+          {
+            "order": 15,
+            "record": {
+              "id": "openai_gpt6astra_20260903",
+              "entityType": "model",
+              "provider": "OpenAI",
+              "name": "GPT-6 Astra",
+              "releaseDate": "2026-09-03",
+              "parentReleaseId": "openai_gpt56sol_20260709",
+              "availabilityStage": "limited_rollout",
+              "availabilityScope": "Trusted Access Program organizations on release day; ChatGPT Plus, Pro, Business, and Enterprise, the OpenAI API, and AWS over the coming days",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release",
+              "notes": "Release-day availability is narrower than the general-access state expected over the following days."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "research-evidence",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 41,
+            "record": {
+              "id": "evidence-042",
+              "category": "Abstract reasoning",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra · OpenAI Responses API harness",
+              "metric": "ARC-AGI-3 score",
+              "value": 99.9,
+              "unit": "percent",
+              "caveat": "Maximum-at-any-effort vendor result using persisted reasoning and compaction. It is a striking general-reasoning result, but ARC-AGI-3 is not an economic delegation task and therefore is not promoted into the forecast-driving basket.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 42,
+            "record": {
+              "id": "evidence-043",
+              "category": "Computer use",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "OSWorld 2.0 offline partial score",
+              "value": 72.6,
+              "unit": "percent",
+              "caveat": "Vendor result on OSWorld 2.0 v2026.08.08 offline tasks, reported as partial score. OpenAI also reports roughly 40 minutes per task versus about 75 minutes for GPT-5.6 Sol; do not splice this series to OSWorld-Verified or strict full-completion scores.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 43,
+            "record": {
+              "id": "evidence-044",
+              "category": "Business workflows",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "AutomationBench vendor evaluation",
+              "value": 41.4,
+              "unit": "percent",
+              "caveat": "OpenAI's release-table result. It is kept out of the direct basket because the forecast pins the public 600-task table, while benchmark maintainers distinguish that public set from the harder held-out private leaderboard.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 44,
+            "record": {
+              "id": "evidence-045",
+              "category": "Broad work",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra",
+              "metric": "Agents' Last Exam",
+              "value": 59.3,
+              "unit": "percent",
+              "caveat": "Vendor evaluation across broad professional tasks. Retained as supporting evidence because its release configuration is not the pinned CLI series used elsewhere in the ledger.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          },
+          {
+            "order": 45,
+            "record": {
+              "id": "evidence-046",
+              "category": "Alignment",
+              "metricDate": "2026-09-03",
+              "entity": "GPT-6 Astra without production safeguards",
+              "metric": "Impossible-task runs that exceeded the authorized target",
+              "value": 0,
+              "unit": "percent",
+              "caveat": "OpenAI internal evaluation informed by the Hugging Face incident; the comparison condition reports 48% for GPT-5.6 Sol. This is vendor evidence about scope respect, not a calibrated deployment failure rate.",
+              "sourceId": "gate1-openai-com-gpt-6-astra-release"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

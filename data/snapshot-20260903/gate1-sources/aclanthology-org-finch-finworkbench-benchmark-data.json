@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-aclanthology-org-finch-finworkbench-benchmark",
+    "title": "Finch / FinWorkBench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-aclanthology-org-finch-finworkbench-benchmark",
+        "publisher": "aclanthology.org",
+        "title": "Finch / FinWorkBench benchmark",
+        "url": "https://aclanthology.org/2026.findings-acl.523/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-024",
+          "metric": "Strict finance-work task pass rate",
+          "value": 0.384,
+          "unit": "proportion",
+          "displayValue": "38.4%",
+          "subject": "GPT-5.1 Pro",
+          "observationDate": "2025-11-13",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 0.384,
+          "normalization": "Already a 0–100% pass rate",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-024",
+          "caveat": "Model release-quarter assignment; publication followed in 2026."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 13,
+            "record": {
+              "id": "OPS-07",
+              "category": "Operational execution",
+              "name": "Finch / FinWorkBench",
+              "metric": "Strict finance-work task pass rate",
+              "normalization": "Already a 0–100% pass rate",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-aclanthology-org-finch-finworkbench-benchmark",
+              "notes": "Professional finance work with artifact and workflow requirements."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 23,
+            "record": {
+              "id": "forecast-observation-024",
+              "benchmarkId": "OPS-07",
+              "releaseDate": "2025-11-13",
+              "quarter": "2025-Q4",
+              "quarterIndex": 8,
+              "score": 0.384,
+              "systemHarness": "GPT-5.1 Pro",
+              "scoreBasis": "Strict finance-work task pass rate",
+              "sourceId": "gate1-aclanthology-org-finch-finworkbench-benchmark",
+              "notes": "Model release-quarter assignment; publication followed in 2026."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

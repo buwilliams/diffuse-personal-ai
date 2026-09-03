@@ -2,7 +2,7 @@
 
 **Design:** immutable, source-first dated JSON snapshots
 
-**Current snapshot:** `data/snapshot-20260826/`
+**Current snapshot:** `data/snapshot-20260903/`
 
 ## Contract
 

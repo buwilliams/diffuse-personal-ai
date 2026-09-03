@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "id": "gate1-arxiv-org-yc-bench-benchmark",
+    "title": "YC-Bench benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-arxiv-org-yc-bench-benchmark",
+        "publisher": "arxiv.org",
+        "title": "YC-Bench benchmark",
+        "url": "https://arxiv.org/abs/2604.01212",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark",
+          "forecast observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-scores",
+      "countdownRole": "direct-input",
+      "summary": "1 explicit benchmark score(s) and 0 other numeric measurement(s); 1 item(s) affect the countdown.",
+      "counts": {
+        "scores": 1,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 1
+      },
+      "measurements": [
+        {
+          "id": "capability-benchmarks.observations.forecast-observation-006",
+          "metric": "Mean final funds / $1M published substantial-profit threshold",
+          "value": 1,
+          "unit": "proportion",
+          "displayValue": "100%",
+          "subject": "Claude Opus 4.6",
+          "observationDate": "2026-04-01",
+          "measurementType": "score",
+          "origin": "normalized-source-result",
+          "usedInCountdown": true,
+          "normalizedScore": 1,
+          "normalization": "Cap at 100%; provisional target-normalized score because no human/oracle result is published",
+          "sourceLocation": null,
+          "sourceRecord": "capability-benchmarks.observations.forecast-observation-006",
+          "caveat": "Provisional target-normalized score. Saturated at launch; no human or oracle ceiling is published."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "DES-03",
+              "category": "Direct economic stewardship",
+              "name": "YC-Bench",
+              "metric": "Frontier mean final funds / $1M published substantial-profit threshold",
+              "normalization": "Cap at 100%; provisional target-normalized score because no human/oracle result is published",
+              "status": "Graded",
+              "firstReleaseQuarter": "2026-Q2",
+              "sourceId": "gate1-arxiv-org-yc-bench-benchmark",
+              "notes": "The frontier exceeds the paper's 5×-capital threshold, so this score is saturated and needs a harder future anchor."
+            }
+          }
+        ]
+      },
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 5,
+            "record": {
+              "id": "forecast-observation-006",
+              "benchmarkId": "DES-03",
+              "releaseDate": "2026-04-01",
+              "quarter": "2026-Q2",
+              "quarterIndex": 10,
+              "score": 1,
+              "systemHarness": "Claude Opus 4.6",
+              "scoreBasis": "Mean final funds / $1M published substantial-profit threshold",
+              "sourceId": "gate1-arxiv-org-yc-bench-benchmark",
+              "notes": "Provisional target-normalized score. Saturated at launch; no human or oracle ceiling is published."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

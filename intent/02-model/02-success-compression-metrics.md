@@ -1,6 +1,6 @@
 # Two-model framework and success-compression metrics for personal AI
 
-**Framework date:** 26 August 2026
+**Framework date:** 3 September 2026
 **Forecast outcome:** the share of eligible consumer digital task episodes delegated to personal AI
 
 ## Decision
@@ -95,11 +95,11 @@ Only energized and operational IT power counts in the observed physical series. 
 
 `P_pipe` is a lead indicator. It does not enter observed `P_IT` until commissioning evidence appears, although a dated commissioning estimate may appear in the visibly projected path.
 
-Epoch AI's maintained data-center tracker covered **83 sites, 14.4 million operational H100-equivalents, and 13 GW of IT power** on 24 August 2026. This is a rigorous public tracker, not a complete global census. [Epoch AI data centers](https://epoch.ai/data/ai-data-centers)
+Epoch AI's 3 September registry contains **86 sites, 13.94 million operational H100-equivalents, and 13.26 GW of current IT power**. This is a rigorous public tracker, not a complete global census. [Epoch AI data centers](https://epoch.ai/data/ai-data-centers)
 
-The current snapshot joins Epoch's registry to its timeline, identifies U.S. sites, and reconstructs the latest state at each quarterly cutoff. U.S. IT power rises from **0.473 GW in 2024-Q1 to 11.879 GW on 26 August 2026**. The same states contain **13.524 million H100e**, retained as an audit cross-check rather than a productivity input. The base forward path uses Epoch's dated expected/projected site states rather than extending a historical doubling-time regression. Mean projected IT-power growth is **0.157207 log₂ GW per quarter**, with acceleration **−0.001503 log₂ GW per quarter²**. [Epoch registry CSV](https://epoch.ai/data/data_centers/data_centers.csv), [Epoch timeline CSV](https://epoch.ai/data/data_centers/data_center_timelines.csv)
+The current snapshot joins Epoch's registry to its timeline, identifies U.S. sites, and reconstructs the latest state at each quarterly cutoff. U.S. IT power rises from **0.473 GW in 2024-Q1 to 12.109 GW on 3 September 2026**. The same states contain **13.046 million H100e**, retained as an audit cross-check rather than a productivity input. The base forward path uses Epoch's dated expected/projected site states rather than extending a historical doubling-time regression. Mean projected IT-power growth is **0.156952 log₂ GW per quarter**, with acceleration **−0.004726 log₂ GW per quarter²**. [Epoch registry CSV](https://epoch.ai/data/data_centers/data_centers.csv), [Epoch timeline CSV](https://epoch.ai/data/data_centers/data_center_timelines.csv)
 
-Inference productivity is measured independently. MLPerf v5.1's available Llama 3.1 405B Server power result reports **1,249.04 tokens/s at 9,566.182 W**; normalizing 405B active parameters to a 100B reference yields **45.688T reference token-equivalents per IT GW-day**. A matched Llama 2 70B 99.9 Server series improves **2.818× in 160 days** from v5.0 to v5.1, giving **0.853025 log₂ productivity growth per quarter**. With only two comparable points, measured productivity acceleration is **zero pending a third observation**. The old H100e bridge implies 227.101T/GW-day and remains visible precisely because its disagreement with the independent measure is informative. [MLPerf v5.0](https://mlcommons.org/2025/04/mlperf-inference-v5-0-results/), [MLPerf v5.1](https://mlcommons.org/2025/09/mlperf-inference-v5-1-results/)
+Inference productivity is measured independently. MLPerf v5.1's available Llama 3.1 405B Server power result reports **1,249.04 tokens/s at 9,566.182 W**; normalizing 405B active parameters to a 100B reference yields **45.688T reference token-equivalents per IT GW-day**. A matched Llama 2 70B 99.9 Server series improves **2.818× in 160 days** from v5.0 to v5.1, giving **0.853025 log₂ productivity growth per quarter**. With only two comparable points, measured productivity acceleration is **zero pending a third observation**. The revised H100e bridge implies 214.918T/GW-day and remains visible precisely because its disagreement with the independent measure is informative. [MLPerf v5.0](https://mlcommons.org/2025/04/mlperf-inference-v5-0-results/), [MLPerf v5.1](https://mlcommons.org/2025/09/mlperf-inference-v5-1-results/)
 
 The largest-site frontier is a useful diagnostic, not the aggregate SCM. Epoch estimates that record single-site capacity has doubled about every **seven months** since August 2024. [Largest-site trend](https://epoch.ai/data-insights/largest-data-center-compute)
 

@@ -2,7 +2,7 @@
 
 This is the authoritative operating procedure for updating the Diffuse Personal AI forecast.
 
-**Current publication and evidence cutoff:** 26 August 2026
+**Current publication and evidence cutoff:** 3 September 2026
 
 **Published site:** <https://diffuse-personal-ai-countdown.buddywilliams.chatgpt.site/>
 
@@ -174,36 +174,36 @@ A refresh is complete only when:
 
 ## Current regression anchors
 
-These values describe snapshot `20260826`; they are checks, not permanent assumptions.
+These values describe snapshot `20260903`; they are checks, not permanent assumptions.
 
 | Check | Value |
 |---|---:|
-| Capability composite | 45.1651% |
-| Capability evidence confidence | Low, 47.2222% |
-| Pooled economic gap velocity | 0.152813 gap halvings / quarter |
-| Cross-family velocity prior | 0.146598 gap halvings / quarter |
+| Capability composite | 46.1414% |
+| Capability evidence confidence | Low, 48.6111% |
+| Pooled economic gap velocity | 0.157069 gap halvings / quarter |
+| Cross-family velocity prior | 0.149865 gap halvings / quarter |
 | METR H50 acceleration | 0.209121 task-horizon doublings / quarter² |
 | METR H80 guardrail | 0.342917 task-horizon doublings / quarter² |
-| Economic transfer coefficient | 0.215460 |
+| Economic transfer coefficient | 0.221460 |
 | Capability threshold | 80% |
-| Continuous capability crossing | 12 December 2027 |
-| Daily-resolution capability crossing | 13 December 2027 |
-| 2028-Q4 capability | 98.2312% |
-| Current U.S. operational IT power | 11.879330 GW |
+| Continuous capability crossing | 3 December 2027 |
+| Daily-resolution capability crossing | 4 December 2027 |
+| 2028-Q4 capability | 98.3608% |
+| Current U.S. operational IT power | 12.109330 GW |
 | Current inference productivity | 45.688453T reference token-equivalents / IT GW-day; MLPerf measured baseline |
-| Current H100e audit bridge | 13.524006M H100e |
-| H100e-derived audit productivity | 227.101365T reference token-equivalents / IT GW-day; excluded from capacity |
+| Current H100e audit bridge | 13.046294M H100e |
+| H100e-derived audit productivity | 214.918293T reference token-equivalents / IT GW-day; excluded from capacity |
 | Population target | 171.4M users (50% of 342.8M U.S. residents) |
 | Fleet inference allocation | 40% |
 | Personal-AI inference share | 60% |
-| Current supported users | 7.7767M |
-| Current compute progress | 4.5372% |
-| IT-power log acceleration | −0.001503 log₂ IT GW / quarter² |
+| Current supported users | 7.9273M |
+| Current compute progress | 4.6250% |
+| IT-power log acceleration | −0.004726 log₂ IT GW / quarter² |
 | Inference-productivity log velocity | +0.853025 log₂ productivity / quarter |
 | Inference-productivity log acceleration | 0.000000 log₂ productivity / quarter²; two comparable points |
-| Continuous service-capacity crossing | 7 November 2027 |
-| Daily-resolution service-capacity crossing | 8 November 2027 |
-| Headline date | 13 December 2027; capability is the limiter |
+| Continuous service-capacity crossing | 1 November 2027 |
+| Daily-resolution service-capacity crossing | 2 November 2027 |
+| Headline date | 4 December 2027; capability is the limiter |
 
 ## Refresh record template
 

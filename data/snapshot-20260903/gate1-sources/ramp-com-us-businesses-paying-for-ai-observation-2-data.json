@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-ramp-com-us-businesses-paying-for-ai-observation-2",
+    "title": "US businesses paying for AI observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-ramp-com-us-businesses-paying-for-ai-observation-2",
+        "publisher": "ramp.com",
+        "title": "US businesses paying for AI observation",
+        "url": "https://ramp.com/data/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0022",
+          "metric": "Source observation",
+          "value": 55,
+          "unit": "percent of Ramp businesses",
+          "displayValue": "55 percent of Ramp businesses",
+          "subject": "United States",
+          "observationDate": "2026-06-30",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0022",
+          "caveat": "Ramp spend-platform sample; not all US businesses"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 21,
+            "record": {
+              "id": "adoptobs_0022",
+              "seriesId": "adopt_us_business_paid",
+              "observationDate": "2026-06-30",
+              "value": 55,
+              "unit": "percent of Ramp businesses",
+              "scope": "United States",
+              "comparabilityNote": "Ramp spend-platform sample; not all US businesses",
+              "sourceId": "gate1-ramp-com-us-businesses-paying-for-ai-observation-2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

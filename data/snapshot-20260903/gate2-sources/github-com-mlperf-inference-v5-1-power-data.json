@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "id": "gate2-github-com-mlperf-inference-v5-1-power",
+    "title": "MLPerf Inference v5.1 power results",
+    "description": "Measured latency-constrained LLM goodput and full-system power results used for the Gate 2 absolute inference-productivity baseline and matched productivity trend.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate2-github-com-mlperf-inference-v5-1-power",
+        "publisher": "MLCommons",
+        "title": "MLPerf Inference v5.1 summary results",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "measured inference goodput",
+          "measured system power",
+          "absolute productivity baseline",
+          "productivity trend"
+        ],
+        "notes": "Official MLPerf result data. Both selected rows are available, closed, datacenter Server results with reported power measurements."
+      }
+    ],
+    "update": {
+      "method": "agent-assisted extraction of prespecified MLPerf power rows with human review",
+      "notes": "In a new snapshot, prefer the newest comparable large-model Server power result for the absolute baseline and append matched workload results to the trend. Preserve model, accuracy target, scenario, availability, and power status."
+    }
+  },
+  "data": {
+    "gateId": "gate2",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "direct-input",
+      "summary": "6 explicit numeric measurement(s); 6 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 6,
+        "assumptions": 0,
+        "directInputs": 6
+      },
+      "measurements": [
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.performanceTokensPerSecond",
+          "metric": "Latency-constrained inference goodput",
+          "value": 99203.9,
+          "unit": "tokens/s",
+          "displayValue": "99,203.9 tokens/s",
+          "subject": "llama2-70b-99.9 · ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.performanceTokensPerSecond",
+          "caveat": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.systemPowerWatts",
+          "metric": "Measured system power",
+          "value": 10434.706455542,
+          "unit": "W",
+          "displayValue": "10,434.706456 W",
+          "subject": "llama2-70b-99.9 · ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.systemPowerWatts",
+          "caveat": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.referenceTokenEquivalentsPerItGwDay",
+          "metric": "Reference inference productivity",
+          "value": 574990000683095.9,
+          "unit": "reference token-eq/IT GW-day",
+          "displayValue": "574,990,000,683,095.9 reference token-eq/IT GW-day",
+          "subject": "llama2-70b-99.9 · ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama2-70b-99-9-server-b200.referenceTokenEquivalentsPerItGwDay",
+          "caveat": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.performanceTokensPerSecond",
+          "metric": "Latency-constrained inference goodput",
+          "value": 1249.04,
+          "unit": "tokens/s",
+          "displayValue": "1,249.04 tokens/s",
+          "subject": "llama3.1-405b · ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.performanceTokensPerSecond",
+          "caveat": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.systemPowerWatts",
+          "metric": "Measured system power",
+          "value": 9566.1823383085,
+          "unit": "W",
+          "displayValue": "9,566.182338 W",
+          "subject": "llama3.1-405b · ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.systemPowerWatts",
+          "caveat": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
+        },
+        {
+          "id": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.referenceTokenEquivalentsPerItGwDay",
+          "metric": "Reference inference productivity",
+          "value": 45688453485748.84,
+          "unit": "reference token-eq/IT GW-day",
+          "displayValue": "45,688,453,485,748.84 reference token-eq/IT GW-day",
+          "subject": "llama3.1-405b · ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+          "observationDate": "2025-09-09",
+          "measurementType": "measurement",
+          "origin": "derived-from-source",
+          "usedInCountdown": true,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+          "sourceRecord": "compute-capacity.inferenceProductivityObservations.mlperf-v5-1-llama31-405b-server-b200.referenceTokenEquivalentsPerItGwDay",
+          "caveat": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "compute-capacity",
+        "collection": "inferenceProductivityObservations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 2,
+            "record": {
+              "id": "mlperf-v5-1-llama2-70b-99-9-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama2-70b-99.9",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR680a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 70000000000,
+              "performanceTokensPerSecond": 99203.9,
+              "systemPowerWatts": 10434.706455542,
+              "tokensPerJoule": 9.507109799654364,
+              "referenceTokenEquivalentsPerItGwDay": 574990000683095.9,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0061",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0061; llama2-70b-99.9; Server",
+              "roles": [
+                "productivity-trend-point"
+              ],
+              "comparabilityNote": "Matched to the v5.0 Llama 2 70B 99.9 Server row. The measured reference-token productivity is 2.8181× the v5.0 point over 160 days."
+            }
+          },
+          {
+            "order": 3,
+            "record": {
+              "id": "mlperf-v5-1-llama31-405b-server-b200",
+              "release": "MLPerf Inference v5.1",
+              "observationDate": "2025-09-09",
+              "suite": "datacenter",
+              "model": "llama3.1-405b",
+              "scenario": "Server",
+              "availability": "available",
+              "division": "closed",
+              "submitter": "Lenovo",
+              "system": "ThinkSystem SR780a V3 (8x B200-SXM-180GB, TensorRT)",
+              "accelerator": "NVIDIA B200-SXM-180GB",
+              "acceleratorCount": 8,
+              "activeModelParameters": 405000000000,
+              "performanceTokensPerSecond": 1249.04,
+              "systemPowerWatts": 9566.1823383085,
+              "tokensPerJoule": 0.13056828270961604,
+              "referenceTokenEquivalentsPerItGwDay": 45688453485748.84,
+              "referenceActiveModelParameters": 100000000000,
+              "rawResultId": "5.1-0062",
+              "sourceId": "gate2-github-com-mlperf-inference-v5-1-power",
+              "sourceLocation": "ID 5.1-0062; llama3.1-405b; Server",
+              "roles": [
+                "absolute-productivity-baseline"
+              ],
+              "comparabilityNote": "The gate uses this measured latency-constrained large-model result as its absolute baseline. Reference-token equivalence multiplies measured tokens per joule by 405B/100B; no H100-equivalent field enters the calculation."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-gdpval-benchmark",
+    "title": "GDPval benchmark",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-gdpval-benchmark",
+        "publisher": "openai.com",
+        "title": "GDPval benchmark",
+        "url": "https://openai.com/index/gdpval/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "forecast benchmark"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "descriptive-only",
+      "countdownRole": "supporting-input",
+      "summary": "No numeric result is recorded from this source. It catalogs or supports a countdown dataset but does not contribute a scored observation.",
+      "counts": {
+        "scores": 0,
+        "measurements": 0,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": []
+    },
+    "fragments": [
+      {
+        "datasetId": "capability-benchmarks",
+        "collection": "benchmarks",
+        "kind": "records",
+        "items": [
+          {
+            "order": 19,
+            "record": {
+              "id": "VAL-01",
+              "category": "Economic value & governance",
+              "name": "GDPval",
+              "metric": "Expert preference / economic task quality",
+              "normalization": "Ungraded here: public headline is approximate and newer variants report Elo",
+              "status": "Ungraded",
+              "firstReleaseQuarter": "2025-Q3",
+              "sourceId": "gate1-openai-com-gdpval-benchmark",
+              "notes": "Keep the benchmark, but do not turn ‘just under half’ or Elo into a fake percentage."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "gate1-openai-com-chatgpt-reported-reach-observation-2",
+    "title": "ChatGPT reported reach observation",
+    "description": "Normalized gate 1 · model–harness capability data attributable to this source.",
+    "schemaVersion": "1.2.0",
+    "snapshotDate": "2026-09-03",
+    "asOfDate": "2026-09-03",
+    "sources": [
+      {
+        "id": "gate1-openai-com-chatgpt-reported-reach-observation-2",
+        "publisher": "openai.com",
+        "title": "ChatGPT reported reach observation",
+        "url": "https://openai.com/index/the-state-of-enterprise-ai-2025-report/",
+        "accessedAt": "2026-09-03",
+        "roles": [
+          "adoption observation"
+        ],
+        "notes": null
+      }
+    ],
+    "update": {
+      "method": "agent-assisted source extraction and normalization with human review",
+      "notes": "Refresh this file from its single metadata.sources URL in a new dated snapshot; never revise a published snapshot."
+    }
+  },
+  "data": {
+    "gateId": "gate1",
+    "results": {
+      "status": "reported-measurements",
+      "countdownRole": "context-only",
+      "summary": "1 explicit numeric measurement(s); 0 item(s) affect the countdown.",
+      "counts": {
+        "scores": 0,
+        "measurements": 1,
+        "assumptions": 0,
+        "directInputs": 0
+      },
+      "measurements": [
+        {
+          "id": "adoption.observations.adoptobs_0002",
+          "metric": "Source observation",
+          "value": 800000000,
+          "unit": "weekly users",
+          "displayValue": "800,000,000 weekly users",
+          "subject": "global",
+          "observationDate": "2025-12-08",
+          "measurementType": "measurement",
+          "origin": "source-reported",
+          "usedInCountdown": false,
+          "normalizedScore": null,
+          "normalization": null,
+          "sourceLocation": null,
+          "sourceRecord": "adoption.observations.adoptobs_0002",
+          "caveat": "Lower bound; product reporting"
+        }
+      ]
+    },
+    "fragments": [
+      {
+        "datasetId": "adoption",
+        "collection": "observations",
+        "kind": "records",
+        "items": [
+          {
+            "order": 1,
+            "record": {
+              "id": "adoptobs_0002",
+              "seriesId": "adopt_chatgpt_reach",
+              "observationDate": "2025-12-08",
+              "value": 800000000,
+              "unit": "weekly users",
+              "scope": "global",
+              "comparabilityNote": "Lower bound; product reporting",
+              "sourceId": "gate1-openai-com-chatgpt-reported-reach-observation-2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
